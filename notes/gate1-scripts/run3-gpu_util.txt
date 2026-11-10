@@ -1,0 +1,17 @@
+low-graphics run, sampler window 90-110 s (internal profiler active):
+GPU engine utilisation, percent (mean over the window; samples in window = 6)
+scope    engine                mean     max   (outside the window: mean)
+all      3d                    43.7    46.9   (26.4)
+process  3d                    43.7    46.9   (25.5)
+
+low-graphics run, second sampler window 153-173 s (clean):
+GPU engine utilisation, percent (mean over the window; samples in window = 6)
+scope    engine                mean     max   (outside the window: mean)
+all      3d                    40.2    41.6   (36.8)
+process  3d                    40.2    41.6   (36.8)
+
+full-graphics run, window 90-110 s:
+GPU engine utilisation, percent (mean over the window; samples in window = 6)
+scope    engine                mean     max   (outside the window: mean)
+all      3d                    87.9    97.8   (44.1)
+process  3d                    87.9    97.7   (43.3)

@@ -121,6 +121,22 @@ public static class ThreadSampler
         return DateTime.MinValue;
     }
 
+    // The log folder is named base_<unix seconds>_pid<pid>: the moment the game created it, about 2.3-3.3 s before the first frame.
+    static DateTime FolderEpoch(string logRoot, int pid)
+    {
+        try
+        {
+            string[] dirs = Directory.GetDirectories(logRoot, "*_pid" + pid);
+            if (dirs.Length == 0) return DateTime.MinValue;
+            string[] parts = Path.GetFileName(dirs[0]).Split('_');
+            long secs;
+            if (parts.Length >= 3 && long.TryParse(parts[1], out secs))
+                return new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddSeconds(secs);
+        }
+        catch (Exception) { }
+        return DateTime.MinValue;
+    }
+
     static string Describe(List<ProcessModule> mods, ulong rip, out string rva)
     {
         foreach (ProcessModule m in mods)
@@ -148,6 +164,7 @@ public static class ThreadSampler
         DateTime nextTimeline = started, nextLogPoll = started, nextCycle = started;
         double periodMs = 1000.0 / hz;
         long cycles = 0, failed = 0;
+        bool firstPollDone = false, estimated = false;
         Stopwatch sw = new Stopwatch();
         if (!useLog) { winStart = t0.AddSeconds(startAfter); winEnd = winStart.AddSeconds(length); }
         while (true)
@@ -158,7 +175,18 @@ public static class ThreadSampler
             {
                 nextLogPoll = now.AddMilliseconds(250);
                 DateTime f = FindFirstFrame(logRoot, pid);
-                if (f != DateTime.MinValue) { t0 = f; winStart = t0.AddSeconds(startAfter); winEnd = winStart.AddSeconds(length); }
+                if (f != DateTime.MinValue)
+                {
+                    // Started late (the first frame was already in the log at the first look): the time we saw it is not the
+                    // time it happened, so estimate it from the log folder's name instead (accurate to about +-0.5 s).
+                    if (!firstPollDone)
+                    {
+                        DateTime ep = FolderEpoch(logRoot, pid);
+                        if (ep != DateTime.MinValue && (f - ep).TotalSeconds > 6.0) { f = ep.AddSeconds(2.5); estimated = true; }
+                    }
+                    t0 = f; winStart = t0.AddSeconds(startAfter); winEnd = winStart.AddSeconds(length);
+                }
+                firstPollDone = true;
             }
             if (t0 != DateTime.MinValue && now > winEnd.AddSeconds(1)) break;
             if (now >= nextTimeline) { Timeline(proc, threads, tl, started); nextTimeline = now.AddSeconds(1); }
@@ -197,7 +225,8 @@ public static class ThreadSampler
             rs.WriteLine(sMs[i] + "," + sTid[i] + "," + mod + "," + rva + "," + sRip[i].ToString("X"));
         }
         rs.Close();
-        string meta = "pid=" + pid + "\nfirst_frame_utc=" + (t0 == DateTime.MinValue ? "not found" : t0.ToString("o")) +
+        string meta = "pid=" + pid + "\nfirst_frame_estimated_because_started_late=" + estimated +
+                      "\nfirst_frame_utc=" + (t0 == DateTime.MinValue ? "not found" : t0.ToString("o")) +
                       "\nwindow_start_utc=" + winStart.ToString("o") + "\nwindow_end_utc=" + winEnd.ToString("o") +
                       "\nhz=" + hz + "\ncycles=" + cycles + "\nsamples=" + sMs.Count + "\nfailed_samples=" + failed +
                       "\nthreads_seen=" + threads.Count + "\nmodules=" + mods.Count + "\n";

@@ -1,0 +1,55 @@
+samples 20000; wall 18.60 ms per frame
+time with the innermost frame in translated game code: 13.6% = 2.53 ms/frame
+samples with any translated function on the stack: 99.8%
+
+TOP 20 translated functions by SELF time:
+   1.42%  0.26 ms  func_802881C0  AXFXReverbHiExpCallback
+   1.31%  0.24 ms  func_80070F9C  func_800710b4
+   0.63%  0.12 ms  func_800849F4  fn_800849F4
+   0.47%  0.09 ms  func_8006E2E8  func_8006e400
+   0.44%  0.08 ms  func_80261BBC  __ieee754_sqrt
+   0.33%  0.06 ms  func_8008B598  mapSetPolygonVtxDesc
+   0.32%  0.06 ms  func_8006E668  hitCheckVecFilter
+   0.31%  0.06 ms  func_800843A0  mapReCalcMatrix
+   0.30%  0.06 ms  func_800863E8  mapDisp
+   0.28%  0.05 ms  func_8008B75C  func_8008b4c8
+   0.23%  0.04 ms  func_8005B088  dispDraw
+   0.20%  0.04 ms  func_80089E3C  mapSetTextureMatrix
+   0.17%  0.03 ms  func_80277934  PSMTXConcat
+   0.15%  0.03 ms  func_8004F984  func_8004fa9c
+   0.14%  0.03 ms  func_8006DDA4  func_8006debc
+   0.14%  0.03 ms  func_8005C364  func_8005c47c
+   0.13%  0.02 ms  func_80073868  iconGX
+   0.12%  0.02 ms  func_800895C0  mapSetMaterialLastStageBlend
+   0.12%  0.02 ms  func_80045170  animPoseMain
+   0.12%  0.02 ms  func_802F7DB4  fn_802F7DB4
+
+TOP 20 translated functions by INCLUSIVE time (callees included):
+  79.78% 14.84 ms  func_8001D9A0  main
+  79.56% 14.80 ms  func_80006124  __start
+  59.73% 11.11 ms  func_800555DC  camDraw
+  59.56% 11.08 ms  func_801A79A8  spmarioDisp
+  59.30% 11.03 ms  func_8005B088  dispDraw
+  53.35%  9.92 ms  func_800849F4  fn_800849F4
+  48.85%  9.09 ms  func_8008B75C  func_8008b4c8
+  17.32%  3.22 ms  func_803053C8  fn_803053C8
+  17.30%  3.22 ms  func_80305374  fn_80305374
+  12.47%  2.32 ms  func_801A87F0  DEMODoneRender
+   7.83%  1.46 ms  func_801A7738  spmarioMain
+   3.69%  0.69 ms  func_8012394C  marioMain
+   2.02%  0.37 ms  func_80070F9C  func_800710b4
+   1.86%  0.35 ms  func_80286394  __AXOutNewFrame
+   1.86%  0.35 ms  func_802865F4  __AXOutAiCallback
+   1.55%  0.29 ms  func_80048B30  dispProc
+   1.44%  0.27 ms  func_802853FC  __AXProcessAux
+   1.43%  0.27 ms  func_802F29DC  func_802f5a8c
+   1.42%  0.26 ms  func_802881C0  AXFXReverbHiExpCallback
+   1.42%  0.26 ms  func_802FA324  fn_802FA324
+
+cumulative self share of the top N translated functions:
+  top   1:  10.4% of translated-code self time (353 distinct functions seen)
+  top   5:  31.4% of translated-code self time (353 distinct functions seen)
+  top  10:  42.8% of translated-code self time (353 distinct functions seen)
+  top  20:  54.1% of translated-code self time (353 distinct functions seen)
+  top  50:  70.9% of translated-code self time (353 distinct functions seen)
+  top 100:  82.4% of translated-code self time (353 distinct functions seen)

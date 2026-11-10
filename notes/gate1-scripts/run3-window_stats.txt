@@ -1,0 +1,6 @@
+LOW idx 45-54 (profiled 90-110 s) maps {'mac_12'} phases {'game'}
+   fps 53.8 game 18.66 gx 6.15 end_frame 0.05 pace 0.00 worst(median) 34.5 over20(mean) 14.5 draws 5206 cmds 4618 merged 590 uniform 2315KB storage 3038KB vert 180KB
+LOW idx 76-85 (153-173 s) maps {'mac_12'} phases {'game'}
+   fps 60.0 game 16.65 gx 5.21 end_frame 0.01 pace 0.00 worst(median) 19.1 over20(mean) 0.2 draws 5205 cmds 4616 merged 590 uniform 2314KB storage 3217KB vert 180KB
+FULL idx 45-54 (profiled 90-110 s) maps {'mac_07', 'mac_12'} phases {'game'}
+   fps 48.5 game 20.88 gx 5.89 end_frame 0.07 pace 0.00 worst(median) 36.0 over20(mean) 25.0 draws 5216 cmds 4621 merged 596 uniform 2318KB storage 3148KB vert 180KB

@@ -1,0 +1,45 @@
+window 2026-11-10T23:38:00.2667000Z .. 2026-11-10T23:38:20.2667000Z = 20.0 s; fps windows 45-54: mean 53.77 fps -> about 1075 frames (18.60 ms of wall time per frame)
+
+process total: 172% of one core (1.72 cores busy), 32.06 CPU ms per frame, 40 threads
+tid | role | cpu ms/frame | busy % | translated | graphics | audio | sched/OS | disc | other rt | system+driver (running est.)
+30364 | game thread (guest code) |  14.75 |  79.3 |  2.61 |  7.62 |  0.06 |  0.16 |  0.01 |  1.62 |  2.68
+24552 | idle or unidentified |  13.56 |  72.9 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.16 | 13.40
+29760 | GPU driver / Dawn thread |   2.36 |  12.7 |  0.00 |  0.01 |  0.00 |  0.00 |  0.00 |  0.01 |  2.35
+9940 | GPU driver / Dawn thread |   0.51 |   2.7 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.51
+20060 | audio mix worker |   0.13 |   0.7 |  0.00 |  0.00 |  0.09 |  0.00 |  0.00 |  0.00 |  0.04
+30116 | SDL / audio output thread |   0.06 |   0.3 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.06
+20468 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+10408 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+4672 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+27208 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+25776 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+1044 | idle or unidentified |   0.04 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.04
+32080 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+32820 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+32016 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+32232 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+26724 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+19156 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+31204 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+34700 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+24136 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+25444 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+28420 | idle or unidentified |   0.03 |   0.2 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.00 |  0.03
+
+leaf detail for the busiest threads:
+  tid 30364 (game thread (guest code)): samples 3570; top leaves: ntdll.dll x1060; GX__CallDisplayList_80172f64 x491; aurora::gx::fifo::process(unsigned char const*, unsigned int x192; aurora::gfx::texture_replacement::take_button_icon_style_cha x161; ucrtbase.dll x109
+     wall-share by leaf category (ms of wall per frame): graphics layer 7.62, translated game code 2.61, other runtime 1.62, scheduler / fibers / OS emulation 0.16, audio 0.06, disc / save I/O 0.01 | Windows system DLLs 5.64, C/C++ runtime 0.68, SDL 0.14, graphics driver / Dawn 0.06, other DLL: CoreMessaging.dll 0.01
+  tid 24552 (idle or unidentified): samples 3570; top leaves: ntdll.dll x3049; libc++.dll x431; KERNELBASE.dll x45; KERNEL32.DLL x14; std::__1::chrono::steady_clock::now() x10
+     wall-share by leaf category (ms of wall per frame): other runtime 0.16 | Windows system DLLs 16.19, C/C++ runtime 2.25
+  tid 29760 (GPU driver / Dawn thread): samples 3570; top leaves: ntdll.dll x3501; webgpu_dawn.dll x30; igd12um64xeh.dll x26; win32u.dll x3; igdgmm64.dll x3
+     wall-share by leaf category (ms of wall per frame): graphics layer 0.01, other runtime 0.01 | Windows system DLLs 18.25, graphics driver / Dawn 0.32, SDL 0.01, other DLL: msvcp_win.dll 0.01
+  tid 9940 (GPU driver / Dawn thread): samples 3570; top leaves: ntdll.dll x3547; win32u.dll x9; igd12um64xeh.dll x6; webgpu_dawn.dll x2; igdgmm64.dll x2
+     wall-share by leaf category (ms of wall per frame):  | Windows system DLLs 18.52, graphics driver / Dawn 0.07
+  tid 20060 (audio mix worker): samples 3570; top leaves: ntdll.dll x3553; AxDspHle::Accelerator::ReadSample() x6; AxDspHle::(anonymous namespace)::AXWii::ProcessVoice(AxDspHl x4; AxDspHle::(anonymous namespace)::AXWii::ProcessPBList(unsign x2; AxDspHle::(anonymous namespace)::AXWii::ReadPBWithLayout(uns x2
+     wall-share by leaf category (ms of wall per frame): audio 0.09 | Windows system DLLs 18.51
+  tid 30116 (SDL / audio output thread): samples 3570; top leaves: ntdll.dll x3565; SDL3.dll x4; AUDIOSES.DLL x1
+     wall-share by leaf category (ms of wall per frame):  | Windows system DLLs 18.57, SDL 0.02, other DLL: AUDIOSES.DLL 0.01
+  tid 20468 (idle or unidentified): samples 3570; top leaves: ntdll.dll x3570
+     wall-share by leaf category (ms of wall per frame):  | Windows system DLLs 18.60
+  tid 10408 (idle or unidentified): samples 3570; top leaves: ntdll.dll x3570
+     wall-share by leaf category (ms of wall per frame):  | Windows system DLLs 18.60

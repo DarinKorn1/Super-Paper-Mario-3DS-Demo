@@ -1,0 +1,38 @@
+log: C:\Users\ender\AppData\Local\Temp\claude\bcc0281a13d5eef0\e857923d-3679-4004-b141-21730b6d1cae\scratchpad\run_full.log
+fps windows: 125 | Flipside windows: 98
+maps read, in order: ['aa4_01', 'aa1_01', 'mac_01', 'mac_02', 'mac_05', 'mac_07', 'mac_06', 'mac_12']
+windows by (phase, map):
+   ('logo', 'aa4_01') 10
+   ('game', 'aa4_01') 1
+   ('title', 'aa4_01') 3
+   ('load', 'aa4_01') 1
+   ('game', 'aa1_01') 9
+   ('mapchange', 'mac_01') 1
+   ('game', 'mac_02') 11
+   ('mapchange', 'mac_02') 1
+   ('game', 'mac_05') 1
+   ('game', 'mac_07') 7
+   ('mapchange', 'mac_07') 1
+   ('game', 'mac_12') 79
+Flipside windows (index range 25-124):
+  fps                    median     58.00  mean     56.11  min     35.70  max     75.10
+  game ms                median     16.20  mean     16.91  min     12.91  max     26.25
+  gx ms                  median      4.77  mean      4.64  min      1.26  max      7.92
+  end_frame ms           median      1.21  mean      1.16  min      0.02  max      2.45
+  pace ms                median      0.00  mean      0.00  min      0.00  max      0.08
+  GX draws/frame         median   5207.00  mean   4593.71  min    742.00  max   6741.00
+  worst frame ms         median     35.00  mean     36.85  min     19.90  max     89.60
+  jitter ms              median      3.73  mean      4.14  min      1.08  max     11.27
+  frames over 20 ms      median      8.50  mean     14.84  min      0.00  max     58.00
+  draw commands/frame    median   4618.00  mean   4045.34  min    718.00  max   6423.00
+  merged/frame           median    590.00  mean    549.68  min     25.00  max    614.00
+  merged %               median     11.30  mean     12.73  min      3.40  max     28.70
+  pipelines created      median    409.00  mean    406.27  min    388.00  max    409.00
+  pipelines queued       median      0.00  mean      0.00  min      0.00  max      0.00
+  vertex KB/frame        median    180.00  mean    158.42  min     28.00  max    233.00
+  uniform KB/frame       median   2316.00  mean   2028.66  min    363.00  max   3216.00
+  index KB/frame         median     83.00  mean     72.80  min     10.00  max    101.00
+  storage KB/frame       median   3276.00  mean   2690.39  min    144.00  max   3561.00
+  texture KB/frame       median      0.00  mean      0.00  min      0.00  max      0.00
+  pipelines created during Flipside windows: 21 (first 388, last 409)
+  windows at >=59 fps: 40 of 98; <30 fps: 0

@@ -410,6 +410,137 @@ For the main thread, in this mostly-idle window, the game is not CPU-bound: it s
 7. Two log lines I can't explain: `[vi] [watchdog] nothing visible yet; guest threads:` printed at 30 s although 1,664 frames had been presented and `VI black=0`, and the repeated alternation of `Present mode Mailbox (V-Sync on)` and `Immediate (V-Sync off)`. Also `[nand] NANDOpen: FAILED ... /shared2/sys/SYSCONF` (a missing console settings file; the game carried on) and `OSLoadFont: no console ROM font available` at start-up.
 8. Whether the MAP names for the hot translated functions are right (see 9.5).
 
+## 10. Flipside only, low-graphics run (2026-11-10)
+
+Everything here is from Flipside: the game stayed in one scene after its first scene change (map file `mac_12`, the last map the game read; no `seq ->` line after frame 1,777) and all 76 Flipside fps windows are that scene. Other Flipside maps were not measured.
+
+### 10.1 What was measured
+
+- **Settings:** the log confirms `window=854x480 resolution_multiplier=1 show_fps=false`; `Config.toml` also has `vsync = false`, `aspect_mode = 1`, `frame_interpolation_fps = 0`. The five low-graphics changes are the ones listed in the previous step.
+- **Files used:** console log `base_1794353788_pid33380`, `profile_stacks.txt` (written 16:38:20), and two sampler runs against that same game process:
+  - `run-20261110-163628`: window 90-110 s after the first frame, **with the built-in profiler running** (it samples the same seconds).
+  - `run-20261110-163732`: a second sampler started on the same game later. Its own clock was wrong because it started after the first frame (a bug, now fixed: `thread_sampler.ps1` estimates the first frame from the log folder's name when it starts late). Its real window is **153-173 s after the first frame, with no built-in profiler running**: the cleanest measurement of what the game itself costs.
+  - Two other launches are not used: 16:29 (full graphics, kept as the comparison) and 16:34 (never left file select).
+- **Frames per window** come from the fps lines (mean fps of the covering two-second windows x window length, about +-1%): 1,075 frames in the profiled window (53.77 fps), 1,200 in the clean one (60.01 fps).
+- **Observer effects, measured:** while the built-in profiler runs, the game thread uses 14.75 CPU ms per frame against 13.06 in the clean window and fps falls from 55.9 (before) to 53.8 (during) to 57.1 (after); in the clean window it is 60.0. The profiler's own thread burns 13.6 CPU ms per frame (73% of a core), only from 90 s to 110 s (timeline: 0 ms of CPU before 90 s). The numbers below that use the profiler are therefore a few percent pessimistic; the clean window is the reference for CPU cost.
+
+Flipside fps lines (76 windows of two seconds, `NSMBW_LOG_FPS`): fps median 57.0 (mean 55.6, min 36.6, max 60.1); `game` median 17.09 ms; `gx` 5.22 ms; `end_frame` 0.13 ms; `pace` 0.00 ms; worst frame median 35.8 ms (max 76.3); frames over 20 ms: median 10 per window; 19 of 76 windows at 59 fps or more, none below 30.
+
+| | Profiled window (90-110 s) | Clean window (153-173 s) |
+|---|---|---|
+| fps | 53.8 | **60.0** |
+| `game` ms per frame | 18.66 | 16.65 |
+| `gx` ms per frame | 6.15 | 5.21 |
+| `end_frame` ms | 0.05 | 0.01 |
+| worst frame (median) / frames over 20 ms per window | 34.5 ms / 14.5 | 19.1 ms / 0.2 |
+| GX draws per frame | 5,206 | 5,205 |
+| GPU 3D engine busy (mean, max) | 43.7% (46.9%) | 40.2% (41.6%) |
+
+### 10.2 CPU milliseconds per frame, by category and thread
+
+CPU time per thread is exact (the OS's kernel + user time for all 35-40 threads, interpolated to the window edges). The split by category uses each thread's instruction-pointer samples (171 per second, 3,570 per thread per window): the share of samples whose innermost code was in translated game code, the graphics layer (GX emulation, Aurora), audio, scheduler/OS emulation, or other runtime code; samples inside Windows or driver DLLs could be running or waiting, so their running part is estimated as the thread's CPU time minus its engine-code parts.
+
+**Clean window (1,200 frames, 60.0 fps, 16.66 ms of wall time per frame; no built-in profiler):**
+
+| Thread | Role (how identified) | CPU ms/frame (busy) | Translated game code | Graphics layer | Audio | Scheduler / OS emulation | Other runtime | System and driver DLLs |
+|---|---|---|---|---|---|---|---|---|
+| 30364 | **game thread**: the only thread with translated code | 13.06 (78.4%) | 2.02 | 6.16 | 0.08 | 0.12 | 1.27 | 3.41 |
+| 29760 | GPU driver / Dawn thread (innermost code in ntdll, Intel D3D12 driver `igd12um64xeh.dll`, Dawn) | 2.06 (12.4%) | - | 0.01 | - | - | 0.00 | 2.05 |
+| 9940 | second GPU driver / Dawn thread | 0.56 (3.4%) | - | - | - | - | - | 0.56 |
+| 20060 | audio mix worker (`AxDspHle::AXWii` code) | 0.12 (0.7%) | - | - | 0.01 | - | - | 0.10 |
+| 31 other threads | waiting (all samples in ntdll) | 0.30 | - | - | - | - | - | 0.30 |
+| **Total** | | **16.10 (0.97 cores)** | **2.02** | **6.18** | **0.09** | **0.12** | **1.27** | **6.42** |
+
+Of the 16.10 CPU ms per frame, translated game code is 12.5%, the graphics layer 38.4%, audio 0.6%, scheduler/OS emulation 0.7%, other runtime 7.9% and Windows/driver code 39.9%. The graphics layer is the largest single item and the game's own translated code is small. Audio is cheap on this machine (0.09 ms/frame of its own code plus 0.10 in the mix worker's OS calls).
+
+**Profiled window (90-110 s, built-in profiler running; totals 31.95 CPU ms/frame):**
+
+| Thread | Role | CPU ms/frame (busy) | Translated | Graphics | Audio | Sched/OS | Other runtime | System and driver |
+|---|---|---|---|---|---|---|---|---|
+| 30364 | game thread | 14.75 (79.3%) | 2.61 | 7.62 | 0.06 | 0.16 | 1.62 | 2.68 |
+| 24552 | **the built-in profiler's own thread** (CPU only 90-110 s; its time is spent in `yield` / clock reads, which is how `guest_profiler.cpp` waits) | 13.56 (72.9%) | - | - | - | - | 0.16 | 13.40 |
+| 29760, 9940 | GPU driver / Dawn threads | 2.36 + 0.51 | - | 0.01 | - | - | 0.01 | 2.86 |
+| 20060 | audio mix worker | 0.13 | - | - | 0.09 | - | - | 0.04 |
+
+The 1,920x1094 full-graphics run measured the same way (window 90-110 s, which mixed maps `mac_07` and `mac_12`): game thread 14.51 CPU ms/frame, 2.31 translated, 7.39 graphics, 0.13 audio, 1.54 other runtime; driver threads 2.85 + 0.42; 48.5 fps. The game thread's CPU cost does not change with resolution.
+
+**The game thread by what the profiler saw first (20,000 samples, 1 kHz, profiled window; 18.6 ms of wall time per frame; the first engine function on the stack, so waits are charged to their caller):**
+
+| Where the time went | Share | ms/frame |
+|---|---|---|
+| Translated game code (own code) | 13.6% | 2.53 |
+| Graphics layer, own code | 38.1% | 7.09 |
+| Graphics layer, in the Windows calls it makes (allocation, copies, locks) | 10.8% | 2.01 |
+| Other runtime, own code (hook checks, call dispatch, hashing) | 10.1% | 1.88 |
+| Memory slow path | 0.6% | 0.11 |
+| Scheduler / OS emulation, audio, disc (own code) | 0.4% | 0.07 |
+| Waiting: pacing sleep to the next retrace | 15.6% | 2.90 |
+| Waiting for the renderer's frame worker | 5.2% | 0.97 |
+| Waiting for the audio mix worker (`JoinMix`) | 4.9% | 0.91 |
+| Other | 0.7% | 0.13 |
+
+The largest single functions on the game thread are `GX__CallDisplayList` (12.8% of samples, 2.4 ms/frame: the runtime reading the game's GX display lists), `aurora::gx::fifo::process` (5.6%), hashing (`XXH3`, 2.6%), `resolve_pipeline_state` (1.8%) and `gx_vertex_ndc` (1.5%).
+
+### 10.3 CPU-limited or GPU-limited?
+
+**CPU-limited, by the game thread, with little headroom; the GPU was not the limit at 480p.** Evidence:
+
+1. **GPU busy time:** the 3D engine was 40.2% busy (max 41.6%) in the clean window and 43.7% in the profiled one, so at 480p it was idle more than half the time. At about 1080p (the full-graphics run) it was 87.9% busy (max 97.7%).
+2. **Resolution barely changed the frame rate:** Flipside median fps was 57.0 at 480p and 58.0 at full resolution (windows 90-110 s: 53.8 and 48.5, different positions and maps). Rendering about 5x fewer pixels did not move fps materially, and the game thread's CPU cost stayed at 14.5-14.8 ms/frame.
+3. **The game thread is the busy thread:** it used 78.4% of a core at 60.0 fps (13.06 of 16.66 ms) and 79.3% at 53.8 fps. No other thread passed 13% (the driver thread at 12.4%).
+4. **Submission is not blocking:** `end_frame` is 0.01-0.13 ms and `pace` is 0.00 ms, so presenting and pacing are not the delay. The game thread does spend about 5.2% of its time waiting for the renderer's frame worker and 4.9% for the audio mix worker.
+5. **What the margin looks like:** at 60.0 fps there is about 3.6 ms of CPU margin per frame (13.06 of 16.66 ms). Frames that run over the budget (worst frame median 35.8 ms, 10 frames over 20 ms per two seconds across Flipside; 14.5 per window with the profiler running, 0.2 without) pull the average under 60.
+
+Caveats: the "3D engine busy" counter measures how long the engine had work, not throughput, and only 6 samples fell in each window; this is an integrated GPU sharing memory and power with the CPU; there are no GPU timestamps, so a per-frame GPU time was not measured.
+
+### 10.4 Top 20 translated functions by time
+
+From the built-in profiler's raw stacks (game thread, profiled window, 18.6 ms per frame), resolved against the DLL's own symbols. "Self" is time inside the function itself; guest names come from `MAP.txt` and are hints (the decomp calls many of them `fn_...`).
+
+| # | Self % | Self ms/frame | Function | Guest name (MAP.txt) | Inclusive % (callees included) |
+|---|---|---|---|---|---|
+| 1 | 1.42 | 0.26 | `func_802881C0` | `AXFXReverbHiExpCallback` | 1.42 |
+| 2 | 1.31 | 0.24 | `func_80070F9C` | `func_800710b4` | 2.02 |
+| 3 | 0.63 | 0.12 | `func_800849F4` | `fn_800849F4` | 53.35 |
+| 4 | 0.47 | 0.09 | `func_8006E2E8` | `func_8006e400` | - |
+| 5 | 0.44 | 0.08 | `func_80261BBC` | `__ieee754_sqrt` | - |
+| 6 | 0.33 | 0.06 | `func_8008B598` | `mapSetPolygonVtxDesc` | - |
+| 7 | 0.32 | 0.06 | `func_8006E668` | `hitCheckVecFilter` | - |
+| 8 | 0.31 | 0.06 | `func_800843A0` | `mapReCalcMatrix` | - |
+| 9 | 0.30 | 0.06 | `func_800863E8` | `mapDisp` | - |
+| 10 | 0.28 | 0.05 | `func_8008B75C` | `func_8008b4c8` | 48.85 |
+| 11 | 0.23 | 0.04 | `func_8005B088` | `dispDraw` | 59.30 |
+| 12 | 0.20 | 0.04 | `func_80089E3C` | `mapSetTextureMatrix` | - |
+| 13 | 0.17 | 0.03 | `func_80277934` | `PSMTXConcat` | - |
+| 14 | 0.15 | 0.03 | `func_8004F984` | `func_8004fa9c` | - |
+| 15 | 0.14 | 0.03 | `func_8006DDA4` | `func_8006debc` | - |
+| 16 | 0.14 | 0.03 | `func_8005C364` | `func_8005c47c` | - |
+| 17 | 0.13 | 0.02 | `func_80073868` | `iconGX` | - |
+| 18 | 0.12 | 0.02 | `func_800895C0` | `mapSetMaterialLastStageBlend` | - |
+| 19 | 0.12 | 0.02 | `func_80045170` | `animPoseMain` | - |
+| 20 | 0.12 | 0.02 | `func_802F7DB4` | `fn_802F7DB4` | - |
+
+The profile is flat: translated code itself takes 13.6% of the game thread (2.53 ms/frame) spread over 353 distinct functions; the top 5 make up 31% of it, the top 20 54% and the top 100 82%. By inclusive time the weight is in drawing, not game logic: `camDraw` 59.7% (11.1 ms/frame), `spmarioDisp` 59.6%, `dispDraw` 59.3% (11.0 ms), the map drawing chain `func_800849F4` 53.4% (9.9 ms) and `func_8008B75C` 48.9% (9.1 ms), `DEMODoneRender` 12.5% (2.3 ms), against `spmarioMain` 7.8% (1.5 ms) and `marioMain` 3.7% (0.7 ms). So most of the game thread's time is the game's draw routines calling into the GX layer, not simulation.
+
+### 10.5 Draw calls and render state
+
+From the new `gfx:` log lines (Flipside, 76 windows, essentially constant): **5,206 GX draws per frame** (the `fps` line's `draws`) = **4,617 draw commands the renderer ends up with + 590 primitives it folded into an earlier draw (11.3% merged)** (the two add up: 4,617 + 590 = 5,207). Per frame the renderer uploads about 180 KB of vertices, 83 KB of indices, 2,315 KB of uniforms (about 513 bytes per draw command, so each draw carries its own state block) and 3,030 KB of storage-buffer data; texture uploads are 0 KB per frame (textures are already resident). The `gx` time (command processing) is 5.2 ms per frame, 30% of the 17.1 ms `game` time. Pipelines (distinct shader/state configurations): **447 created since start, 0 created during Flipside**, so a draw does not wait for a new pipeline once a scene is warm; at most 447 distinct configurations exist, so on average each is shared by at least 10.3 draw commands per frame (4,617 / 447, if all are in use in one frame).
+
+**Distinct textures and render states per frame are not reported by the graphics layer.** The renderer already merges consecutive compatible primitives (11.3%); how many more could merge needs a count of distinct (pipeline, texture set, state) combinations per frame, which would need a small logging addition at draw submission.
+
+### 10.6 Could not determine
+
+1. **Thread roles are inferred**, from each thread's innermost code and CPU behaviour (no thread has a name, and only the innermost frame is sampled for the non-game threads). The built-in profiler's thread (24552) is identified with high confidence (CPU exactly 90-110 s, yield/clock-read pattern, matches `guest_profiler.cpp`); the two GPU driver threads and the 31 idle ones are not identified beyond "in ntdll or the Intel driver".
+2. **Category split of time in Windows/driver DLLs.** For the game thread the profiler's stacks attribute it to callers (10.8% of samples came from graphics-layer calls, the rest waits); for the other threads it cannot be assigned to a caller. Whether that time is running or waiting is estimated from CPU time.
+3. **Full GPU picture.** GPU busy time came from 6 samples per window, the counter is "engine busy", not throughput, and no per-frame GPU time was measured, so the GPU margin at 480p (about 55-60% idle) is approximate.
+4. **How much of the frame-rate shortfall is the profiler.** The profiler lowered fps by about 4% and added about 1.7 CPU ms per frame to the game thread, but the clean and profiled windows also differ in what was on screen, so the two effects can't be separated. The 60.0 fps window had only the 171 Hz sampler running.
+5. **What makes the occasional 35 ms frame.** Frames over 20 ms were counted but not traced to a cause.
+6. **Symbol naming.** Symbols come from the nearest preceding symbol, so some time in unexported or inlined graphics code is credited to a neighbour: `aurora::gfx::texture_replacement::take_button_icon_style_change` shows 4.8% of game-thread samples, which is not button-icon work. Category totals are unaffected (they are all graphics layer).
+7. **Audio wait vs audio CPU.** The game thread waited about 0.9 ms per frame on the audio mix worker (`JoinMix`) while that worker used only 0.12 ms of CPU per frame; I did not explain the difference (thread wake-up latency across cores is a candidate).
+8. **Scope.** One Flipside scene (`mac_12`) of unknown player activity; draw counts were constant at 5,206 across all windows, so it was probably a mostly static view. The full-graphics comparison used a different path through the same area (its window included `mac_07`).
+9. **Distinct textures and render states per frame**: not reported (section 10.5).
+10. **CPU core types and clock speeds** (this is a hybrid CPU; the runtime pins the game thread to its performance cores) were not recorded.
+
 ## Side effects on this machine outside the project folder
 
 - The .NET SDK's first-run setup added `...\toolchain\dotnet-home\.dotnet\tools` to your **user PATH**. I removed that one entry at your request; the previous value is saved in `notes\user-path-backup.txt`. (`DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false` is now set for later build commands.)
@@ -419,4 +550,4 @@ For the main thread, in this mostly-idle window, the game is not CPU-bound: it s
 
 ## Reproducing the numbers
 
-`notes\gate1-scripts\` holds the scripts and raw results: `ppc_features.py` (static scan), `gen_stats.py` (generated-code size and function sizes), `gen_tokens.py` (helpers used by the generated code), `obj_sizes.py` (compiled sizes), `find_examples.py` and `extract_func.py` (examples). For the first run (section 9): `log_summary.py` and `phase_summary.py` (fps windows, phases, heap and OSReport lines), `profile_resolve.py` and `profile_top20.py` (raw samples resolved against the DLL's symbols), `bss_check.py` (relF bss references); their outputs are the `run1-*.txt` files. Run the scripts with `python -I`.
+`notes\gate1-scripts\` holds the scripts and raw results: `ppc_features.py` (static scan), `gen_stats.py` (generated-code size and function sizes), `gen_tokens.py` (helpers used by the generated code), `obj_sizes.py` (compiled sizes), `find_examples.py` and `extract_func.py` (examples). For the first run (section 9): `log_summary.py` and `phase_summary.py` (fps windows, phases, heap and OSReport lines), `profile_resolve.py` and `profile_top20.py` (raw samples resolved against the DLL's symbols), `bss_check.py` (relF bss references); their outputs are the `run1-*.txt` files. For the Flipside run (section 10): `thread_sampler.ps1` (the second-window capture: per-thread CPU time, per-thread instruction pointers, GPU utilisation), `flipside_log.py`, `flipside_window_stats.py`, `flipside_threads.py`, `flipside_gpu.py` and `flipside_funcs.py`; outputs are the `run3-*.txt` files, and `vi-gfx-stats-logging.patch` is the logging change behind the `gfx:` lines. Run the Python scripts with `python -I`.
