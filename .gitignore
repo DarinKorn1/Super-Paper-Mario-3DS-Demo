@@ -2,6 +2,7 @@
 
 # Upstream decompilation (its own git repo, cloned separately)
 spm-decomp/
+NewSuperPaperBros/
 
 # Disc images (copyrighted game data; never commit)
 *.iso
