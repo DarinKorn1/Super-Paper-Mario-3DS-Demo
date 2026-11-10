@@ -1,0 +1,109 @@
+﻿fps windows: 200
+fps windows before the profiler report: 24 (each ~2 s => ~48 s from first presented frame)
+phase at the profiler report line: game frame 2785
+
+windows by phase (phase = last "seq ->" before the window):
+  logo       windows   3  fps median  58.1 (min  41.8, max  60.0)  game ms median 16.96  gx ms median 0.26  draws median      5  end_frame median 0.24  worst median   76.3 max  419.1
+  mapchange  windows   8  fps median  38.1 (min  10.3, max  50.2)  game ms median 26.72  gx ms median 5.15  draws median   2462  end_frame median 0.18  worst median  122.7 max  603.1
+  title      windows  16  fps median  60.0 (min  51.9, max  60.1)  game ms median 16.66  gx ms median 0.18  draws median     27  end_frame median 0.05  worst median   23.4 max  102.3
+  load       windows   1  fps median  74.3 (min  74.3, max  74.3)  game ms median 13.45  gx ms median 0.64  draws median    303  end_frame median 0.01  worst median   66.5 max   66.5
+  game       windows 172  fps median  46.1 (min  12.4, max  92.3)  game ms median 21.47  gx ms median 5.38  draws median   3364  end_frame median 0.11  worst median   39.0 max  495.1
+
+Profiler window (about fps windows 15-25 by time):
+  windows 15-25: 11 windows, fps median 59.5 (min 29.3), game 16.79 ms, gx 0.22 ms, end_frame 0.01 ms, pace 0.00 ms, worst frame median 50.0 ms (max 174.3), draws median 27
+     ('title', 495, 60.0, 16.66, 0.09, 27.0, 0.0, 0.0, 21.5, 0.67, 1.0)
+     ('title', 495, 60.0, 16.66, 0.13, 27.0, 0.01, 0.0, 19.3, 0.54, 0.0)
+     ('title', 495, 60.0, 16.67, 0.13, 27.0, 0.01, 0.0, 18.8, 0.48, 0.0)
+     ('title', 495, 59.5, 16.79, 0.14, 27.0, 0.01, 0.0, 32.7, 1.79, 3.0)
+     ('title', 495, 58.0, 17.24, 0.19, 27.0, 0.01, 0.0, 34.0, 3.08, 4.0)
+     ('mapchange', 2371, 50.2, 19.91, 0.22, 20.0, 0.01, 0.0, 50.0, 7.45, 19.0)
+     ('title', 2477, 51.9, 19.26, 0.22, 71.0, 0.01, 0.0, 97.8, 10.43, 14.0)
+     ('load', 2526, 74.3, 13.45, 0.64, 303.0, 0.01, 0.0, 66.5, 7.28, 9.0)
+     ('game', 2785, 76.9, 13.0, 1.38, 615.0, 0.01, 0.0, 174.3, 15.23, 15.0)
+     ('mapchange', 2841, 29.4, 33.77, 7.26, 3241.0, 0.25, 0.0, 107.1, 11.46, 57.0)
+     ('game', 2890, 29.3, 33.93, 5.12, 1931.0, 0.16, 0.0, 133.2, 18.05, 45.0)
+
+sequence timeline (frame numbers):
+   [vi] seq -> logo (next logo) stage 1 (frame 1)
+   [vi] seq -> logo (next mapchange) stage 10 (frame 416)
+   [vi] seq -> game (next game) stage 1 (frame 435)
+   [vi] seq -> game (next mapchange) stage 1 (frame 473)
+   [vi] seq -> title (next title) stage 4294967295 (frame 495)
+   [vi] seq -> title (next mapchange) stage 3 (frame 2336)
+   [vi] seq -> game (next game) stage 1 (frame 2373)
+   [vi] seq -> game (next mapchange) stage 1 (frame 2455)
+   [vi] seq -> title (next title) stage 4294967295 (frame 2477)
+   [vi] seq -> title (next load) stage 1 (frame 2525)
+   [vi] seq -> load (next load) stage 0 (frame 2526)
+   [vi] seq -> load (next mapchange) stage 0 (frame 2743)
+   [vi] seq -> game (next game) stage 1 (frame 2785)
+   [vi] seq -> game (next mapchange) stage 1 (frame 5692)
+   [vi] seq -> game (next game) stage 1 (frame 5752)
+   [vi] seq -> game (next mapchange) stage 1 (frame 8933)
+   [vi] seq -> game (next game) stage 1 (frame 8980)
+   [vi] seq -> game (next mapchange) stage 1 (frame 9689)
+   [vi] seq -> game (next game) stage 1 (frame 9745)
+   [vi] seq -> game (next mapchange) stage 1 (frame 11375)
+   [vi] seq -> game (next game) stage 1 (frame 11422)
+   [vi] seq -> game (next mapchange) stage 1 (frame 15244)
+   [vi] seq -> game (next game) stage 1 (frame 15300)
+
+maps loaded in order: ['aa4_01', 'aa1_01', 'mac_01', 'mac_02', 'mac_06', 'mac_05', 'mac_12']
+spmwarp lines: ['[runtime] [spmwarp] mac_01 A2d_dokan_1']
+
+OSReport lines:
+   [os][OSReport] PPCMthid2 set HID2=0x10000000
+   [OSReport] Kernel built : Jan  9 2007 01:54:01
+   [OSReport] Console Type : 
+   [OSReport] NDEV 1.2
+   [os][OSReport] Firmware     : 53.22.31 
+   [OSReport] (3/1/2010)
+   [OSReport] Memory 152 MB
+   [OSReport] MEM1 Arena : 0x80576720 - 0x817ef720
+   [OSReport] MEM2 Arena : 0x90000800 - 0x97dc0000
+   [OSReport] << RVL_SDK - OS 	release build: Jan  9 2007 01:54:01 (0x4199_60831) >>
+   [os][OSReport] IPCCltInit_80193478 called: calling IPCInit for buffer setup
+   [vi][OSReport] VIInit_801b94a4 called: seeding VI state (HLE)
+   [OSReport][os] OSGetFontEn << RVL_SDK - KPAD 	release build: Nov 30 2006 03:30:56 (0x4199_60831) >>
+   [audio] [OSReport]AIInit_801240b0 called: Audio subsystem initialized (HLE)
+
+slow render frame lines: 196
+  total         median  20.70  max 191.20
+  seal          median   0.10  max   0.50
+  encode        median   2.50  max  34.30
+  publish       median   0.00  max   1.30
+  prepare_next  median  17.50  max 187.50
+
+other notable lines:
+   [aurora] [1] [aurora::gpu] GPU compatibility vertex fetch off (auto) on Intel(R) Graphics
+   [aurora] [1] [aurora::gfx::texture_replacement] Indexed 0 texture replacements from 1 folder(s) (texture_replacements + mods)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [vi] [watchdog] 12 s: 586 guest frame(s) presented, VI black=0
+   [dvd] read cache: 2630 file(s), 383 MiB in 20018 ms
+   [vi] [watchdog] 30 s: 1664 guest frame(s) presented, VI black=0
+   [vi] [watchdog] nothing visible yet; guest threads:
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [aurora] [1] [aurora::gpu] Present mode Immediate (V-Sync off)
+   [aurora] [1] [aurora::gpu] Present mode Mailbox (V-Sync on)
+   [runtime] save anywhere: saved

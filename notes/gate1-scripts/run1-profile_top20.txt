@@ -1,0 +1,29 @@
+﻿N=20000
+TOP 20 (self + OS calls made directly by the function):
+ 1. 61.13%  (anonymous namespace)::SleepPreciselyUntil(std::chrono::time_point<std::chrono::steady_clock, std::c
+ 2. 11.19%  std::cv_status std::condition_variable::wait_until[abi:nqe220108]<std::chrono::steady_clock, std::ch
+ 3.  3.06%  func_802881C0 (AXFXReverbHiExpCallback)
+ 4.  2.15%  AxDspHle::(anonymous namespace)::AXWii::JoinMix()
+ 5.  1.18%  aurora::gx::fifo::process(unsigned char const*, unsigned int, bool)
+ 6.  0.51%  GXSetVtxDesc
+ 7.  0.50%  ModHooks::Run(unsigned int, CpuContext*)
+ 8.  0.47%  GX__CallDisplayList_80172f64
+ 9.  0.45%  aurora::window::poll_events()
+10.  0.42%  HleFifoWrite(unsigned int, unsigned int)
+11.  0.38%  func_801A1B28 (HSV2RGB)
+12.  0.34%  Fiber::GuestFiberManager::SwitchToThread(unsigned int, CpuContext*)
+13.  0.34%  aurora::gfx::texture_replacement::take_button_icon_style_change()
+14.  0.32%  func_802874F8 (__AXSyncPBs)
+15.  0.28%  TryDispatchRawCpuTarget(RawDispatchRecord const*, CpuContext*)
+16.  0.26%  aurora::webgpu::create_copy_bind_group(wgpu::TextureView, wgpu::Sampler)
+17.  0.24%  AxDspHle::SendMailToDSP(unsigned int)
+18.  0.23%  aurora::gx::fifo::gx_vertex_ndc(GXVtxFmt, unsigned char const*, bool, float*)
+19.  0.20%  InvokeIndirectCpu(unsigned int, CpuContext*)
+20.  0.19%  aurora::gx::fifo::resolve_pipeline_state(GXPrimitive, GXVtxFmt)
+
+SleepPreciselyUntil callers:
+   58.4%  SelectThreadSwitch(CpuContext*, unsigned int, bo < OSSleepThread_HLE_801aa9b8 < OS__ReceiveMessage_HLE_801a7424
+    2.8%  SelectThreadSwitch(CpuContext*, unsigned int, bo < OSSleepThread_HLE_801aa9b8 < VIWaitForRetrace_HLE_801b99ec
+
+condition_variable wait callers:
+   11.2%  aurora::(anonymous namespace)::wait_for_frame_wo < aurora::wait_for_frame_worker_sealed() < aurora::gx::fifo::drain() < GXDrawDone

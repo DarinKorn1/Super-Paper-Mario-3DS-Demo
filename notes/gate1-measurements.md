@@ -162,7 +162,7 @@ A typical bigger function (the median is 167 lines) additionally contains `goto 
 | 8 (unused) | MEM2 | 1 KB |
 | 7 `HEAP_SMART` | MEM2 | **rest of the MEM2 arena** |
 
-- **MEM1 (24 MiB physical):** fixed heaps total 15.50 MiB; the effect heap gets whatever is left of the arena. With the arena the runtime seeds (`0x80576720-0x817EF720`, 18.47 MiB, `system_bridge.cpp` lines 408-409) that is 2.97 MiB. **That seed looks wrong for this game**: the relF module is pinned at `0x80BF6840` plus 3.1 MB of image and bss (up to `0x80F1351C`), which would run past the end of a 9 MiB main heap starting at `0x80576720`. The seed values are leftovers from New Super Mario Bros. Wii (`system_bridge.cpp` comments), so the arena the SPM guest actually computes for itself is unknown (see section 7).
+- **MEM1 (24 MiB physical):** fixed heaps total 15.50 MiB; the effect heap gets whatever is left of the arena. With the arena the runtime seeds (`0x80576720-0x817EF720`, 18.47 MiB, `system_bridge.cpp` lines 408-409) that is 2.97 MiB. **The game's own start-up report (section 9.4) prints exactly this arena, so these are the values it sees** (they are New Super Mario Bros. Wii constants reused by the runtime). If the main heap began at the arena start it would end at `0x80E76720`, yet the relF module (`0x80BF6840` plus 3.1 MB, up to `0x80F1351C`) is allocated from it, so the arena's low end must have moved up by at least about 0.6 MiB before `memInit` ran (probably an earlier allocation such as a GX FIFO). That is an inference, not an observation; it makes the effect heap at most about 2.4 MiB instead of 2.97 MiB.
 - **MEM2 (the runtime gives it 128 MiB):** the runtime derives the arena from the region size: `0x90000800 - 0x97DC0000` = 125.75 MiB (it reserves 128 KiB for IOS, 128 KiB for IPC and 2 MiB for the disc file table at the top, `system_bridge.cpp` lines 419-426, 476-497). The game then uses 17.13 MiB for fixed heaps and gives **all the rest, about 108.6 MiB, to the smart heap**.
 
 | MEM2 size | Arena | Smart heap |
@@ -264,8 +264,8 @@ $env:NSMBW_LOG_FPS = '1'; .\SuperPaperMario.exe
 
 1. **Whether the game runs and reaches the title screen**: not launched, as instructed. Section 6 is how to check.
 2. **Stock audio on Windows is untested upstream.** The Android pipeline uses the stock DOL with the same translator and function map, but the Windows build normally uses the music-mod-patched DOL. Music pitch or speed with the stock DOL is unverified.
-3. **REL bss address.** The README's `prelink_spm_rel.py` command (default arguments) put relF's bss at `0x80F12660`; `vi.cpp` line 573 and the `recomp.yml` comment both expect `0x80F12640`. By my reading of the expanding-heap allocator it should be `...640`, so the script default may be 0x20 too high. Every caller in the repo uses the default and it all landed in one upstream commit, so I can't tell which is right. The `REL module 1 ... MATCH/MISMATCH` log line will say. I did not change it.
-4. **The arena the game actually sees.** The runtime seeds New Super Mario Bros. Wii constants (`system_bridge.cpp` lines 408-419) and forces them into the low-memory globals; whether SPM's own OS start-up code overwrites the MEM1 values is not visible in the source. So the effect-heap size, and the exact smart-heap size, are derived, not observed.
+3. **relF bss address: now a measured mismatch, effect unknown** (updated after the first run, section 9.2). The game's own loader put relF's bss at `0x80F12640`; the README's `prelink_spm_rel.py` command (default arguments) put it at `0x80F12660` in `game\spm_rel_layout.json`, which the translation was linked against. I did not change it.
+4. **The arena the game sees: now observed** (section 9.4: the game's own `MEM1 Arena` / `MEM2 Arena` lines). What is still inferred is how far the MEM1 arena's low end moved before `memInit` ran, so the exact MEM1 effect-heap size.
 5. **How much of each heap the game really uses**, peak or at the title screen, and the process's real RAM use. Not measured (section c proposes how).
 6. **Whether MEM2 can be 64 MiB.** Reasoned from the code only; nothing was built or run with that change, and what a dev-console type (`0x10000012`) changes in SPM is unknown.
 7. **Performance**: no frame times, CPU or GPU load, and no check that the Intel integrated GPU is adequate. No dynamic (executed) counts of paired-single, 64-bit or indirect operations, only static counts and generated-code helper use.
@@ -306,6 +306,110 @@ Also noted in that release folder: its `engine_usa.dll`, `libz.dll`, `libpng16.d
 
 **Deliberately not created:** `version.txt`. The built-in updater (`updater.cpp` lines 205-213) treats a missing `version.txt` as a development build and never checks GitHub. `engine_pal.dll` (the PAL build, not built) and `cacert.pem` (Windows uses Schannel) are not needed.
 
+## 9. First profiled run, started Flipside (2026-11-09)
+
+Source: `Play\UserData\Logs\base_1794289813_pid14108\console.log` (2,052 lines) and `Play\profile_stacks.txt` (20,000 samples, written 54 s after the run started, so the same run). The run lasted more than 15,300 presented guest frames. Settings in the log: 1920x1094 window, Direct3D 12 on "Intel(R) Graphics" (integrated; the log also lists "Microsoft Basic Render Driver"), game thread on the 4 performance cores of the 14 threads, `texture_replacements` on but 0 replacements indexed (no HD pack installed), stock audio. Scripts and raw summaries are in `notes\gate1-scripts\` (`run1-*.txt`).
+
+### 9.1 Title screen: reached
+
+Sequence lines (`seq -> ...`, frame number in brackets): logo (1), intro book via `mapchange`/`game` (417-473), **title screen first shown at frame 495**, the intro and title again at 2,477, file select `load` (2,526), then the first in-game map at frame 2,785. Maps loaded, in order: `aa4_01`, `aa1_01`, `mac_01`, `mac_02`, `mac_06`, `mac_05`, `mac_12`; `[spmwarp] mac_01 A2d_dokan_1`; a save ("save anywhere: saved"). The last scene change in the log is at frame 15,300.
+
+### 9.2 relF module line
+
+```
+[os] REL module 1 (relF) linked at image 0x80BF6840 bss 0x80F12640: MATCH
+```
+
+MATCH is against the runtime's own constants (`vi.cpp` line 573). It also shows that the game's real bss is `0x80F12640`, whereas our translation was linked for `0x80F12660` (`game\spm_rel_layout.json`, from the README's prelink command). The translated relF code has 22 direct references (7 distinct addresses, `0x80F127A8` to `0x80F131B8`) built from the `...660` base, so they point 0x20 bytes past the variables the game's own relocations use. The game ran 15,000+ frames without a visible fault, so the effect, if any, is unknown. Re-running `prelink_spm_rel.py` with `0x80F12640` as the bss argument and re-translating (about 17 min of build time) would remove the difference; not done.
+
+### 9.3 Frame timing (`NSMBW_LOG_FPS`, 200 two-second windows)
+
+All windows: fps median 46.9 (min 10.3, max 92.3); `game` median 21.2 ms (mean 24.1); `gx` median 5.3 ms; `end_frame` median 0.11 ms (mean 0.18, max 1.77); `pace` median 0.0 ms; **worst frame** median 38.8 ms (max 603.1 ms); "over 20 ms" median 30 frames per window; 37 of 200 windows were at 59 fps or more. Split by game phase (the phase is the last `seq ->` line before each window, so a window that spans a change is credited to the earlier phase):
+
+| Phase | Windows | fps median (min-max) | game ms | gx ms | draws per frame | end_frame ms | worst frame median / max |
+|---|---|---|---|---|---|---|---|
+| logo | 3 | 58.1 (41.8-60.0) | 16.96 | 0.26 | 5 | 0.24 | 76.3 / 419.1 |
+| title | 16 | 60.0 (51.9-60.1) | 16.66 | 0.18 | 27 | 0.05 | 23.4 / 102.3 |
+| load (file select) | 1 | 74.3 | 13.45 | 0.64 | 303 | 0.01 | 66.5 / 66.5 |
+| mapchange | 8 | 38.1 (10.3-50.2) | 26.72 | 5.15 | 2,462 | 0.18 | 122.7 / 603.1 |
+| **game (Flipside and the other maps)** | 172 | **46.1** (12.4-92.3) | **21.47** | 5.38 | **3,364** | 0.11 | **39.0 / 495.1** |
+
+(Windows above 60 fps are probably catch-up after a stall; I did not check.) `end_frame` stays near 0.1 ms in every phase, so by this metric the time is not in submitting frames. The renderer also logged 196 "Slow render frame" lines (a rate-limited sample: at most 30 a minute, only when the frame worker was busy 16.7 ms or more): total median 20.7 ms (max 191.2), of which seal 0.1, encode median 2.5 (max 34.3), publish 0.0, **"prepare next" median 17.5 ms (max 187.5)**. What the frame worker's "prepare next" step does was not examined.
+
+### 9.4 Heap usage
+
+**Peak usage of the game heaps is not exposed**: the log has no heap statistics and the runtime has no heap counter (sections c and d describe how to measure it). What the game itself printed at start-up:
+
+```
+[OSReport] Console Type : NDEV 1.2
+[OSReport] Memory 152 MB
+[OSReport] MEM1 Arena : 0x80576720 - 0x817ef720
+[OSReport] MEM2 Arena : 0x90000800 - 0x97dc0000
+```
+
+So the game believes it runs on a development console with 152 MB (24 + 128). Using `memInit` (section c) on those arenas: **MEM2 smart heap 108.62 MiB** (arena 125.75 MiB minus 17.13 MiB of fixed heaps); MEM1 fixed heaps 15.5 MiB plus the effect heap, at most 2.4 MiB. Host side, the log shows `[dvd] read cache: 2630 file(s), 383 MiB in 20018 ms`: the runtime reads the whole disc (383 MiB) into host memory, which took 20 s from start-up.
+
+### 9.5 Profile
+
+The profiler window ran from 30 s to 50 s after the first presented frame, which was **mostly the title screen, file select and loading, with only the first seconds of Flipside** (the fps windows in that span are title 16.7 ms/frame at 27 draws, then the load and the first map). It does not describe Flipside gameplay, where the fps lines show 46 fps (section 9.3). Only the game thread is sampled (not the audio mix worker, the renderer's frame worker or the GPU driver threads).
+
+The log's own `profile:` list names runtime code after the nearest translated function in memory (it reports the idle wait as "NANDDelete < SelectThread < OSSleepThread"), so I re-resolved the raw samples against the DLL's own symbols (`llvm-nm`, 28,484 text symbols): the log's "[ntdll.dll] 75.9%" matches my 78.7% for all system DLLs together. Guest names below come from `projects\spm\MAP.txt`; `spm-decomp` calls those addresses `fn_802881C0`, `fn_801A1B28` and `fn_802874F8`, so treat the three names as hints.
+
+**Top 20 by time in the function itself plus OS calls it makes directly** (share of the 20,000 samples):
+
+| # | Share | Function |
+|---|---|---|
+| 1 | 61.13% | `SleepPreciselyUntil` (pacing sleep; 58.4% from `OS__ReceiveMessage` -> `OSSleepThread` -> `SelectThreadSwitch`, 2.8% from `VIWaitForRetrace`) |
+| 2 | 11.19% | `condition_variable::wait_until`, all from `GXDrawDone` -> `aurora::gx::fifo::drain` -> `wait_for_frame_worker_sealed` (waiting for the renderer's frame worker) |
+| 3 | 3.06% | translated `func_802881C0` (MAP name `AXFXReverbHiExpCallback`) |
+| 4 | 2.15% | `AxDspHle::AXWii::JoinMix()` (waiting for the audio mix worker) |
+| 5 | 1.18% | `aurora::gx::fifo::process` |
+| 6 | 0.51% | `GXSetVtxDesc` |
+| 7 | 0.50% | `ModHooks::Run` (the per-call hook check) |
+| 8 | 0.47% | `GX__CallDisplayList_80172f64` |
+| 9 | 0.45% | `aurora::window::poll_events()` |
+| 10 | 0.42% | `HleFifoWrite` |
+| 11 | 0.38% | translated `func_801A1B28` (MAP name `HSV2RGB`) |
+| 12 | 0.34% | `Fiber::GuestFiberManager::SwitchToThread` |
+| 13 | 0.34% | `aurora::gfx::texture_replacement::take_button_icon_style_change()` |
+| 14 | 0.32% | translated `func_802874F8` (MAP name `__AXSyncPBs`) |
+| 15 | 0.28% | `TryDispatchRawCpuTarget` |
+| 16 | 0.26% | `aurora::webgpu::create_copy_bind_group` |
+| 17 | 0.24% | `AxDspHle::SendMailToDSP` |
+| 18 | 0.23% | `aurora::gx::fifo::gx_vertex_ndc` |
+| 19 | 0.20% | `InvokeIndirectCpu` |
+| 20 | 0.19% | `aurora::gx::fifo::resolve_pipeline_state` |
+
+Rows 1, 2 and 4 are waiting, not computing: **78.7% of all samples had the instruction pointer inside a system DLL** (waiting in the OS), 21.3% inside `engine_usa.dll`.
+
+**Split between translated game code and runtime code:**
+
+| | Share of all samples | Share of the 21.3% that is running |
+|---|---|---|
+| Waiting in the OS | 78.7% (pacing sleep 61.1%, frame-worker wait 11.2%, audio-mix join 2.1%, other 4.3%) | - |
+| Translated game code | 9.9% (3.06% of it in `func_802881C0`) | 46.5% |
+| Graphics (GX layer, aurora, Dawn glue) | 4.8% | 22.5% |
+| Other runtime (call dispatch, hooks, FIFO writes, hashing) | 5.2% | 24.4% |
+| Scheduler / fibers / OS emulation | 0.9% | 4.2% |
+| Audio (AX/DSP) | 0.3% | 1.4% |
+| Memory slow path | 0.1% | 0.5% |
+| Disc / save I/O | 0.1% | 0.5% |
+
+For the main thread, in this mostly-idle window, the game is not CPU-bound: it spends about 72% of its time asleep or waiting for the renderer (pacing sleep plus frame-worker wait) and another 2% waiting for the audio mixer, and 15% of samples (inclusive) sit under `GXDrawDone` waiting for the frame worker. Audio mixing runs on a worker thread, so almost none of it appears here.
+
+**For a useful Flipside profile**, start the sampler after you are walking around in Flipside. The clock starts at the first presented frame, and the game reached its first map at about 48 s in this run, so something like `$env:NSMBW_PROFILE = '90:20'` samples seconds 90-110.
+
+### 9.6 Could not determine from this run
+
+1. Peak (or any) usage of each game heap, including the MEM2 smart heap: not logged and not exposed by the runtime.
+2. Where Flipside's 21.5 ms per frame goes: the profile window did not cover gameplay, and only one thread was sampled.
+3. Whether the game is limited by the CPU or the GPU in Flipside on this machine (hybrid CPU, integrated graphics): `end_frame` is tiny, but the frame worker's "prepare next" (median 17.5 ms in logged slow frames) was not decomposed, and the log lines are a rate-limited sample.
+4. The effect of the relF bss mismatch (section 9.2) on play.
+5. The exact MEM1 effect-heap size (the arena's low end moved before `memInit`; section c).
+6. Host process memory use: not in the log (only the 383 MiB disc cache preload).
+7. Two log lines I can't explain: `[vi] [watchdog] nothing visible yet; guest threads:` printed at 30 s although 1,664 frames had been presented and `VI black=0`, and the repeated alternation of `Present mode Mailbox (V-Sync on)` and `Immediate (V-Sync off)`. Also `[nand] NANDOpen: FAILED ... /shared2/sys/SYSCONF` (a missing console settings file; the game carried on) and `OSLoadFont: no console ROM font available` at start-up.
+8. Whether the MAP names for the hot translated functions are right (see 9.5).
+
 ## Side effects on this machine outside the project folder
 
 - The .NET SDK's first-run setup added `...\toolchain\dotnet-home\.dotnet\tools` to your **user PATH**. I removed that one entry at your request; the previous value is saved in `notes\user-path-backup.txt`. (`DOTNET_ADD_GLOBAL_TOOLS_TO_PATH=false` is now set for later build commands.)
@@ -315,4 +419,4 @@ Also noted in that release folder: its `engine_usa.dll`, `libz.dll`, `libpng16.d
 
 ## Reproducing the numbers
 
-`notes\gate1-scripts\` holds the scripts and raw results: `ppc_features.py` (static scan), `gen_stats.py` (generated-code size and function sizes), `gen_tokens.py` (helpers used by the generated code), `obj_sizes.py` (compiled sizes), `find_examples.py` and `extract_func.py` (examples). Run them with `python -I`.
+`notes\gate1-scripts\` holds the scripts and raw results: `ppc_features.py` (static scan), `gen_stats.py` (generated-code size and function sizes), `gen_tokens.py` (helpers used by the generated code), `obj_sizes.py` (compiled sizes), `find_examples.py` and `extract_func.py` (examples). For the first run (section 9): `log_summary.py` and `phase_summary.py` (fps windows, phases, heap and OSReport lines), `profile_resolve.py` and `profile_top20.py` (raw samples resolved against the DLL's symbols), `bss_check.py` (relF bss references); their outputs are the `run1-*.txt` files. Run the scripts with `python -I`.

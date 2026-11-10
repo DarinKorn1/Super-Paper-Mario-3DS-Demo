@@ -1,0 +1,130 @@
+﻿samples: 20000; symbols: 28484
+leaf inside another DLL (ntdll, ucrt, SDL3, Dawn, D3D12...): 15748 = 78.7%
+leaf inside engine_usa.dll code: 4252 = 21.3%
+
+SELF time inside engine_usa.dll by category (percent of ALL samples):
+    9.9%  translated game code
+    5.2%  other runtime
+    4.8%  graphics (GX layer, aurora, Dawn glue)
+    0.9%  scheduler / fibers / OS
+    0.3%  audio (AX/DSP mixer, audio output)
+    0.1%  memory access slow path
+    0.1%  disc / save I/O
+
+OS-wait samples (leaf in another DLL), by the category of the engine function that called into the OS:
+   73.2%  other runtime
+    2.6%  audio (AX/DSP mixer, audio output)
+    2.2%  graphics (GX layer, aurora, Dawn glue)
+    0.8%  scheduler / fibers / OS
+    0.0%  disc / save I/O
+
+top 25 callers into the OS (first engine frame of a wait sample):
+   61.0%  (anonymous namespace)::SleepPreciselyUntil(std::__1::chrono::time_point<std::__1::chrono::
+   11.2%  std::__1::cv_status std::__1::condition_variable::wait_until[abi:nqe220108]<std::__1::chro
+    2.1%  AxDspHle::(anonymous namespace)::AXWii::JoinMix()
+    0.5%  aurora::gx::fifo::process(unsigned char const*, unsigned int, bool)
+    0.4%  aurora::window::poll_events()
+    0.3%  Fiber::GuestFiberManager::SwitchToThread(unsigned int, CpuContext*)
+    0.3%  aurora::webgpu::create_copy_bind_group(wgpu::TextureView, wgpu::Sampler)
+    0.2%  AxDspHle::SendMailToDSP(unsigned int)
+    0.2%  aurora::gfx::new_dynamic_texture_2d(unsigned int, unsigned int, unsigned int, unsigned int
+    0.1%  Fiber::GuestFiberManager::IsTerminated(unsigned int)
+    0.1%  OsHleInternal::ProcessSleepTimers(CpuContext*)
+    0.1%  fprintf
+    0.1%  aurora::window::(anonymous namespace)::aurora_window_proc(HWND__*, unsigned int, unsigned 
+    0.1%  Fiber::GuestFiberManager::SuspendGuestThread(unsigned int)
+    0.1%  aurora::gx::fifo::cached_pipeline_state(aurora::gx::PipelineConfig const&)
+    0.1%  PPC_Mftb
+    0.1%  (no exe frame)
+    0.1%  AudioBackend::QueueHasCapacityLocked(int)
+    0.1%  aurora::gfx::push(aurora::ByteBuffer&, unsigned char const*, unsigned long long, unsigned 
+    0.1%  AudioBackend::PushWiiAiSamplesBE16(unsigned char const*, unsigned long long)
+    0.1%  MarkTexObjsDirtyForRange(unsigned int, unsigned int)
+    0.1%  aurora::vi::configured_fb_size()
+    0.1%  PPC_Mftbu
+    0.1%  VI_HLE_PresentFrame(bool, bool)
+    0.1%  OS__ReceiveMessage_HLE_801a7424
+
+top 40 SELF symbols inside engine_usa.dll:
+   3.06%  translated gam func_802881C0 [AXFXReverbHiExpCallback]
+   0.69%  graphics (GX l aurora::gx::fifo::process(unsigned char const*, unsigned int, bool)
+   0.51%  graphics (GX l GXSetVtxDesc
+   0.50%  other runtime  ModHooks::Run(unsigned int, CpuContext*)
+   0.47%  graphics (GX l GX__CallDisplayList_80172f64
+   0.42%  other runtime  HleFifoWrite(unsigned int, unsigned int)
+   0.38%  translated gam func_801A1B28 [HSV2RGB]
+   0.34%  graphics (GX l aurora::gfx::texture_replacement::take_button_icon_style_change()
+   0.32%  translated gam func_802874F8 [__AXSyncPBs]
+   0.28%  other runtime  TryDispatchRawCpuTarget(RawDispatchRecord const*, CpuContext*)
+   0.23%  graphics (GX l aurora::gx::fifo::gx_vertex_ndc(GXVtxFmt, unsigned char const*, bool, float*)
+   0.20%  other runtime  InvokeIndirectCpu(unsigned int, CpuContext*)
+   0.18%  translated gam func_802F1E70 [fn_802F1E70]
+   0.18%  other runtime  (anonymous namespace)::SleepPreciselyUntil(std::__1::chrono::time_point<std::__1::chrono::
+   0.17%  translated gam func_802F7DB4 [fn_802F7DB4]
+   0.17%  graphics (GX l GXSetVtxAttrFmt
+   0.17%  translated gam func_80308B20 [func_8030be48]
+   0.17%  other runtime  XXH3_hashLong_64b_withSeed
+   0.15%  translated gam func_801A26D4 [_JUTFont_DrawPos]
+   0.15%  graphics (GX l aurora::gx::fifo::resolve_pipeline_state(GXPrimitive, GXVtxFmt)
+   0.14%  graphics (GX l aurora::gx::resolve_sampled_textures(aurora::gx::ShaderInfo const&)
+   0.14%  scheduler / fi OS__DisableInterrupts_801a65ac
+   0.14%  translated gam func_802FA588 [func_802fd538]
+   0.12%  other runtime  SETVCDATTR(GXAttr, GXAttrType)
+   0.12%  translated gam func_80234528 [wpadMain]
+   0.12%  other runtime  void InvokeDirectCpu<2150050052u>(CpuContext*)
+   0.12%  translated gam func_8025E36C [strlwr]
+   0.12%  translated gam func_802F5148 [func_802f802c]
+   0.11%  other runtime  void InvokeDirectCpu<2150045408u>(CpuContext*)
+   0.11%  translated gam func_80253444 [__construct_array]
+   0.11%  translated gam func_802FE614 [fn_802FE614]
+   0.10%  other runtime  void InvokeDirectCpu<2150052396u>(CpuContext*)
+   0.10%  graphics (GX l aurora::gx::fifo::handle_draw_unmerged(GXPrimitive, GXVtxFmt, unsigned short, aurora::gfx:
+   0.10%  graphics (GX l GXSetArray
+   0.10%  scheduler / fi OSUnlockMutex_HLE_801a7fc0
+   0.10%  translated gam func_80286FA8 [__AXServiceVPB]
+   0.10%  other runtime  XXH3_len_129to240_64b
+   0.10%  graphics (GX l aurora::gx::build_uniform(aurora::gx::ShaderInfo const&, unsigned int, aurora::gx::BindGro
+   0.09%  scheduler / fi OSLockMutex_HLE_801a7ee4
+   0.09%  other runtime  (anonymous namespace)::write_numeric_component((anonymous namespace)::ActiveAttrFmt const&
+
+top 40 INCLUSIVE symbols (any frame on the stack):
+   99.4%  other runtime  TryDispatchRawCpuTarget(RawDispatchRecord const*, CpuContext*)
+   99.3%  other runtime  InvokeIndirectCpu(unsigned int, CpuContext*)
+   67.4%  scheduler / fi Fiber::GuestFiberManager::FiberProc(void*)
+   66.9%  scheduler / fi OSSleepThread_HLE_801aa9b8
+   66.6%  scheduler / fi SelectThreadSwitch(CpuContext*, unsigned int, bool)
+   65.3%  translated gam func_803053C8 [fn_803053C8]
+   65.2%  translated gam func_80305374 [fn_80305374]
+   62.6%  other runtime  void InvokeDirectCpu<2150050052u>(CpuContext*)
+   62.5%  scheduler / fi OS__ReceiveMessage_HLE_801a7424
+   61.1%  other runtime  (anonymous namespace)::SleepPreciselyUntil(std::__1::chrono::time_point<std::__1::chrono::
+   30.5%  translated gam func_8001D9A0 [main]
+   30.4%  translated gam func_80006124 [__start]
+   28.8%  other runtime  RuntimeMain(int, char**)
+   19.1%  translated gam func_801A87F0 [DEMODoneRender]
+   16.8%  graphics (GX l aurora::gx::fifo::drain()
+   15.0%  graphics (GX l GXDrawDone
+   15.0%  graphics (GX l GX__DrawDone_8016eab0
+   15.0%  other runtime  void InvokeDirectCpu<2150157648u>(CpuContext*)
+   15.0%  graphics (GX l aurora::wait_for_frame_worker_sealed()
+   14.9%  graphics (GX l aurora::(anonymous namespace)::wait_for_frame_worker_private_for(aurora::(anonymous namesp
+   11.2%  other runtime  std::__1::cv_status std::__1::condition_variable::wait_until[abi:nqe220108]<std::__1::chro
+    8.9%  translated gam func_800555DC [camDraw]
+    8.9%  translated gam func_8005B088 [dispDraw]
+    8.8%  other runtime  void DispatchKnownTranslatedCpuTargetStatic<2147833308u>(CpuContext*)
+    8.6%  translated gam func_801A79A8 [spmarioDisp]
+    7.7%  audio (AX/DSP  Audio_HLE_Tick(CpuContext*, unsigned int)
+    5.1%  translated gam func_802865F4 [__AXOutAiCallback]
+    5.1%  translated gam func_80286394 [__AXOutNewFrame]
+    4.8%  other runtime  void InvokeDirectCpu<2150108684u>(CpuContext*)
+    4.7%  other runtime  VIWaitForRetrace_HLE_801b99ec
+    3.9%  graphics (GX l aurora::gx::fifo::process(unsigned char const*, unsigned int, bool)
+    3.7%  audio (AX/DSP  Audio_HLE_PollDeferred()
+    3.4%  translated gam func_800849F4 [fn_800849F4]
+    3.2%  other runtime  void InvokeDirectCpu<2150175832u>(CpuContext*)
+    3.2%  graphics (GX l AbiRawCpuThunk<&GX__CallDisplayList_80172f64>::Invoke(CpuContext*)
+    3.2%  graphics (GX l GX__CallDisplayList_80172f64
+    3.1%  translated gam func_802853FC [__AXProcessAux]
+    3.1%  translated gam func_801A7738 [spmarioMain]
+    3.1%  translated gam func_802F29DC [func_802f5a8c]
+    3.1%  translated gam func_802FA324 [fn_802FA324]
