@@ -1,0 +1,12 @@
+.aider*
+
+# Upstream decompilation (its own git repo, cloned separately)
+spm-decomp/
+
+# Disc images (copyrighted game data; never commit)
+*.iso
+*.rvz
+*.wbfs
+*.ciso
+*.gcz
+*.wia
