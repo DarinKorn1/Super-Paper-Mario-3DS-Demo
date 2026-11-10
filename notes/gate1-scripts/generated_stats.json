@@ -1,0 +1,74 @@
+{
+ "by_dir": {
+  ".": {
+   "files": 2,
+   "lines": 0,
+   "bytes": 16642,
+   "cpp": 0,
+   "h": 0
+  },
+  "base_common": {
+   "files": 144,
+   "lines": 3988224,
+   "bytes": 107711386,
+   "cpp": 72,
+   "h": 72
+  },
+  "base_dispatch": {
+   "files": 1,
+   "lines": 23262,
+   "bytes": 1110775,
+   "cpp": 1,
+   "h": 0
+  },
+  "base_registration": {
+   "files": 16,
+   "lines": 19966,
+   "bytes": 1672180,
+   "cpp": 16,
+   "h": 0
+  },
+  "retro_rewind_dispatch": {
+   "files": 1,
+   "lines": 23262,
+   "bytes": 1110783,
+   "cpp": 1,
+   "h": 0
+  },
+  "retro_rewind_registration": {
+   "files": 16,
+   "lines": 19966,
+   "bytes": 1672180,
+   "cpp": 16,
+   "h": 0
+  }
+ },
+ "function_definitions_in_base_common": 9919,
+ "lines_per_function": {
+  "min": [
+   12,
+   "func_8006ADB0"
+  ],
+  "p25": [
+   69,
+   "func_802FDB08"
+  ],
+  "median": [
+   167,
+   "func_801CA884"
+  ],
+  "p75": [
+   381,
+   "func_803179E4"
+  ],
+  "p95": [
+   1440,
+   "func_802C6F10"
+  ],
+  "max": [
+   21713,
+   "func_80C46E10"
+  ],
+  "mean": 394.13811876197195
+ }
+}

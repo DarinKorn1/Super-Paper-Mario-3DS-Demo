@@ -11,3 +11,6 @@ NewSuperPaperBros/
 *.ciso
 *.gcz
 *.wia
+
+# Local machine backups (contain personal paths)
+notes/user-path-backup.txt
