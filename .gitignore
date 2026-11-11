@@ -14,3 +14,6 @@ NewSuperPaperBros/
 
 # Local machine backups (contain personal paths)
 notes/user-path-backup.txt
+
+# Thousand-Year Door decompilation (reference only, cloned separately)
+ttyd/
