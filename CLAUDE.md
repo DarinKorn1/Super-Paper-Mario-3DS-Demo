@@ -44,6 +44,16 @@ A personal project to port Super Paper Mario (Wii, 2007) to the New Nintendo 3DS
 6. Run Python that reads downloaded or extracted data with `python -I`; put temporary scripts
    outside the project.
 
+### Efficiency rules (keep sessions short and cheap)
+
+7. **One function per session.** When it is matched or abandoned, update
+   `notes/pilot-results.md`, commit, then tell the user "ready for /clear" and stop.
+8. **Never print full build or diff output.** Redirect it to a file in a temp folder and show
+   only errors and the mismatching lines (at most about 40 lines).
+9. **Read only the parts of files you need** (the function's assembly and the relevant
+   headers), not whole files.
+10. **Don't re-read files already read in this session** unless they changed.
+
 ## Current plan
 
 1. Set up a **private GitHub repository** for the user's spm-decomp work, with SeekyCt's

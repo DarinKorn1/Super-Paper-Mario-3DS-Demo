@@ -5,14 +5,11 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
 
 ## Status (updated 2026-11-11)
 
-- **34 of 40 functions attempted: 32 matched, 2 not matched** (both parked on `wip/` branches).
-  Group A (TTYD-assisted): 25 of 30 attempted, 23 matched. Group B (SPM-only control): 9 of 10
+- **35 of 40 functions attempted: 32 matched, 3 not matched** (all three parked on `wip/` branches).
+  Group A (TTYD-assisted): 26 of 30 attempted, 23 matched. Group B (SPM-only control): 9 of 10
   attempted, 9 matched.
-- **In progress:** A-L6 `camMain`. Analysis only so far, no code written, 0 of 10 attempts used
-  (details in "In progress" below).
-- **Not started:** A-L7 `iconMain`, A-L8 `seq_logoMain`, A-L9 `hitCheckVecFilter`, A-L10 `itemEntry`, and
-  B-L3 `hudMain`. B-L3 goes straight after A-L6 so that group B is not left to the very end of the
-  large bucket.
+- **Next:** B-L3 `hudMain` (goes straight after A-L6 so that group B is not left to the very end of the
+  large bucket), then A-L7 `iconMain`, A-L8 `seq_logoMain`, A-L9 `hitCheckVecFilter`, A-L10 `itemEntry`.
 - **Build progress now** (`ninja`, EU0): code 97,672 / 3,550,036 bytes (**2.75%**, 428 / 10,216
   functions); data 124,477 / 4,636,761 bytes (**2.68%**). Before the pilot: 86,640 bytes (2.44%, 391
   functions) and 112,005 bytes (2.42%). The gain is +11,032 code bytes and +37 functions: 32 pilot
@@ -23,7 +20,7 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
   upstream's `__assert2` went from 99.98% to exact (`bc91554`). `npcGetWorkPtr` also matches, but only on
   the `wip/npcDelete` branch.
 - **Branches on `origin`:** `master` (all matches), `wip/parseGet1Next` (`45d8353`), `wip/npcDelete`
-  (`fd39526`).
+  (`fd39526`). Local only, not pushed: `wip/camMain` (`aa218c4`).
 
 ## Setup (2026-11-10)
 
@@ -88,6 +85,7 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
 | 32 | A-L4 | `npcDelete` | A (TTYD) | large | 872 | **no** | 99.86 | 10 (limit) | ~8 min (incl. creating `npcdrv.c`, 254 stubs) | branch `wip/npcDelete` (`fd39526`) | Second miss, again on register allocation only. SPM's version takes a name instead of an entry and does far more than TTYD's (stops sounds, releases a caught NPC, runs a definition-table callback, deletes effects, parts, script and poses); TTYD supplied just the slave and linked-list sections. About ten `NPCEntry` fields had to be added, and 59 earlier string literals reproduced for the pool. Attempt 1 was already 89.9% with all the logic right. What moved it forward was discovering that three blocks are helpers the compiler inlines (pose release, sound-player loop, name search), each of which numbers its locals differently from the enclosing function: attempts 6-8 took it from 93% to 97.7%. The last difference, two registers swapped inside the inlined name search, did not respond to declaration order or to moving the loop back into the function. By-product on the branch: `npcGetWorkPtr` matches. |
 | 33 | A-L5 | `windowDispGX_System` | A (TTYD) | large | 1184 | yes | 100 | 3 | ~5 min (file already existed, 9 of its functions done upstream) | `ede7078` | Draws a system window: advance a scrolling background once per frame, set up four fixed TEV stages, load a matrix, then four helper calls for the corners/edges per window type. Long but flat, and the existing file already had the includes and neighbours. I did not open TTYD's version of this function: I worked from the assembly alone, so this row says nothing about whether TTYD would have helped. Six SDK prototypes were missing from spm-headers. Attempt 1 was 95.9%; attempt 2 fixed statement order and the colour initialiser; attempt 3 passed the colour as a literal in the call, which is what puts the temporary and its copy in the original stack slots. |
 | 34 | B-L2 | `fairyUpdate` | B (SPM-only) | large | 1232 | yes | 100 | 2 | ~5 min (file already existed from B-S3) | `f646bb2` | Per-frame Pixl update: a guard for paused states, a seven-way run-mode `switch`, then animation and angle easing. It went quickly for its size because of things learned earlier in the pilot: the angle-easing tail is the same code as `guideMain` (B-M4), so its three idioms were already known; and the two repeated blocks were recognised as real neighbouring functions that the compiler inlines (`fairySetAnim`, `fairyEnterRunMode`), so I decompiled those and called them (both match too, committed separately). Nine `FairyEntry` fields and five prototypes had to be added, plus the string-order helper for this file. Attempt 1 scored 99.98%; the only fix was the declaration order of two local vectors. Most of the time went on decoding the assembly and the jump table, not on matching. |
+| 35 | A-L6 | `camMain` | A (TTYD) | large | 1260 | **no** | 99.84 | 10 (limit) | ~12 min (file already existed) | branch `wip/camMain` (`aa218c4`, local only) | Third miss. All 315 instructions are present and the logic is right; what is left is register numbering in six float instructions of the orthographic-shake block. TTYD helped only with the opening of the camera loop (SPM adds controller rumble, a shake translation and an orthographic rebuild). The 64-bit time maths is `OSTicksToMilliseconds(now - start) > duration` with `now` read once into a local. Attempt 1 compiled after casts (signed `s32` conversions, `sqrtf`, `cosf`). Attempts 2-3 fixed the stack order of the two matrices and the loop counter/pointer registers (declare the matrices roll-then-translate, then `i`, then `cp`). Attempt 4 found that dividing by `2.0f` and `4.0f` (not multiplying by 0.5 and 0.25) reproduces the original operand order of the multiplies, and passing `cp->top`, `cp->bottom`... to `C_MTXOrtho` (not locals) gave the missing `frsp`s. Attempts 5-10 tried temporaries and operand orders for `dist * (shake.z - 1) * (1 - cos)`; the original keeps the `cos` result in `f1` and the compiler here puts it in `f3`, and no form I tried moved it. Adds seven `CamEntry` fields and four prototypes (only on the wip branch). |
 
 **Note 1 (commit slip):** a temp-file path failed while I was splitting `icondrv.c` into two commits. Result: `b3a0672` ("Decompile iconNameToPtr, start icondrv.c") only switches the file on in `configure.py`, and `7cd0f39` ("Decompile iconSetPos") contains both functions. Both were already pushed, so I did not rewrite history.
 
@@ -97,41 +95,12 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
 |---|---|---|---|---|---|---|
 | A | small | 10 of 10 | 10 | 13 | 1.3 | 1.3 |
 | A | medium | 10 of 10 | 10 | 31 | 3.1 | 3.1 |
-| A | large | 5 of 10 | 3 | 27 | 5.4 | 2.3 |
+| A | large | 6 of 10 | 3 | 37 | 6.2 | 2.3 |
 | B | small | 3 of 3 | 3 | 5 | 1.7 | 1.7 |
 | B | medium | 4 of 4 | 4 | 15 | 3.8 | 3.8 |
 | B | large | 2 of 3 | 2 | 5 | 2.5 | 2.5 |
 
 These are counts for the functions done so far, not a conclusion. Group B is 10 functions against group
 A's 30, so a single miss moves a B percentage by ten points. The large bucket is also the least
-complete: 5 of 10 group A and 2 of 3 group B functions are done, and both misses are in it. The final
+complete: 6 of 10 group A and 2 of 3 group B functions are done, and all three misses are in it. The final
 comparison waits until all 40 are attempted.
-
-## In progress: A-L6 `camMain` (`0x80055208`, 1,260 bytes, group A, large)
-
-**State: analysis only. No code written, 0 of 10 attempts used.** `src/camdrv.c` still lists
-`// NOT_DECOMPILED camMain`, and the `spm-decomp` working tree is clean at `f646bb2` (nothing
-uncommitted there).
-
-Done so far:
-
-- Read the whole target (327 lines of assembly) and TTYD's `camMain` (`ttyd/src/driver/camdrv.c`).
-- SPM's function is much bigger than TTYD's. The opening of the per-camera loop looks the same (call the
-  camera's callback, `LookAt`, roll rotation, view offset). After that SPM's has features TTYD's lacks:
-  controller rumble (`wpadRumbleOn`/`wpadRumbleOff`, driven by a vector length via `sqrt` and a
-  timing check that uses 64-bit division), a shake translation built from three floats, and an
-  orthographic projection rebuild (`tan`, `cos`, `C_MTXOrtho`). TTYD's version has none of these, so
-  I expect TTYD to help with the first part only.
-- Nine float constants read from the DOL (deliberately not copied into this note; they go into the
-  source when it is written, and one of them is the degrees-to-radians factor). The function also
-  starts by computing one float from two values in a data table
-  (`lbl_80407d88` +0x38 and +0x3c) into a `.sdata` variable (`lbl_805adf80`) and calling
-  `func_80058b14`.
-- From the offsets, `CamEntry` appears to have a roll angle at 0x84, a view offset at 0x88 to 0x90,
-  and rumble and shake state between 0x290 and 0x2b4 (including two 64-bit values), none of which the
-  header names yet. These are my reading of the assembly, not verified against anything.
-
-Still to do: add those fields and prototypes (`C_MTXLookAt`, `PSMTXRotRad`, `func_80058b14`, `tan`,
-and a way to write the 64-bit division that compiles to `__div2i`) to spm-headers, write the C, and
-iterate. Because the function is large and float-heavy, I expect register allocation to be the hard
-part, as in the other large functions.
