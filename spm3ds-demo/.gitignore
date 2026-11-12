@@ -1,0 +1,8 @@
+# Converted game assets (derived from the user's disc; never commit)
+assets/
+# Build output
+build/
+*.elf
+*.3dsx
+*.smdh
+*.map
