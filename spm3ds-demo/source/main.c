@@ -123,6 +123,7 @@ int main(void)
 	float fps = 0.0f;
 	DrawStats st = { 0, 0 };
 	bool dirty = true;
+	u64 spmT = 0, spmN = 0; float musicSpeed = 0.0f;   // measured playback speed (file samples per real second / file rate)
 
 	while (aptMainLoop()) {
 		hidScanInput();
@@ -144,6 +145,8 @@ int main(void)
 		if (mode == MODE_PLAY) {
 			if (down & KEY_Y) { showDebug = !showDebug; dirty = true; }
 			if (down & KEY_R) { audio_toggle_mute(); dirty = true; }
+			if (showDebug && (down & KEY_DLEFT))  { audio_adjust_rate(0.95f); dirty = true; }
+			if (showDebug && (down & KEY_DRIGHT)) { audio_adjust_rate(1.05f); dirty = true; }
 			play_update(&play, dt, down, held, showDebug);
 		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
@@ -221,7 +224,12 @@ int main(void)
 				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
 				printf("Model: %s, %d anims, %s\n", haveMario ? "ok" : err2, mario_anim_count(), play.anim ? "walk" : "idle");
 				printf("Scale %.3f  height %.2f units (%.0f game)\n", play.scale, play_height(&play), play_height(&play) * 8.0f);
+				{
+					u64 n = audio_samples_played(), t = osGetTime();
+					if (t - spmT >= 1000) { if (spmT) musicSpeed = (float)(n - spmN) * 1000.0f / (float)(t - spmT) / 32728.0f; spmT = t; spmN = n; }
+				}
 				printf("Music: %s\n", haveMusic ? (audio_muted() ? "muted" : "playing") : err3);
+				printf("Music speed %.2fx real time, rate x%.2f\nD-pad left/right: music rate -/+5%%\n", musicSpeed, audio_rate_scale());
 				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
 				printf("\nL + D-pad up/down: Mario scale (L+B reset)\n");
 				printf("Y back to controls\n");

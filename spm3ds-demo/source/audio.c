@@ -16,6 +16,8 @@ static bool ndspUp, ok, muted;
 static s16* pcm[2];                       // left, right (linear memory)
 static ndspWaveBuf bufs[2][CHUNK_BUFS];
 static u32 totalSamples, loopStartSample, playPos;
+static u64 consumed;                 // samples the DSP has finished + position in the current buffer (for the speed read-out)
+static float baseRate, rateScale = 1.0f;
 
 bool audio_ok(void) { return ok; }
 bool audio_muted(void) { return muted; }
@@ -26,6 +28,7 @@ void audio_update(void)
 	for (int i = 0; i < CHUNK_BUFS; i++) {
 		if (bufs[0][i].status != NDSP_WBUF_FREE && bufs[0][i].status != NDSP_WBUF_DONE)
 			continue;
+		if (bufs[0][i].status == NDSP_WBUF_DONE) consumed += bufs[0][i].nsamples;
 		u32 n = CHUNK_SAMPLES;
 		if (playPos + n > totalSamples) n = totalSamples - playPos;   // never cross the end; the next chunk starts at the loop point
 		for (int c = 0; c < 2; c++) {
@@ -91,6 +94,7 @@ bool audio_init(const char* dir, char* err, size_t errSize)
 		ndspChnSetMix(c, mix);
 		ndspChnSetPaused(c, true);      // start both together once queued
 	}
+	baseRate = (float)rate;
 	totalSamples = total; loopStartSample = loopStart; playPos = 0;
 	memset(bufs, 0, sizeof bufs);
 	ok = true;
@@ -114,4 +118,23 @@ void audio_exit(void)
 	}
 	free_pcm();
 	ndspUp = ok = false;
+}
+
+// Debug: total samples played so far (finished buffers + position inside the playing one).
+u64 audio_samples_played(void)
+{
+	if (!ok) return 0;
+	return consumed + ndspChnGetSamplePos(0);
+}
+
+float audio_rate_scale(void) { return rateScale; }
+
+// Debug: scale the playback rate (1.0 = file rate). Only for finding out what an emulator does; leave at 1.0 on hardware.
+void audio_adjust_rate(float factor)
+{
+	if (!ok) return;
+	rateScale *= factor;
+	if (rateScale < 0.2f) rateScale = 0.2f;
+	if (rateScale > 2.0f) rateScale = 2.0f;
+	for (int c = 0; c < 2; c++) ndspChnSetRate(c, baseRate * rateScale);
 }

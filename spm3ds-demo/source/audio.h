@@ -9,3 +9,6 @@ bool audio_ok(void);
 void audio_toggle_mute(void);
 bool audio_muted(void);
 void audio_update(void);   // call once per frame: refills the DSP buffers
+unsigned long long audio_samples_played(void);   // debug: samples consumed by the DSP so far (per channel)
+float audio_rate_scale(void);
+void audio_adjust_rate(float factor);
