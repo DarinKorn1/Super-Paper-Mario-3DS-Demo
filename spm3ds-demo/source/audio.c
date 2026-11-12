@@ -4,14 +4,17 @@
 #include <string.h>
 
 // File layout (little-endian), written by tools/convert_bgm.py:
-// "SBGM", u32 version, u32 rate, u32 channels, u32 samplesPerChannel, u32 loopStart, then interleaved s16.
-static bool ndspUp, ok, muted;
-static void* pcm;
-// The track is fed to the DSP in small chunks (a ring of CHUNK_BUFS buffers of CHUNK_SAMPLES) instead of one 2-million-sample buffer:
-// emulators (and the DSP) handle small buffers better, and the loop point is handled here by jumping from the end back to loopStart.
+// "SBGM", u32 version, u32 rate, u32 channels (2), u32 samplesPerChannel, u32 loopStart, then interleaved s16 L R.
+//
+// Stereo is played as TWO MONO channels (ndsp channel 0 = left only, channel 1 = right only) because the emulator's stereo-PCM16
+// path played at double speed. The track is fed in small chunks (a ring of CHUNK_BUFS buffers per channel) and the loop point is
+// handled here by jumping from the end back to loopStart.
 #define CHUNK_BUFS 6
 #define CHUNK_SAMPLES 8192
-static ndspWaveBuf bufs[CHUNK_BUFS];
+
+static bool ndspUp, ok, muted;
+static s16* pcm[2];                       // left, right (linear memory)
+static ndspWaveBuf bufs[2][CHUNK_BUFS];
 static u32 totalSamples, loopStartSample, playPos;
 
 bool audio_ok(void) { return ok; }
@@ -21,18 +24,25 @@ void audio_update(void)
 {
 	if (!ok) return;
 	for (int i = 0; i < CHUNK_BUFS; i++) {
-		ndspWaveBuf* w = &bufs[i];
-		if (w->status != NDSP_WBUF_FREE && w->status != NDSP_WBUF_DONE)
+		if (bufs[0][i].status != NDSP_WBUF_FREE && bufs[0][i].status != NDSP_WBUF_DONE)
 			continue;
 		u32 n = CHUNK_SAMPLES;
 		if (playPos + n > totalSamples) n = totalSamples - playPos;   // never cross the end; the next chunk starts at the loop point
-		memset(w, 0, sizeof *w);
-		w->data_vaddr = (const s16*)pcm + (size_t)playPos * 2;
-		w->nsamples = n;
-		ndspChnWaveBufAdd(0, w);
+		for (int c = 0; c < 2; c++) {
+			ndspWaveBuf* w = &bufs[c][i];
+			memset(w, 0, sizeof *w);
+			w->data_vaddr = pcm[c] + playPos;
+			w->nsamples = n;
+			ndspChnWaveBufAdd(c, w);
+		}
 		playPos += n;
 		if (playPos >= totalSamples) playPos = loopStartSample;
 	}
+}
+
+static void free_pcm(void)
+{
+	for (int c = 0; c < 2; c++) { if (pcm[c]) linearFree(pcm[c]); pcm[c] = NULL; }
 }
 
 bool audio_init(const char* dir, char* err, size_t errSize)
@@ -46,33 +56,46 @@ bool audio_init(const char* dir, char* err, size_t errSize)
 		fclose(f); snprintf(err, errSize, "bad bgm file"); return false;
 	}
 	u32 rate = hdr[2], total = hdr[4], loopStart = hdr[5];
-	size_t bytes = (size_t)total * 4;
-	pcm = linearAlloc(bytes);      // ndsp reads wave buffers from linear memory
-	if (!pcm) { fclose(f); snprintf(err, errSize, "no memory for music (%lu KB)", (unsigned long)(bytes >> 10)); return false; }
-	size_t got = fread(pcm, 1, bytes, f);
-	fclose(f);
-	if (got != bytes) { linearFree(pcm); pcm = NULL; snprintf(err, errSize, "bgm file truncated"); return false; }
+	size_t bytes = (size_t)total * 2;
+	pcm[0] = linearAlloc(bytes);
+	pcm[1] = linearAlloc(bytes);
+	if (!pcm[0] || !pcm[1]) { fclose(f); free_pcm(); snprintf(err, errSize, "no memory for music (%lu KB)", (unsigned long)(bytes >> 9)); return false; }
 
-	Result rc = ndspInit();         // fails without the DSP firmware (sdmc:/3ds/dspfirm.cdc on a real console)
+	// read in pieces and split the interleaved L R samples
+	static s16 tmp[8192 * 2];
+	for (u32 done = 0; done < total; ) {
+		u32 n = total - done < 8192 ? total - done : 8192;
+		if (fread(tmp, 4, n, f) != n) { fclose(f); free_pcm(); snprintf(err, errSize, "bgm file truncated"); return false; }
+		for (u32 i = 0; i < n; i++) { pcm[0][done + i] = tmp[2 * i]; pcm[1][done + i] = tmp[2 * i + 1]; }
+		done += n;
+	}
+	fclose(f);
+
+	Result rc = ndspInit();         // fails without sdmc:/3ds/dspfirm.cdc
 	if (R_FAILED(rc)) {
-		linearFree(pcm); pcm = NULL;
+		free_pcm();
 		snprintf(err, errSize, "ndspInit failed (%08lX): dspfirm.cdc?", (unsigned long)rc);
 		return false;
 	}
 	ndspUp = true;
-	DSP_FlushDataCache(pcm, bytes);
+	DSP_FlushDataCache(pcm[0], bytes);
+	DSP_FlushDataCache(pcm[1], bytes);
 	ndspSetOutputMode(NDSP_OUTPUT_STEREO);
-	ndspChnReset(0);
-	ndspChnSetInterp(0, NDSP_INTERP_LINEAR);
-	ndspChnSetRate(0, (float)rate);
-	ndspChnSetFormat(0, NDSP_FORMAT_STEREO_PCM16);
-	float mix[12] = { 0.8f, 0.8f };
-	ndspChnSetMix(0, mix);
-
+	for (int c = 0; c < 2; c++) {
+		ndspChnReset(c);
+		ndspChnSetInterp(c, NDSP_INTERP_LINEAR);
+		ndspChnSetRate(c, (float)rate);
+		ndspChnSetFormat(c, NDSP_FORMAT_MONO_PCM16);
+		float mix[12] = { 0 };
+		mix[c] = 0.8f;                  // mono source: [0] = left, [1] = right
+		ndspChnSetMix(c, mix);
+		ndspChnSetPaused(c, true);      // start both together once queued
+	}
 	totalSamples = total; loopStartSample = loopStart; playPos = 0;
 	memset(bufs, 0, sizeof bufs);
 	ok = true;
 	audio_update();
+	for (int c = 0; c < 2; c++) ndspChnSetPaused(c, false);
 	return true;
 }
 
@@ -80,15 +103,15 @@ void audio_toggle_mute(void)
 {
 	if (!ok) return;
 	muted = !muted;
-	ndspChnSetPaused(0, muted);
+	for (int c = 0; c < 2; c++) ndspChnSetPaused(c, muted);
 }
 
 void audio_exit(void)
 {
 	if (ndspUp) {
-		ndspChnReset(0);
+		for (int c = 0; c < 2; c++) ndspChnReset(c);
 		ndspExit();
 	}
-	if (pcm) linearFree(pcm);
-	pcm = NULL; ndspUp = ok = false;
+	free_pcm();
+	ndspUp = ok = false;
 }
