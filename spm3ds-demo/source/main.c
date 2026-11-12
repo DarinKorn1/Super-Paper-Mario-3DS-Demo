@@ -162,7 +162,7 @@ int main(void)
 				play_camera(&play, &view, &yaw);
 				gfx_set_matrices(&projPlay, &view);
 				st = room_draw(&opt);
-				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face);
+				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face, play.scale);
 				st.tris += ms.tris; st.calls += ms.calls;
 			} else if (mode == MODE_ROOM) {
 				C3D_Mtx view;
@@ -190,9 +190,11 @@ int main(void)
 				printf("FPS:%5.1f CPU%5.1f GPU%5.1f ms\n", fps, C3D_GetProcessingTime(), C3D_GetDrawingTime());
 				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
 				printf("Mario model: %s\n", haveMario ? "ok" : err2);
+				printf("Scale %.3f  height %.2f units (%.0f game)\n", play.scale, play_height(&play), play_height(&play) * 8.0f);
 				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
 				printf("\nCircle pad walk (2D: left/right)\n");
 				printf("A jump  X flip 2D/3D  B reset\n");
+				printf("L + D-pad up/down: Mario scale\n");
 				printf("Y blended %s\n", opt.showBlended ? "ON" : "off");
 				printf("SELECT free camera  START quit\n");
 			} else if (mode == MODE_ROOM) {

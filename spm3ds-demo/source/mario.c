@@ -79,14 +79,14 @@ bool mario_load(const char* dir, char* err, size_t errSize)
 	return true;
 }
 
-DrawStats mario_draw(const C3D_Mtx* proj, const C3D_Mtx* camView, const float pos[3], float billboardYaw, float sx)
+DrawStats mario_draw(const C3D_Mtx* proj, const C3D_Mtx* camView, const float pos[3], float billboardYaw, float sx, float scale)
 {
 	DrawStats st = { 0, 0 };
 	if (!loaded) return st;
 	C3D_Mtx m = *camView;
 	Mtx_Translate(&m, pos[0], pos[1], pos[2], true);
 	Mtx_RotateY(&m, billboardYaw, true);
-	Mtx_Scale(&m, sx, 1.0f, 1.0f);
+	Mtx_Scale(&m, sx * scale, scale, scale);
 	gfx_set_matrices(proj, &m);
 	gfx_bind_vbo(vbo);
 	gfx_set_cull(CULL_NONE);          // paper: visible from both sides (also needed while mirrored)

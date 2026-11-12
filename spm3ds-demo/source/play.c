@@ -3,28 +3,37 @@
 #include <math.h>
 #include <string.h>
 
-// Tunables (world units; Mario is 23 tall; the room's street floor is y = 0, z from -30 to 10).
+// Scale. The room is stored at about 1/8 of the game's units (a door is 8 x 8 here; see notes/demo-plan.md 10.1),
+// and Mario's hitbox in the game is 20 x 39 units (characterProperties[0] in main.dol). His sprite is drawn at about
+// 1.4x its model size (23 tall) in game units, i.e. 1.4 / 8 = 0.175 here. L + D-pad up/down changes it live.
+// Everything below is derived from the visual height H = MARIO_MODEL_H * scale so it follows the scale.
+#define MARIO_MODEL_H 23.0f
+#define DEFAULT_SCALE 0.175f
 #define SPAWN_X 0.0f
 #define SPAWN_Z -10.0f
-#define WALK_SPEED 60.0f
-#define GRAVITY 330.0f
-#define JUMP_SPEED 150.0f
-#define STEP_UP 4.5f
-#define BODY_R 4.0f
-#define FOV_DEG 25.0f          // camera_road.bin: field of view 25 (the only camera number found in it)
-#define DIST_2D 190.0f         // guesses: the file's distances are not decoded
-#define DIST_3D 120.0f
+#define WALK_HEIGHTS_PER_S 2.8f    // game: 1.5 units/frame at 60 fps = 90 units/s, about 2.8 Mario heights per second
+#define JUMP_HEIGHTS 1.6f          // guess: jump peak in Mario heights
+#define JUMP_TIME 0.45f            // guess: seconds to the peak
+#define BODY_R_HEIGHTS 0.30f       // hitbox width 20 of height 32 (visual) -> half width 0.31
+#define STEP_HEIGHTS 0.15f
+#define FOV_DEG 25.0f              // camera_road.bin
+#define DIST_2D_HEIGHTS 16.0f      // makes Mario about 14 % of the screen height, as in the game (screenshot mac_02_cinematic)
+#define DIST_3D_HEIGHTS 11.0f
 #define PITCH_3D 0.20f
 #define FLIP_TIME 0.6f
 #define PI_F 3.14159265f
 
+float play_height(const Play* p) { return MARIO_MODEL_H * p->scale; }
+
 void play_reset(Play* p)
 {
 	bool hasHit = p->hasHit;
+	float scale = p->scale > 0.0f ? p->scale : DEFAULT_SCALE;
 	memset(p, 0, sizeof *p);
 	p->hasHit = hasHit;
+	p->scale = scale;
 	p->pos[0] = SPAWN_X;
-	p->pos[1] = p->hasHit ? 30.0f : 0.0f;   // drop onto the floor
+	p->pos[1] = hasHit ? 2.0f * play_height(p) : 0.0f;   // drop onto the floor
 	p->pos[2] = SPAWN_Z;
 	p->z2d = SPAWN_Z;
 	p->face = p->faceGoal = 1.0f;
@@ -34,18 +43,37 @@ void play_init(Play* p, bool hasHit)
 {
 	memset(p, 0, sizeof *p);
 	p->hasHit = hasHit;
+	p->scale = DEFAULT_SCALE;
 	play_reset(p);
 }
 
 static float ease(float t) { return t * t * (3.0f - 2.0f * t); }
-
 static float cam_theta(const Play* p) { return -0.5f * PI_F * ease(p->flipT); }
+
+static void keep_view_state(Play* p)
+{
+	bool m = p->mode3d; float f = p->flipT;
+	play_reset(p);
+	p->mode3d = m; p->flipT = f;
+}
 
 void play_update(Play* p, float dt, u32 down, u32 held)
 {
-	(void)held;
-	if (down & KEY_X) p->mode3d = !p->mode3d;
-	if (down & KEY_B) { bool h = p->hasHit; bool m = p->mode3d; float f = p->flipT; play_reset(p); p->hasHit = h; p->mode3d = m; p->flipT = f; return; }
+	// debug: hold L, D-pad up/down = change Mario's scale (x1.8 per second)
+	if (held & KEY_L) {
+		if (held & KEY_DUP)   p->scale *= expf(0.6f * dt);
+		if (held & KEY_DDOWN) p->scale /= expf(0.6f * dt);
+		if (p->scale < 0.02f) p->scale = 0.02f;
+		if (p->scale > 2.0f) p->scale = 2.0f;
+	}
+	if (!(held & KEY_L) && (down & KEY_X)) p->mode3d = !p->mode3d;
+	if (!(held & KEY_L) && (down & KEY_B)) { keep_view_state(p); return; }
+	if ((held & KEY_L) && (down & KEY_B)) p->scale = DEFAULT_SCALE;
+
+	const float H = play_height(p);
+	const float R = BODY_R_HEIGHTS * H;
+	const float STEP = STEP_HEIGHTS * H;
+
 	float goal = p->mode3d ? 1.0f : 0.0f;
 	float step = dt / FLIP_TIME;
 	if (p->flipT < goal) p->flipT = fminf(goal, p->flipT + step);
@@ -75,53 +103,54 @@ void play_update(Play* p, float dt, u32 down, u32 held)
 	if (p->face < p->faceGoal) p->face = fminf(p->faceGoal, p->face + tf);
 	else if (p->face > p->faceGoal) p->face = fmaxf(p->faceGoal, p->face - tf);
 
-	p->pos[0] += mx * WALK_SPEED * dt;
-	p->pos[2] += mz * WALK_SPEED * dt;
+	float speed = WALK_HEIGHTS_PER_S * H;
+	p->pos[0] += mx * speed * dt;
+	p->pos[2] += mz * speed * dt;
 	if (!p->mode3d) {                              // glide back onto the 2D plane
 		float d = p->z2d - p->pos[2];
-		float s = 80.0f * dt;
+		float s = 2.5f * speed * dt;
 		p->pos[2] += fabsf(d) < s ? d : (d > 0 ? s : -s);
 	}
 
 	if (p->hasHit) {
-		// walls: two spheres, the lower one clears stair risers up to STEP_UP
-		float c[3] = { p->pos[0], p->pos[1] + STEP_UP + BODY_R + 1.0f, p->pos[2] };
-		hit_push_sphere(c, BODY_R);
+		// walls: two spheres; the lower one starts above the step height so low edges can be climbed
+		float c[3] = { p->pos[0], p->pos[1] + STEP + R + 0.02f * H, p->pos[2] };
+		hit_push_sphere(c, R);
 		p->pos[0] = c[0]; p->pos[2] = c[2];
-		float c2[3] = { p->pos[0], p->pos[1] + 19.0f, p->pos[2] };
-		hit_push_sphere(c2, BODY_R);
+		float c2[3] = { p->pos[0], p->pos[1] + H - R, p->pos[2] };
+		hit_push_sphere(c2, R);
 		p->pos[0] = c2[0]; p->pos[2] = c2[2];
 	}
 
-	if ((down & KEY_A) && p->grounded) { p->vy = JUMP_SPEED; p->grounded = false; }
+	const float jumpV = 2.0f * JUMP_HEIGHTS * H / JUMP_TIME;
+	const float gravity = jumpV / JUMP_TIME;
+	if ((down & KEY_A) && p->grounded) { p->vy = jumpV; p->grounded = false; }
 	float oldY = p->pos[1];
-	p->vy -= GRAVITY * dt;
+	p->vy -= gravity * dt;
 	p->pos[1] += p->vy * dt;
 	float fy;
-	bool have = p->hasHit ? hit_floor(p->pos[0], oldY, p->pos[2], STEP_UP, &fy) : (fy = 0.0f, true);
+	bool have = p->hasHit ? hit_floor(p->pos[0], oldY, p->pos[2], STEP, &fy) : (fy = 0.0f, true);
 	if (have && p->vy <= 0.0f && p->pos[1] <= fy) {
 		p->pos[1] = fy; p->vy = 0.0f; p->grounded = true;
 	} else {
 		p->grounded = false;
 	}
-	if (p->pos[1] < -250.0f) {                       // fell out of the world
-		bool h = p->hasHit, m = p->mode3d; float f = p->flipT;
-		play_reset(p); p->hasHit = h; p->mode3d = m; p->flipT = f;
-	}
+	if (p->pos[1] < -250.0f) keep_view_state(p);     // fell out of the world
 }
 
 void play_projection(C3D_Mtx* proj)
 {
-	Mtx_PerspTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 5.0f, 1500.0f, false);
+	Mtx_PerspTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 1.0f, 1500.0f, false);
 }
 
 void play_camera(const Play* p, C3D_Mtx* view, float* yaw)
 {
+	float H = play_height(p);
 	float e = ease(p->flipT);
 	float th = cam_theta(p);
-	float dist = DIST_2D + (DIST_3D - DIST_2D) * e;
+	float dist = (DIST_2D_HEIGHTS + (DIST_3D_HEIGHTS - DIST_2D_HEIGHTS) * e) * H;
 	float pitch = PITCH_3D * e;
-	float tx = p->pos[0], ty = p->pos[1] + 11.0f, tz = p->pos[2];
+	float tx = p->pos[0], ty = p->pos[1] + 0.5f * H, tz = p->pos[2];
 	float cx = tx + dist * sinf(th) * cosf(pitch);
 	float cy = ty + dist * sinf(pitch);
 	float cz = tz + dist * cosf(th) * cosf(pitch);

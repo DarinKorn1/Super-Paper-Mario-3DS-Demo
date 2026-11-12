@@ -289,3 +289,41 @@ black wedge was found with a small software renderer instead (scratch code outsi
 - SELECT cycles PLAY -> ROOM (free camera, as before) -> STRESS.
 - To run: copy `mario.spm`, `room_hit.bin` and the new `textures/mario_*.t3x` (plus the re-converted room files, whose winding changed) into the same
   SD folder as in section 8.5.
+
+## 10. Week 3b: Mario's scale, black areas, animation status (2026-11-12)
+
+Status: builds without warnings; **not run** (no Azahar here). The user's screenshots (`notes-screens/`) are not on this PC.
+
+### 10.1 Scale (the 23-unit Mario was about 6x too big)
+- **Hitbox from the game**: `characterProperties[0]` (spm-headers `mario.h`) is a table of `{hitboxWidth, hitboxHeight, walkSpeed, dashSpeed, ?}`.
+  Found in `main.dol` (US0) at file offset 0x3E2DE8 by pattern search: Mario = **20 x 39**, walk **1.5**/frame, dash 3.0 (the next rows, 24 x 48 and 47 x 54, are
+  the other characters). Mario's sprite model has a header bbox of 26.9 tall (23 with the hidden variant parts removed).
+- **The room is smaller than the game units.** The doors of the coloured-door hall (`doa2_l/_r`, `doa3`, `doa4`) are 8 x 8 in my units. In the game
+  screenshot `NewSuperPaperBros/screenshots/mac_02_cinematic.png` Mario is about 0.5 door heights tall (115 px against 225 px). With Mario drawn at roughly
+  1.4x his model size (about 32 game units, hitbox 39) that makes a door about 64 game units, so **the room's units are about 1/8 of game units**
+  (positions would have 4 fractional bits, not the 7 I assumed). Supporting hints: wall insets of exactly 0.125 = 1 game unit; floors at 1360/-1360 etc. fit s16.
+  This is derived, not read from code (the vertex format set-up was not found in the disassembly); the ratio could be 6-10.
+- Applied: **Mario draw scale 0.175** (= 1.4 / 8; 4.0 room units tall, about 32 game units). Hitbox, walk speed (1.5 x 60 / 8 = 11 units/s, i.e. 2.8 Mario
+  heights/s), jump, step height and the camera distance (16 Mario heights, which makes Mario about 14 % of the screen height as in the screenshot)
+  are all derived from the current height, so they follow the scale.
+- **Live adjust (temporary)**: hold L and press D-pad up/down (x1.8 per second), L + B resets; the bottom screen shows scale, height in room units and in game units.
+- Feet: the model's feet are at y = 0 and the collision floor is flat y = 0 under the street, so they stand on the floor at any scale. Collision radius
+  0.30 H, lower sphere above a 0.15 H step.
+- Not done: the room itself is still drawn in its own units; the free camera speeds are unchanged.
+
+### 10.2 Black areas
+- (b) from before: the wedge is `pCube9_q00659` (see 9.1): an open-topped box sunk 120 units, material `lambert1_v` (no texture, vertex colours authored black).
+- The two new ones could not be identified from a screenshot. Candidates in the same `sima` foreground strip (z 140..170), all `lambert1_v` or the
+  translucent shadow planes `*_kage` (`lambert1_v_x`, vertex colour (29,19,6), alpha 0..204: they come out almost black in my conversion because the material
+  colour 102 is multiplied in): tree-base shapes `polySurface623..625` and `pCylinder*` (luminance 0.04..0.07), `kui_*` stakes, `sekihi_kage_*`, `dokan_kage_*`.
+  **With the corrected scale the play camera is at z = about 54, so the whole `sima` strip (z >= 140) is behind the camera and none of it can be seen**;
+  a software render from the new camera shows only the lamp posts (correctly black), the shop wall and the floor. If black areas remain on screen, send the new screenshot.
+- Likely truth for the shadows: the game draws `_x` materials differently (flag byte 2 = 2, `drawMode` byte 0 = 3). Not decoded.
+
+### 10.3 Animation status
+- Decoded: the whole static model (header, shapes, draws, fan polygons, vertices, UVs, textures, group tree with translations, visibility bytes).
+- Not decoded: the per-animation data, `AnimPoseData_AnimData` (94 of them; `mario_S_1` idle, `mario_W_1` walk): its header (keyframe count, counts of vertex-position,
+  vertex-normal, texture-transform, visibility and group-transform deltas, and the pointers) is known from spm-headers, but not the **layout and interpolation of
+  the delta records**. TTYD's C has no evaluator (`animPoseMain` is a stub there). The evaluator is `evalProc` (EU0 0x8004D0C8, 0x1BC bytes) and `animPoseMain`
+  (0x80045288, 0x143C bytes), reachable in the spm-decomp disassembly for EU0 (US0 has no names for them) — **that is the blocker: it needs reading about 6 KB of PowerPC
+  assembly to learn the record layout, and I have not started.** Without it Mario has no walk cycle, blinking or hand changes. spm-docs may shortcut this.
