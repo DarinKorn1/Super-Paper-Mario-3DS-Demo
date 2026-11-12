@@ -368,3 +368,55 @@ legs and arms, and the idle breathing/blinking-free sway). The 3DS code builds w
 - **Bottom screen**: by default only a controls list. Y toggles the debug screen (stats, scale, collision state); the L + D-pad up/down scale control only works there.
   The default scale stays 0.175 (confirmed right by the user in Azahar).
 - To run: copy the new `spm3ds-demo.3dsx`, `mario_anim.bin` and the `textures/mario_*.t3x` files (19) into the Azahar SD folder. Nothing else changed.
+
+## 12. Week 4: stereo 3D, icon, music, .cia (2026-11-12)
+
+Status: all of it builds (devkitARM, no warnings after the last fix). **Nothing was run** (no Azahar/console here); the user tests in Azahar.
+
+### 12.1 Stereo 3D (done)
+- Play mode only. `main.c` makes a second render target (`GFX_RIGHT`) and draws the scene twice with `Mtx_PerspStereoTilt` projections
+  (`play_projection_stereo` in `play.c`). Zero-parallax plane = Mario's distance from the camera (he sits "in the screen"); eye separation
+  = slider x 3 % of that distance (eyes at -/+ iod, left/right). The Mario billboard uses the same per-eye projection.
+- Slider at 0 (or room/stress modes): `gfxSet3D(false)`, one eye only, identical to before (and half the GPU work). The bottom-screen console is always flat.
+- The debug screen shows "stereo on/off (slider x.xx)". The 3 % factor is a guess; adjust `STEREO_IOD_FRACTION` in `play.c` if the depth is too weak or tiring.
+  Azahar needs Settings > Graphics > Stereoscopy set to something other than Off for the slider to do anything (the emulator's slider can be dragged in the toolbar).
+
+### 12.2 Icon and title (done)
+- Title "Super Paper Mario 3DS Demo", author "DarinKorn1" (the git user name; change `APP_AUTHOR` in the `Makefile` to your real name), description in the `Makefile`.
+- `icon.png` (48x48, original: a sheet of paper with a folded corner and a star) is made by `tools/make_icon.py` (pure Python). The Makefile picks up `spm3ds-demo/icon.png` automatically.
+  To use your own: replace `icon.png` with any 48x48 PNG (a transparent background is fine) and run `make` again (delete `spm3ds-demo.smdh` first if it does not refresh).
+
+### 12.3 Flipside music
+**Where it is on the disc.** `sound/*.brstm` (137 files, about 170 MB, uncompressed on the disc), plus `wiimario_snd.brsar` (the sound-archive index) and `.dat`.
+Names follow `map_<stage>...` for area themes, `btl_` battles, `evt_` events, `sys_`, `ff_` fanfares. Flipside is `map_town_omote1_44k_lp.brstm` and Flopside
+(the other side of the same town) `map_town_ura1_44k_lp.brstm`: both 2,445,408 bytes, different contents. "omote" = front, "ura" = back, and the
+game's own place names for Flopside are `place_town_ura_*`. **Inference from the names, not read from a script:** `setup/mac_02.dat` does not exist (the
+setup scripts are not stored per room) and I did not find the bgm table; listening is the quick check (if it is the wrong tune, use `map_town_ura1`).
+
+**Format (confirmed from the file):** BRSTM `RSTM`, big-endian, codec 2 = Nintendo DSP-ADPCM (4 bits/sample, 8-byte frame = 14 samples), 2 channels, 44,100 Hz,
+2,131,080 samples = **48.3 s**, one loop starting at sample **14,336 (0.33 s)** and running to the end, ADPCM data in 0x2000-byte blocks interleaved per channel,
+per-channel coefficient tables in the header.
+
+**What the 3DS can play (libctru `ndsp`):** 8/16-bit PCM and a DSP-ADPCM mode (the same family as the Wii's), mono or stereo, per-channel sample rate
+(the DSP mixes at about 32 kHz and resamples), up to 24 voices. Wave buffers must be in linear memory (`linearAlloc`); a buffer can loop. Two ways:
+RAM (decode on the PC, read the whole file) or streaming from SD (refill 2 buffers from a thread). It needs the DSP firmware: Azahar has its own, a real
+console running homebrew needs `sdmc:/3ds/dspfirm.cdc` (dumped once with the "DSP1" homebrew app).
+
+**Chosen:** decode on the PC to 16-bit stereo PCM and hold it in RAM. 2,131,080 x 4 B = **8.5 MB** of linear memory (a New 3DS has 124 MB for apps; even an
+Old 3DS has 64 MB; textures + geometry are under 3 MB) and load time is about 1 s from SD. No streaming code, no runtime ADPCM, no sample-rate conversion.
+(ADPCM kept as-is would be 2.4 MB, but loop-point history bookkeeping and per-channel buffers cost more code for no gain at this size.)
+Estimate was "moderate: about a day", so it was done:
+- `tools/convert_bgm.py`: parses the BRSTM header, decodes both channels (the last block has its own padded size), writes `assets/bgm_flipside.pcm` (git-ignored with the rest of `assets/`):
+  header `"SBGM", version 1, rate, channels, samples, loopStart`, then interleaved s16. Check: no clipping, peak 31,920, per-second RMS 2,400-4,700 (steady music, not noise).
+- `source/audio.c`: `ndspInit`, one stereo-PCM16 channel with two wave buffers: intro (0..loop start) then the loop body (`looping = true`), volume 0.8.
+- R in play mode mutes (pauses) and resumes the music. If the file or the DSP is missing the demo just runs silent and says why on the debug screen.
+- Not heard yet; sync of the loop seam is by sample number from the file, so it should be seamless.
+
+### 12.4 Home Menu install (.cia)
+- **Tools on this PC:** `makerom` and `bannertool` are **not installed** (not in devkitPro; `smdhtool` and the 3dsx tools are). I did not download anything.
+  `makerom` is from 3DSGuy/Project_CTR (open source, MIT); `bannertool` is from carstene1ns/3ds-bannertool (a maintained fork of Steveice10/bannertool), both on GitHub as prebuilt Windows
+  releases (or buildable from source).
+- **Prepared without them:** `cia/banner.png` (256x128, original), `cia/banner.wav` (1.9 s original arpeggio, `tools/make_banner_audio.py`), `cia/spm3ds-demo.rsf`
+  (makerom spec; unique ID `0xF7A31` = title ID `000400000F7A3100`; DirectSdmc access so the app reads `sdmc:/3ds/spm3ds-demo/`; New 3DS 804 MHz and 124 MB mode) and
+  `tools/make_cia.sh` (bannertool banner + icon, then makerom). **The .rsf and the script are untested**: makerom may reject a field and need a tweak.
+- The CIA contains only the program; room, collision, Mario, textures and the music file stay on the SD card in `sdmc:/3ds/spm3ds-demo/`.

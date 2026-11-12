@@ -1,0 +1,10 @@
+// Background music through ndsp (libctru's DSP audio): Flipside theme, 16-bit stereo PCM held in RAM, intro + looped part.
+#pragma once
+#include <stdbool.h>
+#include <stddef.h>
+
+bool audio_init(const char* dir, char* err, size_t errSize);   // loads bgm_flipside.pcm (tools/convert_bgm.py) and starts it
+void audio_exit(void);
+bool audio_ok(void);
+void audio_toggle_mute(void);
+bool audio_muted(void);

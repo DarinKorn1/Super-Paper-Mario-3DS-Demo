@@ -14,6 +14,7 @@
 #include "mario.h"
 #include "play.h"
 #include "hit.h"
+#include "audio.h"
 
 #define ASSET_DIR "sdmc:/3ds/spm3ds-demo/"
 #define CLEAR_COLOR 0x68B0D8FF
@@ -101,6 +102,8 @@ int main(void)
 	char err2[160] = "";
 	bool haveMario = haveRoom && mario_load(ASSET_DIR, err2, sizeof err2);
 	bool haveHit = haveRoom && hit_load(ASSET_DIR "room_hit.bin");
+	char err3[160] = "";
+	bool haveMusic = haveRoom && audio_init(ASSET_DIR, err3, sizeof err3);
 	Play play;
 	play_init(&play, haveHit);
 	C3D_Mtx projPlay;
@@ -140,6 +143,7 @@ int main(void)
 
 		if (mode == MODE_PLAY) {
 			if (down & KEY_Y) { showDebug = !showDebug; dirty = true; }
+			if (down & KEY_R) { audio_toggle_mute(); dirty = true; }
 			play_update(&play, dt, down, held, showDebug);
 		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
@@ -204,6 +208,7 @@ int main(void)
 				printf("A           jump\n");
 				printf("X           flip 2D / 3D\n");
 				printf("B           reset Mario\n");
+				printf("R           music on / off (%s)\n", !haveMusic ? "not loaded" : audio_muted() ? "off" : "on");
 				printf("Y           debug screen\n");
 				printf("SELECT      free camera / stress\n");
 				printf("START       quit\n");
@@ -214,6 +219,7 @@ int main(void)
 				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
 				printf("Model: %s, %d anims, %s\n", haveMario ? "ok" : err2, mario_anim_count(), play.anim ? "walk" : "idle");
 				printf("Scale %.3f  height %.2f units (%.0f game)\n", play.scale, play_height(&play), play_height(&play) * 8.0f);
+				printf("Music: %s\n", haveMusic ? (audio_muted() ? "muted" : "playing") : err3);
 				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
 				printf("\nL + D-pad up/down: Mario scale (L+B reset)\n");
 				printf("Y back to controls\n");
@@ -251,6 +257,7 @@ int main(void)
 		}
 	}
 
+	audio_exit();
 	mario_free();
 	hit_free();
 	room_free();

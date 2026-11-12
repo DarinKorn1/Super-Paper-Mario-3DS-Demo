@@ -32,9 +32,9 @@ include $(DEVKITARM)/3ds_rules
 #     - <libctru folder>/default_icon.png
 #---------------------------------------------------------------------------------
 TARGET		:=	spm3ds-demo
-APP_TITLE	:=	SPM 3DS demo
-APP_DESCRIPTION	:=	Flipside room viewer + stress test
-APP_AUTHOR	:=	personal project
+APP_TITLE	:=	Super Paper Mario 3DS Demo
+APP_DESCRIPTION	:=	Flipside demo: stereo 3D, Mario, music
+APP_AUTHOR	:=	DarinKorn1
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data

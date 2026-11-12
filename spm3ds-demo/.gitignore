@@ -9,3 +9,6 @@ build/
 __pycache__/
 # Screenshots from the emulator
 notes-screens/
+*.cia
+cia/*.bnr
+cia/*.icn
