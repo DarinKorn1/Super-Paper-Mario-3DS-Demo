@@ -327,3 +327,44 @@ Status: builds without warnings; **not run** (no Azahar here). The user's screen
   the delta records**. TTYD's C has no evaluator (`animPoseMain` is a stub there). The evaluator is `evalProc` (EU0 0x8004D0C8, 0x1BC bytes) and `animPoseMain`
   (0x80045288, 0x143C bytes), reachable in the spm-decomp disassembly for EU0 (US0 has no names for them) — **that is the blocker: it needs reading about 6 KB of PowerPC
   assembly to learn the record layout, and I have not started.** Without it Mario has no walk cycle, blinking or hand changes. spm-docs may shortcut this.
+
+## 11. Week 3c: Mario's idle and walk animations decoded (2026-11-12)
+
+Status: decoded, baked and checked with a software renderer (contact sheets of `mario_W_1` and `mario_S_1` show a proper walk cycle with swinging
+legs and arms, and the idle breathing/blinking-free sway). The 3DS code builds without warnings but **has not been run** (no Azahar here).
+
+### 11.1 Sources checked
+- **spm-docs** (SeekyCt/spm-docs, read through the web, not cloned): has headers and writeups for many systems but **nothing on the AnimPose / `a/` format**.
+- **ttyd decomp**: `animdrv.c` only has stubs for `animPoseMain` and the evaluators.
+- **spm-decomp upstream `animdrv-test`** (fetched with `git fetch upstream`, read only, nothing merged): 78 lines of buffer allocation (`animPose_AllocBuffer`), which
+  confirms the pose buffer layout (positions, normals, visibility bytes, `4 * groupTransformDataCount` bytes of nodes, `0x18 * textureCoordinateTransformCount` of tex entries)
+  but contains no keyframe code.
+- **The game's own code** (US0 disassembly in `spm-decomp/build/US0/asm`, which is EU0 minus 0x118): `animPoseMain` = `fn_80045170`, `evalProc` = `fn_8004CFB0`,
+  node matrices `fn_800465AC` (plain transform) and `fn_80046B14` (joint), tangent table set-up in `fn_800415B0`. That is where the format below comes from.
+
+### 11.2 The format (also in the header comment of `tools/convert_mario_anim.py`)
+- AnimData: pointers are relative to its own start. Keyframes are 0x2C bytes: time (60 Hz frames) + offset/length pairs into four delta streams.
+  State at keyframe k = base data + sum of the deltas of keyframes 0..k; between k and k+1 the next keyframe's deltas are added scaled by the fraction.
+  Positions: record `{u8 skip, s8 x, y, z}` x 1/16, linear. Group node floats: `{u8 skip, s8 v, s8 a, s8 b}`: v/16 with a cubic Hermite step whose end tangents are
+  `tan(a degrees)` and `tan(b degrees)` per frame (the runtime table `lbl_804C7130` is `tan` of -89..88 degrees). Visibility: `{u8 skip, u8 add}`. Texture animation: `{skip, add, f32, f32}`.
+- Nodes are 24 floats (T, S, rot1, rot2, rot centre, scale centre, rot translate, scale translate); transform nodes are T * R * S with pivots, joint nodes
+  (segment-scale-compensated) T * Sinv * R * S; **angles are the stored value x 2 degrees** (the code multiplies by 2.0 before degrees to radians).
+- `evalProc` walks the group tree: a group whose visibility byte is 0 hides its whole subtree; the walk continues with the brother.
+- Idle `mario_S_1`: 62 keyframes over 280 frames (looping). Walk `mario_W_1`: 17 keyframes over 40 frames (looping). Run `mario_R_1` has the same layout (not baked yet).
+- Baked at 30 Hz (every 2nd game frame) into `assets/mario_anim.bin` (196 KB); the 3DS interpolates positions between samples. Textures: 12 images (19 converted).
+
+### 11.3 What is still missing or guessed
+- Costume-variant parts (the space-helmet hat, `Kinome`, hammer effect planes, mouth/tear shapes) are hidden **by name**, because the animation data does not hide them: the
+  game's own code must do that elsewhere (not found). Same list as the static pose.
+- Not applied: normals (no lighting), texture UV transforms (none changed in idle or walk), the "type 8" event list, the loop-wrap blend quirk (the game blends the last key
+  towards keyframe 0's deltas; for these two animations the last key sits on the loop end so it does not matter).
+- The vertex positions of the arm "skin" shapes (`R_Arm_skin`, `L_Arm_skin`) come out of the position deltas and look right in the renders.
+- Only idle and walk are baked; the other 92 animations (jump `mario_J_1A..`, run, hammer...) use the same decoder, so adding them is a list change in `ANIMS` (the runtime
+  currently allows 4).
+
+### 11.4 Play mode (this step)
+- Walking (stick pushed and on the ground) plays `mario_W_1`, otherwise `mario_S_1`; the cycle rate follows the stick magnitude. Turning keeps the eased paper flip
+  (the sprite squashes through zero width and mirrors in about 0.2 s). Since the real animation works, the "slight bob" fallback was not needed.
+- **Bottom screen**: by default only a controls list. Y toggles the debug screen (stats, scale, collision state); the L + D-pad up/down scale control only works there.
+  The default scale stays 0.175 (confirmed right by the user in Azahar).
+- To run: copy the new `spm3ds-demo.3dsx`, `mario_anim.bin` and the `textures/mario_*.t3x` files (19) into the Azahar SD folder. Nothing else changed.

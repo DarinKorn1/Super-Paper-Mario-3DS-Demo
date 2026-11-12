@@ -57,18 +57,19 @@ static void keep_view_state(Play* p)
 	p->mode3d = m; p->flipT = f;
 }
 
-void play_update(Play* p, float dt, u32 down, u32 held)
+void play_update(Play* p, float dt, u32 down, u32 held, bool debug)
 {
-	// debug: hold L, D-pad up/down = change Mario's scale (x1.8 per second)
-	if (held & KEY_L) {
+	// debug screen only: hold L, D-pad up/down = change Mario's scale (x1.8 per second), L + B resets it
+	if (debug && (held & KEY_L)) {
 		if (held & KEY_DUP)   p->scale *= expf(0.6f * dt);
 		if (held & KEY_DDOWN) p->scale /= expf(0.6f * dt);
 		if (p->scale < 0.02f) p->scale = 0.02f;
 		if (p->scale > 2.0f) p->scale = 2.0f;
 	}
-	if (!(held & KEY_L) && (down & KEY_X)) p->mode3d = !p->mode3d;
-	if (!(held & KEY_L) && (down & KEY_B)) { keep_view_state(p); return; }
-	if ((held & KEY_L) && (down & KEY_B)) p->scale = DEFAULT_SCALE;
+	bool lDebug = debug && (held & KEY_L);
+	if (!lDebug && (down & KEY_X)) p->mode3d = !p->mode3d;
+	if (!lDebug && (down & KEY_B)) { keep_view_state(p); return; }
+	if (lDebug && (down & KEY_B)) p->scale = DEFAULT_SCALE;
 
 	const float H = play_height(p);
 	const float R = BODY_R_HEIGHTS * H;
@@ -102,6 +103,12 @@ void play_update(Play* p, float dt, u32 down, u32 held)
 	float tf = 9.0f * dt;
 	if (p->face < p->faceGoal) p->face = fminf(p->faceGoal, p->face + tf);
 	else if (p->face > p->faceGoal) p->face = fmaxf(p->faceGoal, p->face - tf);
+
+	// animation: walk while the stick is pushed (cycle rate follows the speed), idle otherwise
+	float mag = fminf(1.0f, ml);
+	int want = (mag > 0.2f && p->grounded) ? 1 : 0;
+	if (want != p->anim) { p->anim = want; p->animTime = 0.0f; }
+	p->animTime += dt * 60.0f * (want ? (0.4f + 0.6f * mag) : 1.0f);
 
 	float speed = WALK_HEIGHTS_PER_S * H;
 	p->pos[0] += mx * speed * dt;

@@ -11,12 +11,14 @@ typedef struct {
 	float flipT;       // 0 = 2D view .. 1 = 3D view (animated)
 	float z2d;         // the z plane Mario walks on in 2D
 	bool hasHit;
-	float scale;       // Mario's draw scale (model is 23 units tall); adjustable with L + D-pad up/down
+	float scale;       // Mario's draw scale (model is 23 units tall); adjustable with L + D-pad up/down in the debug screen
+	int anim;          // 0 idle, 1 walk
+	float animTime;    // 60 Hz frames since the animation started
 } Play;
 
 void play_init(Play* p, bool hasHit);
 void play_reset(Play* p);
-void play_update(Play* p, float dt, u32 down, u32 held);
+void play_update(Play* p, float dt, u32 down, u32 held, bool debug);   // debug enables the L + D-pad scale control
 // Camera for the current state: view matrix (world -> camera) and the yaw that turns the sprite to face it.
 void play_camera(const Play* p, C3D_Mtx* view, float* yaw);
 void play_projection(C3D_Mtx* proj);

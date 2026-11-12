@@ -104,6 +104,7 @@ int main(void)
 	C3D_Mtx projPlay;
 	play_projection(&projPlay);
 
+	bool showDebug = false;   // play mode: Y toggles the debug stats (and enables the Mario scale control)
 	Mode mode = haveRoom ? MODE_PLAY : MODE_STRESS;
 	Camera cam;
 	camera_reset(&cam, haveRoom);
@@ -136,8 +137,8 @@ int main(void)
 		lastFrame = now;
 
 		if (mode == MODE_PLAY) {
-			play_update(&play, dt, down, held);
-			if (down & KEY_Y) opt.showBlended = !opt.showBlended;
+			if (down & KEY_Y) { showDebug = !showDebug; dirty = true; }
+			play_update(&play, dt, down, held, showDebug);
 		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
 			if (down & KEY_X) opt.showOku = !opt.showOku;
@@ -162,7 +163,7 @@ int main(void)
 				play_camera(&play, &view, &yaw);
 				gfx_set_matrices(&projPlay, &view);
 				st = room_draw(&opt);
-				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face, play.scale);
+				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face, play.scale, play.anim, play.animTime);
 				st.tris += ms.tris; st.calls += ms.calls;
 			} else if (mode == MODE_ROOM) {
 				C3D_Mtx view;
@@ -184,19 +185,25 @@ int main(void)
 			}
 			dirty = false;
 			consoleClear();
-			if (mode == MODE_PLAY) {
-				printf("PLAY  mac_02 (Flipside)  %s view\n\n", play.mode3d ? "3D" : "2D");
+			if (mode == MODE_PLAY && !showDebug) {
+				printf("SUPER PAPER MARIO - Flipside\n\n");
+				printf("Circle pad  walk\n");
+				printf("A           jump\n");
+				printf("X           flip 2D / 3D\n");
+				printf("B           reset Mario\n");
+				printf("Y           debug screen\n");
+				printf("SELECT      free camera / stress\n");
+				printf("START       quit\n");
+			} else if (mode == MODE_PLAY) {
+				printf("DEBUG  %s view\n\n", play.mode3d ? "3D" : "2D");
 				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
 				printf("FPS:%5.1f CPU%5.1f GPU%5.1f ms\n", fps, C3D_GetProcessingTime(), C3D_GetDrawingTime());
 				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
-				printf("Mario model: %s\n", haveMario ? "ok" : err2);
+				printf("Model: %s, %d anims, %s\n", haveMario ? "ok" : err2, mario_anim_count(), play.anim ? "walk" : "idle");
 				printf("Scale %.3f  height %.2f units (%.0f game)\n", play.scale, play_height(&play), play_height(&play) * 8.0f);
 				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
-				printf("\nCircle pad walk (2D: left/right)\n");
-				printf("A jump  X flip 2D/3D  B reset\n");
-				printf("L + D-pad up/down: Mario scale\n");
-				printf("Y blended %s\n", opt.showBlended ? "ON" : "off");
-				printf("SELECT free camera  START quit\n");
+				printf("\nL + D-pad up/down: Mario scale (L+B reset)\n");
+				printf("Y back to controls\n");
 			} else if (mode == MODE_ROOM) {
 				printf("ROOM  mac_02 (Flipside)\n\n");
 				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
