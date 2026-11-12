@@ -166,6 +166,8 @@ int main(void)
 		bool stereo = (mode == MODE_PLAY) && slider > 0.02f;
 		gfxSet3D(stereo);
 
+		audio_update();
+
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 			for (int eye = 0; eye < (stereo ? 2 : 1); eye++) {
 				C3D_RenderTarget* t = eye ? targetR : target;

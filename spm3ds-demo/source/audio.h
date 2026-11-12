@@ -8,3 +8,4 @@ void audio_exit(void);
 bool audio_ok(void);
 void audio_toggle_mute(void);
 bool audio_muted(void);
+void audio_update(void);   // call once per frame: refills the DSP buffers

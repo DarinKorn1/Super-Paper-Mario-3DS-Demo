@@ -7,10 +7,33 @@
 // "SBGM", u32 version, u32 rate, u32 channels, u32 samplesPerChannel, u32 loopStart, then interleaved s16.
 static bool ndspUp, ok, muted;
 static void* pcm;
-static ndspWaveBuf intro, loopBuf;
+// The track is fed to the DSP in small chunks (a ring of CHUNK_BUFS buffers of CHUNK_SAMPLES) instead of one 2-million-sample buffer:
+// emulators (and the DSP) handle small buffers better, and the loop point is handled here by jumping from the end back to loopStart.
+#define CHUNK_BUFS 6
+#define CHUNK_SAMPLES 8192
+static ndspWaveBuf bufs[CHUNK_BUFS];
+static u32 totalSamples, loopStartSample, playPos;
 
 bool audio_ok(void) { return ok; }
 bool audio_muted(void) { return muted; }
+
+void audio_update(void)
+{
+	if (!ok) return;
+	for (int i = 0; i < CHUNK_BUFS; i++) {
+		ndspWaveBuf* w = &bufs[i];
+		if (w->status != NDSP_WBUF_FREE && w->status != NDSP_WBUF_DONE)
+			continue;
+		u32 n = CHUNK_SAMPLES;
+		if (playPos + n > totalSamples) n = totalSamples - playPos;   // never cross the end; the next chunk starts at the loop point
+		memset(w, 0, sizeof *w);
+		w->data_vaddr = (const s16*)pcm + (size_t)playPos * 2;
+		w->nsamples = n;
+		ndspChnWaveBufAdd(0, w);
+		playPos += n;
+		if (playPos >= totalSamples) playPos = loopStartSample;
+	}
+}
 
 bool audio_init(const char* dir, char* err, size_t errSize)
 {
@@ -46,17 +69,10 @@ bool audio_init(const char* dir, char* err, size_t errSize)
 	float mix[12] = { 0.8f, 0.8f };
 	ndspChnSetMix(0, mix);
 
-	// Intro (start of the track up to the loop point), then the loop body repeated forever.
-	memset(&intro, 0, sizeof intro);
-	memset(&loopBuf, 0, sizeof loopBuf);
-	intro.data_vaddr = pcm;
-	intro.nsamples = loopStart;
-	loopBuf.data_vaddr = (const s16*)pcm + (size_t)loopStart * 2;
-	loopBuf.nsamples = total - loopStart;
-	loopBuf.looping = true;
-	ndspChnWaveBufAdd(0, &intro);
-	ndspChnWaveBufAdd(0, &loopBuf);
+	totalSamples = total; loopStartSample = loopStart; playPos = 0;
+	memset(bufs, 0, sizeof bufs);
 	ok = true;
+	audio_update();
 	return true;
 }
 
