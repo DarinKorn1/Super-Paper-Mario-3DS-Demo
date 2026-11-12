@@ -431,3 +431,33 @@ Estimate was "moderate: about a day", so it was done:
   says 1.00x; setting the rate to 0.5x sounds right. Cause unknown (not the 44.1 kHz rate: the file is already 32,728 Hz; not stereo: it plays as two mono channels).
   Workaround: an optional `bgm_rate.txt` (a number, e.g. `0.5`) in the SD folder scales the rate; the Azahar folder has one, a real console should not.
   **Unverified on hardware**; if the music is slow/fast on the console too, adjust with D-pad left/right on the debug screen.
+
+## 13. Camera matched to the game (2026-11-12)
+
+Status: builds; **not run** (the user checks in Azahar). Compared against `notes-screens/ref-pc-gate.png` only by calculation, not by rendering.
+
+### 13.1 What the game does (read from `main.dol` US0 asm; `camMain` on `wip/camMain` only builds the view matrix and applies roll/shake, so it says nothing about placement)
+- `camInit` (`fn_800546EC`, EU0 0x80054800): the 2D camera (id 11) is a **perspective** camera, **fovY 50, aspect 608/480, near 100, far 10000** (game units).
+  The 3D camera (id 5, display function `cam3dMain`) is perspective **fovY 25, near 1**. Cameras 4, 6-10 are other perspective cameras.
+- **How foreground objects are kept out of the 2D view: the near plane.** The camera sits 33 room units (264 game units) behind the Mario plane and clips everything
+  closer than 100 game units (12.5 room units). The railing strips and the grey block in front of the street are inside that, so they are never drawn. No hiding of objects was found.
+  (Our old camera used fovY 25, distance 64, near 1, so it saw them.)
+- `camera_road.bin` decoded (`tools/convert_cam.py`, details in its header comment): 15 camera records of 184 bytes. Each has a distance (+0x58) and pitch (+0x64) and a
+  box (two points). **2D rooms: distance 33.0, pitch 17.87 deg (camera looks down), x -110..110 at z -10 (the plane Mario walks on).
+  3D: distance 31.58, pitch 23 deg, box x -111.5..108, z -30..10** (`C3D_01`; `_02`, `_hashi`, `_shima` are other areas of the map along z 10..190;
+  `G2D/G3D_ie_*` are house interiors at distance 27.5). Fields +0x50/+0x54 (2D 0.066/0.934: probably screen-edge follow margins) and +0x7C (20.0) are not decoded.
+- Following: the game moves the camera 8 % of the way to Mario's x/z per 60 Hz frame (constant 0.08 in the follow function `fn_80055BC8`) and tracks the floor height rather than jumps.
+  Per-map overrides of the camera height in that function (hard-coded game-unit constants per map name) were not decoded.
+- Mario scale check: with distance 33 and fovY 50 Mario (4 room units tall) fills 13.0 % of the screen height; the reference shows 13.1 %. This confirms the road units are room units, the 1/8 scale and the 0.175 Mario scale.
+
+### 13.2 Implemented (`source/play.c`)
+- 2D: fovY 50, distance 33, pitch 17.87, near 12.5, far 1250, target = Mario's x (clamped to -110..110), z, ground height + **12.7**, smoothed at 8 %/frame.
+  The 12.7 look-at height is **fitted** (not from the file): it puts Mario's feet 85 % down the screen as in the reference; the `20.0` field is not it.
+- Flip to 3D: parameters ease from the 2D to the 3D set (fov 50 -> 25, distance 33 -> 31.6, pitch 17.9 -> 23, near 12.5 -> 0.125) while the camera swings 90 degrees (as before).
+  The game's real 3D follow (`cam3dMain`, 1278 asm lines) and its box logic were not read, so the 3D view uses the road's distance and pitch only.
+- Stereo: zero parallax at the look-at distance, as before.
+- Free (ROOM) camera and the stress test are unchanged. Camera parameters come from `assets/camera.bin` (copy it); without the file the same numbers are built in.
+
+### 13.3 Not done
+- Sound effects (jump, flip): the game's effects are not in the `.brstm` streams; they are in `wiimario_snd.brsar`/`.dat` (a sound archive with wave banks), which needs its own parser. Not started.
+- A dedicated paper-turn transition for the 2D/3D flip: only the existing camera swing and Mario's sprite flip.

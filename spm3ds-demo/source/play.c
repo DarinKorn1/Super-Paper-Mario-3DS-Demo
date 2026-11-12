@@ -2,6 +2,7 @@
 #include "hit.h"
 #include <math.h>
 #include <string.h>
+#include <stdio.h>
 
 // Scale. The room is stored at about 1/8 of the game's units (a door is 8 x 8 here; see notes/demo-plan.md 10.1),
 // and Mario's hitbox in the game is 20 x 39 units (characterProperties[0] in main.dol). His sprite is drawn at about
@@ -16,11 +17,8 @@
 #define JUMP_TIME 0.45f            // guess: seconds to the peak
 #define BODY_R_HEIGHTS 0.30f       // hitbox width 20 of height 32 (visual) -> half width 0.31
 #define STEP_HEIGHTS 0.15f
-#define FOV_DEG 25.0f              // camera_road.bin
-#define DIST_2D_HEIGHTS 16.0f      // makes Mario about 14 % of the screen height, as in the game (screenshot mac_02_cinematic)
-#define DIST_3D_HEIGHTS 11.0f
-#define PITCH_3D 0.20f
 #define FLIP_TIME 0.6f
+#define STEREO_IOD_FRACTION 0.03f
 #define PI_F 3.14159265f
 
 float play_height(const Play* p) { return MARIO_MODEL_H * p->scale; }
@@ -145,34 +143,81 @@ void play_update(Play* p, float dt, u32 down, u32 held, bool debug)
 	if (p->pos[1] < -250.0f) keep_view_state(p);     // fell out of the world
 }
 
+// ---- Camera (decoded from the game; see notes/demo-plan.md section 13) ----
+// 2D camera = game camera 11: perspective, fovY 50, near 100, far 10000 (game units = 8 room units); the road record C2D_01 gives
+// distance 33, pitch 17.87 degrees and the x range -110..110 at z -10. 3D camera = game camera 5: fovY 25, near 1, road record C3D_01
+// distance 31.58, pitch 23. Defaults below are those numbers; assets/camera.bin (tools/convert_cam.py) overrides them.
+// The game keeps foreign foreground geometry out of the 2D view with the near plane (100 game units = 12.5 room units): the camera is
+// 33 units back, so everything in the nearest 12.5 units (the railing strips in front of the street) is clipped.
+typedef struct { float dist, pitch, xMin, xMax, z, fov, nearP, farP; } CamParams;
+static CamParams cam2d = { 33.0f, 17.87f, -110.0f, 110.0f, -10.0f, 50.0f, 12.5f, 1250.0f };
+static CamParams cam3d = { 31.58f, 23.0f, -111.5f, 108.0f, -30.0f, 25.0f, 0.125f, 1250.0f };
+#define CAM_TARGET_HEIGHT 12.7f   // look-at point above the floor: fitted so Mario stands where he does in the game (feet 85 % down the screen)
+#define CAM_FOLLOW 0.08f          // the game moves the camera 8 % of the way to Mario per frame (60 fps)
+
+bool play_load_camera(const char* dir)
+{
+	char path[256];
+	snprintf(path, sizeof path, "%scamera.bin", dir);
+	FILE* f = fopen(path, "rb");
+	if (!f) return false;
+	char magic[4]; u32 ver; float v[10];
+	bool ok = fread(magic, 1, 4, f) == 4 && memcmp(magic, "SCAM", 4) == 0 && fread(&ver, 4, 1, f) == 1 && ver == 1;
+	CamParams a, b;
+	if (ok && fread(v, 4, 10, f) == 10) { a = (CamParams){ v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7] }; } else ok = false;
+	if (ok && fread(v, 4, 10, f) == 10) { b = (CamParams){ v[0], v[1], v[2], v[3], v[4], v[5], v[6], v[7] }; } else ok = false;
+	fclose(f);
+	if (ok) { cam2d = a; cam3d = b; }
+	return ok;
+}
+
+static float lerpf(float a, float b, float t) { return a + (b - a) * t; }
+
+// Blended camera parameters for the current 2D <-> 3D state (e = eased flip).
+static void cam_params(const Play* p, float* dist, float* pitchRad, float* fovDeg, float* nearP, float* farP)
+{
+	float e = ease(p->flipT);
+	*dist = lerpf(cam2d.dist, cam3d.dist, e);
+	*pitchRad = lerpf(cam2d.pitch, cam3d.pitch, e) * (PI_F / 180.0f);
+	*fovDeg = lerpf(cam2d.fov, cam3d.fov, e);
+	*nearP = cam2d.nearP * powf(cam3d.nearP / cam2d.nearP, e);   // geometric blend: 12.5 -> 0.125
+	*farP = cam2d.farP;
+}
+
+void play_cam_update(Play* p, float dt)
+{
+	// the target follows Mario's x/z with the game's 8 %-per-frame smoothing, y follows the ground (not jumps)
+	float k = 1.0f - powf(1.0f - CAM_FOLLOW, dt * 60.0f);
+	float gx = fmaxf(cam2d.xMin, fminf(cam2d.xMax, p->pos[0]));
+	if (!p->camInit) {
+		p->camX = gx; p->camY = p->pos[1]; p->camZ = p->pos[2]; p->camInit = true;
+	}
+	p->camX += (gx - p->camX) * k;
+	p->camZ += (p->pos[2] - p->camZ) * k;
+	if (p->grounded) p->camY += (p->pos[1] - p->camY) * k;
+}
+
 void play_projection(C3D_Mtx* proj)
 {
-	Mtx_PerspTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 1.0f, 1500.0f, false);
+	Play dummy; memset(&dummy, 0, sizeof dummy);
+	play_projection_stereo(&dummy, proj, 0, 0.0f);
 }
-
-static float cam_dist(const Play* p)
-{
-	return (DIST_2D_HEIGHTS + (DIST_3D_HEIGHTS - DIST_2D_HEIGHTS) * ease(p->flipT)) * play_height(p);
-}
-
-// Eye separation as a fraction of the viewing distance: 3 % at full slider (about a 1.9 m viewing distance and 6.5 cm eyes would be 3.4 %).
-#define STEREO_IOD_FRACTION 0.03f
 
 void play_projection_stereo(const Play* p, C3D_Mtx* proj, int eye, float slider)
 {
-	float dist = cam_dist(p);
+	float dist, pitch, fov, nearP, farP;
+	cam_params(p, &dist, &pitch, &fov, &nearP, &farP);
+	// zero parallax at the look-at point; separation = slider x 3 % of the viewing distance
 	float iod = eye * slider * STEREO_IOD_FRACTION * dist;
-	Mtx_PerspStereoTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 1.0f, 1500.0f, iod, dist, false);
+	Mtx_PerspStereoTilt(proj, C3D_AngleFromDegrees(fov), C3D_AspectRatioTop, nearP, farP, iod, dist, false);
 }
 
 void play_camera(const Play* p, C3D_Mtx* view, float* yaw)
 {
-	float H = play_height(p);
-	float e = ease(p->flipT);
+	float dist, pitch, fov, nearP, farP;
+	cam_params(p, &dist, &pitch, &fov, &nearP, &farP);
 	float th = cam_theta(p);
-	float dist = (DIST_2D_HEIGHTS + (DIST_3D_HEIGHTS - DIST_2D_HEIGHTS) * e) * H;
-	float pitch = PITCH_3D * e;
-	float tx = p->pos[0], ty = p->pos[1] + 0.5f * H, tz = p->pos[2];
+	float tx = p->camX, ty = p->camY + CAM_TARGET_HEIGHT, tz = p->camZ;
 	float cx = tx + dist * sinf(th) * cosf(pitch);
 	float cy = ty + dist * sinf(pitch);
 	float cz = tz + dist * cosf(th) * cosf(pitch);

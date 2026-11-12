@@ -106,8 +106,7 @@ int main(void)
 	bool haveMusic = haveRoom && audio_init(ASSET_DIR, err3, sizeof err3);
 	Play play;
 	play_init(&play, haveHit);
-	C3D_Mtx projPlay;
-	play_projection(&projPlay);
+	if (haveRoom) play_load_camera(ASSET_DIR);
 
 	bool showDebug = false;   // play mode: Y toggles the debug stats (and enables the Mario scale control)
 	Mode mode = haveRoom ? MODE_PLAY : MODE_STRESS;
@@ -148,6 +147,7 @@ int main(void)
 			if (showDebug && (down & KEY_DLEFT))  { audio_adjust_rate(0.95f); dirty = true; }
 			if (showDebug && (down & KEY_DRIGHT)) { audio_adjust_rate(1.05f); dirty = true; }
 			play_update(&play, dt, down, held, showDebug);
+			play_cam_update(&play, dt);
 		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
 			if (down & KEY_X) opt.showOku = !opt.showOku;
@@ -180,8 +180,7 @@ int main(void)
 					C3D_Mtx view, projEye;
 					float yaw;
 					play_camera(&play, &view, &yaw);
-					if (stereo) play_projection_stereo(&play, &projEye, eye ? 1 : -1, slider);
-					else projEye = projPlay;
+					play_projection_stereo(&play, &projEye, stereo ? (eye ? 1 : -1) : 0, stereo ? slider : 0.0f);
 					gfx_set_matrices(&projEye, &view);
 					DrawStats rs = room_draw(&opt);
 					DrawStats ms = mario_draw(&projEye, &view, play.pos, yaw, -play.face, play.scale, play.anim, play.animTime);

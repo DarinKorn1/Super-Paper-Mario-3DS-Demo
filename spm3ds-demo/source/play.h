@@ -13,9 +13,12 @@ typedef struct {
 	bool hasHit;
 	float scale;       // Mario's draw scale (model is 23 units tall); adjustable with L + D-pad up/down in the debug screen
 	int anim;          // 0 idle, 1 walk
+	float camX, camY, camZ; bool camInit;   // smoothed camera target (see play_cam_update)
 	float animTime;    // 60 Hz frames since the animation started
 } Play;
 
+bool play_load_camera(const char* dir);   // assets/camera.bin (optional; built-in defaults are the same numbers)
+void play_cam_update(Play* p, float dt); // once per frame after play_update
 void play_init(Play* p, bool hasHit);
 void play_reset(Play* p);
 void play_update(Play* p, float dt, u32 down, u32 held, bool debug);   // debug enables the L + D-pad scale control
