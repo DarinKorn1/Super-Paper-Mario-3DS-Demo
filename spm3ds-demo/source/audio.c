@@ -95,6 +95,16 @@ bool audio_init(const char* dir, char* err, size_t errSize)
 		ndspChnSetPaused(c, true);      // start both together once queued
 	}
 	baseRate = (float)rate;
+	// Optional sdmc:/3ds/spm3ds-demo/bgm_rate.txt: a playback-rate factor (e.g. 0.5). Needed only for Azahar, which played the music at
+	// twice the speed; on a real console leave the file out (factor 1.0 = the file's own rate).
+	snprintf(path, sizeof path, "%sbgm_rate.txt", dir);
+	FILE* rf = fopen(path, "r");
+	if (rf) {
+		float r = 1.0f;
+		if (fscanf(rf, "%f", &r) == 1 && r >= 0.2f && r <= 2.0f) rateScale = r;
+		fclose(rf);
+	}
+	for (int c = 0; c < 2; c++) ndspChnSetRate(c, baseRate * rateScale);
 	totalSamples = total; loopStartSample = loopStart; playPos = 0;
 	memset(bufs, 0, sizeof bufs);
 	ok = true;

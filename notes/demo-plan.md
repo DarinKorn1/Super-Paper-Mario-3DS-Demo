@@ -425,3 +425,9 @@ Estimate was "moderate: about a day", so it was done:
 - Downloaded with the user's OK into `C:\Users\ender\3ds-tools\` (outside the repo): makerom v0.19.0 (3DSGuy/Project_CTR, win_x86_64) and bannertool 1.2.3
   (carstene1ns/3ds-bannertool, windows). Add both folders to PATH, then run `sh tools/make_cia.sh` from `spm3ds-demo/` after `make`.
 - makerom rejected two RSF keys (`MediaFootPrint`, `ExtendedDataSize`); removed. Result: `spm3ds-demo.cia`, 257 KB (git-ignored). **Built but not installed or run anywhere.**
+
+### 12.6 Music speed in Azahar (2026-11-12)
+- Azahar (HLE audio) plays the music at about twice the speed even though the debug read-out ("Music speed", samples consumed per real second / 32,728)
+  says 1.00x; setting the rate to 0.5x sounds right. Cause unknown (not the 44.1 kHz rate: the file is already 32,728 Hz; not stereo: it plays as two mono channels).
+  Workaround: an optional `bgm_rate.txt` (a number, e.g. `0.5`) in the SD folder scales the rate; the Azahar folder has one, a real console should not.
+  **Unverified on hardware**; if the music is slow/fast on the console too, adjust with D-pad left/right on the debug screen.
