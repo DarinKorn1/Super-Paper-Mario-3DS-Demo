@@ -152,7 +152,10 @@ void play_update(Play* p, float dt, u32 down, u32 held, bool debug)
 typedef struct { float dist, pitch, xMin, xMax, z, fov, nearP, farP; } CamParams;
 static CamParams cam2d = { 33.0f, 17.87f, -110.0f, 110.0f, -10.0f, 50.0f, 12.5f, 1250.0f };
 static CamParams cam3d = { 31.58f, 23.0f, -111.5f, 108.0f, -30.0f, 25.0f, 0.125f, 1250.0f };
-#define CAM_TARGET_HEIGHT 12.7f   // look-at point above the floor: fitted so Mario stands where he does in the game (feet 85 % down the screen)
+// Placement (found by fitting the reference screenshot, then matching road fields): the camera is 33 units from Mario's feet (the road's
+// distance), 20 units above them (road field +0x7C = 20.0), so 26.25 units back, and looks down by the road's pitch (17.87 deg), which is
+// NOT the elevation of the camera. This puts Mario's feet 88 % down the screen (reference: 85 %) and his size at 13 % (reference 13.1 %).
+#define CAM_HEIGHT 20.0f
 #define CAM_FOLLOW 0.08f          // the game moves the camera 8 % of the way to Mario per frame (60 fps)
 
 bool play_load_camera(const char* dir)
@@ -217,10 +220,11 @@ void play_camera(const Play* p, C3D_Mtx* view, float* yaw)
 	float dist, pitch, fov, nearP, farP;
 	cam_params(p, &dist, &pitch, &fov, &nearP, &farP);
 	float th = cam_theta(p);
-	float tx = p->camX, ty = p->camY + CAM_TARGET_HEIGHT, tz = p->camZ;
-	float cx = tx + dist * sinf(th) * cosf(pitch);
-	float cy = ty + dist * sinf(pitch);
-	float cz = tz + dist * cosf(th) * cosf(pitch);
+	float tx = p->camX, ty = p->camY, tz = p->camZ;
+	float back = sqrtf(fmaxf(1.0f, dist * dist - CAM_HEIGHT * CAM_HEIGHT));   // horizontal distance behind Mario
+	float cx = tx + back * sinf(th);
+	float cy = ty + CAM_HEIGHT;
+	float cz = tz + back * cosf(th);
 	Mtx_Identity(view);
 	Mtx_RotateX(view, pitch, true);          // looking down by `pitch`
 	Mtx_RotateY(view, -th, true);

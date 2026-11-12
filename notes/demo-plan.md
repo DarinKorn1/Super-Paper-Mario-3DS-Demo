@@ -461,3 +461,10 @@ Status: builds; **not run** (the user checks in Azahar). Compared against `notes
 ### 13.3 Not done
 - Sound effects (jump, flip): the game's effects are not in the `.brstm` streams; they are in `wiimario_snd.brsar`/`.dat` (a sound archive with wave banks), which needs its own parser. Not started.
 - A dedicated paper-turn transition for the 2D/3D flip: only the existing camera swing and Mario's sprite flip.
+
+### 13.4 Correction after the first Azahar test (2026-11-12)
+- The first version aimed the camera at a point 12.7 above Mario at distance 33; Mario came out 9 % of the screen high (reference 13 %) and the view was too high and too wide.
+  Fitting the reference again (size and feet position together) shows the camera is **33 units from Mario's feet and 20 units above them** (road field +0x7C = 20.0 is the camera height),
+  i.e. 26.25 back, and its view direction is pitched down by the road's 17.87 degrees (the pitch is the view tilt, not the camera's elevation, which is 37 degrees).
+  Predicted: Mario 13.0 % high, feet 88 % down the screen (reference 13.1 % and 85 %). The 12.7 fit in 13.2 is superseded. Not run yet.
+- The 3D camera uses the same rule with distance 31.58 and pitch 23 (height 20 assumed the same: the field has 20.0 in every record).
