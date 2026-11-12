@@ -145,7 +145,7 @@ static void draw_pass(const Part* p, bool blendPass, CullMode cull, DrawStats* s
 			continue;
 		bool textured = b->tex >= 0 && (u32)b->tex < texCount && texOk[b->tex];
 		gfx_set_textured(textured);
-		gfx_set_cull(cull);
+		gfx_set_cull(cull == CULL_AUTO && b->cull == 3 ? CULL_NONE : cull);
 		if (textured) {
 			C3D_Tex* t = &tex[b->tex];
 			C3D_TexSetWrap(t, wrapMap[b->wrapS > 2 ? 1 : b->wrapS], wrapMap[b->wrapT > 2 ? 1 : b->wrapT]);

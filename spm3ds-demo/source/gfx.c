@@ -74,12 +74,12 @@ void gfx_set_textured(bool textured)
 
 void gfx_set_cull(CullMode m)
 {
-	static const GPU_CULLMODE map[CULL_MODES] = { GPU_CULL_NONE, GPU_CULL_BACK_CCW, GPU_CULL_FRONT_CCW };
+	static const GPU_CULLMODE map[CULL_MODES] = { GPU_CULL_BACK_CCW, GPU_CULL_NONE, GPU_CULL_BACK_CCW, GPU_CULL_FRONT_CCW };
 	C3D_CullFace(map[m]);
 }
 
 const char* gfx_cull_name(CullMode m)
 {
-	static const char* names[CULL_MODES] = { "none", "back", "front" };
+	static const char* names[CULL_MODES] = { "auto", "none", "back", "front" };
 	return names[m];
 }

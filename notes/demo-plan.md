@@ -235,3 +235,57 @@ Not decoded, likely to look wrong (**to check on screen; not yet seen**):
 **Real console (later).** On the SD card: the `.3dsx` (e.g. `/3ds/spm3ds-demo.3dsx`, started from the Homebrew Launcher), plus
 `/3ds/spm3ds-demo/room_main.spm`, `/3ds/spm3ds-demo/room_oku.spm` and `/3ds/spm3ds-demo/textures/tex_000.t3x` to `tex_088.t3x`
 (about 1.2 MB). Never publish the converted files; they are derived from the game.
+
+## 9. Week 3: fixes, Mario, game camera, movement, collision (2026-11-12)
+
+Status: everything builds without warnings (devkitARM). The room was reported correct in Azahar by the user; **the new play mode has not
+been run** (neither in Azahar nor on a console). I could not see the user's screenshots (`notes-screens/` did not exist on this PC), so the
+black wedge was found with a small software renderer instead (scratch code outside the repo).
+
+### 9.1 Fixes
+- **Winding and the cull byte (converter, renderer).** The user found that "front" culling looked right, so GX strips come out clockwise in
+  PICA200 terms. The converter now swaps two vertices of every triangle, so front faces are counter-clockwise and `GPU_CULL_BACK_CCW`
+  is right. The viewer default is `auto` (Y cycles auto/none/back/front).
+  **Meaning of the cull byte** (`drawMode` byte 1, only 1 and 3 occur): it is the same code as the Mario shapes' `cullMode`, whose TTYD table
+  `{2,1,3,0}` maps 0 = back, 1 = front, 2 = all, 3 = none (GX names). So **1 = one-sided, 3 = double-sided** (the street-lamp poles, 340
+  triangles each, are the cull-3 joints). In `auto` mode cull 1 is culled as back faces, cull 3 is not culled.
+  `drawMode` byte 0 (0..3) is probably the blend/draw layer: the `kage` shadow planes and the poles use 3 and 2. Not used yet.
+- **The black wedge** is joint `pCube9_q00659` (section `sima`, material `lambert1_v`, 10 triangles, x -25..-15, y -120..0, z 140..170):
+  an open-topped box sunk 120 units into the ground. It is **real geometry, not an undecoded material, a missing texture or a hole**: its
+  material has no texture and its vertex colours are authored (0,0,0), so black is what the data says. It sits in the foreground strip
+  (`sima`, z 140..170), which the game camera probably never shows from this side; the free camera looks into it. Left in as is.
+  Other `lambert1_v` batches (lamp poles, `kui` stakes, outlines) are black the same way.
+- **Filtering.** All 89 room textures (and Mario's) have min and mag filter = GX_LINEAR in their TPL headers, no mipmaps, so bilinear
+  `GPU_LINEAR` is what the code already did. Confirmed, nothing to change.
+
+### 9.2 Collision (`room_hit.bin`, `source/hit.c`)
+- Converter writes the A tree (2,165 non-degenerate triangles, world space, CCW order). Floors = normal.y > 0.5, walls = |normal.y| <= 0.5.
+  The street floor is y = 0 over z -30..10, with solid walls at x = +-114. The collision `drawMode` attr (0 / 4096 / 131072 / 557056) is stored but ignored.
+- Runtime: floor = highest floor at (x,z) not more than 4.5 above Mario's feet (so he climbs steps up to 4.5 and falls off edges); walls =
+  two spheres (radius 4) pushed out horizontally, the lower one starting above the step height. Brute force over all triangles with
+  bounding-box rejection. **Not measured on a console; check CPU ms in play mode.** Ceilings are ignored (he can jump through them).
+
+### 9.3 Mario (`tools/convert_mario.py`, `source/mario.c`)
+- Parsed `a/p_mario` using spm-headers `animdrv.h` for the header and the TTYD decomp's `renderProc` for the draw loop (spm-docs is not on
+  this PC and cloning needs the user's OK). Shape (168 B) -> draw (108 B) -> draw call (`{first,count}` = triangle fan); u32 index arrays
+  (low 16 bits); vertex colour, tex0 coordinates; texture = `texData[texDataIds[0]].bindId` = TPL image number. 55 triangles, 10 textures
+  (resized to power of two, ETC1/ETC1A4). The result looks right in a software render: textures, UVs and proportions.
+- **Static standing pose only.** Each group's node is 24 floats; in the rest pose only the translation is non-zero (checked on all 176
+  groups) so group matrices are summed translations. Costume-variant groups (Kinome, Sp_boushi, hammers, `zentai`, mouth, tear) are hidden by name.
+- **Missing: the animations.** `mario_S_1` / `mario_W_1` keyframes, the per-frame deltas for group transforms, visibility and the arm skin
+  vertices. TTYD's C source has no evaluator for them (only `animPoseMain` stubs); the decoder would have to come from the disassembly of
+  SPM's `evalProc` in `spm-decomp/build/US0/asm` (or from spm-docs). Mario therefore slides without moving his legs.
+- The sprite looks towards screen-left by default; walking right mirrors it (eased over about 0.1 s, a paper turn). It is a billboard:
+  rotated to face the camera, including in 3D. Size 23 units tall (the plan's earlier "27" was a guess).
+
+### 9.4 Play mode (`source/play.c`)
+- **Camera**: `camera_road.bin` is mostly names (`C2D_01`, `C3D_01`, `G2D_ie_01`...: 2D and 3D camera paths per area) and I could not
+  decode its records beyond a field of view of **25** and near/far 0.01/1000 before the first name; the float 178.267 I first read as a
+  distance is ASCII text ("C2D_"). So the camera is a fixed-distance guess: 190 units (2D, looking straight along -z at Mario + 11 up), 120 units
+  in 3D with a 0.2 rad downward pitch. The area-specific camera paths are not used.
+- **Flip (X)**: the camera swings 90 degrees (camera ends up at -x of Mario looking along +x, i.e. behind him when he faces right) in 0.6 s with easing.
+- **Movement**: circle pad. 2D: left/right only, z glides back to the 2D plane (z = -10). 3D: stick relative to the camera. 60 units/s, A
+  jumps (150 units/s, gravity 330, about 34 high), B resets. The numbers are guesses, not the game's.
+- SELECT cycles PLAY -> ROOM (free camera, as before) -> STRESS.
+- To run: copy `mario.spm`, `room_hit.bin` and the new `textures/mario_*.t3x` (plus the re-converted room files, whose winding changed) into the same
+  SD folder as in section 8.5.

@@ -435,15 +435,17 @@ def main():
                     verts.append((px_, py_, pz_, u, vv, c))
                 if op == 0x98:                                 # triangle strip
                     for i in range(cnt - 2):
-                        tri = (verts[i], verts[i + 1], verts[i + 2]) if i % 2 == 0 else (verts[i + 1], verts[i], verts[i + 2])
+                        # GX strips come out clockwise-in-3DS-terms; swap two vertices so front faces are CCW
+                        # (the PICA200 / OpenGL convention): then GPU_CULL_BACK_CCW is correct (notes/demo-plan.md 9.1)
+                        tri = (verts[i], verts[i + 2], verts[i + 1]) if i % 2 == 0 else (verts[i + 1], verts[i + 2], verts[i])
                         if tri[0][:3] != tri[1][:3] and tri[1][:3] != tri[2][:3] and tri[0][:3] != tri[2][:3]:
                             tris.append(tri)
                 elif op == 0x90:                               # plain triangles
                     for i in range(0, cnt - 2, 3):
-                        tris.append((verts[i], verts[i + 1], verts[i + 2]))
+                        tris.append((verts[i], verts[i + 2], verts[i + 1]))
                 elif op == 0xA0:                               # triangle fan
                     for i in range(1, cnt - 1):
-                        tris.append((verts[0], verts[i], verts[i + 1]))
+                        tris.append((verts[0], verts[i + 1], verts[i]))
                 else:
                     stats["unknown opcode %#x" % op] += 1
                 section_tris[part] += 0
@@ -452,8 +454,45 @@ def main():
     if clip:
         say("WARNING: %d vertex coordinates exceeded the s16 range and were clamped" % clip)
 
-    # ---- write outputs
+    # ---- collision: the A tree, world space, CCW order (normal = (b-a) x (c-a) points to the open side)
+    a_root = [k for k in mp.kids(info) if mp.cstr(mp.u32(k)) == "A"][0]
+    hit = []
+    for j, m, _sec in walk_with_matrices(mp, a_root, IDENT, ""):
+        pc = mp.s32(j + 0x5C)
+        if pc <= 0:
+            continue
+        attr = mp.u32(mp.u32(j + 0x58) + 8)
+        for p in range(pc):
+            mesh = mp.u32(j + 0x64 + p * 8)
+            if not mesh:
+                continue
+            mask, lists = mesh_lists(mp, mesh)
+            bits = [b for b in range(16) if mask >> b & 1]
+            stride = len(bits) * 2
+            for off in lists:
+                if mp.D[off] != 0x98:
+                    continue
+                cnt = mp.u16(off + 1)
+                vs = []
+                for v in range(cnt):
+                    x, y, z = (c / 128.0 for c in struct.unpack(">3h", mp.D[pos_arr + mp.u16(off + 3 + v * stride) * 6:][:6]))
+                    vs.append(tuple(m[r][0] * x + m[r][1] * y + m[r][2] * z + m[r][3] for r in range(3)))
+                for i in range(cnt - 2):
+                    t = (vs[i], vs[i + 2], vs[i + 1]) if i % 2 == 0 else (vs[i + 1], vs[i + 2], vs[i])
+                    e1 = [t[1][k] - t[0][k] for k in range(3)]
+                    e2 = [t[2][k] - t[0][k] for k in range(3)]
+                    n = (e1[1] * e2[2] - e1[2] * e2[1], e1[2] * e2[0] - e1[0] * e2[2], e1[0] * e2[1] - e1[1] * e2[0])
+                    if n[0] * n[0] + n[1] * n[1] + n[2] * n[2] > 1e-8:
+                        hit.append((t, attr))
     out = args.out
+    os.makedirs(out, exist_ok=True)
+    with open(os.path.join(out, "room_hit.bin"), "wb") as f:
+        f.write(struct.pack("<4sII", b"SPMH", 1, len(hit)))
+        for t, attr in hit:
+            f.write(struct.pack("<9fI", *(c for p in t for c in p), attr))
+    say("collision: %d triangles (room_hit.bin)" % len(hit))
+
+    # ---- write outputs
     os.makedirs(os.path.join(out, "textures"), exist_ok=True)
     used_tex = sorted({k[0] for p in parts.values() for k in p if k[0] >= 0})
 

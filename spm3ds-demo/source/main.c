@@ -1,6 +1,7 @@
-// spm3ds-demo, week 2: Flipside room viewer (mac_02) with free-fly camera, plus a stress-test mode.
+// spm3ds-demo, week 3: Flipside room (mac_02) with Mario, game camera, movement and collision (PLAY),
+// a free-fly viewer (ROOM) and a stress test (STRESS).
 // Top screen: 3D. Bottom screen: statistics and the button list.
-// SELECT switches between the two modes, START quits.
+// SELECT cycles PLAY -> ROOM -> STRESS, START quits.
 // Timings are only meaningful on a real console; emulator numbers must not drive decisions.
 #include <3ds.h>
 #include <citro3d.h>
@@ -10,6 +11,9 @@
 #include "gfx.h"
 #include "room.h"
 #include "stress.h"
+#include "mario.h"
+#include "play.h"
+#include "hit.h"
 
 #define ASSET_DIR "sdmc:/3ds/spm3ds-demo/"
 #define CLEAR_COLOR 0x68B0D8FF
@@ -19,7 +23,7 @@
 	GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8) | \
 	GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO))
 
-typedef enum { MODE_ROOM, MODE_STRESS } Mode;
+typedef enum { MODE_PLAY, MODE_ROOM, MODE_STRESS } Mode;
 
 typedef struct {
 	float pos[3];
@@ -92,10 +96,18 @@ int main(void)
 	if (haveRoom)
 		room_counts(&mainTris, &okuTris, &texTotal, &texMissing);
 
-	Mode mode = haveRoom ? MODE_ROOM : MODE_STRESS;
+	char err2[160] = "";
+	bool haveMario = haveRoom && mario_load(ASSET_DIR, err2, sizeof err2);
+	bool haveHit = haveRoom && hit_load(ASSET_DIR "room_hit.bin");
+	Play play;
+	play_init(&play, haveHit);
+	C3D_Mtx projPlay;
+	play_projection(&projPlay);
+
+	Mode mode = haveRoom ? MODE_PLAY : MODE_STRESS;
 	Camera cam;
 	camera_reset(&cam, haveRoom);
-	RoomOptions opt = { true, true, true, CULL_NONE };
+	RoomOptions opt = { true, true, true, CULL_AUTO };
 
 	C3D_Mtx proj;
 	Mtx_PerspTilt(&proj, C3D_AngleFromDegrees(60.0f), C3D_AspectRatioTop, 1.0f, 2000.0f, false);
@@ -111,8 +123,8 @@ int main(void)
 		u32 down = hidKeysDown(), held = hidKeysHeld();
 		if (down & KEY_START)
 			break;
-		if ((down & KEY_SELECT) && (haveRoom || mode == MODE_ROOM)) {
-			mode = (mode == MODE_ROOM) ? MODE_STRESS : MODE_ROOM;
+		if ((down & KEY_SELECT) && haveRoom) {
+			mode = (mode == MODE_PLAY) ? MODE_ROOM : (mode == MODE_ROOM) ? MODE_STRESS : MODE_PLAY;
 			dirty = true;
 		} else if (down & KEY_SELECT) {
 			dirty = true;   // no room loaded: stay in stress mode but refresh the message
@@ -123,7 +135,10 @@ int main(void)
 		if (dt > 0.1f) dt = 0.1f;
 		lastFrame = now;
 
-		if (mode == MODE_ROOM) {
+		if (mode == MODE_PLAY) {
+			play_update(&play, dt, down, held);
+			if (down & KEY_Y) opt.showBlended = !opt.showBlended;
+		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
 			if (down & KEY_X) opt.showOku = !opt.showOku;
 			if (down & KEY_A) opt.showBlended = !opt.showBlended;
@@ -141,7 +156,15 @@ int main(void)
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 			C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
 			C3D_FrameDrawOn(target);
-			if (mode == MODE_ROOM) {
+			if (mode == MODE_PLAY) {
+				C3D_Mtx view;
+				float yaw;
+				play_camera(&play, &view, &yaw);
+				gfx_set_matrices(&projPlay, &view);
+				st = room_draw(&opt);
+				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face);
+				st.tris += ms.tris; st.calls += ms.calls;
+			} else if (mode == MODE_ROOM) {
 				C3D_Mtx view;
 				camera_view(&cam, &view);
 				gfx_set_matrices(&proj, &view);
@@ -161,7 +184,18 @@ int main(void)
 			}
 			dirty = false;
 			consoleClear();
-			if (mode == MODE_ROOM) {
+			if (mode == MODE_PLAY) {
+				printf("PLAY  mac_02 (Flipside)  %s view\n\n", play.mode3d ? "3D" : "2D");
+				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
+				printf("FPS:%5.1f CPU%5.1f GPU%5.1f ms\n", fps, C3D_GetProcessingTime(), C3D_GetDrawingTime());
+				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
+				printf("Mario model: %s\n", haveMario ? "ok" : err2);
+				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
+				printf("\nCircle pad walk (2D: left/right)\n");
+				printf("A jump  X flip 2D/3D  B reset\n");
+				printf("Y blended %s\n", opt.showBlended ? "ON" : "off");
+				printf("SELECT free camera  START quit\n");
+			} else if (mode == MODE_ROOM) {
 				printf("ROOM  mac_02 (Flipside)\n\n");
 				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
 				printf("FPS:  %5.1f\n", fps);
@@ -195,6 +229,8 @@ int main(void)
 		}
 	}
 
+	mario_free();
+	hit_free();
 	room_free();
 	stress_exit();
 	gfx_exit();

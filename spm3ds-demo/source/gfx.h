@@ -14,7 +14,8 @@ typedef struct {
 
 #define POS_SCALE (1.0f / 64.0f)
 
-typedef enum { CULL_NONE = 0, CULL_BACK, CULL_FRONT, CULL_MODES } CullMode;
+// CULL_AUTO = per batch from the game's cull byte (1 = back faces culled, 3 = double sided); the others force one mode.
+typedef enum { CULL_AUTO = 0, CULL_NONE, CULL_BACK, CULL_FRONT, CULL_MODES } CullMode;
 
 void gfx_init(void);              // shader, attribute layout, checker texture
 void gfx_exit(void);
