@@ -14,7 +14,6 @@ TitleInfo:
 Option:
   UseOnSD                 : true
   FreeProductCode         : true
-  MediaFootPrint          : CardSize 128MB
   EnableCrypt             : false
   EnableCompress          : true
 
@@ -47,7 +46,6 @@ AccessControlInfo:
   RunnableOnSleep         : false
   SpecialMemoryArrange    : true
   ResourceLimitCategory   : Application
-  ExtendedDataSize        : 0
   SystemCallAccess:
     ArbitrateAddress: 34
     Break: 60

@@ -420,3 +420,8 @@ Estimate was "moderate: about a day", so it was done:
   (makerom spec; unique ID `0xF7A31` = title ID `000400000F7A3100`; DirectSdmc access so the app reads `sdmc:/3ds/spm3ds-demo/`; New 3DS 804 MHz and 124 MB mode) and
   `tools/make_cia.sh` (bannertool banner + icon, then makerom). **The .rsf and the script are untested**: makerom may reject a field and need a tweak.
 - The CIA contains only the program; room, collision, Mario, textures and the music file stay on the SD card in `sdmc:/3ds/spm3ds-demo/`.
+
+### 12.5 .cia built (2026-11-12)
+- Downloaded with the user's OK into `C:\Users\ender\3ds-tools\` (outside the repo): makerom v0.19.0 (3DSGuy/Project_CTR, win_x86_64) and bannertool 1.2.3
+  (carstene1ns/3ds-bannertool, windows). Add both folders to PATH, then run `sh tools/make_cia.sh` from `spm3ds-demo/` after `make`.
+- makerom rejected two RSF keys (`MediaFootPrint`, `ExtendedDataSize`); removed. Result: `spm3ds-demo.cia`, 257 KB (git-ignored). **Built but not installed or run anywhere.**
