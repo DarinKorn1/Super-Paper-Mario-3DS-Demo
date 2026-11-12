@@ -3,27 +3,22 @@
 Log for the 40 functions in `pilot-functions.md`. One row per function, in the order worked.
 Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no decomp.me).
 
-## Status (updated 2026-11-11)
+## Status (updated 2026-11-12)
 
-- **35 of 40 functions attempted: 32 matched, 3 not matched** (all three parked on `wip/` branches).
-  Group A (TTYD-assisted): 26 of 30 attempted, 23 matched. Group B (SPM-only control): 9 of 10
-  attempted, 9 matched.
-- **Next:** B-L3 `hudMain` (goes straight after A-L6 so that group B is not left to the very end of the
-  large bucket), then A-L7 `iconMain`, A-L8 `seq_logoMain`, A-L9 `hitCheckVecFilter`, A-L10 `itemEntry`.
-- **Build progress now** (`ninja`, EU0): code 97,672 / 3,550,036 bytes (**2.75%**, 428 / 10,216
-  functions); data 124,477 / 4,636,761 bytes (**2.68%**). Before the pilot: 86,640 bytes (2.44%, 391
-  functions) and 112,005 bytes (2.42%). The gain is +11,032 code bytes and +37 functions: 32 pilot
-  matches, plus 5 by-products (below). Files linked into the rebuilt `main.dol` are unchanged at 14 of
-  2,111 (2.07%), because no pilot file is fully matching yet.
+- **All 40 functions attempted: 34 matched, 6 not matched** (all six functionally complete, parked on
+  `wip/` branches on `origin`). Group A: 25 of 30 matched. Group B: 9 of 10 matched. See "Final summary" at
+  the end.
+- **Progress before the pilot:** code 86,640 / 3,550,036 bytes (2.44%, 391 functions). Mid-pilot figures
+  (row 35) were 97,672 bytes (2.75%); the final figures were not re-measured here.
 - **By-product matches** (not pilot functions, each committed separately unless noted): `iconNameToPtr`
   (`7cd0f39`), `mapGetWork` (`fb4430a`), `fairySetAnim` and `fairyEnterRunMode` (`16e4cb6`), and
   upstream's `__assert2` went from 99.98% to exact (`bc91554`). `npcGetWorkPtr` also matches, but only on
   the `wip/npcDelete` branch.
-- **Branches on `origin`:** `master` (all matches), `wip/parseGet1Next` (`45d8353`), `wip/npcDelete`
-  (`fd39526`), `wip/camMain` (`aa218c4`, pushed 2026-11-12).
+- **Branches on `origin`:** `master` (all matches); `wip/parseGet1Next`, `wip/npcDelete`, `wip/camMain`,
+  `wip/hudMain`, `wip/hitCheckVecFilter`, `wip/itemEntry`.
 - **Classification of unmatched functions:** *functionally complete* = all instructions present, differences
-  only in register numbering or instruction order; *incomplete* = logic missing or wrong. All three misses so
-  far (`parseGet1Next`, `npcDelete`, `camMain`) are functionally complete.
+  only in register numbering or instruction order; *incomplete* = logic missing or wrong. All six misses are
+  functionally complete.
 
 ## Setup (2026-11-10)
 
@@ -88,7 +83,7 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
 | 32 | A-L4 | `npcDelete` | A (TTYD) | large | 872 | **no, functionally complete** | 99.86 | 10 (limit) | ~8 min (incl. creating `npcdrv.c`, 254 stubs) | branch `wip/npcDelete` (`fd39526`) | Second miss, again on register allocation only. SPM's version takes a name instead of an entry and does far more than TTYD's (stops sounds, releases a caught NPC, runs a definition-table callback, deletes effects, parts, script and poses); TTYD supplied just the slave and linked-list sections. About ten `NPCEntry` fields had to be added, and 59 earlier string literals reproduced for the pool. Attempt 1 was already 89.9% with all the logic right. What moved it forward was discovering that three blocks are helpers the compiler inlines (pose release, sound-player loop, name search), each of which numbers its locals differently from the enclosing function: attempts 6-8 took it from 93% to 97.7%. The last difference, two registers swapped inside the inlined name search, did not respond to declaration order or to moving the loop back into the function. By-product on the branch: `npcGetWorkPtr` matches. |
 | 33 | A-L5 | `windowDispGX_System` | A (TTYD) | large | 1184 | yes | 100 | 3 | ~5 min (file already existed, 9 of its functions done upstream) | `ede7078` | Draws a system window: advance a scrolling background once per frame, set up four fixed TEV stages, load a matrix, then four helper calls for the corners/edges per window type. Long but flat, and the existing file already had the includes and neighbours. I did not open TTYD's version of this function: I worked from the assembly alone, so this row says nothing about whether TTYD would have helped. Six SDK prototypes were missing from spm-headers. Attempt 1 was 95.9%; attempt 2 fixed statement order and the colour initialiser; attempt 3 passed the colour as a literal in the call, which is what puts the temporary and its copy in the original stack slots. |
 | 34 | B-L2 | `fairyUpdate` | B (SPM-only) | large | 1232 | yes | 100 | 2 | ~5 min (file already existed from B-S3) | `f646bb2` | Per-frame Pixl update: a guard for paused states, a seven-way run-mode `switch`, then animation and angle easing. It went quickly for its size because of things learned earlier in the pilot: the angle-easing tail is the same code as `guideMain` (B-M4), so its three idioms were already known; and the two repeated blocks were recognised as real neighbouring functions that the compiler inlines (`fairySetAnim`, `fairyEnterRunMode`), so I decompiled those and called them (both match too, committed separately). Nine `FairyEntry` fields and five prototypes had to be added, plus the string-order helper for this file. Attempt 1 scored 99.98%; the only fix was the declaration order of two local vectors. Most of the time went on decoding the assembly and the jump table, not on matching. |
-| 35 | A-L6 | `camMain` | A (TTYD) | large | 1260 | **no, functionally complete** | 99.84 | 10 (limit) | ~12 min (file already existed) | branch `wip/camMain` (`aa218c4`, local only) | Third miss. All 315 instructions are present and the logic is right; what is left is register numbering in six float instructions of the orthographic-shake block. TTYD helped only with the opening of the camera loop (SPM adds controller rumble, a shake translation and an orthographic rebuild). The 64-bit time maths is `OSTicksToMilliseconds(now - start) > duration` with `now` read once into a local. Attempt 1 compiled after casts (signed `s32` conversions, `sqrtf`, `cosf`). Attempts 2-3 fixed the stack order of the two matrices and the loop counter/pointer registers (declare the matrices roll-then-translate, then `i`, then `cp`). Attempt 4 found that dividing by `2.0f` and `4.0f` (not multiplying by 0.5 and 0.25) reproduces the original operand order of the multiplies, and passing `cp->top`, `cp->bottom`... to `C_MTXOrtho` (not locals) gave the missing `frsp`s. Attempts 5-10 tried temporaries and operand orders for `dist * (shake.z - 1) * (1 - cos)`; the original keeps the `cos` result in `f1` and the compiler here puts it in `f3`, and no form I tried moved it. Adds seven `CamEntry` fields and four prototypes (only on the wip branch). |
+| 35 | A-L6 | `camMain` | A (TTYD) | large | 1260 | **no, functionally complete** | 99.84 | 10 (limit) | ~12 min (file already existed) | branch `wip/camMain` (`aa218c4`, pushed) | Third miss. All 315 instructions are present and the logic is right; what is left is register numbering in six float instructions of the orthographic-shake block. TTYD helped only with the opening of the camera loop (SPM adds controller rumble, a shake translation and an orthographic rebuild). The 64-bit time maths is `OSTicksToMilliseconds(now - start) > duration` with `now` read once into a local. Attempt 1 compiled after casts (signed `s32` conversions, `sqrtf`, `cosf`). Attempts 2-3 fixed the stack order of the two matrices and the loop counter/pointer registers (declare the matrices roll-then-translate, then `i`, then `cp`). Attempt 4 found that dividing by `2.0f` and `4.0f` (not multiplying by 0.5 and 0.25) reproduces the original operand order of the multiplies, and passing `cp->top`, `cp->bottom`... to `C_MTXOrtho` (not locals) gave the missing `frsp`s. Attempts 5-10 tried temporaries and operand orders for `dist * (shake.z - 1) * (1 - cos)`; the original keeps the `cos` result in `f1` and the compiler here puts it in `f3`, and no form I tried moved it. Adds seven `CamEntry` fields and four prototypes (only on the wip branch). |
 | 36 | B-L3 | `hudMain` | B (SPM-only) | large | 1428 | **no, functionally complete** | 99.55 | 12 (limit of 10 exceeded by miscount) | ~25 min (file already existed) | branch `wip/hudMain` (`a3162e2`, pushed) | Per-frame HUD update. Logic fully recovered (seq `switch` 2/3, flag bit juggling, ease-in/out with `cos`, 64-bit tick accumulator and countdown sounds, including a duplicated `== 10` test the compiler left as dead code). Fixed by: `switch` for the seq range, a ternary of two divisions, `cos` in its own statement, and one shared `t` for the two blend lines. Still differs: one missing `addis` in the `motionId - 0x1f` range test and register numbers (`f1`/`f3`) in the cos blend. Adds HudWork float fields, `OSTime` fields and prototype fixes (wip branch only). |
 | 37 | A-L7 | `iconMain` | A (TTYD) | large | 1308 | **yes** | 100 | 11 builds (7 real iterations, 5 of them trivial header/type compile errors) | ~25 min (file already existed) | master `7332868` (pushed) | TTYD's version is incomplete (no `shadowEntry`, no camera culling, no light colour), so it only gave the loop skeleton. Hard parts: two inlined wicon.bin lookups (a `static inline` helper with `u16` id matched both), `fabsf` not `fabs` (float constant), `u16` iconId load, separate field copies, and several untyped header stubs (`dispCalcZ`, `shadowEntry`, `PSMTX44MultVec`, `func_8007ecc4`) that had to be given real prototypes. |
 | 38 | A-L8 | `seq_logoMain` | A (TTYD) | large | 1468 | **yes** | 100 | 3 builds | ~10 min (new file `seq_logo.c`, `NonStarted` to `NonMatching`) | master `d53393b` (pushed) | TTYD's version is a different function (other states, other strings), so it was no help; written from the assembly. Easy: a flat `switch` of fade/timer states. Only fix needed: the 64-bit ms comparisons must be `>= N` (not `> N-1`). Header edits: `SeqLogoWork` fields, and prototypes for `sptextureIsLoaded`, `spsndGetFlag`, `homebuttonAllowOpen`. |
@@ -97,18 +92,47 @@ Worked by Claude (AI assistant) in the `spm-decomp` clone, EU0, offline (no deco
 
 **Note 1 (commit slip):** a temp-file path failed while I was splitting `icondrv.c` into two commits. Result: `b3a0672` ("Decompile iconNameToPtr, start icondrv.c") only switches the file on in `configure.py`, and `7cd0f39` ("Decompile iconSetPos") contains both functions. Both were already pushed, so I did not rewrite history.
 
-## Interim tally (computed from the table above; the large bucket is incomplete)
+## Final summary (all 40 attempted, 2026-11-12)
 
-| Group | Size class | Done of planned | Matched | Attempts (all) | Attempts per function | Attempts per matched function |
-|---|---|---|---|---|---|---|
-| A | small | 10 of 10 | 10 | 13 | 1.3 | 1.3 |
-| A | medium | 10 of 10 | 10 | 31 | 3.1 | 3.1 |
-| A | large | 6 of 10 | 3 | 37 | 6.2 | 2.3 |
-| B | small | 3 of 3 | 3 | 5 | 1.7 | 1.7 |
-| B | medium | 4 of 4 | 4 | 15 | 3.8 | 3.8 |
-| B | large | 2 of 3 | 2 | 5 | 2.5 | 2.5 |
+Computed from the log table above. These are counts for these 40 functions only; they are not
+extrapolated to the rest of the game. "Attempts" are as logged by each worker; counting was not uniform
+(rows 36 and 37 report builds beyond the limit of 10: `hudMain` 12, `iconMain` 11 builds of which 7 were real
+iterations, 5 of the 11 being trivial compile errors).
 
-These are counts for the functions done so far, not a conclusion. Group B is 10 functions against group
-A's 30, so a single miss moves a B percentage by ten points. The large bucket is also the least
-complete: 6 of 10 group A and 2 of 3 group B functions are done, and all three misses are in it. The final
-comparison waits until all 40 are attempted.
+### Results per group and size class
+
+| Group | Size class | Functions | Matched | Functionally complete | Incomplete | Attempts (all) | Attempts per function |
+|---|---|---|---|---|---|---|---|
+| A (TTYD) | small | 10 | 10 | 0 | 0 | 13 | 1.3 |
+| A (TTYD) | medium | 10 | 10 | 0 | 0 | 31 | 3.1 |
+| A (TTYD) | large | 10 | 5 | 5 | 0 | 66 | 6.6 |
+| **A total** | | **30** | **25 (83%)** | **5** | **0** | **110** | **3.7** |
+| B (SPM-only) | small | 3 | 3 | 0 | 0 | 5 | 1.7 |
+| B (SPM-only) | medium | 4 | 4 | 0 | 0 | 15 | 3.8 |
+| B (SPM-only) | large | 3 | 2 | 1 | 0 | 17 | 5.7 |
+| **B total** | | **10** | **9 (90%)** | **1** | **0** | **37** | **3.7** |
+
+### Match rate by size class (both groups)
+
+| Size class | Functions | Matched | Match rate |
+|---|---|---|---|
+| small | 13 | 13 | 100% |
+| medium | 14 | 14 | 100% |
+| large | 13 | 7 | 54% |
+| **all** | **40** | **34** | **85%** |
+
+### Other figures
+
+- **Functionally complete (not matched):** 6 of 40: `parseGet1Next`, `npcDelete`, `camMain`, `hitCheckVecFilter`,
+  `itemEntry` (group A) and `hudMain` (group B), all large. **Incomplete: 0.** Final match % of the six: 98.58
+  to 99.86. For `itemEntry` the remaining difference is string-pool offsets and a jump-table symbol that depend
+  on other functions in `itemdrv.c`, so it may close by itself when the file is finished; the others are
+  register numbering or instruction order inside the function.
+- **Average attempts:** 3.7 per function over all 40 (147 attempts in total).
+- **Needed the stronger model:** 0. The rule was to retry a medium or large function that ended "incomplete" with
+  the strongest model; none did, so no retry was run. Every function in this part of the pilot (rows 36-40) ran on Sonnet.
+- Rows 1-35 were worked interactively in earlier sessions; rows 36-40 by the `decomp-matcher` loop.
+- **Full build on master (2026-11-12):** `ninja` exit 0; `build/EU0/main.dol: OK` and `build/EU0/relF/relF.rel: OK`
+  against `config/EU0/build.sha1`. As noted under Method, this check passes regardless of the pilot code, since
+  no pilot file is fully matching and linked yet; it shows that the rest of the build is undisturbed.
+- **Group comparison caveat:** group B has 10 functions, so one function moves its percentages by ten points.

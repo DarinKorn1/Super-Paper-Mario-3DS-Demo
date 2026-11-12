@@ -67,6 +67,28 @@ A personal project to port Super Paper Mario (Wii, 2007) to the New Nintendo 3DS
 4. **Waiting on:** a PAL disc dump. spm-decomp's main target is EU0 (EU1 shares its `main.dol`).
    Only the USA disc (US0) is here now; the project advises against putting work into US0.
 
+## Automated pilot loop (coordinator + `decomp-matcher` subagent)
+
+The pilot is run by a low-context loop. Status on 2026-11-12: all 40 functions attempted (see the
+"Final summary" at the end of `notes/pilot-results.md`). To restart or continue it in a future session:
+
+1. Read `notes/pilot-results.md` (Log table) to see which functions are done; the rest of
+   `notes/pilot-functions.md` is the queue (alternate groups A and B where both have functions left).
+2. For each remaining function, one at a time, launch the subagent defined in
+   `.claude/agents/decomp-matcher.md` (Sonnet) with just the function name. If that agent type is not
+   registered (agent files load at session start), use a general-purpose Sonnet subagent told to read that file
+   and follow it. Keep only its summary of at most 5 lines; the coordinator does not read build output, diffs
+   or source files.
+3. The subagent makes at most 10 attempts (every build counts), commits a match to `spm-decomp` master and
+   pushes to `origin`, or commits the best attempt on `wip/<function>` and pushes it to `origin`, then appends
+   one row to the log and commits it in this repo (not pushed). Never push to `upstream`.
+4. If a medium or large function ends "incomplete" (logic missing or wrong; as opposed to "functionally
+   complete" = only register numbering or instruction order differs), retry it once with the strongest model
+   and record in the log that it needed that model.
+5. If a subagent returns `BLOCKED: <reason>`, stop the loop and tell the user.
+6. When the queue is empty: run `ninja` once, check `main.dol: OK`, and write the summary section at the end of
+   the log (per group, per size class; no extrapolation to the whole game).
+
 ## Useful facts
 
 - Build: `python configure.py` (EU0 by default, `--version EU1` etc.), then `ninja`. The first
