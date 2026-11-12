@@ -6,7 +6,7 @@ This script decodes the ADPCM to 16-bit PCM and writes assets/bgm_flipside.pcm f
     then totalSamples * channels interleaved s16 samples.
 Run from spm3ds-demo/:   python -I tools/convert_bgm.py [path/to/sound/dir]
 Output is derived from the game: git-ignored (assets/), never commit or share it."""
-import struct, sys, os
+import math, struct, sys, os
 
 SRC = (sys.argv[1] if len(sys.argv) > 1 else '../NewSuperPaperBros/Disc/DATA/files/sound') + '/map_town_omote1_44k_lp.brstm'
 OUT = 'assets/bgm_flipside.pcm'
@@ -58,6 +58,41 @@ def decode_channel(c):
     return out
 
 chans = [decode_channel(c) for c in range(nch)]
+
+# Resample to 32728 Hz, the DSP's native mixing rate, so ndsp does no sample-rate conversion (the emulator played 44.1 kHz too fast).
+# Windowed-sinc (Lanczos, 6 lobes, cutoff at the new Nyquist), 256 sub-sample phases.
+OUT_RATE = 32728
+def resample(x, r_in, r_out):
+    ratio = r_in / r_out                       # source samples per output sample (> 1)
+    fc = 1.0 / ratio                           # lowpass cutoff relative to the source rate's Nyquist
+    A = 6; W = int(A * ratio) + 1; PH = 256
+    tab = []
+    for p in range(PH):
+        fr = p / PH
+        row = []
+        for k in range(-W + 1, W + 1):
+            t = (k - fr) * fc
+            w = 1.0 if t == 0 else (math.sin(math.pi * t) / (math.pi * t)) * (math.sin(math.pi * t / A) / (math.pi * t / A)) if abs(t) < A else 0.0
+            row.append(w * fc)
+        sm = sum(row); tab.append([v / sm for v in row])
+    n_out = int(len(x) / ratio)
+    pad = [0] * W + list(x) + [0] * (W + 2)
+    out = []
+    for i in range(n_out):
+        pos = i * ratio
+        i0 = int(pos); ph = int((pos - i0) * PH)
+        base = i0 + 1 - W + W                # index of source sample (i0 - W + 1) in pad
+        row = tab[ph]
+        acc = 0.0
+        seg = pad[base:base + 2 * W]
+        for a, b2 in zip(seg, row):
+            acc += a * b2
+        v = int(round(acc))
+        out.append(-32768 if v < -32768 else 32767 if v > 32767 else v)
+    return out
+chans = [resample(c, rate, OUT_RATE) for c in chans]
+loop_start = int(round(loop_start * OUT_RATE / rate))
+total = len(chans[0]); rate = OUT_RATE
 assert all(len(x) == total for x in chans), [len(x) for x in chans]
 os.makedirs('assets', exist_ok=True)
 inter = [0] * (total * nch)
