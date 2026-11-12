@@ -153,3 +153,85 @@ Input: the extracted `map/mac_02.bin`. Output: `spm3ds-demo/assets/` (git-ignore
 ## 7. Week-2 proposal
 Converter steps 1-5 (static room + collision), a free camera with the d-pad, then Mario's bind-pose model and
 `mario_W_1`.
+
+## 8. Week 2: room viewer, converter and stress test (2026-11-12)
+
+Status: everything builds without warnings; **nothing has been run** (the build is checked, but I could not run Azahar from here
+and there is no console yet). The picture-quality notes below come from reading the data, not from looking at the screen.
+
+### 8.1 What was built (all under `spm3ds-demo/`)
+- `tools/convert_room.py` (Python, standard library + the devkitPro `tex3ds` tool). Run from `spm3ds-demo/`:
+  `python -I tools/convert_room.py` (reads `NewSuperPaperBros/Disc/DATA/files/map/mac_02.bin`, writes `assets/`, about 7 s).
+- `source/`: `main.c` (loop, camera, bottom-screen stats), `room.c` (loader and renderer), `stress.c` (stress mode),
+  `gfx.c` (shader setup, vertex format, TexEnv helpers), `vshader.v.pica` (new shader; the old lit-cube shader is gone).
+- Room mode: circle pad = move, C-stick = look, L/R = down/up, D-pad up/down = speed x1.5 or /1.5, X = oku on/off,
+  A = alpha-blended batches on/off, Y = cull mode (none/back/front), B = reset camera, SELECT = stress mode, START = quit.
+- Stress mode: D-pad up/right = more triangles, down/left = fewer (12 levels, 5,000 to 60,000), SELECT = room mode.
+
+### 8.2 Converter output (measured by the converter; also in `assets/report.txt`)
+| Part | Triangles | Unique vertices | Draw calls (blended) |
+|---|---|---|---|
+| `room_main.spm` (everything except oku) | 12,942 | 13,567 | 44 (18) |
+| `room_oku.spm` | 16,781 | 19,277 | 67 (28) |
+| total | 29,723 | 32,844 | 111 (46) |
+
+- 29,723 instead of the 30,894 in section 3: zero-area triangles inside the strips are dropped.
+- Batches are merged by (texture, wrap S/T, cull byte, has-alpha), not by material, because the material colour is baked into the
+  vertex colour. 116 materials became 111 draw calls.
+- Textures: 89 converted, 269 KB of `.t3x` (ETC1 for 55, ETC1A4 for the 34 that have alpha). None needed resizing (all are
+  power-of-two); the resize code is in the converter for Mario's textures later.
+- Vertex = 16 bytes (s16 x,y,z,pad; s16 u,v; u8 r,g,b,a); positions are world units x 64 (nothing was clamped). About 0.5 MB of
+  vertices and 0.18 MB of indices in total.
+- File format (little-endian): header `"SPMR", version, nTex, nVerts, nBatches, nIdx, bbox[6 floats]` (48 bytes), then `nBatches` x 20 bytes
+  `{s32 tex (-1 = none), u32 firstIndex, u32 indexCount, u8 cull, u8 wrapS, u8 wrapT, u8 blend, u32 reserved}`, then the vertices,
+  then u16 indices. Blended batches come after the opaque ones. `room_oku.spm` has the same layout.
+- One sanity check done: a front-view dot plot of the converted vertices shows the street of buildings, the elevator shafts and the
+  upper row of structures in sensible places (picture kept outside the repo).
+
+### 8.3 Materials: what is used, what is a guess
+Decoded from the real data and used:
+- Material colour (RGBA at +4), multiplied into the vertex colour at conversion time.
+- First texture of a material: the pointer at `material+0xC` leads to `{texture info*, 0, wrapS, wrapT}`; the texture info's first word
+  points to the texture name, which is looked up in the `texture_table` chunk (= TPL image index). All 116 materials resolve.
+- Wrap bytes (0 clamp, 1 repeat, 2 mirror; only 1 was seen in the first rows of the report).
+- Vertex colour (element bit 2) and texcoords (bit 4, s16 with 7 fractional bits: a guess, but the common values 0/32/64/96/128 fit it).
+- Alpha: a texture "has alpha" if any decoded texel has alpha below 250. Those batches are drawn after the opaque ones with alpha test
+  (> 0x10) and normal alpha blending. The material flag byte `+0xA == 2` (7 materials, e.g. `lambert1_v_x`) is also treated as blended.
+
+Not decoded, likely to look wrong (**to check on screen; not yet seen**):
+1. **TEV modes.** `mapSetMaterialTev` (ttyd decomp) has several modes (modulate, two-texture blends, alpha as mask). I apply only
+   "texture 0 x vertex colour". Materials with a second texture lose that layer (the converter ignores texture 2), and the joint's
+   `drawMode` is not read.
+2. **Cull mode.** Every joint has a cull byte (1 or 3) whose meaning is unknown. The viewer starts with no culling; Y cycles
+   back/front, so you can see which one looks right. Strip winding is kept consistent.
+3. **Blend ordering.** Blended batches are not depth-sorted; semi-transparent overlaps (glass, fades, `kage` shadow planes) may be
+   in the wrong order. Cut-out textures (leaves, fences) should be fine.
+4. **UV animation** (the seven coloured doors, `kirakira` sparkle) and **fog** (1 fog entry) are ignored. Animated joints (elevator
+   doors etc.) are drawn at their rest pose.
+5. **Visibility.** Everything under `S` is drawn, including interiors the game hides with event scripts; `oku` is the most likely place
+   for this, hence the X toggle.
+6. **ETC1 quality.** Re-encoding CMPR as ETC1 is lossy; small text and signs may look soft.
+7. **Lighting.** The map has no lights and the shader does none; colours should be vertex colour x texture, as on the Wii.
+
+### 8.4 Stress-test mode (built, not acted on)
+- One mesh of 118 patches on an 11-column grid, each patch a grid of quads, all in one vertex and one index buffer; each patch is
+  one `C3D_DrawElements` call, so every level is exactly 118 draw calls. Level n has about 5,000 x n triangles (the screen shows the
+  real count, e.g. 4,956 for level 1). Checker texture, no culling, waves in z. The whole mesh is drawn every frame (no frustum
+  culling), which is the worst case.
+- The bottom screen shows triangles, draw calls, FPS, CPU ms (`C3D_GetProcessingTime`), GPU ms (`C3D_GetDrawingTime`) and command
+  buffer use.
+- It runs with vsync (`C3D_FRAME_SYNCDRAW`), so FPS is capped at 60; the GPU ms figure shows the headroom.
+- **No results yet. On the console, note the highest level that holds 30 fps and 60 fps. Emulator numbers do not count.**
+
+### 8.5 Running it
+**Azahar.** Its virtual SD card is `C:\Users\ender\AppData\Roaming\Azahar\sdmc\` (the `sdmc_directory` line in
+`Azahar\config\qt-config.ini`).
+1. Copy `room_main.spm`, `room_oku.spm` and the `textures` folder from `spm3ds-demo\assets\` into
+   `C:\Users\ender\AppData\Roaming\Azahar\sdmc\3ds\spm3ds-demo\` so that
+   `...\sdmc\3ds\spm3ds-demo\room_main.spm` and `...\sdmc\3ds\spm3ds-demo\textures\tex_000.t3x` exist.
+2. In Azahar use File > Load File and pick `spm3ds-demo\spm3ds-demo.3dsx`.
+3. If the room files are missing, the app starts in stress mode and prints the reason on the bottom screen.
+
+**Real console (later).** On the SD card: the `.3dsx` (e.g. `/3ds/spm3ds-demo.3dsx`, started from the Homebrew Launcher), plus
+`/3ds/spm3ds-demo/room_main.spm`, `/3ds/spm3ds-demo/room_oku.spm` and `/3ds/spm3ds-demo/textures/tex_000.t3x` to `tex_088.t3x`
+(about 1.2 MB). Never publish the converted files; they are derived from the game.
