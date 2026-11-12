@@ -22,4 +22,7 @@ void play_update(Play* p, float dt, u32 down, u32 held, bool debug);   // debug 
 // Camera for the current state: view matrix (world -> camera) and the yaw that turns the sprite to face it.
 void play_camera(const Play* p, C3D_Mtx* view, float* yaw);
 void play_projection(C3D_Mtx* proj);
+// Per-eye projection for stereo 3D. eye = -1 left, +1 right; slider = 0..1 from osGet3DSliderState(). The convergence plane
+// (zero parallax) is at Mario's distance, so he sits at screen depth and the room recedes/pops around him.
+void play_projection_stereo(const Play* p, C3D_Mtx* proj, int eye, float slider);
 float play_height(const Play* p);   // Mario's visual height in room units

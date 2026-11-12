@@ -81,6 +81,8 @@ int main(void)
 
 	C3D_RenderTarget* target = C3D_RenderTargetCreate(240, 400, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
 	C3D_RenderTargetSetOutput(target, GFX_TOP, GFX_LEFT, DISPLAY_TRANSFER_FLAGS);
+	C3D_RenderTarget* targetR = C3D_RenderTargetCreate(240, 400, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);   // right eye
+	C3D_RenderTargetSetOutput(targetR, GFX_TOP, GFX_RIGHT, DISPLAY_TRANSFER_FLAGS);
 
 	osSetSpeedupEnable(true);   // New 3DS: 804 MHz + L2 cache. No-op elsewhere.
 	bool isNew = false;
@@ -154,24 +156,35 @@ int main(void)
 			if (down & (KEY_DDOWN | KEY_DLEFT))  { stress_set_level(stress_level() - 1); dirty = true; }
 		}
 
+		// Stereo 3D only in play mode and only while the 3D slider is up; otherwise one flat image (the right eye is not drawn,
+		// which also saves half the GPU work). gfxSet3D must change before the frame is drawn.
+		float slider = osGet3DSliderState();
+		bool stereo = (mode == MODE_PLAY) && slider > 0.02f;
+		gfxSet3D(stereo);
+
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
-			C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
-			C3D_FrameDrawOn(target);
-			if (mode == MODE_PLAY) {
-				C3D_Mtx view;
-				float yaw;
-				play_camera(&play, &view, &yaw);
-				gfx_set_matrices(&projPlay, &view);
-				st = room_draw(&opt);
-				DrawStats ms = mario_draw(&projPlay, &view, play.pos, yaw, -play.face, play.scale, play.anim, play.animTime);
-				st.tris += ms.tris; st.calls += ms.calls;
-			} else if (mode == MODE_ROOM) {
-				C3D_Mtx view;
-				camera_view(&cam, &view);
-				gfx_set_matrices(&proj, &view);
-				st = room_draw(&opt);
-			} else {
-				st = stress_draw(&proj, (now - startTime) / 1000.0f);
+			for (int eye = 0; eye < (stereo ? 2 : 1); eye++) {
+				C3D_RenderTarget* t = eye ? targetR : target;
+				C3D_RenderTargetClear(t, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
+				C3D_FrameDrawOn(t);
+				if (mode == MODE_PLAY) {
+					C3D_Mtx view, projEye;
+					float yaw;
+					play_camera(&play, &view, &yaw);
+					if (stereo) play_projection_stereo(&play, &projEye, eye ? 1 : -1, slider);
+					else projEye = projPlay;
+					gfx_set_matrices(&projEye, &view);
+					DrawStats rs = room_draw(&opt);
+					DrawStats ms = mario_draw(&projEye, &view, play.pos, yaw, -play.face, play.scale, play.anim, play.animTime);
+					if (eye == 0) { st.tris = rs.tris + ms.tris; st.calls = rs.calls + ms.calls; }
+				} else if (mode == MODE_ROOM) {
+					C3D_Mtx view;
+					camera_view(&cam, &view);
+					gfx_set_matrices(&proj, &view);
+					st = room_draw(&opt);
+				} else {
+					st = stress_draw(&proj, (now - startTime) / 1000.0f);
+				}
 			}
 		C3D_FrameEnd(0);
 

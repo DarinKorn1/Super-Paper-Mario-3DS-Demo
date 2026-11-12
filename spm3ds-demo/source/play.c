@@ -150,6 +150,21 @@ void play_projection(C3D_Mtx* proj)
 	Mtx_PerspTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 1.0f, 1500.0f, false);
 }
 
+static float cam_dist(const Play* p)
+{
+	return (DIST_2D_HEIGHTS + (DIST_3D_HEIGHTS - DIST_2D_HEIGHTS) * ease(p->flipT)) * play_height(p);
+}
+
+// Eye separation as a fraction of the viewing distance: 3 % at full slider (about a 1.9 m viewing distance and 6.5 cm eyes would be 3.4 %).
+#define STEREO_IOD_FRACTION 0.03f
+
+void play_projection_stereo(const Play* p, C3D_Mtx* proj, int eye, float slider)
+{
+	float dist = cam_dist(p);
+	float iod = eye * slider * STEREO_IOD_FRACTION * dist;
+	Mtx_PerspStereoTilt(proj, C3D_AngleFromDegrees(FOV_DEG), C3D_AspectRatioTop, 1.0f, 1500.0f, iod, dist, false);
+}
+
 void play_camera(const Play* p, C3D_Mtx* view, float* yaw)
 {
 	float H = play_height(p);
