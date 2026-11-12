@@ -33,7 +33,7 @@ include $(DEVKITARM)/3ds_rules
 #---------------------------------------------------------------------------------
 TARGET		:=	spm3ds-demo
 APP_TITLE	:=	SPM 3DS demo
-APP_DESCRIPTION	:=	Tech demo (cube test)
+APP_DESCRIPTION	:=	Flipside room viewer + stress test
 APP_AUTHOR	:=	personal project
 BUILD		:=	build
 SOURCES		:=	source

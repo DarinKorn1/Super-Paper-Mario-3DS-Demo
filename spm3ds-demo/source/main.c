@@ -1,15 +1,17 @@
-// spm3ds-demo: week-1 smoke test.
-// A spinning textured cube on the top screen, frame rate and GPU/CPU timing on the bottom screen.
-// Based on the devkitPro "textured_cube" example (public domain / zlib-style licence).
+// spm3ds-demo, week 2: Flipside room viewer (mac_02) with free-fly camera, plus a stress-test mode.
+// Top screen: 3D. Bottom screen: statistics and the button list.
+// SELECT switches between the two modes, START quits.
+// Timings are only meaningful on a real console; emulator numbers must not drive decisions.
 #include <3ds.h>
 #include <citro3d.h>
-#include <tex3ds.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include "vshader_shbin.h"
-#include "checker_t3x.h"
+#include "gfx.h"
+#include "room.h"
+#include "stress.h"
 
+#define ASSET_DIR "sdmc:/3ds/spm3ds-demo/"
 #define CLEAR_COLOR 0x68B0D8FF
 
 #define DISPLAY_TRANSFER_FLAGS \
@@ -17,178 +19,185 @@
 	GX_TRANSFER_IN_FORMAT(GX_TRANSFER_FMT_RGBA8) | GX_TRANSFER_OUT_FORMAT(GX_TRANSFER_FMT_RGB8) | \
 	GX_TRANSFER_SCALING(GX_TRANSFER_SCALE_NO))
 
-typedef struct { float position[3]; float texcoord[2]; float normal[3]; } vertex;
+typedef enum { MODE_ROOM, MODE_STRESS } Mode;
 
-// One face = 2 triangles. The cube is built from 6 faces below.
-#define FACE(a, b, c, d, nx, ny, nz) \
-	{ a, {0.0f, 0.0f}, {nx, ny, nz} }, { b, {1.0f, 0.0f}, {nx, ny, nz} }, { c, {1.0f, 1.0f}, {nx, ny, nz} }, \
-	{ c, {1.0f, 1.0f}, {nx, ny, nz} }, { d, {0.0f, 1.0f}, {nx, ny, nz} }, { a, {0.0f, 0.0f}, {nx, ny, nz} }
+typedef struct {
+	float pos[3];
+	float yaw, pitch;      // radians; yaw 0 looks along -z
+	float speed;           // world units per second
+} Camera;
 
-#define P(x, y, z) {x * 0.5f, y * 0.5f, z * 0.5f}
-
-static const vertex vertex_list[] = {
-	FACE(P(-1,-1,+1), P(+1,-1,+1), P(+1,+1,+1), P(-1,+1,+1),  0,  0, +1), // +Z
-	FACE(P(-1,-1,-1), P(-1,+1,-1), P(+1,+1,-1), P(+1,-1,-1),  0,  0, -1), // -Z
-	FACE(P(+1,-1,-1), P(+1,+1,-1), P(+1,+1,+1), P(+1,-1,+1), +1,  0,  0), // +X
-	FACE(P(-1,-1,-1), P(-1,-1,+1), P(-1,+1,+1), P(-1,+1,-1), -1,  0,  0), // -X
-	FACE(P(-1,+1,-1), P(-1,+1,+1), P(+1,+1,+1), P(+1,+1,-1),  0, +1,  0), // +Y
-	FACE(P(-1,-1,-1), P(+1,-1,-1), P(+1,-1,+1), P(-1,-1,+1),  0, -1,  0), // -Y
-};
-#define vertex_list_count (sizeof(vertex_list) / sizeof(vertex_list[0]))
-
-static DVLB_s* vshader_dvlb;
-static shaderProgram_s program;
-static int uLoc_projection, uLoc_modelView;
-static int uLoc_lightVec, uLoc_lightHalfVec, uLoc_lightClr, uLoc_material;
-static C3D_Mtx projection;
-static C3D_Mtx material = {
-	{
-	{ { 0.0f, 0.2f, 0.2f, 0.2f } }, // Ambient
-	{ { 0.0f, 0.4f, 0.4f, 0.4f } }, // Diffuse
-	{ { 0.0f, 0.8f, 0.8f, 0.8f } }, // Specular
-	{ { 1.0f, 0.0f, 0.0f, 0.0f } }, // Emission
-	}
-};
-
-static void* vbo_data;
-static C3D_Tex tex;
-static float angleX = 0.0f, angleY = 0.0f;
-
-static bool loadTextureFromMem(C3D_Tex* t, const void* data, size_t size)
+static void camera_reset(Camera* c, bool haveRoom)
 {
-	Tex3DS_Texture t3x = Tex3DS_TextureImport(data, size, t, NULL, false);
-	if (!t3x)
-		return false;
-	Tex3DS_TextureFree(t3x);
-	return true;
+	memset(c, 0, sizeof *c);
+	c->speed = 80.0f;
+	if (haveRoom)
+		room_start_position(c->pos);
 }
 
-static void sceneInit(void)
+static void camera_update(Camera* c, float dt, u32 held)
 {
-	vshader_dvlb = DVLB_ParseFile((u32*)vshader_shbin, vshader_shbin_size);
-	shaderProgramInit(&program);
-	shaderProgramSetVsh(&program, &vshader_dvlb->DVLE[0]);
-	C3D_BindProgram(&program);
+	circlePosition cp, cs;
+	hidCircleRead(&cp);
+	hidCstickRead(&cs);
+	float mx = fabsf((float)cp.dx) > 15.0f ? cp.dx / 156.0f : 0.0f;   // dead zones
+	float my = fabsf((float)cp.dy) > 15.0f ? cp.dy / 156.0f : 0.0f;
+	float lx = fabsf((float)cs.dx) > 15.0f ? cs.dx / 146.0f : 0.0f;
+	float ly = fabsf((float)cs.dy) > 15.0f ? cs.dy / 146.0f : 0.0f;
 
-	uLoc_projection   = shaderInstanceGetUniformLocation(program.vertexShader, "projection");
-	uLoc_modelView    = shaderInstanceGetUniformLocation(program.vertexShader, "modelView");
-	uLoc_lightVec     = shaderInstanceGetUniformLocation(program.vertexShader, "lightVec");
-	uLoc_lightHalfVec = shaderInstanceGetUniformLocation(program.vertexShader, "lightHalfVec");
-	uLoc_lightClr     = shaderInstanceGetUniformLocation(program.vertexShader, "lightClr");
-	uLoc_material     = shaderInstanceGetUniformLocation(program.vertexShader, "material");
+	c->yaw   -= lx * 1.8f * dt;
+	c->pitch += ly * 1.8f * dt;
+	if (c->pitch >  1.55f) c->pitch =  1.55f;
+	if (c->pitch < -1.55f) c->pitch = -1.55f;
 
-	C3D_AttrInfo* attrInfo = C3D_GetAttrInfo();
-	AttrInfo_Init(attrInfo);
-	AttrInfo_AddLoader(attrInfo, 0, GPU_FLOAT, 3); // v0 = position
-	AttrInfo_AddLoader(attrInfo, 1, GPU_FLOAT, 2); // v1 = texcoord
-	AttrInfo_AddLoader(attrInfo, 2, GPU_FLOAT, 3); // v2 = normal
-
-	Mtx_PerspTilt(&projection, C3D_AngleFromDegrees(80.0f), C3D_AspectRatioTop, 0.01f, 1000.0f, false);
-
-	// Vertex data must live in "linear" memory so the GPU can read it.
-	vbo_data = linearAlloc(sizeof(vertex_list));
-	memcpy(vbo_data, vertex_list, sizeof(vertex_list));
-
-	C3D_BufInfo* bufInfo = C3D_GetBufInfo();
-	BufInfo_Init(bufInfo);
-	BufInfo_Add(bufInfo, vbo_data, sizeof(vertex), 3, 0x210);
-
-	if (!loadTextureFromMem(&tex, checker_t3x, checker_t3x_size))
-		svcBreak(USERBREAK_PANIC);
-	C3D_TexSetFilter(&tex, GPU_LINEAR, GPU_NEAREST);
-	C3D_TexBind(0, &tex);
-
-	C3D_TexEnv* env = C3D_GetTexEnv(0);
-	C3D_TexEnvInit(env);
-	C3D_TexEnvSrc(env, C3D_Both, GPU_TEXTURE0, GPU_PRIMARY_COLOR, 0);
-	C3D_TexEnvFunc(env, C3D_Both, GPU_MODULATE);
+	float cy = cosf(c->yaw), sy = sinf(c->yaw), cp_ = cosf(c->pitch), sp = sinf(c->pitch);
+	float fwd[3] = { -cp_ * sy, sp, -cp_ * cy };
+	float right[3] = { cy, 0.0f, -sy };
+	for (int i = 0; i < 3; i++)
+		c->pos[i] += (fwd[i] * my + right[i] * mx) * c->speed * dt;
+	if (held & KEY_R) c->pos[1] += c->speed * dt;
+	if (held & KEY_L) c->pos[1] -= c->speed * dt;
 }
 
-static void sceneRender(void)
+static void camera_view(const Camera* c, C3D_Mtx* view)
 {
-	C3D_Mtx modelView;
-	Mtx_Identity(&modelView);
-	Mtx_Translate(&modelView, 0.0f, 0.0f, -2.0f + 0.5f * sinf(angleX), true);
-	Mtx_RotateX(&modelView, angleX, true);
-	Mtx_RotateY(&modelView, angleY, true);
-
-	angleX += M_PI / 180;
-	angleY += M_PI / 360;
-
-	C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, uLoc_projection, &projection);
-	C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, uLoc_modelView,  &modelView);
-	C3D_FVUnifMtx4x4(GPU_VERTEX_SHADER, uLoc_material,   &material);
-	C3D_FVUnifSet(GPU_VERTEX_SHADER, uLoc_lightVec,     0.0f, 0.0f, -1.0f, 0.0f);
-	C3D_FVUnifSet(GPU_VERTEX_SHADER, uLoc_lightHalfVec, 0.0f, 0.0f, -1.0f, 0.0f);
-	C3D_FVUnifSet(GPU_VERTEX_SHADER, uLoc_lightClr,     1.0f, 1.0f,  1.0f, 1.0f);
-
-	C3D_DrawArrays(GPU_TRIANGLES, 0, vertex_list_count);
-}
-
-static void sceneExit(void)
-{
-	C3D_TexDelete(&tex);
-	linearFree(vbo_data);
-	shaderProgramFree(&program);
-	DVLB_Free(vshader_dvlb);
+	Mtx_Identity(view);
+	Mtx_RotateX(view, -c->pitch, true);
+	Mtx_RotateY(view, -c->yaw, true);
+	Mtx_Translate(view, -c->pos[0], -c->pos[1], -c->pos[2], true);
 }
 
 int main(void)
 {
 	gfxInitDefault();
-	C3D_Init(C3D_DEFAULT_CMDBUF_SIZE);
+	C3D_Init(0x80000);   // 512 KB command buffer: ~120 draw calls with state changes fit easily
 
-	// Bottom screen: plain text console for the frame rate. Top screen: citro3d.
 	PrintConsole bottom;
 	consoleInit(GFX_BOTTOM, &bottom);
 
 	C3D_RenderTarget* target = C3D_RenderTargetCreate(240, 400, GPU_RB_RGBA8, GPU_RB_DEPTH24_STENCIL8);
 	C3D_RenderTargetSetOutput(target, GFX_TOP, GFX_LEFT, DISPLAY_TRANSFER_FLAGS);
 
-	// On a New 3DS this switches the CPU to 804 MHz and enables the extra L2 cache.
-	// On an old 3DS (and in some emulators) it is a no-op.
-	osSetSpeedupEnable(true);
+	osSetSpeedupEnable(true);   // New 3DS: 804 MHz + L2 cache. No-op elsewhere.
 	bool isNew = false;
 	APT_CheckNew3DS(&isNew);
 
-	sceneInit();
+	gfx_init();
+	if (!stress_init())
+		svcBreak(USERBREAK_PANIC);
 
-	u64 lastTime = osGetTime();
+	char err[160] = "";
+	bool haveRoom = room_load(ASSET_DIR, err, sizeof err);
+	u32 mainTris = 0, okuTris = 0, texTotal = 0, texMissing = 0;
+	if (haveRoom)
+		room_counts(&mainTris, &okuTris, &texTotal, &texMissing);
+
+	Mode mode = haveRoom ? MODE_ROOM : MODE_STRESS;
+	Camera cam;
+	camera_reset(&cam, haveRoom);
+	RoomOptions opt = { true, true, true, CULL_NONE };
+
+	C3D_Mtx proj;
+	Mtx_PerspTilt(&proj, C3D_AngleFromDegrees(60.0f), C3D_AspectRatioTop, 1.0f, 2000.0f, false);
+
+	u64 startTime = osGetTime(), lastFrame = startTime, lastText = startTime;
 	int frames = 0;
 	float fps = 0.0f;
+	DrawStats st = { 0, 0 };
+	bool dirty = true;
 
 	while (aptMainLoop()) {
 		hidScanInput();
-		if (hidKeysDown() & KEY_START)
-			break; // back to the Homebrew Launcher
+		u32 down = hidKeysDown(), held = hidKeysHeld();
+		if (down & KEY_START)
+			break;
+		if ((down & KEY_SELECT) && (haveRoom || mode == MODE_ROOM)) {
+			mode = (mode == MODE_ROOM) ? MODE_STRESS : MODE_ROOM;
+			dirty = true;
+		} else if (down & KEY_SELECT) {
+			dirty = true;   // no room loaded: stay in stress mode but refresh the message
+		}
+
+		u64 now = osGetTime();
+		float dt = (now - lastFrame) / 1000.0f;
+		if (dt > 0.1f) dt = 0.1f;
+		lastFrame = now;
+
+		if (mode == MODE_ROOM) {
+			camera_update(&cam, dt, held);
+			if (down & KEY_X) opt.showOku = !opt.showOku;
+			if (down & KEY_A) opt.showBlended = !opt.showBlended;
+			if (down & KEY_Y) opt.cull = (opt.cull + 1) % CULL_MODES;
+			if (down & KEY_B) camera_reset(&cam, haveRoom);
+			if (down & KEY_DUP)   cam.speed *= 1.5f;
+			if (down & KEY_DDOWN) cam.speed /= 1.5f;
+			if (cam.speed < 5.0f) cam.speed = 5.0f;
+			if (cam.speed > 1000.0f) cam.speed = 1000.0f;
+		} else {
+			if (down & (KEY_DUP | KEY_DRIGHT))   { stress_set_level(stress_level() + 1); dirty = true; }
+			if (down & (KEY_DDOWN | KEY_DLEFT))  { stress_set_level(stress_level() - 1); dirty = true; }
+		}
 
 		C3D_FrameBegin(C3D_FRAME_SYNCDRAW);
 			C3D_RenderTargetClear(target, C3D_CLEAR_ALL, CLEAR_COLOR, 0);
 			C3D_FrameDrawOn(target);
-			sceneRender();
+			if (mode == MODE_ROOM) {
+				C3D_Mtx view;
+				camera_view(&cam, &view);
+				gfx_set_matrices(&proj, &view);
+				st = room_draw(&opt);
+			} else {
+				st = stress_draw(&proj, (now - startTime) / 1000.0f);
+			}
 		C3D_FrameEnd(0);
 
 		frames++;
-		u64 now = osGetTime();
-		if (now - lastTime >= 500) { // update the text twice a second
-			fps = frames * 1000.0f / (float)(now - lastTime);
-			frames = 0;
-			lastTime = now;
-
+		now = osGetTime();
+		if (now - lastText >= 500 || dirty) {
+			if (now - lastText >= 500) {
+				fps = frames * 1000.0f / (float)(now - lastText);
+				frames = 0;
+				lastText = now;
+			}
+			dirty = false;
 			consoleClear();
-			printf("spm3ds-demo  (cube test)\n\n");
-			printf("FPS:        %5.1f\n", fps);
-			// citro3d reports milliseconds; x6 turns that into % of a 16.7 ms (60 fps) frame.
-			printf("CPU time:   %5.2f ms (%3.0f %% of 60fps)\n", C3D_GetProcessingTime(), C3D_GetProcessingTime() * 6.0f);
-			printf("GPU time:   %5.2f ms (%3.0f %% of 60fps)\n", C3D_GetDrawingTime(), C3D_GetDrawingTime() * 6.0f);
-			printf("Cmd buffer: %5.1f %%\n", C3D_GetCmdBufUsage() * 100.0f);
-			printf("\nNew 3DS:    %s\n", isNew ? "yes (804 MHz mode)" : "no");
-			printf("Triangles:  %d\n", (int)(vertex_list_count / 3));
-			printf("\nSTART = exit\n");
+			if (mode == MODE_ROOM) {
+				printf("ROOM  mac_02 (Flipside)\n\n");
+				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
+				printf("FPS:  %5.1f\n", fps);
+				printf("CPU:  %5.2f ms\n", C3D_GetProcessingTime());
+				printf("GPU:  %5.2f ms\n", C3D_GetDrawingTime());
+				printf("Cmd buffer: %3.0f %%\n", C3D_GetCmdBufUsage() * 100.0f);
+				printf("\noku: %s  blended: %s  cull: %s\n", opt.showOku ? "ON" : "off",
+				       opt.showBlended ? "ON" : "off", gfx_cull_name(opt.cull));
+				printf("Pos %.0f %.0f %.0f  speed %.0f\n", cam.pos[0], cam.pos[1], cam.pos[2], cam.speed);
+				printf("Tex: %lu loaded, %lu missing\n", texTotal - texMissing, texMissing);
+				printf("\nCircle pad move  C-stick look\n");
+				printf("L/R down/up  D-pad U/D speed\n");
+				printf("X oku  A blended  Y cull  B reset\n");
+				printf("SELECT stress mode  START quit\n");
+			} else {
+				printf("STRESS TEST\n\n");
+				printf("Triangles: %lu (level %d/%d)\n", st.tris, stress_level() + 1, STRESS_STEPS);
+				printf("Draw calls: %lu\n", st.calls);
+				printf("FPS:  %5.1f\n", fps);
+				printf("CPU:  %5.2f ms\n", C3D_GetProcessingTime());
+				printf("GPU:  %5.2f ms\n", C3D_GetDrawingTime());
+				printf("Cmd buffer: %3.0f %%\n", C3D_GetCmdBufUsage() * 100.0f);
+				printf("\nNew 3DS: %s\n", isNew ? "yes" : "no");
+				printf("\nD-pad up/right: more triangles\n");
+				printf("D-pad down/left: fewer (5k steps)\n");
+				if (haveRoom)
+					printf("SELECT room mode  START quit\n");
+				else
+					printf("START quit\n\nRoom not loaded:\n%s\n", err);
+			}
 		}
 	}
 
-	sceneExit();
+	room_free();
+	stress_exit();
+	gfx_exit();
 	C3D_Fini();
 	gfxExit();
 	return 0;
