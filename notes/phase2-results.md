@@ -32,3 +32,6 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 21 | camdrv.c | camLoadRoadNoRead | small | 180 | yes | 100 | 3 | 131e77e | assert strings recovered from main.dol (cond text is "!flag(cp->flag, CAMFLAG_LoadBin)", SJIS message; source must be UTF-8 for sjiswrap); macro stringify expanded the condition so call __assert2 directly; float literals 0.0f/1.0f |
 | 22 | camdrv.c | func_80057ce0 | small | 192 | yes | 100 | 3 | 131e77e | tan(0.21816615760326385) double literal; 0.5 needs extern lbl_805afc00 (literal swaps fmuls operands) |
 | 23 | camdrv.c | func_80057da0 | small | 172 | no, functionally complete | 92.3 | 8 | wip/func_80057da0 | scheduler hoists the 6 dest-vector loads above the start copies with descending f5..f0; could not reproduce register/load order |
+| 24 | camdrv.c | camUnloadRoad | small | 196 | yes | 100 | 1 | 726cc78 | flag-mask clears decoded from rlwinm; straightforward |
+| 25 | camdrv.c | func_80055c10 | small | 208 | no, functionally complete | 99.9 | 1 | wip/func_80055c10 | HitObj attr to height table; same 99.9 as old wip (likely sdata2 constant symbol pooling, not fixable per-function) |
+| 26 | camdrv.c | func_80058c80 | small | 216 | yes | 100 | 1 | 726cc78 | needed bool return types in acdrv.h/evt_door.h for callee stubs; local struct for lbl_805adf78 |
