@@ -123,3 +123,8 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 92 | mapdrv.c | mapDispOn | small | 16 | yes | 100 | 1 (shared) | 2b9c298 | `wp->dispOff = 0` |
 | 93 | mapdrv.c | func_80083aa4 | small | 24 | yes | 100 | 1 (shared) | 2b9c298 | returns mapGetWork()->entries[1].mapCount (s32 guess; header prototype changed from UNKNOWN_FUNCTION) |
 | 94 | mapdrv.c | mapBlendOff | small | 32 | yes | 100 | 1 (shared) | 2b9c298 | `mapGetWork()->entries[0].flags &= ~2` |
+| 95 | mapdrv.c | mapBlendOff2 | small | 32 | yes | 100 | 1 (shared) | b40c967 | `mapGetWork()->entries[0].flags &= ~4` |
+| 96 | mapdrv.c | mapFogOff | small | 32 | yes | 100 | 1 (shared) | b40c967 | `...flags &= ~1` |
+| 97 | mapdrv.c | mapFogOn | small | 32 | yes | 100 | 1 (shared) | b40c967 | `...flags \|= 1` |
+| 98 | mapdrv.c | mapSetPaperAmbColor | small | 40 | no, functionally complete | 93.8 | 9 | wip/mapSetPaperAmbColor | 4-byte GXColor copy; original is pipelined (L0 L1 S0 L2 S1 L3 S2 S3, temps r4/r0, wp in r5); best form: `dst=&wp->paperAmbColor` plus interleaved u8 locals gives right schedule but wp in r4 and load order g/r swapped |
+| 99 | mapdrv.c | mapResetPaperAmbColor | small | 64 | no (100% only with row 98's body inlined) | 100 | 1 (shared) | wip/mapSetPaperAmbColor | `static GXColor default; GXColor c = default; mapSetPaperAmbColor(&c)` (inlined); matches 100% on the wip branch with any Set body, but kept off master because it depends on the unmatched Set; default colour value in .sdata unknown (placeholder 0xFFFFFFFF, data not split) |
