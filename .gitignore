@@ -17,3 +17,9 @@ notes/user-path-backup.txt
 
 # Thousand-Year Door decompilation (reference only, cloned separately)
 ttyd/
+
+# Second-agent worktree of spm-decomp (disc image + build output inside)
+spm-decomp-ag/
+
+# Emulator screenshots (game frames; never commit)
+spm3ds-demo/notes-screen/
