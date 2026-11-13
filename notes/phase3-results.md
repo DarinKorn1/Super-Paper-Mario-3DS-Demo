@@ -60,3 +60,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 31 | fairy.c | fairyGetEntries | small | 16 | yes | 100 (report.json) | 1 | dc0c83d | Trivial: return work.entries; batch built together in 1 build. ok file stale, ninja succeeded. |
 | 32 | fairy.c | fairyGetNum | small | 16 | yes | 100 (report.json) | 1 | dc0c83d | Trivial: return work.num; batch built together in 1 build. ok file stale, ninja succeeded. |
 | 33 | fairy.c | fairyGetNumExtra | small | 16 | yes | 100 (report.json) | 1 | dc0c83d | Trivial: return work.numExtra; batch built together in 1 build. ok file stale, ninja succeeded. |
+| 34 | fairy.c | fairyOff | small | 20 | yes | 100 (report.json) | 1 | spm-decomp master (Decompile fairyOff... commit) | flags |= 1; batch built together in 1 build, main.dol/relF.rel OK. |
+| 35 | fairy.c | fairyOn | small | 20 | yes | 100 (report.json) | 1 | spm-decomp master (Decompile fairyOff... commit) | flags &= ~1; batch built together in 1 build, main.dol/relF.rel OK. |
+| 36 | fairy.c | func_8011f39c | small | 20 | yes | 100 (report.json) | 1 | spm-decomp master (Decompile fairyOff... commit) | flags |= 0x80000000; batch built together in 1 build, main.dol/relF.rel OK. |
+| 37 | fairy.c | func_8011f534 | small | 48 | yes | 100 (report.json) | 1 | spm-decomp master (Decompile fairyOff... commit) | return timer<=0 || runMode!=4; header changed to s32 func(FairyEntry*); batch built together in 1 build, main.dol/relF.rel OK. |
+| 38 | fairy.c | fairyGetExtra | small | 68 | yes | 100 (report.json) | 1 | spm-decomp master (Decompile fairyOff... commit) | &entries[num] if extra>0 and not off; batch built together in 1 build, main.dol/relF.rel OK. |
