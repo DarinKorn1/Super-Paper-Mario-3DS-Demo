@@ -21,3 +21,8 @@ If it recurs: stop ninja/objdiff-cli running in spm-decomp only, move `.ninja_de
 | 3 | guide.c | func_80121ba4 | small | 36 | yes | 100 | 1 | 9530a24 | copies Vec3 at 0x58 (header field typed) |
 | 4 | guide.c | func_80121d84 | small | 48 | no, functionally complete | 82.08 | 10 | wip/func_80121d84 | same as inline guideIsActive; branch layout/rlwinm differs, objdiff-cli has no one-shot output so could not see diff |
 | 5 | guide.c | guideEnterRunMode1 | small | 56 | yes | 100 | 1 | 9530a24 | straightforward |
+| 6 | guide.c | guideInit | small | 68 | yes | 100 | 1 | 290f6d4 | memset + animPoseId=-1 |
+| 7 | guide.c | func_80121900 | small | 72 | yes | 100 | 2 | 290f6d4 | 25.0f * field, *0.4f if mario flag; constants read from sdata2; call marioGetPtr first |
+| 8 | guide.c | func_80121948 | small | 72 | yes | 100 | 1 | 290f6d4 | same as func_80121900 with field y |
+| 9 | guide.c | guideEnterRunMode2 | small | 76 | yes | 100 | 1 | 290f6d4 | matched first try (dead-looking runMode checks kept) |
+| 10 | guide.c | guideCanSearch | small | 80 | yes | 100 | 1 | 290f6d4 | reuses guideIsActive inline |
