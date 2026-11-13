@@ -28,3 +28,7 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 17 | camdrv.c | func_80055bb4 | small | 92 | yes | 100 | 2 | ce2cca4 | second flag mask is 0x80000000 (clrrwi), then !(f & 0x2000); placeholder name kept |
 | 18 | camdrv.c | func_800587a0 | small | 96 | yes | 100 | 1 | ce2cca4 | shake setup using gp->time (OSTime) twice; placeholder name kept |
 | 19 | camdrv.c | func_80057e4c | small | 120 | yes | 100 | 1 | ce2cca4 | zoom start copy; new header fields 0x248/0x24c/0x250; placeholder name kept |
+| 20 | camdrv.c | func_80058700 | small | 160 | yes | 100 | 1 | 131e77e | like func_800587a0 but duration = (s32)(a * gp->gameSpeed), rumbleState 0; placeholder name kept |
+| 21 | camdrv.c | camLoadRoadNoRead | small | 180 | yes | 100 | 3 | 131e77e | assert strings recovered from main.dol (cond text is "!flag(cp->flag, CAMFLAG_LoadBin)", SJIS message; source must be UTF-8 for sjiswrap); macro stringify expanded the condition so call __assert2 directly; float literals 0.0f/1.0f |
+| 22 | camdrv.c | func_80057ce0 | small | 192 | yes | 100 | 3 | 131e77e | tan(0.21816615760326385) double literal; 0.5 needs extern lbl_805afc00 (literal swaps fmuls operands) |
+| 23 | camdrv.c | func_80057da0 | small | 172 | no, functionally complete | 92.3 | 8 | wip/func_80057da0 | scheduler hoists the 6 dest-vector loads above the start copies with descending f5..f0; could not reproduce register/load order |
