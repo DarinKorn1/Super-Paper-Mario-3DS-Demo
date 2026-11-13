@@ -38,3 +38,6 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 27 | camdrv.c | func_800550f8 | medium | 272 | yes | 100 | 3 | 2f02f3a | viewport/scissor setup; float zero must be a literal (not the lbl_ extern) to pool correctly; store order of chained assign mattered |
 | 28 | camdrv.c | func_80056948 | medium | 280 | no, functionally complete | 99.0 | 5 | wip/func_80056948 | map-name table clamp; only f0/f1 swap in clamp compare plus sdata2 literal names left; no TTYD counterpart |
 | 29 | camdrv.c | camDraw | medium | 328 | yes | 100 | 4 | 2f02f3a | float constants (1.0, 32767.0) must be literals, and the `if (cp != NULL && ...)` block form (not continue) made the compiler hoist them to f30/f31 |
+| 30 | camdrv.c | camLoadRoadAsync | medium | 368 | yes | 100 | 1 | f6ac878 | fileAsyncf/fileAllocf with "%s/%s/camera_road.bin" (format decoded from rodata); `(s32) file == -1` compare needed |
+| 31 | camdrv.c | func_80058128 | medium | 364 | yes | 100 | 1 | f6ac878 | per-field copies between camPtrTbl[b] and [a]; made PSMTX44Copy a real prototype |
+| 32 | camdrv.c | func_80058b14 | medium | 364 | yes | 100 | 1 | f6ac878 | fade-state update; split unknown_0x2b8 into three s32 fields in camdrv.h |
