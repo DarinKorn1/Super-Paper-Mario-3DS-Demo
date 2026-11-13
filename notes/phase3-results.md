@@ -29,3 +29,4 @@ If it recurs: stop ninja/objdiff-cli running in spm-decomp only, move `.ninja_de
 | 11 | guide.c | func_80121db4 | small | 100 | yes | 100 | 3 | 6af1bca | needed a second ternary-form inline (active && !(flag0&0x100)); calling guideCanSearch gave wrong branch shape |
 | 12 | guide.c | guideEnterRunMode5 | small | 124 | yes | 100 | 1 | 6af1bca | header fix: split unknown_0x28 to expose 0x30 f32 and 0x34 Vec3; dead runMode!=5 check kept |
 | 13 | guide.c | guideSetAnim | small | 124 | yes | 100 | 1 | 6af1bca | header fix: curAnimName is const char *, not char[4]; same logic as fairy |
+| 14 | guide.c | func_801215f0 | small | 140 | no, functionally complete | 99.43 | 7 | wip/func_801215f0 | only f0/f1 register swap on the 1.0f + table[character] add (const load scheduled before lfsx in original); header declaration changed UNKNOWN_FUNCTION to f32 |
