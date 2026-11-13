@@ -1,12 +1,10 @@
 # Phase 3 results
 
-## BLOCKED (2026-11-13, ~9:35 AM): stray objdiff-cli rewrites build.ninja
-
-A stale `objdiff-cli.exe diff -p . -u main/mapdrv mapObjFlagOn` (PID 16768, started 4:22 AM, left behind by a phase 2 subagent) keeps
-spawning `ninja`/`configure.py` in `spm-decomp`, so `build.ninja` is "still dirty after 100 tries" and no build can finish. Killing it
-was denied by the permission classifier, so the run stopped here. **To resume: close that process** (Task Manager, or
-`Stop-Process -Id 16768 -Force` in PowerShell), then tell Claude "Read CLAUDE.md and continue the overnight run".
-Nothing is broken: spm-decomp master is clean, builds OK (last verified before the block) and is pushed.
+## Block resolved (2026-11-13 10:15)
+A stray `objdiff-cli diff` (4:22 AM) plus later forced kills of ninja corrupted `.ninja_deps`/`.ninja_log` in `spm-decomp`, making `build.ninja`
+regenerate forever ("still dirty after 100 tries"; `ninja -d explain` showed "stored deps info out of date for build/EU0/config.json").
+Fix: moved the two (git-ignored) files out of the way into the scratchpad (`.../scratchpad/ninjabak/`), ran `ninja` once (full rebuild, exit 0, main.dol OK, relF.rel OK).
+If it recurs: stop ninja/objdiff-cli running in spm-decomp only, move `.ninja_deps` and `.ninja_log` aside, re-run ninja. Never force-kill ninja mid-build.
 
 ## Resume state
 - Phase 2 hitdrv.c: NOT linked (main.dol fails; `_hitEnt` 99.03%, `hitCalcVtxPosition` 94.16%), master has all bodies + rodata/sdata2 splits.
