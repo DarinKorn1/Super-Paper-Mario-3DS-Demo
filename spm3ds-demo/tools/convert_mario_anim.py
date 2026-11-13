@@ -389,7 +389,10 @@ def main():
     used0 = sorted({i for _, ids in f0[2] for i in ids})
     pts = [world_pos(f0[0], f0[1], pool_list[i]) for i in used0]
     ox = (min(p[0] for p in pts) + max(p[0] for p in pts)) / 2
-    oy = min(p[1] for p in pts)
+    # Anchor = the model's own origin, NOT the lowest vertex: the shoe textures have about 2.4 model units of transparent margin below the
+    # soles (opaque rows 11..40 of 56 in a quad that is 7 units tall), and the soles sit at model y = -0.1 ~ 0, so the game puts Mario's origin
+    # on the ground. Using min(y) (= -2.51) made the drawn Mario float about 0.5 room units (3 px) above the floor.
+    oy = 0.0
     oz = (min(p[2] for p in pts) + max(p[2] for p in pts)) / 2
 
     def q(v):

@@ -468,3 +468,89 @@ Status: builds; **not run** (the user checks in Azahar). Compared against `notes
   i.e. 26.25 back, and its view direction is pitched down by the road's 17.87 degrees (the pitch is the view tilt, not the camera's elevation, which is 37 degrees).
   Predicted: Mario 13.0 % high, feet 88 % down the screen (reference 13.1 % and 85 %). The 12.7 fit in 13.2 is superseded. Not run yet.
 - The 3D camera uses the same rule with distance 31.58 and pitch 23 (height 20 assumed the same: the field has 20.0 in every record).
+
+## 14. How the game really computes the camera (decompiled on `wip/cam2d`, 2026-11-12)
+
+Why sections 13's attempts were wrong: they assumed the road records (distance 33, pitch 17.87, height 20) directly define the play camera, and that
+the 2D camera is camera id 11 and perspective. The decompiled code shows otherwise (below), and the first camera data I trusted (`camMain`) only builds the view matrix.
+
+Functions decompiled on `spm-decomp` branch `wip/cam2d` (EU0 names; not merged to master):
+`func_80055c10` 99.9 %, `func_80056948` 100 %, `func_80055ce0` ("cam2dMain", follow point) 98.2 %, `cam3dMain` 89.5 % (functionally complete).
+
+- **The camera that draws the game is camera 5 (`cam3dMain` is its dispFunc), in 2D and 3D alike.** Camera 11 is only read for a 16:9 flag.
+- `func_80055ce0` never places the camera. It only computes a **follow point** (x, ySmooth, z):
+  X/Z snap to Mario (or ease at `followRate*0.08` when flag 0x200). Y comes from a ray cast down from Mario onto the floor (`groundY`), with an offset
+  `groundOffset` that eases (0.08/frame) toward 75 game units without a hit, else 0/25/50/75/100/125 by the floor's attribute bits (`func_80055c10`).
+  followY = groundY if closer than the offset, else marioY - offset. Per-map clamps (ta1_03, sp4_10, sp4_06, gn3_12/15/16) and `func_80056948` (per-map upper bound 10*table - 225, lower 35). ySmooth chases
+  followY at 0.08 * rate per frame (rate 3 while Mario is in motion 7; step capped at 5; snaps below 0.08).
+- `cam3dMain` turns the follow point into the camera. Preset table `lbl_80407d88` (EU0 data 0x80407D88), index = `rollAxisMode != 0`, 0x20 bytes each:
+  | field | entry 0 (rollAxis 0) | entry 1 (rollAxis != 0) |
+  |---|---|---|
+  | projection type | **1 = orthographic** | 0 = perspective |
+  | y offset | 100 | 125 |
+  | distance | 310 | 290 |
+  | pitch (deg) | 0 | -6.3 |
+  | fovY (deg) | 25 | 50 |
+  | aspect | 1.2667 (19/15) | 1.2667 |
+  | near / far | 1 / 8192 | 1 / 8192 |
+- **2D mode (flag 2 clear), rollAxis 0:** pos = (fX, fYsmooth + 100, fZ + 310); target = (fX, pos.y + 310*sin(pitch), pos.z - 310*cos(pitch)). With pitch 0 the camera
+  looks horizontally along -z. rollAxis 1 does the same turned 90 degrees about y (pos.x = fX - dist, looks along +x).
+  Then, if the preset is orthographic, the ortho box is top = targetDistance * tan(fovY/2), right = top * aspect (aspect forced to 1.6888 = 16:9 when that flag is set).
+  All values are in game units (1 room unit = 8 game units).
+- **3D mode (flag 2):** the camera position comes from the camera road via `func_80052734` (named road from `func_80053d1c` at Mario's position), then it
+  is doubled out (destPos += destPos - destTarget) for rollAxis 0, and a road-box x clamp with a margin of 58 (84 on dan_30, he4_10) applies. Projection values come from the same preset.
+- **Flip / transitions:** target, distance, yaw and pitch of the old and new camera are blended with an easing curve (`intplGetValue`), then the camera sits at
+  target + d*(sin yaw cos pitch, sin pitch, -cos yaw cos pitch); projection type switches at half time; near/far/fov/aspect blend too. After the blend the camera eases 0.2 per frame to the destination.
+- Not yet known: the road-based 3D placement (`func_80052734`, `func_80053d1c`) and how the 2D preset is overridden by the road (`func_80058404`). **Ground truth log is needed** (step 2 below).
+
+### 14.1 Ground-truth logging in NewSuperPaperBros (logging only)
+`wiicompiled/runtime/src/hle/vi.cpp`, in `VI_HLE_PresentFrame`: with the environment variable `SPM_LOG_CAM=1`, once a second it appends to `camlog.txt` (in the folder the game
+is started from) Mario's position, the current camera number, and for cameras 5 and 11: flags, mode, rollAxis, projection type, eye, target, up, fovY, aspect, near, far, projection matrix rows, viewport.
+Addresses are US0: `camPtrTbl` 0x804C8580, Mario work 0x804CD458 (position +0x5C), camera number 0x8056D7D8.
+
+## 15. Camera rebuilt from the ground-truth log (2026-11-12)
+
+Log: `NewSuperPaperBros/Play/camlog.txt` (US0, Flipside road C2D_02 / C3D_02, Mario at game (63.49, 0, 198.96) = room (7.94, 0, 24.87); the old demo spawned on a different road at z = -10).
+Settled values (game units; room = /8):
+| | 2D | 3D |
+|---|---|---|
+| projection | **orthographic**, fovY 25, aspect 1.6889, near 1, far 8192 | perspective, fovY 50, aspect 1.6889, near 1, far 5000 |
+| eye | (Mario x, 101.26, 894.08) | (Mario x - 290.7, 123.39, 251.13) |
+| target | (same x, 101.26, 234.08), distance 660, pitch 0 | (Mario x + 23.8, 95.16, 251.13), looks along +x, 5.1 deg down |
+(In 3D the camera z is 52.2 away from Mario's z 198.96, because the 3D road line, not Mario, sets it; Mario appears left of centre, as in `spm-3d-ref.png`.)
+So the earlier assumptions were wrong in kind: there is no 33-unit perspective camera tilted 18 degrees; the 2D view is a level orthographic view.
+Implementation (`source/play.c`): one pose function blends target, distance (geometric), yaw (0 -> -90 deg) and pitch (0 -> 5.1 deg) with the flip ease, as `cam3dMain` does; the orthographic 2D camera is
+emulated by a perspective camera 24x further away with a narrower fov (so stereo and the flip need no special case); near/far are taken from the real eye. Follow: x/z 8 % per frame, x clamped to the road range + 7.25.
+Aspect: the 3DS top screen is 400x240 = 1.667, the game's 16:9 view is 1.689; the fov is widened by 1.3 % so the horizontal extent matches (Mario 1.3 % smaller).
+Mario: measured 38.5 game units tall in the reference (13.2 % of the view), so the draw scale is now 0.2087 (4.8 room units); walk/jump/step constants were rescaled to keep their absolute values.
+Unverified: the last log line shows the 2D eye x 9 units ahead of Mario (68.8 vs 59.7) that I could not explain (a dead zone?); not modelled. Not tested on hardware or Azahar: build only.
+
+## 16. Gameplay bugs after the camera (2026-11-12)
+
+### 16.1 Invisible wall in 3D: collision debug view (cause NOT yet found)
+- Added to the debug screen (Y): **D-pad up toggles a collision wireframe** on the top screen (red = wall, green = floor, blue = ceiling, magenta = wall with a
+  non-zero `attr`, **yellow filled = the triangle that last pushed Mario**, shown for 3 s). Only triangles within 30 units of Mario are drawn, x-ray (no depth test).
+  The bottom screen prints the blocking triangle (index, attr, push, normal, bounding box).
+- Every wall contact is also appended to `sdmc:/3ds/spm3ds-demo/hitlog.txt` (view, Mario position, triangle, attr, bbox), so a blocked spot can be analysed on the PC.
+- What the data says (offline, same `room_hit.bin` as on the SD card): in lane 2 (z 10.5..39.5, where Mario spawns) a fine scan (0.5 x 1 units) finds **no solid object
+  inside the lane**. The only things that stop Mario are the lane boundary (131072-attr "A2_box" walls at z = 10.5 and 39.5 and x = -114.5 / 114, 105 tall), a closed door slab
+  (z 9.5..10.5, x -7.5..7.5, attr 0), and gaps at x 20..30 (z = 39.5, an alley) and x -7.5..7.5 (z = 10, the door). In the game's 3D reference those boundaries are the visible
+  railing (left) and building wall (right), so they are real. Visible floor = collision floor (y = 0) everywhere in lane 2.
+  So by the data the "invisible wall" is not a seam/normal/depth bug in lane 2; it is either a lane boundary reached in 3D (z can't be left in 2D, which pins z = 24.87) or
+  something at another height / lane. **Needs the debug view or `hitlog.txt` from the blocked spot.**
+- Game side: `chkFilterAttr(hitObj, filter)` (US0 0x8006EF00) returns `(hitObj.attr & filter.attr) == 0`: the game's collision queries carry an attr mask and skip objects whose attr
+  overlaps it. So attr bits (4096, 131072, 557056 here) are probably "ignored by this kind of query" flags (e.g. one mode's walls). The demo ignores attr entirely. What the
+  bits mean is not decompiled (`hitCheckFilter` callers in Mario's code are not in spm-decomp).
+
+### 16.2 Jump: where the numbers are
+- Mario's jump is not decompiled in spm-decomp (`marioJump` = US0 `fn_801448CC`, `marioSetJumpPara`, `marioFall` = `fn_80144F78` are all asm only). Read from the asm: the vertical motion
+  is a **cubic polynomial in the time since take-off** (`MarioWork.jumpFallPara`, 0x34 bytes at +0xCD8: +0x00 elapsed frames, +0x04 time of the peak, +0x08 current vertical
+  speed, then two sets of 4 coefficients at +0x0C..0x18 and +0x1C..0x28, +0x2C = result). Every frame the code adds the frame time, evaluates the cubic, and when the jump button is
+  **not held before the peak** it rebuilds the coefficients (a different constant is chosen by flags) = the variable-height cut. Exact constants: from the log below.
+- PC logging (`SPM_LOG_JUMP=1`, `vi.cpp`, logging only): see the instructions in the session report; output `Play\jumplog.txt`.
+
+### 16.3 Mario floating above the ground (fixed in the converters)
+- Cause: the converters anchored Mario at the lowest **vertex** of his image quads (model y = -2.51). The shoe textures have about 2.4 units of transparent margin below the soles
+  (opaque rows 11..40 of 56 in a 7-unit quad), and the soles are at model y ~ -0.1, i.e. the game's origin is the soles. So Mario was drawn 2.4 model units
+  (0.5 room units, about 3 px in 2D) too high in both views. Fix: anchor y = model origin (`oy = 0`) in `convert_mario_anim.py` and `convert_mario.py`.
+  Depth: the billboard is drawn at Mario's z, the same as the floor under his feet; visible floor and collision floor are both y = 0 (checked on a grid), so nothing else was off.

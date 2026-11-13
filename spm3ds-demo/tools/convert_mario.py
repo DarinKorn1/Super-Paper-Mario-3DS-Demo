@@ -160,7 +160,7 @@ def main():
     order = sorted(batches, key=lambda k: (k[2], k[0]))
     allv = [v for tl in batches.values() for t in tl for v in t]
     ox = (min(v[0] for v in allv) + max(v[0] for v in allv)) / 2      # centre x, feet on y = 0, centre z
-    oy = min(v[1] for v in allv)
+    oy = 0.0   # the model origin is at the soles (the quads extend ~2.5 units lower but that part is transparent); see convert_mario_anim.py
     oz = (min(v[2] for v in allv) + max(v[2] for v in allv)) / 2
     vlist, vmap, idx_all, btab = [], {}, [], []
     lo, hi = [1e9] * 3, [-1e9] * 3
