@@ -28,8 +28,13 @@ One attempt = write or edit the C, build, diff.
 
 - Redirect ALL build and diff output to a file in `%TEMP%\decomp-matcher\` (outside the project), then read
   back only error lines and mismatching lines: **at most 40 lines per attempt**. Never print full output.
-- Follow `notes/decomp-workflow.md` for the build and diff method. Confirm a match with `fuzzy_match_percent`
-  = 100 for the function in `build/EU0/report.json`.
+- **Diff method (objdiff-cli has no one-shot diff output; never run it in watch or interactive mode):**
+  compile only your file with `ninja build/EU0/src/<file>.o`, disassemble your object with
+  `build/tools/dtk.exe elf disasm build/EU0/src/<file>.o <tempfolder>\ours.s`, and compare your function with the
+  original in `build/EU0/asm/<file>.s` (a small throwaway script in the temp folder that prints only the differing
+  lines is fine). Official score: run `ninja` and read `fuzzy_match_percent` for the function (unit `main/<file>`) in
+  `build/EU0/report.json`; 100 = matched. Same method as Antigravity's `spm-decomp-ag/AGENTS.md` (read-only reference).
+- Before returning, make sure every objdiff-cli, ninja or python process you started has exited. Never touch processes you did not start.
 - Run any Python that reads extracted or downloaded data with `python -I`; keep temporary scripts in the temp
   folder, not in the project.
 - **Stop after 10 attempts, or when two attempts in a row make no progress** (match % not higher and no new
