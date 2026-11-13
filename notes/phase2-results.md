@@ -74,3 +74,9 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 62 | hitdrv.c | func_8006ef1c | small | 252 | yes | 100 | 3 | 1c29606 | per-tri single-sided check; block if/else for cullMode, `s32 i` declared before tri |
 | 63 | hitdrv.c | func_80070790 | small | 264 | yes | 100 | 1 | 1c29606 | bbox init (+-10000.0f) via (Vec3){} literals, then func_8007058c |
 | 64 | hitdrv.c | hitMain | medium | 316 | yes | 100 | 2 | 1c29606 | split HitObj mtx fields at 0x3c/0x6c; MapFileMeshTracks needed pointer array; local decl order fixed regs |
+| 65 | hitdrv.c | hitReCalcMatrix2 | medium | 352 | yes | 100 | 2 | 5b66a69 | TTYD shape plus 0x2000 localMtx concat; a first `flags &= ~0x40` before the 0x20 test (besides the one after hitCalcVtxPosition) fixed the only diff |
+| 66 | hitdrv.c | hitEntry | medium | 416 | yes | 100 | 9 | 5b66a69 | needs hitEntrySub written too (also 100) so it inlines; inline depth is cost-driven: a dead `s32 idx = mapEntryIdx` copy in hitEntrySub cut unrolling from 4 to 3 levels (inline_depth pragma has no effect); no `map` local in hitEntry fixed regs; mapGetJoints header now returns s32 |
+| 67 | hitdrv.c | hitGetMapEntryBbox | medium | 476 | yes | 100 | 2 | 5b66a69 | copy of mapGetBoundingBox shape on HitObj; dropping the `joint` local (use hit->joint) fixed save-register count |
+| 68 | hitdrv.c | hitGrpAttrOff | medium | 484 | yes | 100 | 1 | 5b66a69 | thin wrapper over recursive hitAtrOff(hit, mask, false), which self-inlines 3 levels; wrote hitAtrOff too (100) |
+| 69 | hitdrv.c | hitGrpFlagOff | medium | 484 | yes | 100 | 1 | 5b66a69 | same with hitFlgOff (100); builds 1 to 5 shared one ninja run |
+| 70 | hitdrv.c | hitEntryMOBJ | medium | 500 | no, functionally complete | 99.98 | 9 | wip/hitEntryMOBJ | only diff is string pool base/offsets (assert strings at +0x61/+0xb5 of the shared rodata); assert text recovered from rodata (SJIS message "あふれた"), line 0x134 |
