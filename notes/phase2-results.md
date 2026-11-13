@@ -23,3 +23,8 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 12 | camdrv.c | func_80058388 | small | 44 | yes | 100 | 1 | 5dd9be3 | returns one of two sdata floats by rollAxisMode; placeholder name kept |
 | 13 | camdrv.c | func_8005869c | small | 44 | yes | 100 | 1 | 5dd9be3 | signed compare of new fields 0xe0/0xe4; placeholder name kept |
 | 14 | camdrv.c | func_800586c8 | small | 56 | yes | 100 | 1 | 5dd9be3 | stores Vec3 + 3 floats into new fields 0x2c8-0x2dc; placeholder name kept |
+| 15 | camdrv.c | func_800583b4 | small | 80 | yes | 100 | 2 | ce2cca4 | call func_80053198 must be hoisted before the camPtrTbl load; placeholder name kept |
+| 16 | camdrv.c | func_80055b58 | small | 92 | yes | 100 | 2 | ce2cca4 | flag tests on arg2->4; final test needed explicit if/return true/false; placeholder name kept |
+| 17 | camdrv.c | func_80055bb4 | small | 92 | yes | 100 | 2 | ce2cca4 | second flag mask is 0x80000000 (clrrwi), then !(f & 0x2000); placeholder name kept |
+| 18 | camdrv.c | func_800587a0 | small | 96 | yes | 100 | 1 | ce2cca4 | shake setup using gp->time (OSTime) twice; placeholder name kept |
+| 19 | camdrv.c | func_80057e4c | small | 120 | yes | 100 | 1 | ce2cca4 | zoom start copy; new header fields 0x248/0x24c/0x250; placeholder name kept |
