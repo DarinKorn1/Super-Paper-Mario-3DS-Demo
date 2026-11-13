@@ -70,3 +70,5 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 41 | fairy.c | fairySetMaterialEvtAlpha | small | 88 | yes | 100 (report.json) | 1 | spm-decomp master a90dfb4 | set materialEvtColor.a then pass color by value. |
 | 42 | fairy.c | func_8011f2d4 | small | 76 | no, functionally complete | 47.2 | 7 | wip/func_8011f2d4_f320 | 0.5f*fairy->f80, x2 if mario flag 0x2000000; MWCC hoists the field load above marioGetPtr (f31 spill) while original keeps fairy in r31; 5 source variants all identical. |
 | 43 | fairy.c | func_8011f320 | small | 76 | no, functionally complete | 47.2 | 7 | wip/func_8011f2d4_f320 | same as func_8011f2d4 but field 0x84; shares the builds with it. |
+| 44 | fairy.c | fairyIdToPtr | small | 80 | yes | 100 (report.json) | 0 | already matched (spm-decomp master) | already decompiled; no change. |
+| 45 | fairy.c | fairySetAllPositions | small | 124 | yes | 100 (report.json) | 1 | spm-decomp master 912d516 | copy pos into position, prevPosition and the unknown_0x60 Vec3 for num+numExtra entries; pointer-increment loop. |
