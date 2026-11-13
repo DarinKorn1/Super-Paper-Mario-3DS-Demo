@@ -19,6 +19,7 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 - **To resume** ("Read CLAUDE.md and continue phase 2"): (1) on a scratch branch of `spm-decomp`, merge the hitdrv wip branches and see which differences remain;
   (2) one strongest-model pass over the register-numbering near-misses (hitdrv first: `func_8006f710`, `func_8006debc`, `func_8006e160`, `hitCheckVecFilter2`, `func_800710b4`,
   `func_800717d8`, `hitCalcVtxPosition`); (3) try linking `hitdrv.c` as Matching (main.dol must stay byte-identical); (4) same for `camdrv.c`; (5) start `mapdrv.c`, smallest first.
+- **2026-11-13 strongest-model pass on local `scratch/hitdrv-link` (hitdrv.c Matching, 33 builds):** now 100%: `func_8006e400`, `func_8006f710`, `hitCheckVecFilter2`, `func_800717d8`, `func_8006debc`, `func_8006e160`, `hitObjGetPos`; still below: `func_800710b4` 99.68%, `_hitEnt` 99.03%, `hitCalcVtxPosition` 93.97% (all register numbering only), so main.dol still FAILED.
 
 ## Log
 
