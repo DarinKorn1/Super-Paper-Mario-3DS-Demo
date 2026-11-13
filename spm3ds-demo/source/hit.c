@@ -3,15 +3,19 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "gfx.h"
 
 typedef struct {
 	float v[3][3];
 	float n[3];                 // unit normal, (b-a) x (c-a)
 	float min[3], max[3];
+	unsigned attr;              // the room's collision drawMode attr (0 / 4096 / 131072 / 557056)
 } Tri;
 
 static Tri* tris;
 static int nTris;
+static int blockIdx = -1;     // wall triangle that pushed Mario hardest since hit_block_reset()
+static float blockAmt;
 
 bool hit_load(const char* path)
 {
@@ -28,6 +32,7 @@ bool hit_load(const char* path)
 		if (fread(raw, sizeof raw, 1, f) != 1 || fread(&attr, 4, 1, f) != 1) { fclose(f); hit_free(); return false; }
 		Tri* t = &tris[i];
 		memcpy(t->v, raw, sizeof raw);
+		t->attr = attr;
 		float e1[3], e2[3];
 		for (int k = 0; k < 3; k++) { e1[k] = t->v[1][k] - t->v[0][k]; e2[k] = t->v[2][k] - t->v[0][k]; }
 		float nx = e1[1]*e2[2] - e1[2]*e2[1], ny = e1[2]*e2[0] - e1[0]*e2[2], nz = e1[0]*e2[1] - e1[1]*e2[0];
@@ -44,7 +49,8 @@ bool hit_load(const char* path)
 	return true;
 }
 
-void hit_free(void) { free(tris); tris = NULL; nTris = 0; }
+static Vertex* dbgVbo;
+void hit_free(void) { free(tris); tris = NULL; nTris = 0; if (dbgVbo) { linearFree(dbgVbo); dbgVbo = NULL; } }
 int hit_count(void) { return nTris; }
 
 bool hit_floor(float x, float y, float z, float maxUp, float* outY)
@@ -121,5 +127,92 @@ void hit_push_sphere(float c[3], float r)
 		}
 		c[0] += hx / hl * push;
 		c[2] += hz / hl * push;
+		if (push > blockAmt) { blockAmt = push; blockIdx = i; }
 	}
+}
+
+// ---- debug view -------------------------------------------------------------------------------------------------
+
+void hit_block_reset(void) { blockIdx = -1; blockAmt = 0.0f; }
+int hit_block_get(float* push) { if (push) *push = blockAmt; return blockIdx; }
+
+bool hit_tri_info(int i, float n[3], float mn[3], float mx[3], unsigned* attr)
+{
+	if (i < 0 || i >= nTris) return false;
+	memcpy(n, tris[i].n, 12); memcpy(mn, tris[i].min, 12); memcpy(mx, tris[i].max, 12);
+	*attr = tris[i].attr;
+	return true;
+}
+
+#define DBG_MAX_TRIS 450
+#define DBG_MAX_VERTS (DBG_MAX_TRIS * 18 + 64)
+
+static void put(Vertex* v, const float* p, u8 r, u8 g, u8 b)
+{
+	v->x = (s16)lrintf(p[0] * 64.0f); v->y = (s16)lrintf(p[1] * 64.0f); v->z = (s16)lrintf(p[2] * 64.0f); v->pad = 0;
+	v->u = v->v = 0; v->r = r; v->g = g; v->b = b; v->a = 255;
+}
+
+// Thin quad (2 triangles) lying in the triangle's plane, along the edge a->b, inside the triangle.
+static int edge_quad(Vertex* out, const float* a, const float* b, const float* c, const float* n, float w, u8 r, u8 g, u8 bl)
+{
+	float e[3] = { b[0]-a[0], b[1]-a[1], b[2]-a[2] };
+	float d[3] = { n[1]*e[2] - n[2]*e[1], n[2]*e[0] - n[0]*e[2], n[0]*e[1] - n[1]*e[0] };
+	float l = sqrtf(dot3(d, d));
+	if (l < 1e-6f) return 0;
+	float ac[3] = { c[0]-a[0], c[1]-a[1], c[2]-a[2] };
+	float s = dot3(d, ac) >= 0.0f ? w / l : -w / l;
+	float a2[3] = { a[0] + d[0]*s, a[1] + d[1]*s, a[2] + d[2]*s };
+	float b2[3] = { b[0] + d[0]*s, b[1] + d[1]*s, b[2] + d[2]*s };
+	put(out + 0, a, r, g, bl); put(out + 1, b, r, g, bl); put(out + 2, b2, r, g, bl);
+	put(out + 3, a, r, g, bl); put(out + 4, b2, r, g, bl); put(out + 5, a2, r, g, bl);
+	return 6;
+}
+
+// Draws the collision triangles within `radius` of `center` as wireframe: walls red, floors green, ceilings blue,
+// walls with a non-zero attr magenta. The triangle `highlight` is filled yellow. Drawn without depth test (x-ray).
+// Build once per frame (eye 0), draw for each eye.
+static int dbgCount;
+void hit_debug_build(const float center[3], float radius, int highlight)
+{
+	if (!tris) { dbgCount = 0; return; }
+	if (!dbgVbo) {
+		dbgVbo = linearAlloc(sizeof(Vertex) * DBG_MAX_VERTS);
+		if (!dbgVbo) { dbgCount = 0; return; }
+	}
+	int n = 0, shown = 0;
+	for (int i = 0; i < nTris && shown < DBG_MAX_TRIS; i++) {
+		const Tri* t = &tris[i];
+		if (i != highlight &&
+		    (center[0]+radius < t->min[0] || center[0]-radius > t->max[0] || center[1]+radius < t->min[1] || center[1]-radius > t->max[1] ||
+		     center[2]+radius < t->min[2] || center[2]-radius > t->max[2])) continue;
+		shown++;
+		u8 r, g, b;
+		if (t->n[1] > 0.5f) { r = 60; g = 230; b = 60; }
+		else if (t->n[1] < -0.5f) { r = 90; g = 130; b = 255; }
+		else if (t->attr) { r = 255; g = 60; b = 255; }
+		else { r = 255; g = 60; b = 60; }
+		if (i == highlight) {
+			for (int k = 0; k < 3; k++) put(dbgVbo + n + k, t->v[k], 255, 255, 0);
+			n += 3;
+			r = 255; g = 255; b = 255;
+		}
+		for (int k = 0; k < 3; k++)
+			n += edge_quad(dbgVbo + n, t->v[k], t->v[(k + 1) % 3], t->v[(k + 2) % 3], t->n, 0.25f, r, g, b);
+	}
+	dbgCount = n;
+	GSPGPU_FlushDataCache(dbgVbo, sizeof(Vertex) * (n ? n : 1));
+}
+
+int hit_debug_draw(void)
+{
+	if (!dbgCount || !dbgVbo) return 0;
+	gfx_bind_vbo(dbgVbo);
+	gfx_set_textured(false);
+	gfx_set_cull(CULL_NONE);
+	C3D_AlphaTest(false, GPU_ALWAYS, 0);
+	C3D_DepthTest(false, GPU_ALWAYS, GPU_WRITE_COLOR);
+	C3D_DrawArrays(GPU_TRIANGLES, 0, dbgCount);
+	C3D_DepthTest(true, GPU_GREATER, GPU_WRITE_ALL);
+	return dbgCount / 3;
 }

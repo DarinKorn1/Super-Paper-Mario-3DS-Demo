@@ -109,6 +109,7 @@ int main(void)
 	if (haveRoom) play_load_camera(ASSET_DIR);
 
 	bool showDebug = false;   // play mode: Y toggles the debug stats (and enables the Mario scale control)
+	bool showHit = false;     // debug screen: D-pad up toggles the collision wireframe on the top screen
 	Mode mode = haveRoom ? MODE_PLAY : MODE_STRESS;
 	Camera cam;
 	camera_reset(&cam, haveRoom);
@@ -144,9 +145,26 @@ int main(void)
 		if (mode == MODE_PLAY) {
 			if (down & KEY_Y) { showDebug = !showDebug; dirty = true; }
 			if (down & KEY_R) { audio_toggle_mute(); dirty = true; }
+			if (showDebug && !(held & KEY_L) && (down & KEY_DUP)) { showHit = !showHit; dirty = true; }
 			if (showDebug && (down & KEY_DLEFT))  { audio_adjust_rate(0.95f); dirty = true; }
 			if (showDebug && (down & KEY_DRIGHT)) { audio_adjust_rate(1.05f); dirty = true; }
 			play_update(&play, dt, down, held, showDebug);
+			{   // log every new wall contact to sdmc:/3ds/spm3ds-demo/hitlog.txt (position, view, triangle) so a blocked spot can be analysed on the PC
+				static int lastLogged = -2; static float lastT = -9.0f;
+				float tnow = (now - startTime) / 1000.0f;
+				if (play.blockAge == 0.0f && play.blockPush > 0.02f && (play.blockTri != lastLogged || tnow - lastT > 1.0f)) {
+					FILE* lf = fopen(ASSET_DIR "hitlog.txt", "a");
+					if (lf) {
+						float n[3], mn[3], mx[3]; unsigned at;
+						if (hit_tri_info(play.blockTri, n, mn, mx, &at))
+							fprintf(lf, "%s pos %.2f %.2f %.2f tri %d attr %u push %.2f n %.2f %.2f %.2f bbox x %.1f..%.1f y %.1f..%.1f z %.1f..%.1f\n",
+							        play.mode3d ? "3D" : "2D", play.pos[0], play.pos[1], play.pos[2], play.blockTri, at, play.blockPush,
+							        n[0], n[1], n[2], mn[0], mx[0], mn[1], mx[1], mn[2], mx[2]);
+						fclose(lf);
+					}
+					lastLogged = play.blockTri; lastT = tnow;
+				}
+			}
 			play_cam_update(&play, dt);
 		} else if (mode == MODE_ROOM) {
 			camera_update(&cam, dt, held);
@@ -184,6 +202,11 @@ int main(void)
 					gfx_set_matrices(&projEye, &view);
 					DrawStats rs = room_draw(&opt);
 					DrawStats ms = mario_draw(&projEye, &view, play.pos, yaw, -play.face, play.scale, play.anim, play.animTime);
+					if (showHit && showDebug && haveHit) {
+						if (eye == 0) hit_debug_build(play.pos, 30.0f, play.blockAge < 3.0f ? play.blockTri : -1);
+						gfx_set_matrices(&projEye, &view);   // mario_draw changed the model matrix
+						hit_debug_draw();
+					}
 					if (eye == 0) { st.tris = rs.tris + ms.tris; st.calls = rs.calls + ms.calls; }
 				} else if (mode == MODE_ROOM) {
 					C3D_Mtx view;
@@ -230,6 +253,15 @@ int main(void)
 				printf("Music: %s\n", haveMusic ? (audio_muted() ? "muted" : "playing") : err3);
 				printf("Music speed %.2fx real time, rate x%.2f\nD-pad left/right: music rate -/+5%%\n", musicSpeed, audio_rate_scale());
 				printf("Collision: %d tris%s\n", hit_count(), haveHit ? "" : " (NOT loaded: flat y=0)");
+				printf("D-pad up: collision view %s\n", showHit ? "ON" : "off");
+				printf("  red wall green floor blue ceiling\n  magenta wall with attr, yellow = blocker\n");
+				{
+					float n[3], mn[3], mx[3]; unsigned at;
+					if (play.blockAge < 3.0f && hit_tri_info(play.blockTri, n, mn, mx, &at))
+						printf("Blocked by tri %d attr %u push %.2f\n n %.2f %.2f %.2f\n x %.1f..%.1f y %.1f..%.1f\n z %.1f..%.1f\n",
+						       play.blockTri, at, play.blockPush, n[0], n[1], n[2], mn[0], mx[0], mn[1], mx[1], mn[2], mx[2]);
+					else printf("Blocked by: nothing\n");
+				}
 				printf("\nL + D-pad up/down: Mario scale (L+B reset)\n");
 				printf("Y back to controls\n");
 			} else if (mode == MODE_ROOM) {

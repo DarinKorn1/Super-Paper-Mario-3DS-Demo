@@ -15,6 +15,7 @@ typedef struct {
 	int anim;          // 0 idle, 1 walk
 	float camX, camY, camZ; bool camInit;   // smoothed camera target (see play_cam_update)
 	float animTime;    // 60 Hz frames since the animation started
+	int blockTri; float blockAge, blockPush;   // debug: last wall triangle that pushed Mario, seconds since, push distance
 } Play;
 
 bool play_load_camera(const char* dir);   // assets/camera.bin (optional; built-in defaults are the same numbers)
