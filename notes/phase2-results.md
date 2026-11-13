@@ -35,3 +35,6 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 24 | camdrv.c | camUnloadRoad | small | 196 | yes | 100 | 1 | 726cc78 | flag-mask clears decoded from rlwinm; straightforward |
 | 25 | camdrv.c | func_80055c10 | small | 208 | no, functionally complete | 99.9 | 1 | wip/func_80055c10 | HitObj attr to height table; same 99.9 as old wip (likely sdata2 constant symbol pooling, not fixable per-function) |
 | 26 | camdrv.c | func_80058c80 | small | 216 | yes | 100 | 1 | 726cc78 | needed bool return types in acdrv.h/evt_door.h for callee stubs; local struct for lbl_805adf78 |
+| 27 | camdrv.c | func_800550f8 | medium | 272 | yes | 100 | 3 | 2f02f3a | viewport/scissor setup; float zero must be a literal (not the lbl_ extern) to pool correctly; store order of chained assign mattered |
+| 28 | camdrv.c | func_80056948 | medium | 280 | no, functionally complete | 99.0 | 5 | wip/func_80056948 | map-name table clamp; only f0/f1 swap in clamp compare plus sdata2 literal names left; no TTYD counterpart |
+| 29 | camdrv.c | camDraw | medium | 328 | yes | 100 | 4 | 2f02f3a | float constants (1.0, 32767.0) must be literals, and the `if (cp != NULL && ...)` block form (not continue) made the compiler hoist them to f30/f31 |
