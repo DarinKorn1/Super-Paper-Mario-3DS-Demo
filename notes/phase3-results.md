@@ -16,3 +16,8 @@ If it recurs: stop ninja/objdiff-cli running in spm-decomp only, move `.ninja_de
 
 | # | File | Function | Size class | Bytes | Matched | Match % | Attempts | Commit / branch | Notes |
 |---|---|---|---|---|---|---|---|---|---|
+| 1 | guide.c | func_80121bc8 | small | 4 | yes | 100 | 1 | 9530a24 | tail call to func_8012167c |
+| 2 | guide.c | guideGetWork | small | 12 | yes | 100 | 1 | 9530a24 | returns &work |
+| 3 | guide.c | func_80121ba4 | small | 36 | yes | 100 | 1 | 9530a24 | copies Vec3 at 0x58 (header field typed) |
+| 4 | guide.c | func_80121d84 | small | 48 | no, functionally complete | 82.08 | 10 | wip/func_80121d84 | same as inline guideIsActive; branch layout/rlwinm differs, objdiff-cli has no one-shot output so could not see diff |
+| 5 | guide.c | guideEnterRunMode1 | small | 56 | yes | 100 | 1 | 9530a24 | straightforward |
