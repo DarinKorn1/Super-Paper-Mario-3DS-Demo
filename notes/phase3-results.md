@@ -1,5 +1,14 @@
 # Phase 3 results
 
+## Overnight summary (updated after guide.c; 2026-11-13)
+
+| Item | Count |
+|---|---|
+| Phase 2 mapdrv.c (log rows 90-191, incl. one retry pass): attempted / matched / functionally complete / incomplete | 102 rows / 49 / 49 / 3 |
+| Phase 3 so far (guide.c; rows below): attempted / matched / functionally complete / incomplete | 28 rows / 19 / 9 / 0 |
+| Files finished or linked | none linked. Fully attempted: hitdrv.c (phase 2, 2 fns below 100), mapdrv.c (50 of 109 below 100), guide.c (8 of 27 below 100). "Matched" includes label/string-pool-only diffs (99.0-99.99%) that the agents reported as matched. |
+| Decisions to review | (1) phase 2 mediums batched 5 per subagent before your rule change; (2) added data splits for hitdrv.c, mapdrv.c, guide.c in config/EU0/splits.txt (master builds OK); (3) two ninja processes stopped and .ninja_deps/.ninja_log moved aside (see below); (4) guide.c not link-attempted: its 8 near-misses differ by register numbering, so Matching would fail; (5) strongest-model retries pending for low-% functions (list under Resume state, plus guide.c runMode1Main 87.5%, guideDispMain 92%) |
+
 ## Block resolved (2026-11-13 10:15)
 A stray `objdiff-cli diff` (4:22 AM) plus later forced kills of ninja corrupted `.ninja_deps`/`.ninja_log` in `spm-decomp`, making `build.ninja`
 regenerate forever ("still dirty after 100 tries"; `ninja -d explain` showed "stored deps info out of date for build/EU0/config.json").
