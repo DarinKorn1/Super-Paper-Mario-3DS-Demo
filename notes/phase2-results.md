@@ -57,3 +57,11 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 46 | hitdrv.c | hitObjAttrOn | small | 136 | yes | 100 | 6 | b6f3ce1 | TTYD gave logic; shared batch; `allowSubName == false` test + if/else block form fixed branch order |
 | 47 | hitdrv.c | hitObjFlagOff | small | 136 | yes | 100 | 6 | b6f3ce1 | TTYD gave logic; shared batch; `allowSubName == false` test + if/else block form fixed branch order |
 | 48 | hitdrv.c | hitObjFlagOn | small | 136 | yes | 100 | 6 | b6f3ce1 | TTYD gave logic; shared batch; `allowSubName == false` test + if/else block form fixed branch order |
+| 49 | hitdrv.c | hitBindMapObj | small | 140 | yes | 100 | 1 | 3e1134c | TTYD gave logic; matched first build |
+| 50 | hitdrv.c | func_8006f884 | small | 156 | no, functionally complete | 99.95 | 10 | wip/func_8006f884 | scale of a HitObj matrix; only diff is matrix offset (target 0x9c; HitObj needs a Mtx34 at 0x9c splitting unknown_0x3c) - not rebuilt, build limit hit |
+| 51 | hitdrv.c | hitReinit | small | 160 | yes | 100 | 5 | 3e1134c | declare map before group, j before i, `j++, hit++` fixed regs |
+| 52 | hitdrv.c | hitNameToPtr | small | 172 | yes | 100 | 10 | 3e1134c | needed explicit mapCount/hitCount locals to fix reg order |
+| 53 | hitdrv.c | hitSubNameToPtr | small | 172 | yes | 100 | 10 | 3e1134c | same shape as hitNameToPtr (strstr) |
+| 54 | hitdrv.c | func_8006f7cc | small | 184 | no, functionally complete | 99.96 | 10 | wip/func_8006f7cc | translate by x/10; diffs: matrix offset 0x9c vs 0xc (needs Mtx34 at 0x9c) + float pool name (file-level) |
+| 55 | hitdrv.c | hitRecalcMatrices | small | 184 | yes | 100 | 4 | 3e1134c | declare map before group, `j++, hit++` |
+| 56 | hitdrv.c | func_8006f710 | small | 188 | no, functionally complete | 99.15 | 10 | wip/func_8006f710 | builds active HitObj list (lbl_805ae830); only r4/r5 swap between map copy and joint temp |
