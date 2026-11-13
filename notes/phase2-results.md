@@ -4,6 +4,22 @@ Log for the functions in `phase2-targets.md` (camdrv.c, hitdrv.c, mapdrv.c; EU0)
 `notes/phase2-queue/<file>.txt` (name, address, bytes). Small functions (up to 128 bytes) are given to the subagent in
 batches of up to 5 to save start-up cost; each still gets its own row. Resume with "Read CLAUDE.md and continue phase 2."
 
+## Status (2026-11-13, stopped for the weekly usage limit; resets 2026-11-17)
+
+- **camdrv.c:** every function attempted. 32 matched at 100%. Eight are functionally complete on wip branches: `func_80057da0` 92.3%, `func_80055c10` 99.92%
+  (float pool), `func_80056948` 99.0%, `func_80058404` 99.88%, `func_8005885c` 99.95%, `camInit` 99.06%, `func_80055ce0` 99.50%, `cam3dMain` 90.49%.
+  `camMain` (99.84%) has its body on master. Not linked yet.
+- **hitdrv.c:** every function attempted. The rest matched at 100%, or differ only by a string/float pool label (file-level: `_hitEnt` 98.7%, `hitObjGetPos` 97.1%, on master).
+  Near-misses on wip branches: `hitGetName` 93.1% (string pool only), `func_8006f710` 99.15%, `hitEntryMOBJ` 99.98% (string pool), `func_8006debc` and `func_8006e160` 96.8%,
+  `hitCalcVtxPosition` 93.97%, `hitCheckVecFilter2` 99.87%, `func_800710b4` 99.30%, `func_800717d8` 99.66%. Not linked yet.
+- **mapdrv.c:** not started (107 functions left; queue in `phase2-queue/mapdrv.txt`).
+- **Lessons:** a function needs its OWN 10 builds (sharing builds across functions left three of them under-attempted); the strongest model closed
+  `func_8006e400` and `func_8006f128` (both had been labelled functionally complete at 85-89%); a diff that is only a struct offset is a header fix (closed two);
+  literals for float constants; direct maths instead of inline helpers.
+- **To resume** ("Read CLAUDE.md and continue phase 2"): (1) on a scratch branch of `spm-decomp`, merge the hitdrv wip branches and see which differences remain;
+  (2) one strongest-model pass over the register-numbering near-misses (hitdrv first: `func_8006f710`, `func_8006debc`, `func_8006e160`, `hitCheckVecFilter2`, `func_800710b4`,
+  `func_800717d8`, `hitCalcVtxPosition`); (3) try linking `hitdrv.c` as Matching (main.dol must stay byte-identical); (4) same for `camdrv.c`; (5) start `mapdrv.c`, smallest first.
+
 ## Log
 
 | # | File | Function | Size class | Bytes | Matched | Match % | Attempts | Commit / branch | Notes |
