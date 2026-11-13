@@ -25,13 +25,14 @@ AccessControlInfo:
   UseExtSaveData          : false
   FileSystemAccess:
     - DirectSdmc
+    - DirectSdmcWrite   # hitlog.txt is appended to on the SD card; some firmwares also want this for plain SD access
   IdealProcessor          : 0
   AffinityMask            : 1
   Priority                : 16
   MaxCpu                  : 0x9E
   MemoryType              : Application
   SystemMode              : 64MB
-  SystemModeExt           : 124MB        # New 3DS: use the extra memory
+  SystemModeExt           : Legacy       # no extended memory: the demo fits in 64 MB, and this is what known-good homebrew uses (also fine on original 3DS)
   CpuSpeed                : 804MHz       # New 3DS: fast clock
   EnableL2Cache           : true
   CanAccessCore2          : true

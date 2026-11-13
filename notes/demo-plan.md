@@ -554,3 +554,57 @@ Unverified: the last log line shows the 2D eye x 9 units ahead of Mario (68.8 vs
   (opaque rows 11..40 of 56 in a 7-unit quad), and the soles are at model y ~ -0.1, i.e. the game's origin is the soles. So Mario was drawn 2.4 model units
   (0.5 room units, about 3 px in 2D) too high in both views. Fix: anchor y = model origin (`oy = 0`) in `convert_mario_anim.py` and `convert_mario.py`.
   Depth: the billboard is drawn at Mario's z, the same as the floor under his feet; visible floor and collision floor are both y = 0 (checked on a grid), so nothing else was off.
+
+## 17. First real-hardware results and the .cia fix (2026-11-12)
+
+### Results: original (non-New) 3DS XL, running the .3dsx from the Homebrew Launcher
+
+| Test | Result |
+|---|---|
+| Free camera | 60 fps, CPU 2.28 ms, GPU 7.55 ms, command buffer 7 % |
+| Play mode | 60 fps (same CPU/GPU figures) |
+| Stress test, 60,000 triangles | 60 fps, **GPU 6.91 ms** |
+| Stress test, changing the counts | one dip to 41 fps while the level was being changed, then back to 60 |
+
+The numbers did not change with the 3D slider up. Reasons found in the code (not measured on hardware):
+
+- **Stereo is only drawn in play mode (and, from this change on, the free camera).** The free camera and the stress test were flat before
+  (`stereo = (mode == MODE_PLAY) && slider > 0.02`), so the slider could not change their numbers. The stress test is still flat on purpose
+  so its figures stay comparable.
+- **GPU time covers both eyes.** Per the citro3d source (`renderqueue.c`), `C3D_GetDrawingTime()` is one timer per frame: it starts in
+  `C3D_FrameEnd()` just before the command queue runs and stops when the queue finishes. Switching render target with `C3D_FrameDrawOn()` does
+  not split it, so with stereo on the figure is the sum of both eyes. (Read from source, not confirmed on hardware; the `RenderTargetClear` path was not checked.)
+- **What was wrong with the stats:** the triangle count only counted the left eye, so it looked unchanged. The debug and free-camera screens now say
+  "per eye", whether stereo is ON, and the submitted total (x2). The free camera now has stereo (zero parallax 300 units ahead, 3 % separation).
+- **To do on hardware:** re-run play mode and the free camera with the 3D slider up and note the GPU time. If the two eyes cost about the same,
+  expect roughly double the mono GPU time (about 15 ms for the free camera), which would be close to the 16.7 ms frame budget.
+
+### Main GPU constraint for the full port: fill rate and overdraw, not triangle count
+
+The stress test at **60,000 triangles takes 6.91 ms of GPU time, less than Flipside's 7.55 ms at about 30,000 triangles.** Twice the triangles
+cost less, so the GPU is limited by **fill rate and overdraw** (pixels shaded, blended and textured, and layers drawn on top of each other),
+not by triangle count. The stress test's triangles are cheap (few pixels each); Flipside's are big, textured and partly blended.
+Consequences for the full port:
+
+- Budget by **pixels drawn per frame** (screen area x layers), not triangles. Watch blended layers, large textured backgrounds and the
+  oku (background) layers; each one is a full-screen overdraw.
+- Stereo doubles the pixels (two 400x240 images), so fill rate is also the stereo constraint.
+- Remedies, in order of cheapness: depth-sort and cull hidden layers, early-z (draw opaque front to back), smaller or lower-colour textures,
+  fewer blended layers, a mono fallback at a low 3D slider.
+
+### The .cia fix ("The SD card was removed" at launch from the Home Menu)
+
+The .3dsx worked, the .cia did not, so the cause is in `cia/spm3ds-demo.rsf` (makerom spec). Changes:
+
+- `FileSystemAccess`: added `DirectSdmcWrite` next to `DirectSdmc`.
+- `SystemModeExt`: `124MB` changed to `Legacy` (no extended memory; the demo needs far less than 64 MB, and `Legacy` is what known-good homebrew uses and
+  keeps the original 3DS XL on the same settings).
+- Checked and left unchanged: `CoreVersion 2`, `DescVersion 2`, kernel 02.33, `SystemMode 64MB`, `MemoryType Application`, `CpuSpeed 804MHz` and
+  `EnableL2Cache` (New 3DS only, ignored on the original 3DS), the syscall list (identical to makerom's sample), and the services (`fs:USER`, `gsp::Gpu`,
+  `hid:USER`, `dsp::DSP`, `APT:U` and the rest are present).
+- **Not verified on hardware.** No emulator or console here, so I cannot say which of the two changes fixes it; the SD permission is the likely one.
+  If it still fails, send the exact error code and I will compare against a known-good `.rsf` field by field.
+- Rebuild: `make` then `sh tools/make_cia.sh` (with `makerom` and `bannertool` from `C:\Users\ender\3ds-tools\` on PATH).
+- **Uninstall the old version first** (same title ID, `000400000F7A3100`): Home Menu -> Settings -> Data Management -> Nintendo 3DS -> Software, select the app,
+  Delete; or in FBI: Titles -> choose "SPM 3DS Demo" -> Delete Title. Installing over it normally works too, but deleting first rules out a stale install.
+  The data files in `sdmc:/3ds/spm3ds-demo/` stay and are used again.

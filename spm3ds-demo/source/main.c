@@ -184,7 +184,8 @@ int main(void)
 		// Stereo 3D only in play mode and only while the 3D slider is up; otherwise one flat image (the right eye is not drawn,
 		// which also saves half the GPU work). gfxSet3D must change before the frame is drawn.
 		float slider = osGet3DSliderState();
-		bool stereo = (mode == MODE_PLAY) && slider > 0.02f;
+		// (play mode and the free camera; the stress test stays flat so its numbers stay comparable)
+		bool stereo = (mode == MODE_PLAY || mode == MODE_ROOM) && slider > 0.02f;
 		gfxSet3D(stereo);
 
 		audio_update();
@@ -211,7 +212,11 @@ int main(void)
 				} else if (mode == MODE_ROOM) {
 					C3D_Mtx view;
 					camera_view(&cam, &view);
-					gfx_set_matrices(&proj, &view);
+					C3D_Mtx projEye;
+					// zero parallax 300 units ahead, separation = slider x 3 % of that
+					Mtx_PerspStereoTilt(&projEye, C3D_AngleFromDegrees(60.0f), C3D_AspectRatioTop, 1.0f, 2000.0f,
+					                    stereo ? (eye ? 1 : -1) * slider * 0.03f * 300.0f : 0.0f, 300.0f, false);
+					gfx_set_matrices(&projEye, &view);
 					st = room_draw(&opt);
 				} else {
 					st = stress_draw(&proj, (now - startTime) / 1000.0f);
@@ -241,7 +246,7 @@ int main(void)
 				printf("START       quit\n");
 			} else if (mode == MODE_PLAY) {
 				printf("DEBUG  %s view\n\n", play.mode3d ? "3D" : "2D");
-				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
+				printf("Tris/eye: %lu x%d (%s)  Draws: %lu\n", st.tris, stereo ? 2 : 1, stereo ? "stereo ON" : "stereo off", st.calls);
 				printf("FPS:%5.1f CPU%5.1f GPU%5.1f ms\n", fps, C3D_GetProcessingTime(), C3D_GetDrawingTime());
 				printf("Mario %.1f %.1f %.1f %s\n", play.pos[0], play.pos[1], play.pos[2], play.grounded ? "ground" : "air");
 				printf("Model: %s, %d anims, %s\n", haveMario ? "ok" : err2, mario_anim_count(), play.anim ? "walk" : "idle");
@@ -266,10 +271,11 @@ int main(void)
 				printf("Y back to controls\n");
 			} else if (mode == MODE_ROOM) {
 				printf("ROOM  mac_02 (Flipside)\n\n");
-				printf("Triangles: %lu   Draws: %lu\n", st.tris, st.calls);
+				printf("Triangles: %lu per eye   Draws: %lu\n", st.tris, st.calls);
+				printf("Stereo: %s (slider %.2f), %lu tris submitted\n", stereo ? "ON" : "off", slider, st.tris * (stereo ? 2 : 1));
 				printf("FPS:  %5.1f\n", fps);
 				printf("CPU:  %5.2f ms\n", C3D_GetProcessingTime());
-				printf("GPU:  %5.2f ms\n", C3D_GetDrawingTime());
+				printf("GPU:  %5.2f ms (all eyes)\n", C3D_GetDrawingTime());
 				printf("Cmd buffer: %3.0f %%\n", C3D_GetCmdBufUsage() * 100.0f);
 				printf("\noku: %s  blended: %s  cull: %s\n", opt.showOku ? "ON" : "off",
 				       opt.showBlended ? "ON" : "off", gfx_cull_name(opt.cull));
