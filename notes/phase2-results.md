@@ -41,3 +41,6 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 30 | camdrv.c | camLoadRoadAsync | medium | 368 | yes | 100 | 1 | f6ac878 | fileAsyncf/fileAllocf with "%s/%s/camera_road.bin" (format decoded from rodata); `(s32) file == -1` compare needed |
 | 31 | camdrv.c | func_80058128 | medium | 364 | yes | 100 | 1 | f6ac878 | per-field copies between camPtrTbl[b] and [a]; made PSMTX44Copy a real prototype |
 | 32 | camdrv.c | func_80058b14 | medium | 364 | yes | 100 | 1 | f6ac878 | fade-state update; split unknown_0x2b8 into three s32 fields in camdrv.h |
+| 33 | camdrv.c | camEntryPersp | large | 608 | yes | 100 | 1 | 68975b0 | TTYD inline gave the shape; widescreen flag + aspect scale; typed DEMOGetRenderModeObj/SCGetAspectRatio/PSVECDistance in spm-headers |
+| 34 | camdrv.c | camEntryOrtho | large | 664 | yes | 100 | 1 | 68975b0 | same pattern; fabsf for aspect (fabs is double, error 10317); ortho widens left/right by 1.3684211 for cams other than 0, 1, 13 |
+| 35 | camdrv.c | func_80057ee8 | large | 576 | yes | 100 | 9 | 6ea882c | `(f32)(f64)x` forced the stray frsp; `(Vec3){x,y,z}` compound literal fixed stack temp order; local cp2d pointer fixed register choice; split chained 1.0f assignments |
