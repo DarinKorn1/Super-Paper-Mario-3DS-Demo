@@ -80,3 +80,10 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 68 | hitdrv.c | hitGrpAttrOff | medium | 484 | yes | 100 | 1 | 5b66a69 | thin wrapper over recursive hitAtrOff(hit, mask, false), which self-inlines 3 levels; wrote hitAtrOff too (100) |
 | 69 | hitdrv.c | hitGrpFlagOff | medium | 484 | yes | 100 | 1 | 5b66a69 | same with hitFlgOff (100); builds 1 to 5 shared one ninja run |
 | 70 | hitdrv.c | hitEntryMOBJ | medium | 500 | no, functionally complete | 99.98 | 9 | wip/hitEntryMOBJ | only diff is string pool base/offsets (assert strings at +0x61/+0xb5 of the shared rodata); assert text recovered from rodata (SJIS message "あふれた"), line 0x134 |
+| 71 | hitdrv.c | hitFlgOn | medium | 784 | yes | 100 | 1 | 6594b7f | twin of hitFlgOff, copied structure (batch of 4 twins built together) |
+| 72 | hitdrv.c | hitGrpFlagOn | medium | 504 | yes | 100 | 1 | 6594b7f | twin of hitGrpFlagOff |
+| 73 | hitdrv.c | hitAtrOn | medium | 784 | yes | 100 | 1 | 6594b7f | twin of hitAtrOff |
+| 74 | hitdrv.c | hitGrpAttrOn | medium | 504 | yes | 100 | 1 | 6594b7f | twin of hitGrpAttrOff |
+| 75 | hitdrv.c | func_8007058c | medium | 516 | yes | 100 | 2 | 6594b7f | bbox min/max recursion; only needed local order (out before in) for stack layout |
+| 76 | hitdrv.c | func_80071f44 | medium | 580 | yes | 100 | 10 | 6594b7f | spheres-near-point query; needed local decl order for regs, `dist > r {} else` for branch, orig omits z^2 in bbox sqrt, map++ before i++; added HitQueryFilterCallback typedef |
+| 77 | hitdrv.c | func_8006f47c | medium | 660 | yes | 100 | 7 | 6594b7f | nearest-hit variant of func_80071f44; query local sized 0x48 (not HitCheckQuery 0x50) to fix frame size; attr select via temp local with `if (param)`; float pool label diff only |
