@@ -20,6 +20,7 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
   (2) one strongest-model pass over the register-numbering near-misses (hitdrv first: `func_8006f710`, `func_8006debc`, `func_8006e160`, `hitCheckVecFilter2`, `func_800710b4`,
   `func_800717d8`, `hitCalcVtxPosition`); (3) try linking `hitdrv.c` as Matching (main.dol must stay byte-identical); (4) same for `camdrv.c`; (5) start `mapdrv.c`, smallest first.
 - **2026-11-13 strongest-model pass on local `scratch/hitdrv-link` (hitdrv.c Matching, 33 builds):** now 100%: `func_8006e400`, `func_8006f710`, `hitCheckVecFilter2`, `func_800717d8`, `func_8006debc`, `func_8006e160`, `hitObjGetPos`; still below: `func_800710b4` 99.68%, `_hitEnt` 99.03%, `hitCalcVtxPosition` 93.97% (all register numbering only), so main.dol still FAILED.
+- **Stopped 2026-11-13 by the user.** Local branch `spm-decomp:scratch/hitdrv-link` (not pushed) holds hitdrv.c with every function and `Matching` in configure.py; all but `func_800710b4`, `_hitEnt` and `hitCalcVtxPosition` (93.97%) match at 100% there, last commit `b645a6a` is a WIP that did not compile (unused variables `idx`/`off`: remove them first). master is checked out and clean. relF.rel FAILED on that branch: cause not yet determined.
 
 ## Log
 
