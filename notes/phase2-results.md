@@ -8,3 +8,8 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 
 | # | File | Function | Size class | Bytes | Matched | Match % | Attempts | Commit / branch | Notes |
 |---|---|---|---|---|---|---|---|---|---|
+| 1 | camdrv.c | camGetCurNo | tiny | 8 | yes | 100 | 1 | 4488ac3 | one shared commit for all 5; extern s32 lbl_805ae7b8 (current cam no) |
+| 2 | camdrv.c | camUnusedCheck | tiny | 8 | yes | 100 | 1 | 4488ac3 | returns false |
+| 3 | camdrv.c | camGetPtr | tiny | 20 | yes | 100 | 1 | 4488ac3 | camPtrTbl[id] |
+| 4 | camdrv.c | func_80058840 | tiny | 20 | yes | 100 | 1 | 4488ac3 | no TTYD name; sets camPtrTbl[CAM_ID_3D] f32 at 0x2e4 (new CamEntry field unknown_0x2e4); kept name |
+| 5 | camdrv.c | camGetCurPtr | tiny | 24 | yes | 100 | 1 | 4488ac3 | camPtrTbl[curNo] |
