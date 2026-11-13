@@ -26,3 +26,6 @@ If it recurs: stop ninja/objdiff-cli running in spm-decomp only, move `.ninja_de
 | 8 | guide.c | func_80121948 | small | 72 | yes | 100 | 1 | 290f6d4 | same as func_80121900 with field y |
 | 9 | guide.c | guideEnterRunMode2 | small | 76 | yes | 100 | 1 | 290f6d4 | matched first try (dead-looking runMode checks kept) |
 | 10 | guide.c | guideCanSearch | small | 80 | yes | 100 | 1 | 290f6d4 | reuses guideIsActive inline |
+| 11 | guide.c | func_80121db4 | small | 100 | yes | 100 | 3 | 6af1bca | needed a second ternary-form inline (active && !(flag0&0x100)); calling guideCanSearch gave wrong branch shape |
+| 12 | guide.c | guideEnterRunMode5 | small | 124 | yes | 100 | 1 | 6af1bca | header fix: split unknown_0x28 to expose 0x30 f32 and 0x34 Vec3; dead runMode!=5 check kept |
+| 13 | guide.c | guideSetAnim | small | 124 | yes | 100 | 1 | 6af1bca | header fix: curAnimName is const char *, not char[4]; same logic as fairy |
