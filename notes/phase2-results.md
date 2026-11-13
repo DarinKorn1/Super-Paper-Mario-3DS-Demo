@@ -58,10 +58,19 @@ batches of up to 5 to save start-up cost; each still gets its own row. Resume wi
 | 47 | hitdrv.c | hitObjFlagOff | small | 136 | yes | 100 | 6 | b6f3ce1 | TTYD gave logic; shared batch; `allowSubName == false` test + if/else block form fixed branch order |
 | 48 | hitdrv.c | hitObjFlagOn | small | 136 | yes | 100 | 6 | b6f3ce1 | TTYD gave logic; shared batch; `allowSubName == false` test + if/else block form fixed branch order |
 | 49 | hitdrv.c | hitBindMapObj | small | 140 | yes | 100 | 1 | 3e1134c | TTYD gave logic; matched first build |
-| 50 | hitdrv.c | func_8006f884 | small | 156 | no, functionally complete | 99.95 | 10 | wip/func_8006f884 | scale of a HitObj matrix; only diff is matrix offset (target 0x9c; HitObj needs a Mtx34 at 0x9c splitting unknown_0x3c) - not rebuilt, build limit hit |
+| 50 | hitdrv.c | func_8006f884 | small | 156 | yes | 100 | 11 | e98999b | HitObj Mtx34 localMtx split at 0x9c fixed it |
 | 51 | hitdrv.c | hitReinit | small | 160 | yes | 100 | 5 | 3e1134c | declare map before group, j before i, `j++, hit++` fixed regs |
 | 52 | hitdrv.c | hitNameToPtr | small | 172 | yes | 100 | 10 | 3e1134c | needed explicit mapCount/hitCount locals to fix reg order |
 | 53 | hitdrv.c | hitSubNameToPtr | small | 172 | yes | 100 | 10 | 3e1134c | same shape as hitNameToPtr (strstr) |
-| 54 | hitdrv.c | func_8006f7cc | small | 184 | no, functionally complete | 99.96 | 10 | wip/func_8006f7cc | translate by x/10; diffs: matrix offset 0x9c vs 0xc (needs Mtx34 at 0x9c) + float pool name (file-level) |
+| 54 | hitdrv.c | func_8006f7cc | small | 184 | yes | 100 | 11 | e98999b | translate by x/10; HitObj Mtx34 at 0x9c fixed it |
 | 55 | hitdrv.c | hitRecalcMatrices | small | 184 | yes | 100 | 4 | 3e1134c | declare map before group, `j++, hit++` |
 | 56 | hitdrv.c | func_8006f710 | small | 188 | no, functionally complete | 99.15 | 10 | wip/func_8006f710 | builds active HitObj list (lbl_805ae830); only r4/r5 swap between map copy and joint temp |
+
+| 57 | hitdrv.c | hitDelete | small | 204 | yes | 100 | 1 | 1c29606 | same loop shape as hitNameToPtr, first try |
+| 58 | hitdrv.c | hitGetName | small | 232 | no, functionally complete | 93.1 | 2 | wip/hitGetName | separate `return ""` ifs fixed branches; only diff is string pool base+0xbe (file-level) |
+| 59 | hitdrv.c | hitCheckFilter | small | 240 | yes | 100 | 4 | 1c29606 | new HitCheckQuery struct (size 0x50), keep old header param order, `query = &temp` pointer form |
+| 60 | hitdrv.c | hitBindUpdate | small | 248 | yes | 100 | 1 | 1c29606 | TTYD shape + flag set before hitReCalcMatrix2; first try |
+| 61 | hitdrv.c | hitCheckAttr | small | 248 | yes | 100 | 3 | 1c29606 | like hitCheckFilter; query->attr after distance |
+| 62 | hitdrv.c | func_8006ef1c | small | 252 | yes | 100 | 3 | 1c29606 | per-tri single-sided check; block if/else for cullMode, `s32 i` declared before tri |
+| 63 | hitdrv.c | func_80070790 | small | 264 | yes | 100 | 1 | 1c29606 | bbox init (+-10000.0f) via (Vec3){} literals, then func_8007058c |
+| 64 | hitdrv.c | hitMain | medium | 316 | yes | 100 | 2 | 1c29606 | split HitObj mtx fields at 0x3c/0x6c; MapFileMeshTracks needed pointer array; local decl order fixed regs |
