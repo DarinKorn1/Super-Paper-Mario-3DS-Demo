@@ -255,3 +255,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 221 | mario.c | marioChkInScreen | small | 48 | yes | 100 | 0 | already in master | already matched (100% in report.json), no change. |
 | 222 | mario.c | marioLockFacingDir | small | 48 | yes | 100 | 1 | a710e5b (master) | facingTarget = *target; dispFlags |= LOCK_FACING; first try; batched builds. |
 | 223 | mario.c | func_80124374 | small | 52 | yes | 100 | 2 | a710e5b (master) | else branch clears miscFlags 0x300 (rlwinm 24,21), not 0x100; new header field unknown_0x3e4 s32; batched builds. |
+| 224 | mario.c | func_80121e18 | small | 56 | yes | 100 | 1 | a9e1569 (master) | Takes obj, reads flags at +4; masks 0x80000000, 0x2000, 0x4000006; header decl changed in mario.h and guide.h (arg void*); batched builds. |
+| 225 | mario.c | marioGetHitboxHeight_BowserSpecial | small | 56 | yes | 100 | 1 | a9e1569 (master) | Bowser returns 63.0f literal, else characterProperties hitboxHeight; first try; batched builds. |
+| 226 | mario.c | marioCtrlOn | small | 56 | yes | 100 | 2 | a9e1569 (master) | Needed local `MarioWork * wp = &marioWork` to reuse the base register; batched builds. |
+| 227 | mario.c | marioKeyOff | small | 56 | yes | 100 | 2 | a9e1569 (master) | Store xzSpeedFactor before xzSpeed (store order); batched builds. |
+| 228 | mario.c | marioKeyOn | small | 56 | yes | 100 | 2 | a9e1569 (master) | Same local-pointer trick as marioCtrlOn; batched builds. |
