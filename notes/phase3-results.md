@@ -235,3 +235,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 201 | mario.c | marioPaperLightOff | small | 20 | yes | 100 | 2 | a627459 (master) | tail call on animPoseIds[0]; header UNKNOWN_FUNCTION animPoseSetMaterialLightFlagOff given real decl; batched builds. |
 | 202 | mario.c | marioPaperLightOn | small | 20 | yes | 100 | 2 | a627459 (master) | tail call on animPoseIds[0], first try once header was right; batched builds. |
 | 203 | mario.c | marioEffectFlagOff | small | 24 | yes | 100 | 1 | a627459 (master) | effectFlags &= ~mask, first try; batched builds. |
+| 204 | mario.c | marioGetDashSpeedRaw | small | 24 | yes | 100 | 2 | 5e513a4 (master) | takes character id param (header decl changed); indexes characterProperties; batched builds. |
+| 205 | mario.c | marioGetGravUnitDown | small | 24 | yes | 100 | 1 | 5e513a4 (master) | PSVECScale(&gravUnitUp, dest, -1.0f); first try; batched builds. |
+| 206 | mario.c | marioUnlockFacing | small | 24 | yes | 100 | 2 | 5e513a4 (master) | field at 0x8 is dispFlags, not flags; &= ~MARIO_DISP_FLAG_LOCK_FACING; batched builds. |
+| 207 | mario.c | marioCtrlOnChk | small | 28 | yes | 100 | 1 | 5e513a4 (master) | return ctrl == 0 (s8), first try; batched builds. |
+| 208 | mario.c | func_80129ddc | small | 32 | yes | 100 | 2 | 5e513a4 (master) | needed local MarioWork* wp = &marioWork to get addi before clrlwi.; header field 0x3d4 made s32 and decl given real prototype; batched builds. |
