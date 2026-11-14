@@ -225,3 +225,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 191 | mario.c | marioGetPtr | small | 12 | yes | 100 | 1 | 7f9fb3e (master) | returns &static MarioWork; batched build, first try. Header UNKNOWN_FUNCTION for func_80121f40 changed to f32 decl. |
 | 192 | mario.c | marioCheck3d | small | 16 | yes | 100 | 1 | 7f9fb3e (master) | camCheck3d(work.camId) tail call; batched build, first try. Header UNKNOWN_FUNCTION for func_80121f40 changed to f32 decl. |
 | 193 | mario.c | marioGetGravity | small | 16 | yes | 100 | 1 | 7f9fb3e (master) | returns work.gravityType; batched build, first try. Header UNKNOWN_FUNCTION for func_80121f40 changed to f32 decl. |
+| 194 | mario.c | func_80126618 | small | 20 | yes | 100 | 1 | b8c20bf (master) | dispFlags bit 31 as bool; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
+| 195 | mario.c | func_8012b498 | small | 20 | yes | 100 | 1 | b8c20bf (master) | miscFlags & 0x4000 as bool; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
+| 196 | mario.c | func_8012b4f8 | small | 20 | yes | 100 | 1 | b8c20bf (master) | miscFlags & 0x80000000 returned as u32; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
+| 197 | mario.c | func_8012caec | small | 20 | yes | 100 | 1 | b8c20bf (master) | stores s16 -6 at offset 0x14fe (unnamed field, pointer cast); batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
+| 198 | mario.c | func_8012dab0 | small | 20 | yes | 100 | 1 | b8c20bf (master) | miscFlags & 0x8 as bool; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
