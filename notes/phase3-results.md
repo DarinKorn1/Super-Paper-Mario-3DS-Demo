@@ -120,3 +120,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 87 | evt_mario.c | func_800f2e30 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_8015eff4, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
 | 88 | evt_mario.c | func_800f315c | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls marioUnlockRespawnPos, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
 | 89 | evt_mario.c | func_800f3310 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_8012d98c, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 90 | evt_mario.c | evt_mario_fairy_reset | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master 28c39c3 | calls func_80130c80(4); local prototype |
+| 91 | evt_mario.c | func_800f23e4 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master 28c39c3 | func_801528d4(marioGetPtr()); local prototype |
+| 92 | evt_mario.c | evt_mario_direction_reset | small | 44 | yes | 100 (report.json) | 1 | spm-decomp master 28c39c3 | if (marioGetPtr()) func_80150478(); |
+| 93 | evt_mario.c | evt_mario_set_character | small | 44 | yes | 100 (report.json) | 2 | spm-decomp master 28c39c3 | s8 param made caller emit extsb (91.7%); header marioChangeCharacter param changed to s32 fixed it; (s8) cast also needed for 1st build |
+| 94 | evt_mario.c | evt_mario_set_pane_boundaries | small | 44 | yes | 100 (report.json) | 2 | spm-decomp master 28c39c3 | header had UNKNOWN_FUNCTION decl (illegal overloading); changed to EVT_DECLARE_USER_FUNC(...,1) |
