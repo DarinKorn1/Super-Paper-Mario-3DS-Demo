@@ -250,3 +250,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 216 | mario.c | marioGetHitboxHeightRaw | small | 40 | yes | 100 | 1 | 0c8d864 (master) | characterProperties[character].hitboxHeight; first try; batched builds. |
 | 217 | mario.c | marioUnlockRespawnPos | small | 40 | yes | 100 | 1 | 0c8d864 (master) | flags & 0x800000 clear then marioUpdateRespawnPos; first try; batched builds. |
 | 218 | mario.c | func_80129d8c | small | 44 | yes | 100 | 1 | 0c8d864 (master) | toggle unknown_0x3d4 0->2 else 1; header now void func_80129d8c(); first try; batched builds. |
+| 219 | mario.c | func_8012b370 | small | 44 | yes | 100 | 2 | a710e5b (master) | clears trigFlags bit 0x20000000 (rlwinm 3,1) not 0x40000000; new header field unknown_0x3b0 s32; batched builds. |
+| 220 | mario.c | marioCtrlOff | small | 44 | yes | 100 | 1 | a710e5b (master) | flags |= 2; ctrl++; return ctrl; first try; batched builds. |
+| 221 | mario.c | marioChkInScreen | small | 48 | yes | 100 | 0 | already in master | already matched (100% in report.json), no change. |
+| 222 | mario.c | marioLockFacingDir | small | 48 | yes | 100 | 1 | a710e5b (master) | facingTarget = *target; dispFlags |= LOCK_FACING; first try; batched builds. |
+| 223 | mario.c | func_80124374 | small | 52 | yes | 100 | 2 | a710e5b (master) | else branch clears miscFlags 0x300 (rlwinm 24,21), not 0x100; new header field unknown_0x3e4 s32; batched builds. |
