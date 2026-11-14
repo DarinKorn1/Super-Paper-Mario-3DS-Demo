@@ -125,3 +125,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 92 | evt_mario.c | evt_mario_direction_reset | small | 44 | yes | 100 (report.json) | 1 | spm-decomp master 28c39c3 | if (marioGetPtr()) func_80150478(); |
 | 93 | evt_mario.c | evt_mario_set_character | small | 44 | yes | 100 (report.json) | 2 | spm-decomp master 28c39c3 | s8 param made caller emit extsb (91.7%); header marioChangeCharacter param changed to s32 fixed it; (s8) cast also needed for 1st build |
 | 94 | evt_mario.c | evt_mario_set_pane_boundaries | small | 44 | yes | 100 (report.json) | 2 | spm-decomp master 28c39c3 | header had UNKNOWN_FUNCTION decl (illegal overloading); changed to EVT_DECLARE_USER_FUNC(...,1) |
+| 95 | evt_mario.c | evt_set_gravity | small | 48 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | marioSetGravity(evtGetValue(...)); local prototype added (not in header); matched on first build |
+| 96 | evt_mario.c | func_800efd58 | small | 48 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | if (marioGetPtr()) func_801504b0(); header decl now EVT_DECLARE_USER_FUNC; matched on first build |
+| 97 | evt_mario.c | func_800f3334 | small | 48 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | func_8012d9fc(evtGetValue(...)); header prototype given s32 param; matched on first build |
+| 98 | evt_mario.c | func_800f2df4 | small | 60 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | func_8015b0bc(evtGetValue(...) != 0) as bool; local prototype; matched on first build |
+| 99 | evt_mario.c | evt_mario_cont_onoff | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | if (evtGetValue) marioCtrlOn else marioCtrlOff; matched on first build |
