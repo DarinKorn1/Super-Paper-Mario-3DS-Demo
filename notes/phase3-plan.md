@@ -14,6 +14,7 @@ Phase 3 = every split game-code file of `main.dol` that phase 2 and Antigravity 
 | What | Why |
 |---|---|
 | `camdrv.c`, `mapdrv.c` | phase 2 (`hitdrv.c` is already Matching) |
+| `romfont.c`, `windowdrv.c`, `evt_npc.c` (all but its two functions over 2,044 B: `evt_npc_walk_to`, `func_8010ac50`) | handed to Antigravity on 2026-11-14 (`spm-decomp-ag/notes/ag-queue.md`, refill 2); the two big `evt_npc.c` functions stay in this plan |
 | `evt_pouch.c`, `evt_fairy.c`, `evt_map.c` | in `spm-decomp-ag/notes/ag-queue.md` (Antigravity) |
 | `animdrv.c` (76 fns, 51,984 B, NonStarted) | upstream WIP branch `upstream/animdrv-test` adds `src/animdrv.c` |
 | `system.c` (1 fn, 1,456 B) | `upstream/clang-format` edits `src/system.c`; leave until that is resolved |
