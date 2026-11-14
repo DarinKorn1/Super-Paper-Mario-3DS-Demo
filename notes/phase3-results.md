@@ -175,3 +175,7 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 142 | evt_mario.c | func_800f2cfc | small | 120 | yes | 100 (report.json) | 1 | spm-decomp master e624400 | miscFlags & 0x80000, fairyGetExtra() null check, evtSetValue(fairyGetNum()); needed #include <spm/fairy.h> |
 | 143 | evt_mario.c | evt_mario_flag0_onoff | small | 124 | yes | 100 (report.json) | 1 | spm-decomp master e624400 | mario->flags set/clear by mask |
 | 144 | evt_mario.c | evt_mario_flag4_onoff | small | 124 | yes | 100 (report.json) | 1 | spm-decomp master e624400 | same on mario->miscFlags |
+| 145 | evt_mario.c | evt_mario_flag8_onoff | small | 124 | yes | 100 (report.json) | 1 | spm-decomp master 944bf64 | same as flag0/flag4 on mario->dispFlags |
+| 146 | evt_mario.c | func_800f1e30 | small | 128 | yes | 100 (report.json) | 1 | spm-decomp master 944bf64 | 2-case switch on evt->tempS[0], func_80166968/801669ac, motionId != 0x26; header had UNKNOWN_FUNCTION (void) prototype, replaced by real one (illegal overloading otherwise) |
+| 147 | evt_mario.c | func_800f1eb0 | small | 128 | yes | 100 (report.json) | 1 | spm-decomp master 944bf64 | same shape with func_8016e434/8016e478, motionId != 0x29; same header fix |
+| 148 | evt_mario.c | func_800f2d74 | small | 128 | yes | 100 (report.json) | 1 | spm-decomp master 944bf64 | 3x evtGetFloat into locals then func_8015affc(f32,f32,f32); header changed to EVT_DECLARE_USER_FUNC(...,3) |
