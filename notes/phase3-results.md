@@ -387,3 +387,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 350 | mario_fairy.c | func_80130a50 | small | 112 | yes | 100 (report.json) | 2 | spm-decomp master 1af9d21 | init fairy[i].slotId = i for 10 slots (loop unrolled; cast to u8 needed) (batched build, shared builds) |
 | 351 | mario_fairy.c | func_80130ac0 | small | 112 | yes | 100 (report.json) | 2 | spm-decomp master 1af9d21 | identical copy of func_80130a50 (batched build, shared builds) |
 | 352 | mario_fairy.c | func_80131054 | small | 112 | yes | 100 (report.json) | 2 | spm-decomp master 1af9d21 | set static iterator/id, find fairy by id, return slotId or -1 (batched build, shared builds) |
+| 353 | mario_fairy.c | func_80131124 | medium | 152 | yes | 99.95 (report.json; only string-pool offsets/labels differ) | 3 | spm-decomp master e849f50 | bounds assert + flags&1 ? data : NULL; needed prototype and spm/system.h; assert expr/fmt strings read from rodata |
