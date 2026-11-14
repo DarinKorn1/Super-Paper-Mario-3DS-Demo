@@ -240,3 +240,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 206 | mario.c | marioUnlockFacing | small | 24 | yes | 100 | 2 | 5e513a4 (master) | field at 0x8 is dispFlags, not flags; &= ~MARIO_DISP_FLAG_LOCK_FACING; batched builds. |
 | 207 | mario.c | marioCtrlOnChk | small | 28 | yes | 100 | 1 | 5e513a4 (master) | return ctrl == 0 (s8), first try; batched builds. |
 | 208 | mario.c | func_80129ddc | small | 32 | yes | 100 | 2 | 5e513a4 (master) | needed local MarioWork* wp = &marioWork to get addi before clrlwi.; header field 0x3d4 made s32 and decl given real prototype; batched builds. |
+| 209 | mario.c | marioGetScale | small | 32 | yes | 100 | 1 | 79dff55 (master) | flags & 0x2000000 ? 0.8f : 2.0f; first try; batched builds. |
+| 210 | mario.c | marioSoundInit | small | 32 | yes | 100 | 1 | 79dff55 (master) | sfxIds[0..3] = -1 via local MarioWork*; first try; batched builds. |
+| 211 | mario.c | func_80129db8 | small | 36 | yes | 100 | 1 | 79dff55 (master) | returns unknown_0x3d4 if flags&1 else 0; header decl now s32 func_80129db8(); first try; batched builds. |
+| 212 | mario.c | func_8012cf20 | small | 36 | yes | 100 | 2 | 79dff55 (master) | stores f32 arg to new fields 0x1500 and position.z (0x64, not y) to 0x1504, flags |= 0x400000; header split + prototype, removed local decl in evt_mario.c; batched builds. |
+| 213 | mario.c | marioGetHitboxWidthRaw | small | 36 | yes | 100 | 1 | 79dff55 (master) | characterProperties[character].hitboxWidth; first try; batched builds. |
