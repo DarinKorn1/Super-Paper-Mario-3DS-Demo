@@ -294,3 +294,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 259 | mario.c | func_8012cea8 | small | 120 | yes | 100 | 5 | 78cf129 (master) | Returns bool (header said void; changed); `MarioWork *wp = &marioWork` before fairyGetNum keeps r31 base; motionId 0x47-0x49 needed a `switch` (not if) to get the signed cmpwi chain |
 | 260 | mario.c | marioPaperOff | small | 128 | yes | 100 | 2 | 78cf129 (master) | Index 0x260 is animPoseIds[5] (not [6]); otherwise straightforward |
 | 261 | mario.c | marioChgPaper2 | medium | 132 | yes | 100 | 1 | 8f605f2 (master) | First try; flags: dispFlags 0x40000000 set, dispFlags 2 clear, flags 0x40000000 clear; strcmp skip if same name |
+| 262 | mario.c | marioGetScreenPos | medium | 132 | yes | 100 | 1 | e3cdfc2 (master) | First try; camGetPtr(marioWork.camId) then GXProject with cam->viewMtx, projection, viewport |
