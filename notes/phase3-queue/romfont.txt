@@ -1,0 +1,5 @@
+romFontGetMessage 801A74F0 92
+romFontInit 801A754C 100
+romFontMake 801A75B0 396
+romFontGetWidth 801A7C44 408
+romFontPrintGX 801A773C 1288

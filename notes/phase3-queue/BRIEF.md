@@ -10,3 +10,15 @@ Unattended; no questions. Read the "Overnight run rules" and the "Diff method" b
 - Commit a match to spm-decomp `master` only if ninja succeeds and main.dol/relF.rel stay OK; `git push origin master`. A near-miss goes on `wip/<function>`, pushed to origin. Never touch `spm-decomp-ag`; never push to `upstream`. No `git checkout`/`restore` to undo edits (keep a saved copy). Headers live in `spm-headers/`.
 - Commit AND push the log in the outer repo (`C:\Users\ender\SPM_N3DS_XL`: `git pull --rebase`, `git push origin master`; commit only `notes/` files); verify the push succeeded.
 - Before returning, make sure every objdiff-cli/ninja/python process you started has exited. Reply with at most 5 lines.
+
+## Known MWCC tricks (add new ones here; found 2026-11-14)
+- **Float compare against 0.0f shows zero loaded first (fcmpu operands swapped)**: a literal `0.0f` in the compare never works. Use a local for the zero:
+  (1) `x == 0 && y == 0`: `f32 x = field; f32 z = 0.0f; if (x == z && y == z)`.
+  (2) lone `field != 0`: `f32 z; f32 x; x = field; z = 0.0f; if (x != z)` (declaration order picks registers, assignment order picks load order).
+  (3) zero also stored to another field: `f32 z2 = 0.0f; store z2; if (field != z2)` with the field read inline.
+  Origin: func_80119d6c / func_8011a2fc (mot_crouch.c). Try this FIRST when the only diff is fcmpu f0/f1 order.
+- Locals: declaration order sets saved-register numbering (try reordering); Vec3 locals declared in reverse of stack order.
+- `#pragma dont_inline` on a callee when the original calls it but MWCC inlines it (func_80118e88 in mot_walk.c).
+- Switch with identical case bodies: MWCC merges cases; write each case body separately in address order.
+- `x ? a : b` vs early return, `(s32)` cast on bool-returning calls (camCheck3d) to get cmpwi, byte-offset table indexing (c*8+g*4) for register order.
+- Never run `python -` / heredoc python (hangs, leaves strays); `src/mario.c` has mixed CRLF/LF line endings: verify each edit applied.
