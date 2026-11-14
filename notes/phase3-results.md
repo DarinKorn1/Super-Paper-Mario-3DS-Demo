@@ -130,3 +130,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 97 | evt_mario.c | func_800f3334 | small | 48 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | func_8012d9fc(evtGetValue(...)); header prototype given s32 param; matched on first build |
 | 98 | evt_mario.c | func_800f2df4 | small | 60 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | func_8015b0bc(evtGetValue(...) != 0) as bool; local prototype; matched on first build |
 | 99 | evt_mario.c | evt_mario_cont_onoff | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master beeecea | if (evtGetValue) marioCtrlOn else marioCtrlOff; matched on first build |
+| 100 | evt_mario.c | func_800ef8c8 | small | 52 | yes | 100 (report.json) | 1 | spm-decomp master 22cb34e | marioBgModeOn/Off by evtGetValue; header UNKNOWN_FUNCTION changed to EVT_DECLARE_USER_FUNC; matched on first build |
+| 101 | evt_mario.c | evt_mario_tamara_onoff | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master 22cb34e | marioAddTamara/RemoveTamara; header fixed; matched on first build |
+| 102 | evt_mario.c | evt_mario_set_anim_change_handler | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master 22cb34e | marioGetPtr()->animChangeHandler = value; matched on first build |
+| 103 | evt_mario.c | evt_mario_set_pane | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master 22cb34e | marioGetPtr()->pane = value; header fixed; matched on first build |
+| 104 | evt_mario.c | evt_mario_pane_change_func | small | 64 | yes | 100 (report.json) | 1 | spm-decomp master 22cb34e | marioGetPtr()->paneChangeFunc = value; header fixed; matched on first build |
