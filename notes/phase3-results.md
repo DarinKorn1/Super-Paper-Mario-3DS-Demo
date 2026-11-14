@@ -115,3 +115,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 82 | evt_mario.c | evt_mario_face_free | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master 8273b45 | calls marioUnlockFacing, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
 | 83 | evt_mario.c | evt_mario_key_off2 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master 8273b45 | calls marioKeyOff, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
 | 84 | evt_mario.c | evt_mario_key_on | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master 8273b45 | calls marioKeyOn, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 85 | evt_mario.c | func_800f013c | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_801502bc, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 86 | evt_mario.c | func_800f2c98 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_80114af0, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 87 | evt_mario.c | func_800f2e30 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_8015eff4, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 88 | evt_mario.c | func_800f315c | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls marioUnlockRespawnPos, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
+| 89 | evt_mario.c | func_800f3310 | small | 36 | yes | 100 (report.json) | 1 | spm-decomp master cdb60d8 | calls func_8012d98c, returns EVT_RET_CONTINUE; matched on first build (header prototype updated)|
