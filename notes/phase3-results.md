@@ -296,3 +296,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 261 | mario.c | marioChgPaper2 | medium | 132 | yes | 100 | 1 | 8f605f2 (master) | First try; flags: dispFlags 0x40000000 set, dispFlags 2 clear, flags 0x40000000 clear; strcmp skip if same name |
 | 262 | mario.c | marioGetScreenPos | medium | 132 | yes | 100 | 1 | e3cdfc2 (master) | First try; camGetPtr(marioWork.camId) then GXProject with cam->viewMtx, projection, viewport |
 | 263 | mario.c | marioChgPaper | medium | 140 | yes | 100 | 1 | e92619a (master) | First try; same as marioChgPaper2 plus poseTime = 0 and trigFlags 0x2000 |
+| 264 | mario.c | marioChgPoseTime | medium | 140 | yes | 100 | 1 | f1178cd (master) | First try; like marioChgPaper but curPoseName (0x1c), no dispFlags 0x40000000 check, sets poseTime = time arg, trigFlags 0x1000 |
