@@ -245,3 +245,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 211 | mario.c | func_80129db8 | small | 36 | yes | 100 | 1 | 79dff55 (master) | returns unknown_0x3d4 if flags&1 else 0; header decl now s32 func_80129db8(); first try; batched builds. |
 | 212 | mario.c | func_8012cf20 | small | 36 | yes | 100 | 2 | 79dff55 (master) | stores f32 arg to new fields 0x1500 and position.z (0x64, not y) to 0x1504, flags |= 0x400000; header split + prototype, removed local decl in evt_mario.c; batched builds. |
 | 213 | mario.c | marioGetHitboxWidthRaw | small | 36 | yes | 100 | 1 | 79dff55 (master) | characterProperties[character].hitboxWidth; first try; batched builds. |
+| 214 | mario.c | marioRemoveAngeko | small | 36 | yes | 100 | 1 | 0c8d864 (master) | miscFlags & LUVBI clear then fairyFreeExtra tail call; first try; batched builds. |
+| 215 | mario.c | marioRemoveTamara | small | 36 | yes | 100 | 1 | 0c8d864 (master) | miscFlags & SQUIRPS clear then fairyFreeExtra; first try; batched builds. |
+| 216 | mario.c | marioGetHitboxHeightRaw | small | 40 | yes | 100 | 1 | 0c8d864 (master) | characterProperties[character].hitboxHeight; first try; batched builds. |
+| 217 | mario.c | marioUnlockRespawnPos | small | 40 | yes | 100 | 1 | 0c8d864 (master) | flags & 0x800000 clear then marioUpdateRespawnPos; first try; batched builds. |
+| 218 | mario.c | func_80129d8c | small | 44 | yes | 100 | 1 | 0c8d864 (master) | toggle unknown_0x3d4 0->2 else 1; header now void func_80129d8c(); first try; batched builds. |
