@@ -298,3 +298,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 263 | mario.c | marioChgPaper | medium | 140 | yes | 100 | 1 | e92619a (master) | First try; same as marioChgPaper2 plus poseTime = 0 and trigFlags 0x2000 |
 | 264 | mario.c | marioChgPoseTime | medium | 140 | yes | 100 | 1 | f1178cd (master) | First try; like marioChgPaper but curPoseName (0x1c), no dispFlags 0x40000000 check, sets poseTime = time arg, trigFlags 0x1000 |
 | 265 | mario.c | func_8012c0f8 | medium | 144 | yes | 100 | 4 | 71e798f (master) | Callee func_8013b218 (mario_hit) takes the out pointer and returns f32; float at marioWork+0xc8 needed a local u8* base taken before the call so r31 is loaded early; header UNKNOWN_FUNCTION replaced by prototype |
+| 266 | mario.c | func_8012c188 | medium | 144 | yes | 100 | 1 | af477ad (master) | First try; sibling of func_8012c0f8 with callee func_8013bf1c, float at marioWork+0xcc; header prototype updated |
