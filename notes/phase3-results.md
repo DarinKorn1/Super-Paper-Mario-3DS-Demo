@@ -286,3 +286,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 251 | mario.c | func_8012cb00 | small | 108 | yes | 100 | 1 | 6045d3e (master) | Loop over 5 animPoseIds calling animPoseSetDispCallBack2(id, func_8012c218, NULL); copied pointer-stride pattern of func_8012cc38. |
 | 252 | mario.c | func_8012cbcc | small | 108 | yes | 100 | 1 | 6045d3e (master) | Identical to func_8012cb00; same code. |
 | 253 | mario.c | func_8012d98c | small | 112 | yes | 100 | 2 | 6045d3e (master) | guideGetWork + marioChangeCharacter(byte at +0x1508) + fairyOn; only the two miscFlags masks were swapped on the first try (~0x6 first, ~0x8 after fairyOn). |
+| 254 | mario.c | marioChkSts | small | 116 | yes | 100 | 3 | 3e467b1 (master) | Flag tests via MarioWork* wp local (not direct marioWork) fixed the single lis of the base register; motion 0x11 = MOT_JABARA. |
+| 255 | mario.c | marioGravityDotProduct | small | 116 | yes | 100 | 1 | 3e467b1 (master) | Three PSVECDotProduct calls against gravUnitRight/Up/Forward. |
+| 256 | mario.c | func_801265a0 | small | 120 | yes | 100 | 4 | 3e467b1 (master) | strcmp(curPoseName, "O_1"/"O_1R"); header said void (changed to bool); declaring `ret` before `wp` fixed r29/r30 swap. |
+| 257 | mario.c | marioGetPaneForPos | small | 112 | yes | 99.2 | 1 | 3e467b1 (master) | Loop over MarioPaneBoundary until min == 0.0; only diff is the float-pool label (@2217 vs lbl_805b2448), counted as match. |
+| 258 | mario.c | marioAddTamara | small | 116 | no, functionally complete | 78.3 | 10 | wip/marioAddTamara | CW optimizer deletes the re-check of miscFlags after fairyExtraEntry (dead code / tail call); volatile read of second check partly restores it but not the exact original register use. |
