@@ -266,3 +266,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 231 | mario.c | func_8012b4ac | small | 76 | yes | 100 | 4 | 25352d6 (master) | Return type s32 and `!(flags & mask)` needed to get cntlzw/srwi instead of extrwi/xori; batched builds. |
 | 232 | mario.c | marioLockRespawnPos | small | 64 | no, functionally complete | 98.75 | 8 | wip/marioLockRespawnPos | All logic correct; only lis/addi base register is r6/r5 instead of r5/r5; tried param types, local ptr, store orders, struct copy; header arg changed to u32. |
 | 233 | mario.c | func_8012d8b4 | small | 80 | yes | 100 | 3 | 25352d6 (master) | Squirps flag check, fairyGetExtra, set runMode6Func = func_8012d494 (header decl changed to void(FairyEntry*)), fairyEnterRunMode(6); batched builds. |
+| 234 | mario.c | func_8012a354 | small | 84 | yes | 100 | 3 | 37eba04 (master) | func_80176a10() || float at +0x1478 > 0; `wp` declared before the call keeps r31 base; `>` (not `<`) fixes extrwi bit; batched builds. |
+| 235 | mario.c | func_8012bb80 | small | 84 | yes | 100 | 3 | 37eba04 (master) | Callback at +0x14f4 (arg +0x14f8) else zero position.z, +0xe8, +0xf4; then func_8015bd1c; raw offsets; batched builds. |
+| 236 | mario.c | func_8012662c | small | 92 | yes | 100 | 3 | 37eba04 (master) | func_80043b90 on animPoseIds[0],[1],[5] if >=0 (index 5 = 0x260); needed animdrv.h decl change; batched builds. |
+| 237 | mario.c | func_80126688 | small | 92 | yes | 100 | 3 | 37eba04 (master) | Same as func_8012662c but func_80043ca4; batched builds. |
+| 238 | mario.c | func_8012ce4c | small | 92 | yes | 100 | 3 | 37eba04 (master) | fairyIdToPtr(0) result kept; if flags&0x4000 clear via second pointer `wp` and fairyEnterRunMode(fairy,2); batched builds. |
