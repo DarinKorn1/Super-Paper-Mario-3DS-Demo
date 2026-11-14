@@ -22,3 +22,5 @@ Unattended; no questions. Read the "Overnight run rules" and the "Diff method" b
 - Switch with identical case bodies: MWCC merges cases; write each case body separately in address order.
 - `x ? a : b` vs early return, `(s32)` cast on bool-returning calls (camCheck3d) to get cmpwi, byte-offset table indexing (c*8+g*4) for register order.
 - Never run `python -` / heredoc python (hangs, leaves strays); `src/mario.c` has mixed CRLF/LF line endings: verify each edit applied.
+- **Dead Vec3 makes the stack frame too big (0x70 vs 0x50) / frsp + psq_st stores to a Vec3 field**: build the Vec3 as an initialized local and store each field through a double: `Vec3 v = { x, y, z }; wp->pos.x = (f32)(f64) v.x;` (same for y, z). Member-wise `v.x = x` always gave the big frame. Origin: evt_guide_set_pos (evt_guide.c).
+- `if (x == 0.0f)` with a plain literal can be correct when the compare chain is `==`/`>`/`<` on the same value (func_800e9e14); the local-zero trick is for lone `!=`/`==` compares that show the constant loaded first.
