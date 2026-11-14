@@ -230,3 +230,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 196 | mario.c | func_8012b4f8 | small | 20 | yes | 100 | 1 | b8c20bf (master) | miscFlags & 0x80000000 returned as u32; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
 | 197 | mario.c | func_8012caec | small | 20 | yes | 100 | 1 | b8c20bf (master) | stores s16 -6 at offset 0x14fe (unnamed field, pointer cast); batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
 | 198 | mario.c | func_8012dab0 | small | 20 | yes | 100 | 1 | b8c20bf (master) | miscFlags & 0x8 as bool; batched build, first try. Header UNKNOWN_FUNCTION changed to real decl. |
+| 199 | mario.c | marioCtrlOffChk | small | 20 | yes | 100 | 4 | a627459 (master) | returns s32 of s8 field ctrl (extsb); header field u8->s8 and decl bool->s32 needed; batched builds. |
+| 200 | mario.c | marioKeyOffChk | small | 20 | yes | 100 | 4 | a627459 (master) | same as marioCtrlOffChk with keyOff; batched builds. |
+| 201 | mario.c | marioPaperLightOff | small | 20 | yes | 100 | 2 | a627459 (master) | tail call on animPoseIds[0]; header UNKNOWN_FUNCTION animPoseSetMaterialLightFlagOff given real decl; batched builds. |
+| 202 | mario.c | marioPaperLightOn | small | 20 | yes | 100 | 2 | a627459 (master) | tail call on animPoseIds[0], first try once header was right; batched builds. |
+| 203 | mario.c | marioEffectFlagOff | small | 24 | yes | 100 | 1 | a627459 (master) | effectFlags &= ~mask, first try; batched builds. |
