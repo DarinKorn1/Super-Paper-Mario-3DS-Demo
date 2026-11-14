@@ -260,3 +260,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 226 | mario.c | marioCtrlOn | small | 56 | yes | 100 | 2 | a9e1569 (master) | Needed local `MarioWork * wp = &marioWork` to reuse the base register; batched builds. |
 | 227 | mario.c | marioKeyOff | small | 56 | yes | 100 | 2 | a9e1569 (master) | Store xzSpeedFactor before xzSpeed (store order); batched builds. |
 | 228 | mario.c | marioKeyOn | small | 56 | yes | 100 | 2 | a9e1569 (master) | Same local-pointer trick as marioCtrlOn; batched builds. |
+| 229 | mario.c | func_80126cfc | small | 76 | yes | 100 | 3 | 25352d6 (master) | Returns (s32) of float at AnimPose+0x24 (animPoseIds[5]), -1 if no pose; needed s32 cast; batched builds. |
+| 230 | mario.c | func_80126e1c | small | 80 | yes | 100 | 3 | 25352d6 (master) | Scale factor: 1.0 *0.6 (flags bg mode) * scale.x, *3.5 clamped to 1.0 if miscFlags 0x4000; batched builds. |
+| 231 | mario.c | func_8012b4ac | small | 76 | yes | 100 | 4 | 25352d6 (master) | Return type s32 and `!(flags & mask)` needed to get cntlzw/srwi instead of extrwi/xori; batched builds. |
+| 232 | mario.c | marioLockRespawnPos | small | 64 | no, functionally complete | 98.75 | 8 | wip/marioLockRespawnPos | All logic correct; only lis/addi base register is r6/r5 instead of r5/r5; tried param types, local ptr, store orders, struct copy; header arg changed to u32. |
+| 233 | mario.c | func_8012d8b4 | small | 80 | yes | 100 | 3 | 25352d6 (master) | Squirps flag check, fairyGetExtra, set runMode6Func = func_8012d494 (header decl changed to void(FairyEntry*)), fairyEnterRunMode(6); batched builds. |
