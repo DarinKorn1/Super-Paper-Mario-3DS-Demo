@@ -271,3 +271,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 236 | mario.c | func_8012662c | small | 92 | yes | 100 | 3 | 37eba04 (master) | func_80043b90 on animPoseIds[0],[1],[5] if >=0 (index 5 = 0x260); needed animdrv.h decl change; batched builds. |
 | 237 | mario.c | func_80126688 | small | 92 | yes | 100 | 3 | 37eba04 (master) | Same as func_8012662c but func_80043ca4; batched builds. |
 | 238 | mario.c | func_8012ce4c | small | 92 | yes | 100 | 3 | 37eba04 (master) | fairyIdToPtr(0) result kept; if flags&0x4000 clear via second pointer `wp` and fairyEnterRunMode(fairy,2); batched builds. |
+| 239 | mario.c | marioBgModeOff | small | 92 | yes | 100 | 3 | 4cac059 (master) | Clear flags bit 0x2000000, marioUpdateCharProperties, motionId 0x45 -> func_80113ea4 else 0x46 -> func_80117b34; `wp=&marioWork` used for motionId; extern "C" decls; batched builds. |
+| 240 | mario.c | marioBgModeOn | small | 92 | yes | 100 | 3 | 4cac059 (master) | Same as BgModeOff but sets the bit. |
+| 241 | mario.c | marioChkKey | small | 92 | yes | 100 | 3 | 4cac059 (master) | seqGetSeq()==2, keyOff==0, return func_80176688()!=0; local decl needed extern "C" for symbol name. |
+| 242 | mario.c | marioSetPaperAnimeLocalTime | small | 92 | yes | 100 | 3 | 4cac059 (master) | poseTime=time; animPoseSetLocalTime(animPoseIds[(dispFlags>>31)&1], time); needed animdrv.h prototype (id, f32) and s16 arg to match mario.h. |
+| 243 | mario.c | func_8012cb6c | small | 96 | no, functionally complete | 81.5 | 8 | wip/func_8012cb6c | Loop i<5, animPoseSetDispCallBack2(id,0,0) if id != -1; only i/pointer registers swapped (r30/r31); tried for/do-while/decl order/temp id without effect. |
