@@ -506,3 +506,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 450 | mot_slit.c | func_801765e0 | small | 88 | yes | 100.0 | 1 | master (spm-decomp, see log) | Same as func_80176638 plus store 0xa to +0x384. |
 | 451 | mot_slit.c | func_801768b4 | small | 100 | yes | 100.0 | 1 | master (spm-decomp, see log) | motionId 0x12 and +0x384 in [0x82,0x84] or [0x78,0x7a]; ret local initialised first. |
 | 452 | mot_slit.c | func_80176d64 | small | 112 | yes | 100.0 | 1 | master (spm-decomp, see log) | motionId 0x12, +0x384 is 2 or 4, then func_80126c98(fairyItemIdToPtr(0xdf)) via function-pointer cast. |
+| 453 | mot_slit.c | func_80176688 | medium | 132 | yes | 100.0 | 2 | master 1440510 | Flag 0x100000 test then three range checks on +0x384; the dead [0x5a,0x52] range must be written literally. First build only lacked a prototype. |
