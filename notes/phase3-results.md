@@ -498,3 +498,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 442 | mot_slit.c | func_8017684c | small | 52 | yes | 100.0 | 1 | master 9c17e85 | flags & 0x100000 then +0x384 = 0x6e; needed prototype in file (-W error). |
 | 443 | mot_slit.c | func_80176880 | small | 52 | yes | 100.0 | 1 | master 9c17e85 | flags & 0x100000 then +0x384 = 0x78; needed prototype in file (-W error). |
 | 444 | mot_slit.c | func_801765a4 | small | 60 | yes | 100.0 | 1 | master 9c17e85 | marioChgMot2 via cast (UNKNOWN_FUNCTION in header), +0x384 = 0x14; needed prototype in file (-W error). |
+| 445 | mot_slit.c | func_80176a10 | small | 68 | yes | 100.0 | 2 | master ddf460b | motionId==0x12 && +0x384==0xa; needed prototype. |
+| 446 | mot_slit.c | func_801767ac | small | 76 | yes | 100.0 | 2 | master ddf460b | motionId==0x12 && +0x384 >= 0x6e returned directly. |
+| 447 | mot_slit.c | func_80176638 | small | 80 | yes | 100.0 | 2 | master ddf460b | marioChgMot2(0x12) cast; flags &= ~0xF0000; miscFlags &= ~1 then &= ~0x20000000 (rlwinm mask 3..1 is one bit). |
+| 448 | mot_slit.c | func_80176758 | small | 84 | yes | 100.0 | 2 | master ddf460b | motionId 0x12 and +0x384 in [0x50,0x68]. |
+| 449 | mot_slit.c | func_801767f8 | small | 84 | yes | 100.0 | 2 | master ddf460b | motionId 0x12 and +0x384 in [0x50,0x6e). |
