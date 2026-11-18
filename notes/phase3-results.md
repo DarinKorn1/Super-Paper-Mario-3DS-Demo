@@ -591,3 +591,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 529 | mario_sbr.c | func_801504e8 | small | 52 | yes | 100 | 1 | spm-decomp master d5a9821 | angle wrap: while <0 += 360; while >=360 -= 360 |
 | 530 | mario_sbr.c | func_801513a4 | small | 52 | yes | 100 | 1 | spm-decomp master d5a9821 | raw f32 at 0x328 > 0.95f |
 | 531 | mario_sbr.c | func_80150250 | small | 56 | yes | 100 | 1 | spm-decomp master d5a9821 | store 1.0f at raw 0x248 |
+| 532 | mario_sbr.c | func_80150478 | small | 56 | yes | 100 | 1 | spm-decomp master 48817d1 | 4 raw f32 stores (270,270,0,0); needed local prototype |
+| 533 | mario_sbr.c | func_801504b0 | small | 56 | yes | 100 | 1 | spm-decomp master 48817d1 | 4 raw f32 stores (90,90,180,180) |
+| 534 | mario_sbr.c | func_80152900 | small | 60 | yes | 100 | 1 | spm-decomp master 48817d1 | flags |= 0x80; store arg at raw 0x124 |
+| 535 | mario_sbr.c | func_8015314c | small | 60 | yes | 100 | 1 | spm-decomp master 48817d1 | for i<4 call func_80152fec(i) |
+| 536 | mario_sbr.c | func_801522f4 | small | 64 | yes | 100 | 1 | spm-decomp master 48817d1 | if !(flags2&0x3000) && byte 0x31b>=0x8c set 0x1000 |
