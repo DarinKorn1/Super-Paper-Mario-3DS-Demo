@@ -581,3 +581,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 519 | mario_sbr.c | func_801522c8 | small | 36 | yes | 100 | 1 | spm-decomp master c4f31a1 | marioGetPtr() call discarded, return 1 |
 | 520 | mario_sbr.c | func_80150350 | small | 40 | yes | 100 | 1 | spm-decomp master c4f31a1 | func_8015051c(marioGetPtr()->dispDirectionCurrent); local prototype for the undecompiled callee |
 | 521 | mario_sbr.c | func_8015157c | small | 40 | yes | 100 | 1 | spm-decomp master c4f31a1 | (buttonsHeld >> 8) & 1 gives extrwi |
+| 522 | mario_sbr.c | func_801515f4 | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | (buttonsHeld >> 9) & 1 |
+| 523 | mario_sbr.c | func_8015166c | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | (buttonsPressed >> 8) & 1 |
+| 524 | mario_sbr.c | func_80152000 | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | (buttonsHeld >> 8) & 1 |
+| 525 | mario_sbr.c | func_80153364 | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | Vec3* a,b: y compare, >1 / <-1 / 0 matched first try |
+| 526 | mario_sbr.c | func_801521ec | small | 44 | yes | 100 | 2 | spm-decomp master 208b7fa | header held1Time offset is 0x31c not 0x31e; raw s16 casts at 0x31e/0x320 fixed it (2 builds) |
