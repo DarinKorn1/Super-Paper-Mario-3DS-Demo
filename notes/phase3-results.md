@@ -549,3 +549,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 489 | mot_fairy_other.c | func_8016e478 | small | 52 | yes | 100.00 | 1 | 4eb1414 | if motionId == 0x29 store 1 at 0x374 (unknown_0x374 cast to s32*). |
 | 490 | mot_fairy_other.c | func_8016d898 | small | 60 | yes | 100.00 | 1 | 4eb1414 | assert(0) line 433 then return 0; same string pool as d8d4 (matches, only label names differ). |
 | 491 | mot_fairy_other.c | func_8016e434 | small | 68 | yes | 100.00 | 1 | 4eb1414 | motionId == 0x29 ? subMotionId == 11 : 0; first try. |
+| 492 | mot_fairy_other.c | func_8016ebb0 | small | 76 | yes | 100.00 | 1 | 13692db | clear flags 0x800/0x180 on arg, fairy(0xe3)->flag0 &= ~0x10; first try. |
+| 493 | mot_fairy_other.c | func_80170690 | small | 76 | yes | 100.00 | 2 | 13692db | motionId==0x10 then tail call func_801704bc; local must be 4 bytes (s32), Vec3 gave 0x20 frame. |
+| 494 | mot_fairy_other.c | func_80171dc4 | small | 76 | yes | 100.00 | 3 | 13692db | xori/srawi/subf/srwi idiom is subMotionId < 10 (signed), not == or <=. |
+| 495 | mot_fairy_other.c | func_8016d8f0 | small | 96 | yes | 100.00 | 4 | 13692db | switch gave binary tree; early-return chain of != compares on wp->motionId matched. |
+| 496 | mot_fairy_other.c | func_8016e4ac | small | 116 | yes | 100.00 | 4 | 13692db | same chain as d8f0 then miscFlags & 0x4000 -> return 0; marioChgMot(0x10). |
