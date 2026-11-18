@@ -576,3 +576,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 514 | mario_sbr.c | func_80152940 | small | 4 | yes | 100 | 1 | spm-decomp master (see Decompile commit) | trivial stub (empty / tail call / return 0); needed local prototypes |
 | 515 | mario_sbr.c | func_801537a0 | small | 4 | yes | 100 | 1 | spm-decomp master (see Decompile commit) | trivial stub (empty / tail call / return 0); needed local prototypes |
 | 516 | mario_sbr.c | func_80152028 | small | 8 | yes | 100 | 1 | spm-decomp master (see Decompile commit) | trivial stub (empty / tail call / return 0); needed local prototypes |
+| 517 | mario_sbr.c | func_801521e4 | small | 8 | yes | 100 | 1 | spm-decomp master c4f31a1 | return 0; needed local prototype |
+| 518 | mario_sbr.c | func_801522ec | small | 8 | yes | 100 | 1 | spm-decomp master c4f31a1 | return 0; needed local prototype |
+| 519 | mario_sbr.c | func_801522c8 | small | 36 | yes | 100 | 1 | spm-decomp master c4f31a1 | marioGetPtr() call discarded, return 1 |
+| 520 | mario_sbr.c | func_80150350 | small | 40 | yes | 100 | 1 | spm-decomp master c4f31a1 | func_8015051c(marioGetPtr()->dispDirectionCurrent); local prototype for the undecompiled callee |
+| 521 | mario_sbr.c | func_8015157c | small | 40 | yes | 100 | 1 | spm-decomp master c4f31a1 | (buttonsHeld >> 8) & 1 gives extrwi |
