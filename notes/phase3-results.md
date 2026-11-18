@@ -653,3 +653,6 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 591 | mot_swim | func_80113cb0 | small | 76 | yes | 100.0 | 2 | spm-decomp master a610b64 | `if (motionId != 0x45) return 0; return *(s32*)(wp+0x3c) >= 0x1e;` early-return form needed (&& gave branches). |
 | 592 | mot_swim | func_801159a8 | small | 76 | yes | 100.0 | 1 | spm-decomp master a610b64 | Pointer or null from +0x35c, `*p != 0 ? 0x18 : 4`. |
 | 593 | mot_swim | func_80117ae8 | small | 76 | yes | 100.0 | 2 | spm-decomp master a610b64 | Same as 113cb0 with 0x46 / 0x14. |
+| 594 | mot_swim | func_801159f4 | small | 84 | yes | 100.0 | 2 | spm-decomp master b3b8633 | Pointer from +0x35c, then `a != 0 ? p + 0x6c : p` via SwimEnt struct (p at 0xc). |
+| 595 | mot_swim | func_801177e4 | small | 92 | yes | 100.0 | 3 | spm-decomp master b3b8633 | Compare idiom (xori/andi/srawi) is `v < 0x14` (tested copies: `<=0x14` gave cntlzw-like code). |
+| 596 | mot_swim | func_801161b0 | small | 112 | no, functionally complete | 99.8 | 9 | spm-decomp branch wip/func_801161b0 | Only diff: first null-check branch jumps to function end instead of the later q-null check (MWCC threads the jump). Inline helpers/ternary/if variants did not change it. |
