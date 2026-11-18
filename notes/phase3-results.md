@@ -674,3 +674,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 612 | mot_swim | func_80113f34 | small | 216 | yes | 100.0 | 3 | spm-decomp master 8684930 | Loop over 24 stride-0x30 entries; matched after fixing missing prototype and entry struct size (0x30). |
 | 613 | mot_swim | func_80115e20 | small | 224 | yes | 100.0 | 5 | spm-decomp master bdd17c8 | Same SwimEnt prelude; stride-0x20 release loop. Fixes: header already declares animPoseRelease (returns s32), e declared before i, increments written e++, i++. |
 | 614 | mot_swim | func_8011574c | small | 236 | yes | 100.0 | 4 | spm-decomp master f87233f | Matrix draw fn; needed wii/mtx.h, unnamed first arg, and Mtx34 declared r before m for stack order. |
+| 615 | mot_swim | func_80113da8 | small | 252 | yes | 100.0 | 3 | spm-decomp master 52f73bd | Vec3 built from fields; needed a separate temp `Vec3 t = {...}; Vec3 v = t;` (initializer copy) to get the stack copy and 0x30 frame. |
