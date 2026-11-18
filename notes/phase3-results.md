@@ -648,3 +648,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 586 | mot_swim | func_80112b08 | small | 16 | yes | 100.0 | 2 | spm-decomp master 71a82f0 | Same, index 6. |
 | 587 | mot_swim | func_80115a48 | small | 40 | yes | 100.0 | 2 | spm-decomp master 71a82f0 | Clear flag bit 0, s8 at +4 selects effSoftDelete vs animPoseRelease on ptr at +0x28 (local struct). |
 | 588 | mot_swim | func_80114af0 | small | 52 | yes | 100.0 | 2 | spm-decomp master 71a82f0 | `if (marioGetPtr()->miscFlags & 0x400000) func_80114968(1);` |
+| 589 | mot_swim | func_80115970 | small | 56 | yes | 100.0 | 1 | spm-decomp master a610b64 | Returns +0x35c pointer-word if miscFlags & 0x400000 else 0 (label-only diffs). |
+| 590 | mot_swim | func_8011400c | small | 72 | no, functionally complete | 79.9 | 7 | spm-decomp wip/func_8011400c | Init of header + 3 slots set to -1; only register allocation differs (r6 vs r5, li r0 ordering); tried many struct/order variants. |
+| 591 | mot_swim | func_80113cb0 | small | 76 | yes | 100.0 | 2 | spm-decomp master a610b64 | `if (motionId != 0x45) return 0; return *(s32*)(wp+0x3c) >= 0x1e;` early-return form needed (&& gave branches). |
+| 592 | mot_swim | func_801159a8 | small | 76 | yes | 100.0 | 1 | spm-decomp master a610b64 | Pointer or null from +0x35c, `*p != 0 ? 0x18 : 4`. |
+| 593 | mot_swim | func_80117ae8 | small | 76 | yes | 100.0 | 2 | spm-decomp master a610b64 | Same as 113cb0 with 0x46 / 0x14. |
