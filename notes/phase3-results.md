@@ -1,5 +1,13 @@
 # Phase 3 results
 
+## RESUME STATE (2026-11-18 ~15:30; run of 2026-11-18, stopped once by the 5-hour limit)
+- **mario_sbr.c fully attempted** (rows 549-583): all functions at 100% / label-only except `func_80152fec` 97 (wip/func_80152fec) and `func_80153978` 96.96 (wip/func_80153978). Opus retries done (3 of 3): func_80152cac, func_80153f4c, func_80154694 all matched. Not linkable yet.
+- **mot_swim.c in progress** (stub created, queue `notes/phase3-queue/mot_swim.txt`, rows 584-629). Done through func_80117840. Remaining: func_80116844 (696 B, next), func_801140ec, func_8011372c, func_801163c8, func_80114b24, func_80116afc, func_80114fa4, func_80112bc4 (largest, 2216 B). Below 100 (wip branches): func_8011400c 79.9, func_801161b0 99.8 (try the `if (t==0) r=0; else r=...; q=(s8*)r; if (q==0)` form from func_80116224), func_8011730c 97.0 (assert pool), func_8011346c 86.4, func_801173b4 97.29, func_80114968 97.19, func_801143c8 82.78, func_80113524 86.97, func_8011759c 97.84, func_80113a10 93.33. Up to 3 strongest-model (Opus) retries after the file is finished, lowest first.
+- Next in plan order after mot_swim.c: `mario_motion.c`, `mario_hit.c`, `mario_status.c`, ... (see phase3-plan.md).
+- **Linked files running count: 2** (evt_guide.c, evt_pouch.c). No new link candidates yet.
+- **Antigravity merge #4 / steps 4-5 STILL PENDING**: idle checks at 12:43 and 13:07 failed (agy.exe active, ag-results.md edited within minutes, uncommitted evt_npc.c/evt_npc.h/npcdrv.h edits in spm-decomp-ag). Retry after each file. Not "ANTIGRAVITY READY" yet.
+- Idle `python -` processes (stdin waiting, from subagent slips, parents gone/unattributable: PIDs 6192, 27224, 28244, 11208, 6892, 33108, 16776, 19192, maybe 8944) were NOT stopped because they cannot be attributed to spm-decomp; harmless. Subagent briefs now forbid `python -`/`python3`/bare `python`.
+
 ## Overnight summary (updated after mario.c; 2026-11-14 ~09:00)
 
 | Item | Count |
