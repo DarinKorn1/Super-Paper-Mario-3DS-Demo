@@ -630,3 +630,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 568 | mario_sbr.c | func_801510a4 | medium | 392 | yes | 100 | 1 | spm-decomp master 29fe189 | Stick angle/distance getter; matched first build (s8 stick bytes cast to f32, clamp, 360 wrap loops, f32 locals d/ang) |
 | 569 | mario_sbr.c | func_80153188 | large | 476 | yes | 100 | 4 | spm-decomp master 3b59677 | Per-ext sort/rotation setup loop; fixed by saving -cs in a local and putting ent++ in the for-increment (j++, ent++) |
 | 570 | mario_sbr.c | func_80150764 | large | 512 | yes | 100 | 1 | spm-decomp master 7ebcbd3 | Copy of func_8015051c angle logic plus func_80150964 tail (f31 negate); matched first build (label-only pool diffs) |
+| 571 | mario_sbr.c | func_80152a44 | large | 616 | yes | 100 | 8 | spm-decomp master de0c416 | Ext slot alloc; needed DCInvalidateRange prototype in OSCache.h, local decl order for e/id regs, ternary for default callbacks (beq+b), (n2*12)<<2 |
