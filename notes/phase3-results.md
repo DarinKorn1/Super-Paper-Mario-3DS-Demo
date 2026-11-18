@@ -596,3 +596,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 534 | mario_sbr.c | func_80152900 | small | 60 | yes | 100 | 1 | spm-decomp master 48817d1 | flags |= 0x80; store arg at raw 0x124 |
 | 535 | mario_sbr.c | func_8015314c | small | 60 | yes | 100 | 1 | spm-decomp master 48817d1 | for i<4 call func_80152fec(i) |
 | 536 | mario_sbr.c | func_801522f4 | small | 64 | yes | 100 | 1 | spm-decomp master 48817d1 | if !(flags2&0x3000) && byte 0x31b>=0x8c set 0x1000 |
+| 537 | mario_sbr.c | func_80151354 | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | x==0 ->0, x>0.95 ->2 else 1; local-zero trick for fcmpu |
+| 538 | mario_sbr.c | func_801515a4 | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | raw s16 at 0x320==2 and 0x31e <0 or >=3; load order b then a |
+| 539 | mario_sbr.c | func_8015161c | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | raw s16 0x31e==3 and 0x320 <0 or >=2 |
+| 540 | mario_sbr.c | func_80152194 | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | same as func_801515a4 |
+| 541 | mario_sbr.c | func_80151524 | small | 88 | yes | 100 | 1 | spm-decomp master 61dcae1 | marioCheck3d cast to s32; else s8 0x317 < -0x1e |
