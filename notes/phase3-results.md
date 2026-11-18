@@ -554,3 +554,5 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 494 | mot_fairy_other.c | func_80171dc4 | small | 76 | yes | 100.00 | 3 | 13692db | xori/srawi/subf/srwi idiom is subMotionId < 10 (signed), not == or <=. |
 | 495 | mot_fairy_other.c | func_8016d8f0 | small | 96 | yes | 100.00 | 4 | 13692db | switch gave binary tree; early-return chain of != compares on wp->motionId matched. |
 | 496 | mot_fairy_other.c | func_8016e4ac | small | 116 | yes | 100.00 | 4 | 13692db | same chain as d8f0 then miscFlags & 0x4000 -> return 0; marioChgMot(0x10). |
+| 497 | mot_fairy_other.c | func_8016e3b8 | small | 124 | yes | 100.00 | 2 | d68433f | motionId!=0x29 return 0; subMotionId range chain; raw u8 offset 0x378 != 0 plus 4 matched; first build only needed prototype. |
+| 498 | mot_fairy_other.c | func_801706dc | medium | 204 | yes | 100.00 | 4 | d68433f | motion chain + flag tests; r4/r5 swap fixed by declaring u16 m before u32 fl and assigning separately; pool label diff only. |
