@@ -668,3 +668,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 606 | mot_swim | func_80112b18 | small | 172 | yes | 100.0 | 4 | spm-decomp master 306501d | Fill jumpFallPara floats via f32* p; constant multiply needed `f32 a = p[7]; f32 s = lbl; p[7] = a*s` to get load order (f0 before f1). |
 | 607 | mot_swim | func_80113cfc | small | 172 | yes | 100.0 | 1 | spm-decomp master 12a419b | Calling the earlier func_80113cb0() gets inlined (double marioGetPtr, subfc/adde); rest straight from asm with raw offsets. |
 | 608 | mot_swim | func_80115b98 | small | 172 | yes | 100.0 | 1 | spm-decomp master 6c4a281 | Copy of sibling func_80115a70 pattern (p==0 ? 0 : ...), counter at q[2], clear q[7] when >1; matched first build. |
+| 609 | mot_swim | func_801174ec | small | 176 | yes | 100.0 | 5 | spm-decomp master fb1a40c | Straight from asm; only saved-register numbering differed: declaration order of locals (e, q, i, r) fixed it. |
