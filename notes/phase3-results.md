@@ -606,3 +606,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 544 | mario_sbr.c | func_80150ad4 | small | 112 | yes | 100 | 3 | spm-decomp master 62fb420 | literal 0.0f with f32 result local; clear mask ~0x30 |
 | 545 | mario_sbr.c | func_80152944 | small | 128 | no, functionally complete | 95.72 | 4 | spm-decomp master 62fb420 | __assert2 table getter; only string-pool base offset/register differs (pool starts with "sp4" string from undecompiled func_801501c4); likely fixes itself later |
 | 546 | mario_sbr.c | func_801529c4 | small | 128 | no, functionally complete | 95.72 | 1 | spm-decomp master 62fb420 | same as func_80152944 (field +8) |
+| 547 | mario_sbr.c | func_801501c4 | medium | 140 | yes | 100 | 3 | spm-decomp master df71872 | strncmp(gp->mapName,"sp4",3) then PSVECDotProduct/position.y > -2000; gp is a pointer (not spmario, which used non-sda addressing). Also made func_80152944/func_801529c4 100% (string pool base fixed) |
