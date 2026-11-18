@@ -586,3 +586,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 524 | mario_sbr.c | func_80152000 | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | (buttonsHeld >> 8) & 1 |
 | 525 | mario_sbr.c | func_80153364 | small | 40 | yes | 100 | 1 | spm-decomp master 208b7fa | Vec3* a,b: y compare, >1 / <-1 / 0 matched first try |
 | 526 | mario_sbr.c | func_801521ec | small | 44 | yes | 100 | 2 | spm-decomp master 208b7fa | header held1Time offset is 0x31c not 0x31e; raw s16 casts at 0x31e/0x320 fixed it (2 builds) |
+| 527 | mario_sbr.c | func_801528d4 | small | 44 | yes | 100 | 1 | spm-decomp master d5a9821 | dispFlags &= ~0x80 |
+| 528 | mario_sbr.c | func_80150288 | small | 48 | yes | 100 | 1 | spm-decomp master d5a9821 | raw f32 store at 0x248 via marioGetPtr |
+| 529 | mario_sbr.c | func_801504e8 | small | 52 | yes | 100 | 1 | spm-decomp master d5a9821 | angle wrap: while <0 += 360; while >=360 -= 360 |
+| 530 | mario_sbr.c | func_801513a4 | small | 52 | yes | 100 | 1 | spm-decomp master d5a9821 | raw f32 at 0x328 > 0.95f |
+| 531 | mario_sbr.c | func_80150250 | small | 56 | yes | 100 | 1 | spm-decomp master d5a9821 | store 1.0f at raw 0x248 |
