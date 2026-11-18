@@ -631,3 +631,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 569 | mario_sbr.c | func_80153188 | large | 476 | yes | 100 | 4 | spm-decomp master 3b59677 | Per-ext sort/rotation setup loop; fixed by saving -cs in a local and putting ent++ in the for-increment (j++, ent++) |
 | 570 | mario_sbr.c | func_80150764 | large | 512 | yes | 100 | 1 | spm-decomp master 7ebcbd3 | Copy of func_8015051c angle logic plus func_80150964 tail (f31 negate); matched first build (label-only pool diffs) |
 | 571 | mario_sbr.c | func_80152a44 | large | 616 | yes | 100 | 8 | spm-decomp master de0c416 | Ext slot alloc; needed DCInvalidateRange prototype in OSCache.h, local decl order for e/id regs, ternary for default callbacks (beq+b), (n2*12)<<2 |
+| 572 | mario_sbr.c | func_80154378 | large | 796 | yes | 100 | 3 | spm-decomp master f20affa | Gravity-type switch on 4 cases; needed one local marioGetPtr result shared for flags/scale.y load; label-only pool diffs |
