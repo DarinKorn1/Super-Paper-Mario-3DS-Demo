@@ -601,3 +601,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 539 | mario_sbr.c | func_8015161c | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | raw s16 0x31e==3 and 0x320 <0 or >=2 |
 | 540 | mario_sbr.c | func_80152194 | small | 80 | yes | 100 | 1 | spm-decomp master 61dcae1 | same as func_801515a4 |
 | 541 | mario_sbr.c | func_80151524 | small | 88 | yes | 100 | 1 | spm-decomp master 61dcae1 | marioCheck3d cast to s32; else s8 0x317 < -0x1e |
+| 542 | mario_sbr.c | func_801534e0 | small | 88 | yes | 100 | 1 | spm-decomp master 62fb420 | GXSetBlendMode/AlphaCompare/ZMode constants |
+| 543 | mario_sbr.c | func_80152334 | small | 92 | yes | 100 | 2 | spm-decomp master 62fb420 | first guess of flag bit wrong (0x1000 test, 0x3000 clear) |
+| 544 | mario_sbr.c | func_80150ad4 | small | 112 | yes | 100 | 3 | spm-decomp master 62fb420 | literal 0.0f with f32 result local; clear mask ~0x30 |
+| 545 | mario_sbr.c | func_80152944 | small | 128 | no, functionally complete | 95.72 | 4 | spm-decomp master 62fb420 | __assert2 table getter; only string-pool base offset/register differs (pool starts with "sp4" string from undecompiled func_801501c4); likely fixes itself later |
+| 546 | mario_sbr.c | func_801529c4 | small | 128 | no, functionally complete | 95.72 | 1 | spm-decomp master 62fb420 | same as func_80152944 (field +8) |
