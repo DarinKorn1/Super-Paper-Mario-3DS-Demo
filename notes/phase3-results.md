@@ -827,3 +827,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 754 | mario_hit.c | func_801424e0 | small | 124 | yes | 100.0 | 1 build (shared compile) | master b341742 | Float literals 0.6f/0.35f read from sdata2; first try. |
 | 755 | mario_hit.c | func_801432b8 | small | 80 | yes | 100.0 | 1 build (shared compile) | master b341742 | Flag masks from rlwinm bit numbers; first try. |
 | 756 | mario_hit.c | func_80132f04 | small | 132 | yes | 100.0 | 2 builds (1 prototype error) | master be64fad | Mask 0x60000000 from rlwinm 1,2; first hitGetAttr call before a->attr load; needed prototype. |
+| 757 | mario_hit.c | func_80142314 | small | 136 | yes | 100.0 | 2 builds (1 prototype error) | master 581b6a0 | Effect-call wrapper; flags 0x2000000/miscFlags 0x4000 from rlwinm bits; callees declared void*/f32 args; matched first try after prototype. |
