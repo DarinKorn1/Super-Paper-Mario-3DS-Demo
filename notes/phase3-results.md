@@ -729,3 +729,6 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 658 | mario_motion.c | func_80145108 | small | 108 | no, functionally complete | 97.22 | 8 | wip/func_80145108 | Only float register numbering differs (orig zero in f4 loaded first, constants f1-f3; ours f0-f3). Tried decl-order permutations, inline helper, Big-struct overlay. |
 | 659 | mario_motion.c | marioMotion | small | 108 | yes | 100 | 1 | master fc249fb | do/while on trigFlags&1 calling table[motionId].fn(wp); 8-byte table entries. |
 | 660 | mario_motion.c | marioChgMot2 | small | 116 | yes | 100 | 1 | master fc249fb | Guard flags&0x10000000, table[prev].post null-checked. |
+| 661 | mario_motion.c | func_80144e44 | small | 68 | yes | 100 | 1 | master accfe34 | Copy of func_80144de4 plus a 5th float arg stored at 0x2c after the func_80144908 call. |
+| 662 | mario_motion.c | mot_23 | small | 100 | yes | 100 | 1 | master accfe34 | switch on subMotionId (0 -> func_80176918, marioChgMotSub(0,1); 1 -> marioReset). |
+| 663 | mario_motion.c | mot_34_post | small | 120 | yes | 100 | 2 | master accfe34 | miscFlags mask is ~0x30000000; sfx check needs (u32)x != 0xffffffff to get addis/cmplwi. |
