@@ -719,3 +719,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 648 | mario_motion.c | func_801487b0 | small | 52 | yes | 100 | 1 | master 6c85386 | `if (func_80151c00()) return func_801484fc(); return 0;` |
 | 649 | mario_motion.c | func_801472b4 | small | 52 | yes | 100 | 1 | master 6c85386 | miscFlags & 4 returns 0, else func_801470d8(). |
 | 650 | mario_motion.c | func_801435a0 | small | 60 | yes | 100 | 2 | master 6c85386 | Float locals declared 0.75 then 0.48, `*a = *a * k` form gave constant load order. |
+| 651 | mario_motion.c | mot_32_post | small | 68 | yes | 100 | 1 | master 9450d23 | trigFlags&1 early return, clear flags 0x80 and miscFlags 0x30000000, acDelete on ac ptr at 0x368. |
+| 652 | mario_motion.c | func_80149680 | small | 74 | no, functionally complete | 99 | 7 | wip/func_80149680 (1321c79) | Original uses an odd `((t>>1)-(t&0x1e))>>31` idiom after `^0x1e`; MWCC `==` gives cntlzw. Idiom form reproduced but srawi/rlwinm register order is swapped; ~30 variants tried. |
+| 653 | mario_motion.c | func_8014acbc | small | 76 | yes | 100 | 1 | master 9450d23 | motionId 0x4c and trigFlags&1 pick the lbl_805b279c float, else field at 0x378 (raw cast). |
+| 654 | mario_motion.c | func_801440a0 | small | 76 | yes | 100 | 2 | master 9450d23 | Needs `switch (motionId) { case 0x45: ... default: }` (cmpwi) and a 60-byte float row struct (mulli 0x3c). |
+| 655 | mario_motion.c | func_8014651c | small | 80 | yes | 100 | 1 | master 9450d23 | miscFlags 0x100 && 0x20 test, plain ifs. |
