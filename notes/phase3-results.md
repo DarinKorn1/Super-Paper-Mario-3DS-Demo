@@ -816,3 +816,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 743 | mario_hit.c | func_801361ac | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Two locals, call func_80134dd8(out,&a,&b,x,x); matched first try. |
 | 744 | mario_hit.c | func_8013d084 | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Same shape as func_80132eb4 with func_8013cf9c. |
 | 745 | mario_hit.c | func_8013e1f8 | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Copy position per-field to Vec3 local (struct copy used lwz); store to hitObjs2[2]. |
+| 746 | mario_hit.c | func_80131690 | small | 100 | yes | 100.0 | 2 builds (shared compile) | master f59156d | hitObjs1[9] and a 16-entry hitObj9Array clear loop unrolled by MWCC; matched first try. |
+| 747 | mario_hit.c | func_80131d28 | small | 96 | yes | 100.0 | 2 builds (shared compile) | master f59156d | Early-return chain on flags/miscFlags/motionId; `(flags & 0x100000) != 0` (shift form gave a sign-conversion error). |
+| 748 | mario_hit.c | func_8013c01c | small | 100 | yes | 100.0 | 2 builds (shared compile) | master f59156d | HitCheckQuery attr/mask test via hitGetAttr; field 0x8 via cast; matched first try. |
+| 749 | mario_hit.c | func_80140f40 | small | 100 | yes | 100.0 | 3 builds (shared compile) | master f59156d | Attr mask is 0x80000000 (clrrwi), not 1; nested if on owner flags 0x800. |
+| 750 | mario_hit.c | func_80141b98 | small | 96 | yes | 100.0 | 7 builds (shared compile) | master f59156d | Branch layout only matched with `if ((attr & 0x80000000) == 0) return 0;` (not `!(..)`, ternary, &&, or if-body-first forms). |
