@@ -811,3 +811,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 738 | mario_hit.c | func_80142c90 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Store arg at raw offset 0x380 (unnamed field), marioChgMotSub(7,1). |
 | 739 | mario_hit.c | func_801317a0 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Early return of hitboxWidth if miscFlags & 0x4000, else times scale.x. |
 | 740 | mario_hit.c | func_80143330 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Plain call sequence; prototypes only. |
+| 741 | mario_hit.c | func_80133c58 | small | 72 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Flag tests; `!(flags & 0x20)` gives cntlzw form; mask 0x80000 not 0x100000. |
+| 742 | mario_hit.c | func_80132eb4 | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Call then `!(hitGetAttr(b) & 4)`; needed prototypes. |
+| 743 | mario_hit.c | func_801361ac | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Two locals, call func_80134dd8(out,&a,&b,x,x); matched first try. |
+| 744 | mario_hit.c | func_8013d084 | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Same shape as func_80132eb4 with func_8013cf9c. |
+| 745 | mario_hit.c | func_8013e1f8 | small | 80 | yes | 100.0 | 3 builds (shared compile) | master 7519713 | Copy position per-field to Vec3 local (struct copy used lwz); store to hitObjs2[2]. |
