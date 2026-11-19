@@ -714,3 +714,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 643 | mario_motion.c | marioClearJumpPara | small | 12 | yes | 100 | 1 | master ce5c000 | memset(para, 0, sizeof(MarioJumpFallPara)); added msl/string.h include. |
 | 644 | mario_motion.c | func_801450f8 | small | 16 | yes | 100 | 1 | master ce5c000 | Returns lbl_80426e28[13] as f32. |
 | 645 | mario_motion.c | mot_31_post | small | 28 | yes | 100 | 4 | master ce5c000 | Clears flags 0x180 and miscFlags 0x30000000, then tail-calls func_80126688. Register order fixed with u32 temps for both fields (both loaded first), assigning miscFlags before flags. |
+| 646 | mario_motion.c | mot_28_post | small | 28 | yes | 100 | 3 | master 6c85386 | u32 temps for both fields declared disp then misc, `wp->miscFlags = m & ~0x30000000; wp->dispFlags = d & ~2; wp->miscFlags &= ~0x40000;`. |
+| 647 | mario_motion.c | func_80146e00 | small | 36 | yes | 100 | 1 | master 6c85386 | Calls marioGetPtr, returns 0. |
+| 648 | mario_motion.c | func_801487b0 | small | 52 | yes | 100 | 1 | master 6c85386 | `if (func_80151c00()) return func_801484fc(); return 0;` |
+| 649 | mario_motion.c | func_801472b4 | small | 52 | yes | 100 | 1 | master 6c85386 | miscFlags & 4 returns 0, else func_801470d8(). |
+| 650 | mario_motion.c | func_801435a0 | small | 60 | yes | 100 | 2 | master 6c85386 | Float locals declared 0.75 then 0.48, `*a = *a * k` form gave constant load order. |
