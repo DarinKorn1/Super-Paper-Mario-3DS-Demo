@@ -821,3 +821,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 748 | mario_hit.c | func_8013c01c | small | 100 | yes | 100.0 | 2 builds (shared compile) | master f59156d | HitCheckQuery attr/mask test via hitGetAttr; field 0x8 via cast; matched first try. |
 | 749 | mario_hit.c | func_80140f40 | small | 100 | yes | 100.0 | 3 builds (shared compile) | master f59156d | Attr mask is 0x80000000 (clrrwi), not 1; nested if on owner flags 0x800. |
 | 750 | mario_hit.c | func_80141b98 | small | 96 | yes | 100.0 | 7 builds (shared compile) | master f59156d | Branch layout only matched with `if ((attr & 0x80000000) == 0) return 0;` (not `!(..)`, ternary, &&, or if-body-first forms). |
+| 751 | mario_hit.c | func_80131614 | small | 92 | yes | 100.0 | 1 build (shared compile) | master b341742 | Header fields hitObjs1[6], hitObjHeadArray[20], numHitObjHeadArray; first try. |
+| 752 | mario_hit.c | func_80132f88 | small | 124 | yes | 100.0 | 1 build (shared compile) | master b341742 | caseCheckHitObj type==14 early return; first try. |
+| 753 | mario_hit.c | func_8013ec0c | small | 124 | yes | 100.0 | 2 builds (shared compile) | master b341742 | Loop over entries stride 0xb8; only fix was declaring pointer before counter (saved reg order). |
+| 754 | mario_hit.c | func_801424e0 | small | 124 | yes | 100.0 | 1 build (shared compile) | master b341742 | Float literals 0.6f/0.35f read from sdata2; first try. |
+| 755 | mario_hit.c | func_801432b8 | small | 80 | yes | 100.0 | 1 build (shared compile) | master b341742 | Flag masks from rlwinm bit numbers; first try. |
