@@ -724,3 +724,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 653 | mario_motion.c | func_8014acbc | small | 76 | yes | 100 | 1 | master 9450d23 | motionId 0x4c and trigFlags&1 pick the lbl_805b279c float, else field at 0x378 (raw cast). |
 | 654 | mario_motion.c | func_801440a0 | small | 76 | yes | 100 | 2 | master 9450d23 | Needs `switch (motionId) { case 0x45: ... default: }` (cmpwi) and a 60-byte float row struct (mulli 0x3c). |
 | 655 | mario_motion.c | func_8014651c | small | 80 | yes | 100 | 1 | master 9450d23 | miscFlags 0x100 && 0x20 test, plain ifs. |
+| 656 | mario_motion.c | func_80144de4 | small | 96 | yes | 100 | 1 | master fc249fb | Float params f1-f4 stored twice, local `f32 z = 0.0f`; label-only pool diff, report 100. |
+| 657 | mario_motion.c | mot_75_post | small | 100 | yes | 100 | 3 | master fc249fb | Compound `&=` on wp fields in address order (flags 0x80 between miscFlags clears); flags &= ~0x30000 (not 0x20000). |
+| 658 | mario_motion.c | func_80145108 | small | 108 | no, functionally complete | 97.22 | 8 | wip/func_80145108 | Only float register numbering differs (orig zero in f4 loaded first, constants f1-f3; ours f0-f3). Tried decl-order permutations, inline helper, Big-struct overlay. |
+| 659 | mario_motion.c | marioMotion | small | 108 | yes | 100 | 1 | master fc249fb | do/while on trigFlags&1 calling table[motionId].fn(wp); 8-byte table entries. |
+| 660 | mario_motion.c | marioChgMot2 | small | 116 | yes | 100 | 1 | master fc249fb | Guard flags&0x10000000, table[prev].post null-checked. |
