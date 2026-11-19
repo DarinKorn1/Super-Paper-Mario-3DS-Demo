@@ -806,3 +806,8 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 733 | mario_hit.c | func_80132610 | small | 28 | yes | 100.0 | 2 builds | master d4a4852 | Vec3 copy: locals declared `f32 z, y, x;` assigned x,y,z gives original load order (f2,f1,f0). |
 | 734 | mario_hit.c | func_80132eb0 | small | 4 | yes | 100.0 | 1 build | master d4a4852 | Tail call to func_80132d7c with same args. |
 | 735 | mario_hit.c | func_8013d0d4 | small | 56 | yes | 100.0 | 3 builds | master d4a4852 | `if (attr & 0x20000000) return 0; return (attr & 0x400) != 0;` (shift form gave branchless code; unnamed unused param needed for -W error). |
+| 736 | mario_hit.c | func_80142c58 | small | 56 | yes | 100.0 | 1 build | master 5381dc4 | motionId != 0x12 then marioChgMotSub(0,1). |
+| 737 | mario_hit.c | func_801318bc | small | 60 | yes | 100.0 | 2 builds | master 5381dc4 | Ternary `(flags & 0x4000) ? h : h * scale.y` with h loaded first gave the empty-branch shape; if/else with empty body did not. |
+| 738 | mario_hit.c | func_80142c90 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Store arg at raw offset 0x380 (unnamed field), marioChgMotSub(7,1). |
+| 739 | mario_hit.c | func_801317a0 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Early return of hitboxWidth if miscFlags & 0x4000, else times scale.x. |
+| 740 | mario_hit.c | func_80143330 | small | 60 | yes | 100.0 | 1 build | master 5381dc4 | Plain call sequence; prototypes only. |
