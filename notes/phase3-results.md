@@ -732,3 +732,4 @@ Splits for guide.c (spm-decomp master): added .rodata 0x803335B8-0x80333648, .da
 | 661 | mario_motion.c | func_80144e44 | small | 68 | yes | 100 | 1 | master accfe34 | Copy of func_80144de4 plus a 5th float arg stored at 0x2c after the func_80144908 call. |
 | 662 | mario_motion.c | mot_23 | small | 100 | yes | 100 | 1 | master accfe34 | switch on subMotionId (0 -> func_80176918, marioChgMotSub(0,1); 1 -> marioReset). |
 | 663 | mario_motion.c | mot_34_post | small | 120 | yes | 100 | 2 | master accfe34 | miscFlags mask is ~0x30000000; sfx check needs (u32)x != 0xffffffff to get addis/cmplwi. |
+| 664 | mario_motion.c | func_8014be7c | small | 132 | yes | 100 | 1 | master e0c8d13 | Same shape as mot_32_post plus func_80126688 call and effSoftDelete of the 0x36c pointer (cleared to 0); matched first build. |
