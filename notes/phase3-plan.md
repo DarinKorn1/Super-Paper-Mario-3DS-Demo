@@ -59,7 +59,7 @@ Check also each file's header under `spm-headers/include/spm/`.
 | 23 | `mario_hit.c` | NonStarted | 123 | 73,448 | Mario and companions | huge fn `func_80138b38` 4,764 B; create stub source + `configure.py` entry check first |
 | 24 | `mario_status.c` | NonStarted | 212 | 101,400 | Mario and companions | huge fn `func_80168378` 7,712 B; create stub source + `configure.py` entry check first |
 | | **Area 2 NPCs and enemies**: NPC/enemy engine and script commands (individual enemy AI is in unsplit relF) | | | | | |
-| 25 | `evt_npc.c` | NonMatching | 246 | 59,044 | NPCs and enemies | huge fn `func_8010ac50` 2,304 B |
+| 25 | `evt_npc.c` | ANTIGRAVITY (2026-11-14; 2 huge deferred) | 246 | 59,044 | NPCs and enemies | huge fn `func_8010ac50` 2,304 B |
 | 26 | `npcdrv.c` | NonStarted | 254 | 167,860 | NPCs and enemies | huge fn `npcHitMain` 8,628 B; create stub source + `configure.py` entry check first; reuse `origin/wip/npcDelete` (stub source must be created first) |
 | | **Area 3 Event/script system**: script command glue used by every room script | | | | | |
 | 27 | `evt_sub.c` | NonMatching | 63 | 19,316 | Event/script system | huge fn `func_800d6674` 3,628 B |
@@ -81,8 +81,8 @@ Check also each file's header under `spm-headers/include/spm/`.
 | 42 | `evt_shop.c` | NonStarted | 54 | 20,052 | Items | largest `evt_shop_init_flopside_cards` 1,932 B; create stub source + `configure.py` entry check first |
 | 43 | `itemdrv.c` | NonStarted | 40 | 27,464 | Items | huge fn `func_8007a758` 3,700 B; create stub source + `configure.py` entry check first; reuse `origin/wip/itemEntry` |
 | | **Area 5 HUD, menus, windows, text**: HUD, dialogue, pause menu, fonts | | | | | |
-| 44 | `romfont.c` | NonMatching | 4 | 1,888 | HUD, menus, windows, text | largest `romFontPrintGX` 1,288 B |
-| 45 | `windowdrv.c` | NonMatching | 10 | 8,624 | HUD, menus, windows, text | largest `func_80039d40` 1,792 B |
+| 44 | `romfont.c` | ANTIGRAVITY (2026-11-14) | 4 | 1,888 | HUD, menus, windows, text | largest `romFontPrintGX` 1,288 B |
+| 45 | `windowdrv.c` | ANTIGRAVITY (2026-11-14) | 10 | 8,624 | HUD, menus, windows, text | largest `func_80039d40` 1,792 B |
 | 46 | `hud.c` | NonMatching | 22 | 11,416 | HUD, menus, windows, text | huge fn `hudDisp` 3,612 B; reuse `origin/wip/hudMain` |
 | 47 | `winmgr.c` | NonMatching | 19 | 14,516 | HUD, menus, windows, text | huge fn `func_8003d2ac` 4,916 B |
 | 48 | `charpixlitemwin.c` | NonMatching | 32 | 16,344 | HUD, menus, windows, text | huge fn `charPixlItemWinOpen` 3,392 B |
