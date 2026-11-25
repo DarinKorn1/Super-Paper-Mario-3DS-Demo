@@ -46,3 +46,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 892 | mario_status.c | func_8016bba4 | small | 80 | yes | 100 | 2 | c3cc7e7 | return !(x > 30.0f) |
 | 893 | mario_status.c | func_801576b4 | small | 84 | yes | 100 | 2 | c3cc7e7 | same shape as func_80157ab4 |
 | 894 | mario_status.c | func_80166ae0 | small | 84 | yes | 100 | 2 | c3cc7e7 | range check with explicit return 1/0 |
+| 895 | mario_status.c | func_801672cc | small | 84 | yes | 100 | 2 | 2a2b76e | straightforward; first build failed on missing prototypes |
+| 896 | mario_status.c | func_80164514 | small | 88 | yes | 100 | 2 | 2a2b76e | straightforward; first build failed on missing prototypes |
+| 897 | mario_status.c | func_80156660 | small | 92 | yes | 100 | 2 | 2a2b76e | straightforward; first build failed on missing prototypes |
+| 898 | mario_status.c | func_80156894 | small | 92 | yes | 100 | 2 | 2a2b76e | straightforward; first build failed on missing prototypes |
+| 899 | mario_status.c | func_80156ac8 | small | 92 | yes | 100 | 2 | 2a2b76e | straightforward; first build failed on missing prototypes |
