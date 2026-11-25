@@ -15,10 +15,18 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_801624b8 | mario_status.c | 4636 | huge (over 2,044 B): stub left |
 | func_8016571c | mario_status.c | 3560 | huge (over 2,044 B): stub left |
 | func_80168378 | mario_status.c | 7712 | huge (over 2,044 B): stub left |
+| func_800d6674 | evt_sub.c | 3628 | huge, left out of the Antigravity queue 2026-11-25 |
+| evt_eff | evt_eff.c | 2444 | huge, left out of the Antigravity queue 2026-11-25 |
+| func_800e9178 | evt_frame.c | 2620 | huge, left out of the Antigravity queue 2026-11-25 |
 <!-- huge-end -->
 
 ## Cleanup retries (candidates for a strongest-model retry later)
 
 | Function | File | Bytes | State |
 |---|---|---|---|
+| evt_read_setup_file | evt_npc.c | 916 | 99.90% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
+| evt_npc_teleport_effect | evt_npc.c | 460 | 99.98% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
+| func_8010a5ec | evt_npc.c | 412 | 99.98% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
+| func_800fe92c | evt_npc.c | 324 | 99.98% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
+| evt_npc_check_3d | evt_npc.c | 312 | 99.99% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
 <!-- retry-end -->

@@ -62,23 +62,23 @@ Check also each file's header under `spm-headers/include/spm/`.
 | 25 | `evt_npc.c` | ANTIGRAVITY (2026-11-14; 2 huge deferred) | 246 | 59,044 | NPCs and enemies | huge fn `func_8010ac50` 2,304 B |
 | 26 | `npcdrv.c` | NonStarted | 254 | 167,860 | NPCs and enemies | huge fn `npcHitMain` 8,628 B; create stub source + `configure.py` entry check first; reuse `origin/wip/npcDelete` (stub source must be created first) |
 | | **Area 3 Event/script system**: script command glue used by every room script | | | | | |
-| 27 | `evt_sub.c` | NonMatching | 63 | 19,316 | Event/script system | huge fn `func_800d6674` 3,628 B |
-| 28 | `evt_paper.c` | NonStarted | 2 | 152 | Event/script system | create stub source + `configure.py` entry check first |
-| 29 | `evt_ext.c` | NonStarted | 2 | 180 | Event/script system | create stub source + `configure.py` entry check first |
-| 30 | `evt_ac.c` | NonStarted | 3 | 312 | Event/script system | create stub source + `configure.py` entry check first |
-| 31 | `evt_offscreen.c` | NonStarted | 3 | 348 | Event/script system | create stub source + `configure.py` entry check first |
-| 32 | `evt_seq.c` | NonStarted | 3 | 364 | Event/script system | create stub source + `configure.py` entry check first |
-| 33 | `evt_bg.c` | NonStarted | 3 | 416 | Event/script system | create stub source + `configure.py` entry check first |
-| 34 | `evt_fade.c` | NonStarted | 6 | 628 | Event/script system | create stub source + `configure.py` entry check first |
-| 35 | `evt_case.c` | NonStarted | 7 | 780 | Event/script system | create stub source + `configure.py` entry check first |
-| 36 | `evt_img.c` | NonStarted | 14 | 2,492 | Event/script system | create stub source + `configure.py` entry check first |
-| 37 | `evt_env.c` | NonStarted | 7 | 2,576 | Event/script system | largest `func_800e6a94` 1,288 B; create stub source + `configure.py` entry check first |
-| 38 | `evt_eff.c` | NonStarted | 7 | 3,536 | Event/script system | huge fn `evt_eff` 2,444 B; create stub source + `configure.py` entry check first |
-| 39 | `evt_frame.c` | NonStarted | 16 | 4,960 | Event/script system | huge fn `func_800e9178` 2,620 B; create stub source + `configure.py` entry check first |
+| 27 | `evt_sub.c` | ANTIGRAVITY (2026-11-25) | 63 | 19,316 | Event/script system | huge fn `func_800d6674` 3,628 B |
+| 28 | `evt_paper.c` | ANTIGRAVITY (2026-11-25) | 2 | 152 | Event/script system | create stub source + `configure.py` entry check first |
+| 29 | `evt_ext.c` | ANTIGRAVITY (2026-11-25) | 2 | 180 | Event/script system | create stub source + `configure.py` entry check first |
+| 30 | `evt_ac.c` | ANTIGRAVITY (2026-11-25) | 3 | 312 | Event/script system | create stub source + `configure.py` entry check first |
+| 31 | `evt_offscreen.c` | ANTIGRAVITY (2026-11-25) | 3 | 348 | Event/script system | create stub source + `configure.py` entry check first |
+| 32 | `evt_seq.c` | ANTIGRAVITY (2026-11-25) | 3 | 364 | Event/script system | create stub source + `configure.py` entry check first |
+| 33 | `evt_bg.c` | ANTIGRAVITY (2026-11-25) | 3 | 416 | Event/script system | create stub source + `configure.py` entry check first |
+| 34 | `evt_fade.c` | ANTIGRAVITY (2026-11-25) | 6 | 628 | Event/script system | create stub source + `configure.py` entry check first |
+| 35 | `evt_case.c` | ANTIGRAVITY (2026-11-25) | 7 | 780 | Event/script system | create stub source + `configure.py` entry check first |
+| 36 | `evt_img.c` | ANTIGRAVITY (2026-11-25) | 14 | 2,492 | Event/script system | create stub source + `configure.py` entry check first |
+| 37 | `evt_env.c` | ANTIGRAVITY (2026-11-25) | 7 | 2,576 | Event/script system | largest `func_800e6a94` 1,288 B; create stub source + `configure.py` entry check first |
+| 38 | `evt_eff.c` | ANTIGRAVITY (2026-11-25) | 7 | 3,536 | Event/script system | huge fn `evt_eff` 2,444 B; create stub source + `configure.py` entry check first |
+| 39 | `evt_frame.c` | ANTIGRAVITY (2026-11-25) | 16 | 4,960 | Event/script system | huge fn `func_800e9178` 2,620 B; create stub source + `configure.py` entry check first |
 | | **Area 4 Items**: items, item events, shops | | | | | |
-| 40 | `evt_item.c` | NonStarted | 13 | 2,620 | Items | create stub source + `configure.py` entry check first |
-| 41 | `item_event_data.c` | NonStarted | 60 | 17,276 | Items | largest `func_80025e80` 1,252 B; create stub source + `configure.py` entry check first; mostly data tables, check it is code |
-| 42 | `evt_shop.c` | NonStarted | 54 | 20,052 | Items | largest `evt_shop_init_flopside_cards` 1,932 B; create stub source + `configure.py` entry check first |
+| 40 | `evt_item.c` | ANTIGRAVITY (2026-11-25) | 13 | 2,620 | Items | create stub source + `configure.py` entry check first |
+| 41 | `item_event_data.c` | ANTIGRAVITY (2026-11-25) | 60 | 17,276 | Items | largest `func_80025e80` 1,252 B; create stub source + `configure.py` entry check first; mostly data tables, check it is code |
+| 42 | `evt_shop.c` | ANTIGRAVITY (2026-11-25) | 54 | 20,052 | Items | largest `evt_shop_init_flopside_cards` 1,932 B; create stub source + `configure.py` entry check first |
 | 43 | `itemdrv.c` | NonStarted | 40 | 27,464 | Items | huge fn `func_8007a758` 3,700 B; create stub source + `configure.py` entry check first; reuse `origin/wip/itemEntry` |
 | | **Area 5 HUD, menus, windows, text**: HUD, dialogue, pause menu, fonts | | | | | |
 | 44 | `romfont.c` | ANTIGRAVITY (2026-11-14) | 4 | 1,888 | HUD, menus, windows, text | largest `romFontPrintGX` 1,288 B |

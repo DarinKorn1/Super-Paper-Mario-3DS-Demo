@@ -17,13 +17,12 @@ evt_shop` (plan #27-42, 260 functions).
 ## Linked files (2)
 `evt_guide.c`, `evt_pouch.c`.
 
-## Antigravity: step 5 PENDING (not ready)
-- 2026-11-25 15:40: Antigravity is **active** (building `evt_npc.c`, log edited 15:26, agy.exe running), so no WIP commit,
-  no merge, folder untouched. Re-check after each batch of work: if `ag-results.md` and its sources are unchanged for over
-  an hour, commit its uncommitted changes as WIP on `ag/work` (note it in `ag-results.md`; one-off), then:
-  merge routine in `CLAUDE.md`, then
-  `python -I notes/tools/refill_ag_queue.py --files evt_sub.c evt_paper.c evt_ext.c evt_ac.c evt_offscreen.c evt_seq.c evt_bg.c evt_fade.c evt_case.c evt_img.c evt_env.c evt_eff.c evt_frame.c evt_item.c item_event_data.c evt_shop.c --write`,
-  commit on `ag/work`, push `ag/work`, and write "ANTIGRAVITY READY <time>" here.
+## ANTIGRAVITY READY 2026-11-25 16:38
+- Merge #4 done (master 87f0a51, both checksums OK, pushed); `ag/work` = master, pushed; queue refilled with 260 functions
+  (266 unticked with the older leftovers). The one-off WIP commit was not needed (user confirmed it had finished).
+- 36 new "Decompile" claims: 31 exactly 100%. 5 (99.90-99.99%, string-offset differences) are stubs on master; code on
+  `wip/ag-labelonly-20261125`; listed in `deferred.md`. `evt_npc_flip`, `func_80108cc0` stay stubbed (merge #3).
+- `evt_npc_get_hp` / `get_max_hp` now show 99.96% (string order shifted by the new code; kept). Same cause expected above.
 
 ## Deferred (full list: `notes/deferred.md`)
 Huge: `func_80138b38` (mario_hit, WIP 98.97%), `evt_npc_walk_to`, `func_8010ac50`; later huge ones are added by the queue script.
