@@ -36,3 +36,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 882 | mario_status.c | func_801644d8 | tiny | 60 | yes | 100 | 2 | cdbfdfb | separate early-return ifs gave bltlr/bgelr |
 | 883 | mario_status.c | func_8015ea78 | tiny | 64 | yes | 100 | 4 | cdbfdfb | 2.0f * n / 4.0f + 1.0f gave fmadds operand order; one failed compile in variants |
 | 884 | mario_status.c | func_8016c608 | tiny | 64 | yes | 100 | 1 | cdbfdfb | matched first try |
+| 885 | mario_status.c | func_80166968 | small | 68 | yes | 100 | 1 | 1226121 | early return then compare subMotionId |
+| 886 | mario_status.c | func_8015eab8 | small | 72 | yes | 100 | 1 | 1226121 | 25 * (2n/4 + 1) |
+| 887 | mario_status.c | func_8015eb00 | small | 72 | yes | 100 | 1 | 1226121 | same body as func_8015eab8 |
+| 888 | mario_status.c | func_80163fe0 | small | 72 | yes | 100 | 1 | 1226121 | padded overlay struct; plain statements |
+| 889 | mario_status.c | func_80164320 | small | 76 | yes | 100 | 1 | 1226121 | unused marioGetPtr call, three returns |
