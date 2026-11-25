@@ -56,3 +56,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 902 | mario_status.c | func_80158c3c | small | 92 | yes | 100 | 1 | 6a6f403 | matched first build; status apply / status list lookup |
 | 903 | mario_status.c | func_80158e70 | small | 92 | yes | 100 | 1 | 6a6f403 | matched first build; status apply / status list lookup |
 | 904 | mario_status.c | func_8015ea1c | small | 92 | yes | 100 | 1 | 6a6f403 | matched first build; status apply / status list lookup |
+| 905 | mario_status.c | func_80167320 | small | 92 | yes | 100 | 3 | 461391f | 2 shared compile fails (missing prototype, unused param), then matched |
+| 906 | mario_status.c | func_80154c88 | small | 96 | yes | 100 | 3 | 461391f | 2 shared compile fails (missing prototype, unused param), then matched |
+| 907 | mario_status.c | func_8015715c | small | 96 | yes | 100 | 3 | 461391f | 2 shared compile fails (missing prototype, unused param), then matched |
+| 908 | mario_status.c | func_801573c0 | small | 96 | yes | 100 | 3 | 461391f | 2 shared compile fails (missing prototype, unused param), then matched |
+| 909 | mario_status.c | func_80157bec | small | 96 | yes | 100 | 3 | 461391f | 2 shared compile fails (missing prototype, unused param); matched with getStatus inline |
