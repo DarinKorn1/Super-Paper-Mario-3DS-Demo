@@ -41,3 +41,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 887 | mario_status.c | func_8015eb00 | small | 72 | yes | 100 | 1 | 1226121 | same body as func_8015eab8 |
 | 888 | mario_status.c | func_80163fe0 | small | 72 | yes | 100 | 1 | 1226121 | padded overlay struct; plain statements |
 | 889 | mario_status.c | func_80164320 | small | 76 | yes | 100 | 1 | 1226121 | unused marioGetPtr call, three returns |
+| 890 | mario_status.c | func_8016c648 | small | 76 | yes | 100 | 2 | c3cc7e7 | straight early returns; first build missing prototypes |
+| 891 | mario_status.c | func_80157ab4 | small | 80 | yes | 100 | 2 | c3cc7e7 | overlay struct arg with work pointer at 0xc |
+| 892 | mario_status.c | func_8016bba4 | small | 80 | yes | 100 | 2 | c3cc7e7 | return !(x > 30.0f) |
+| 893 | mario_status.c | func_801576b4 | small | 84 | yes | 100 | 2 | c3cc7e7 | same shape as func_80157ab4 |
+| 894 | mario_status.c | func_80166ae0 | small | 84 | yes | 100 | 2 | c3cc7e7 | range check with explicit return 1/0 |
