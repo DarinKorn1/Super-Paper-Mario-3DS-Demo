@@ -134,3 +134,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 980 | mario_status.c | func_80165140 | medium | 256 | yes | 100.00 | 1 | 36ee127 | matched first try: local Vec3 initialisers for scale (1,1,1) and zero rotation, per-field float stores; only pool label differs |
 | 981 | mario_status.c | func_80158ecc | medium | 264 | yes | 100 | 3 | 4eacdd7 | straightforward; two failed compiles (missing prototype, unused param name) |
 | 982 | mario_status.c | func_8015aaa0 | medium | 264 | yes | 100 | 5 | 3ae5d7f | two flag clears merged into one and: separate compound assignments (&= ~0x30; &= ~0x1; /= 2) kept both rlwinm; load userWork after marioGetPtr |
+| 983 | mario_status.c | func_8015a1e8 | medium | 268 | yes | 100 | 1 | 6ec67b4 | matched first build; static inline state setter reproduces the repeated flags&1 test |
