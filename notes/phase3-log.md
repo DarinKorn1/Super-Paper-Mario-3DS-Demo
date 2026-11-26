@@ -182,3 +182,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1028 | mario_status.c | func_80154ce8 | medium | 596 | incomplete | 80 | 7 | wip/func_80154ce8 | stack layout shifted 0xc, zero-vec address not hoisted to r26, saved gpr 26 vs 25 |
 | 1029 | mario_status.c | func_8015b99c | medium | 612 | yes | 100 | 2 | 71ed0d6 | screen-bounds check then reposition; Vec3 locals at function level, -a <= x form |
 | 1030 | mario_status.c | func_8016c944 | medium | 616 | incomplete | 88 | 7 | wip/func_8016c944 | motion-id chain merged into range compare by MWCC, operand order of fmuls/fadds, wp+0x8c CSE; attempt cap exceeded by compile errors |
+| 1031 | mario_status.c | func_8015cff4 | medium | 628 | yes | 100 | 3 | master | pool-label only; Vec3 decl order + PSVecMag hoisted to local |
