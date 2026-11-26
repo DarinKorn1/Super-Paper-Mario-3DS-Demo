@@ -66,3 +66,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 912 | mario_status.c | func_80166904 | small | 100 | yes | 100 | 1 | ceddc72 | separate range ifs |
 | 913 | mario_status.c | func_80166a7c | small | 100 | yes | 100 | 2 | ceddc72 | __fabsf avoids extra frsp |
 | 914 | mario_status.c | func_80159070 | small | 100 | functional | 99.00 | 3 | wip/func_80159070 | only r30/r31 swapped between wp and saved id |
+| 915 | mario_status.c | func_8015e598 | small | 108 | yes | 100 | 3 | f149fef | two compile errors (prototypes, unused param) then matched |
+| 916 | mario_status.c | func_8015bd1c | small | 112 | yes | 100 | 4 | f149fef | static inline status lookup; if (status != NULL) return order |
+| 917 | mario_status.c | func_8015eff4 | small | 112 | yes | 100 | 4 | f149fef | static inline status lookup; if (status != NULL) return order |
+| 918 | mario_status.c | func_8015fe74 | small | 112 | yes | 100 | 3 | f149fef | two compile errors then matched |
+| 919 | mario_status.c | func_80165240 | small | 112 | yes | 100 | 4 | f149fef | negated != chain with early return 0 avoids range merge |

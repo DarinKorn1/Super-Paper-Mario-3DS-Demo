@@ -8,7 +8,8 @@ status (no logs, no resume, no old notes).
   Never touch `spm-decomp-ag`. Never push to `upstream`. No `checkout --`, `restore`, `reset`, `stash`, `clean`.
 - Start: that repo must be clean and on `master`, else reply `BLOCKED: ...`.
 - Python only as `python -I <script file>`. Never `python -`, `-c`, `python3` or heredoc python (hangs). No objdiff-cli
-  watch/interactive mode. Before replying, every process you started has exited.
+  watch/interactive mode. Before replying, every process you started has exited. Never run anything that waits on stdin
+  (bare `cat`, heredocs): create scripts with the Write tool and edit sources with Edit.
 - Never commit anything from `build/` or `orig/`.
 
 ## Work
