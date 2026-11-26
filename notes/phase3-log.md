@@ -118,4 +118,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 964 | mario_status.c | func_80161cf8 | medium | 204 | yes | 100 | 6 | aa46fda | switch needed explicit 'case 1: case 2: default:' to get the blt/b compare tree; found with variant copies |
 | 965 | mario_status.c | func_8016202c | medium | 204 | yes | 100 | 1 | 2a9a839 | matched first try; unused first arg, caught read as s32 |
 | 966 | mario_status.c | func_80163dd4 | medium | 204 | yes | 100 | 3 | 040e929 | void* callback param with local cast fixed r30/r31 swap; separate z *= -1.0f fixed fmuls operand order |
-| 967 | mario_status.c | func_8015601c | medium | 212 | yes | 100 | 1 | d8693e2 | status list add: loop over statusTbl, link to list, __assert2 with string offsets; matched first compile (one extra failed compile for missing prototype) |
+| 967 | mario_status.c | func_8015601c | medium | 212 | yes | 100 | 2 | d8693e2 | status list add: loop over statusTbl, link to list, __assert2 with string offsets; attempt 1 failed to compile (missing prototype), attempt 2 matched |
