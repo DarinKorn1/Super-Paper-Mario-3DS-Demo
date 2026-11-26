@@ -122,3 +122,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 968 | mario_status.c | func_801561d4 | medium | 212 | yes | 100 | 2 | 872ce74 | status list removal loop; first build failed only on missing prototype |
 | 969 | mario_status.c | func_8015991c | medium | 220 | yes | 100 | 2 | d21063b | matched first compiled build (one earlier failed compile: unused parameters, left unnamed); moved the 0x4000 status work typedefs and getter inline above it |
 | 970 | mario_status.c | func_8016d7bc | medium | 220 | yes | 100 | 2 | 726ddc6 | marioChgMotSub needed a function-pointer cast (first compile failed); matched on the first successful compile |
+| 971 | mario_status.c | func_8015b184 | medium | 224 | yes | 100 | 3 | e80bd5f | State switch with early returns; default case needed flags clear written before the 0xd4 store |
