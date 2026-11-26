@@ -114,3 +114,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 960 | mario_status.c | func_8015edf8 | medium | 196 | yes | 100 | 1 | d06d98d | inline status lookup helper getGhostFlags reused as work pointer; matched first try |
 | 961 | mario_status.c | func_8016bfe8 | medium | 196 | yes | 100 | 3 | 161e246 | statement order of flag clears (misc 0x20, flags 0x80, misc, misc) then block-scoped zero Vec3 copied per member; one failed compile from variant generator |
 | 962 | mario_status.c | func_8015b0bc | medium | 200 | yes | 100 | 1 | 20e345a | matched first try with inline getWork8015ae08 and entry pointer loop |
+| 963 | mario_status.c | func_80156340 | medium | 204 | yes | 100 | 2 | 953c56e | callee func_80166904 was auto-inlined; fixed with pragma dont_inline |
