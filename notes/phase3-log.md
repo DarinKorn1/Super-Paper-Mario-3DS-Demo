@@ -117,3 +117,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 963 | mario_status.c | func_80156340 | medium | 204 | yes | 100 | 2 | 953c56e | callee func_80166904 was auto-inlined; fixed with pragma dont_inline |
 | 964 | mario_status.c | func_80161cf8 | medium | 204 | yes | 100 | 6 | aa46fda | switch needed explicit 'case 1: case 2: default:' to get the blt/b compare tree; found with variant copies |
 | 965 | mario_status.c | func_8016202c | medium | 204 | yes | 100 | 1 | 2a9a839 | matched first try; unused first arg, caught read as s32 |
+| 966 | mario_status.c | func_80163dd4 | medium | 204 | yes | 100 | 3 | 040e929 | void* callback param with local cast fixed r30/r31 swap; separate z *= -1.0f fixed fmuls operand order |
