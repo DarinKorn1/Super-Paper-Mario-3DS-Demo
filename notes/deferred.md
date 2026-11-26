@@ -29,4 +29,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_8010a5ec | evt_npc.c | 412 | 99.98% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
 | func_800fe92c | evt_npc.c | 324 | 99.98% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
 | evt_npc_check_3d | evt_npc.c | 312 | 99.99% (string/label offsets only); stub on master, code on wip/ag-labelonly-20261125 |
+| func_8016af90 | mario_status.c | 356 | 96.08%, wip/func_8016af90 |
 <!-- retry-end -->

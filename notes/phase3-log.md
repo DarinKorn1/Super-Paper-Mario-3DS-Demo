@@ -156,3 +156,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1002 | mario_status.c | func_8016c7f8 | medium | 332 | yes | 100 | 1 | 5190213 | matched first try |
 | 1003 | mario_status.c | func_8015aba8 | medium | 344 | yes | 100 | 2 | b82e137 | state switch with assert; entry flags reset; struct state field typed |
 | 1004 | mario_status.c | func_80159c44 | medium | 352 | functional | 99 | 3 | wip/func_80159c44 | only register numbering of dz/dx temps differs |
+| 1005 | mario_status.c | func_8016af90 | medium | 356 | functional | 96.08 | 6 | wip/func_8016af90 | register allocation only (wp r30/fairy r31 vs ours r31/r28); decl order did not help |
