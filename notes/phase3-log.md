@@ -99,3 +99,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 945 | mario_status.c | func_80163f44 | medium | 156 | yes | 100 | 5 | 8d50307 | flag set before the state store, then flag clear, fixed r0/r3 swap; added animPoseGetCurrentAnim prototype; 2 of 5 builds were compile errors |
 | 946 | mario_status.c | func_801669e0 | medium | 156 | yes | 100 | 3 | ed754ca | static inline helper for the 2D-camera 120/0.75 base value; uses framebufferWidth and right-left; first compile failed on missing prototype |
 | 947 | mario_status.c | func_8015f064 | medium | 160 | yes | 100 | 2 | c20a720 | First compile failed only for a missing prototype; static inline random-index helper with if/return chain gave the branchless last step |
+| 948 | mario_status.c | func_8016c568 | medium | 160 | yes | 100 | 3 | dda403b | flag clears on miscFlags/dispFlags; u32 compare with 0xffffffff gives addis/cmplwi |
