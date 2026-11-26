@@ -3,11 +3,12 @@
 Continue: "Read CLAUDE.md and continue the overnight run". Rules and coordinator loop: `CLAUDE.md`.
 
 ## Current file
-- Stopped on the user's request 2026-11-25 ~18:55. Master built `main.dol: OK`, `relF.rel: OK`; everything pushed.
+- Paused 2026-11-26 (user restarting laptop). Batch 76 `func_80158c98` was interrupted mid-work: its edit is on
+  spm-decomp branch `wip/leftover-20261126` (local, not pushed); master clean at `64bf68d`, pushed.
 - `mario_status.c` (#24, 212 functions, 6 huge deferred): stubs and queue exist (do not run `make` again); continue with
-  `phase3_queue.py next mario_status.c` (next: batch 71 of 153, `func_8015980c`).
-- Done 123 of 206: 122 exactly 100%, 1 functional (`func_80159070` 99.00%, `wip/func_80159070`).
-  Left: 83 (47 medium, 36 large). Not linkable yet.
+  `phase3_queue.py next mario_status.c` (next: batch 76 of 153, `func_80158c98`, redo it).
+- Done 128 of 206: 126 exactly 100%, 2 functional (`func_80159070` 99.00%, `wip/func_80159070`;
+  `func_8015980c` ~99% r30/r31 swap, `wip/func_8015980c`). Left: 78. Not linkable yet.
 - `mario_hit.c` finished (row 853: huge `func_80138b38` deferred).
 
 ## Next files, in plan order
