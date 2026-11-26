@@ -120,3 +120,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 966 | mario_status.c | func_80163dd4 | medium | 204 | yes | 100 | 3 | 040e929 | void* callback param with local cast fixed r30/r31 swap; separate z *= -1.0f fixed fmuls operand order |
 | 967 | mario_status.c | func_8015601c | medium | 212 | yes | 100 | 2 | d8693e2 | status list add: loop over statusTbl, link to list, __assert2 with string offsets; attempt 1 failed to compile (missing prototype), attempt 2 matched |
 | 968 | mario_status.c | func_801561d4 | medium | 212 | yes | 100 | 2 | 872ce74 | status list removal loop; first build failed only on missing prototype |
+| 969 | mario_status.c | func_8015991c | medium | 220 | yes | 100 | 1 | d21063b | matched first compiled build (one earlier failed compile: unused parameters, left unnamed); moved the 0x4000 status work typedefs and getter inline above it |
