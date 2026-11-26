@@ -142,3 +142,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 988 | mario_status.c | func_8015bc00 | medium | 284 | yes | 100 | 3 | master | pool labels only; fixed Vec3 order and s32 cast on marioCheck3d |
 | 989 | mario_status.c | func_80158a64 | medium | 288 | yes | 100 | 4 | HEAD | 3-arg signature (middle unused), plain float timer |
 | 990 | mario_status.c | func_80158c98 | medium | 288 | yes | 100 | 1 | 221503e | slow flower twin of func_80158a64 |
+| 991 | mario_status.c | func_80166b34 | medium | 288 | yes | 100 | 1 | f90938d | needed fn-pointer casts for header decls |
