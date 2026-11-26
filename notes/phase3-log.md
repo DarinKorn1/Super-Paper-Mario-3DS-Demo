@@ -140,3 +140,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 986 | mario_status.c | func_80166504 | medium | 276 | yes | 100 | 2 | 69a54ca | mask 0xff6fffff literal and bool inline helper for != NULL |
 | 987 | mario_status.c | func_8016cbac | medium | 276 | yes | 100 | 3 | a21c50f | jumptable switch; arg0 holds fairy at +4, mario ptr separate |
 | 988 | mario_status.c | func_8015bc00 | medium | 284 | yes | 100 | 3 | master | pool labels only; fixed Vec3 order and s32 cast on marioCheck3d |
+| 989 | mario_status.c | func_80158a64 | medium | 288 | yes | 100 | 4 | HEAD | 3-arg signature (middle unused), plain float timer |
