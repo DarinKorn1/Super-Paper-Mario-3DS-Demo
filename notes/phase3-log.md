@@ -151,3 +151,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 997 | mario_status.c | func_801641e4 | medium | 316 | yes | 100 | 3 | cd86d37 | struct overlay; swapped Vec3 local order for stack |
 | 998 | mario_status.c | func_801566bc | medium | 328 | yes | 100 | 1 | 9a61710 | pool labels only differ |
 | 999 | mario_status.c | func_801568f0 | medium | 328 | yes | 100 | 1 | 604b825 | copy of func_801566bc with effect id 4 and flag 0x4 |
+| 1000 | mario_status.c | func_80156b24 | medium | 328 | yes | 100 | 1 | fc65fad | copy of func_801568f0 with effect id 2 and flag 0x8 |
