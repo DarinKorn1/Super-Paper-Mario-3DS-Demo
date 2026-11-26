@@ -177,3 +177,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1023 | mario_status.c | func_80159a14 | medium | 560 | functional | 98 | 4 | wip/func_80159a14 | only FPR constant numbering differs (reversed order); decl order did not help |
 | 1024 | mario_status.c | func_801620f8 | medium | 560 | incomplete | 89.7 | 6 | wip/func_801620f8 | hitcheck arg scheduling (lha order), f32 reg numbering after hit branch, flags mask |
 | 1025 | mario_status.c | func_8016b8e0 | medium | 580 | functional | 99 | 6 | wip/func_8016b8e0 | only n/i register swap (r28/r31) and pool label; fairyGetNum order tried |
+| 1026 | mario_status.c | func_80157cdc | medium | 592 | functional | 98.55 | 4 | wip/func_80157cdc | switch needed explicit case 3 with default for tree shape; only pool/label diffs |
