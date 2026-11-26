@@ -149,3 +149,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 995 | mario_status.c | func_801586dc | medium | 312 | yes | 100 | 2 | 05311b4 | pool labels only; dispFlags/position field names |
 | 996 | mario_status.c | func_8015eebc | medium | 312 | yes | 100 | 2 | d78fc45 | stack order fixed by swapping Vec3 decls |
 | 997 | mario_status.c | func_801641e4 | medium | 316 | yes | 100 | 3 | cd86d37 | struct overlay; swapped Vec3 local order for stack |
+| 998 | mario_status.c | func_801566bc | medium | 328 | yes | 100 | 1 | 9a61710 | pool labels only differ |
