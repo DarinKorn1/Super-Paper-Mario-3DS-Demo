@@ -144,3 +144,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 990 | mario_status.c | func_80158c98 | medium | 288 | yes | 100 | 1 | 221503e | slow flower twin of func_80158a64 |
 | 991 | mario_status.c | func_80166b34 | medium | 288 | yes | 100 | 1 | f90938d | needed fn-pointer casts for header decls |
 | 992 | mario_status.c | func_8015b878 | medium | 292 | yes | 100 | 1 | 9ca9610 | straightforward; struct overlay, cast for existing callee type |
+| 993 | mario_status.c | func_8015c310 | medium | 300 | yes | 100 | 1 | 574dcb8 | QUATSlerp prototype added; straightforward |
