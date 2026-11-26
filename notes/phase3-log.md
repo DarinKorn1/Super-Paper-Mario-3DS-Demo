@@ -127,3 +127,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 973 | mario_status.c | func_801560f0 | medium | 228 | yes | 100 | 1 | d834e65 | same shape as func_801561d4 (delete-all variant); matched first try |
 | 974 | mario_status.c | func_8015ae94 | medium | 232 | yes | 100 | 4 | 9b32f22 | beq+b early exit needed switch (flags & 0x6) with case 0 break; prototype for func_80144de4 added to mario_motion.h; attempt 1 was a compile fail |
 | 975 | mario_status.c | func_8016a4dc | medium | 236 | yes | 100 | 1 | a83b858 | Matched first try; timer arg is a Vec2 and the 0x1c4 field is hitObjs1[2] |
+| 976 | mario_status.c | func_8015a0f8 | medium | 240 | yes | 100 | 3 | 3991c8b | count cached in local; declare count before i but assign i=0 first; one compile failed on missing prototype |
