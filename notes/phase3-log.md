@@ -71,3 +71,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 917 | mario_status.c | func_8015eff4 | small | 112 | yes | 100 | 4 | f149fef | static inline status lookup; if (status != NULL) return order |
 | 918 | mario_status.c | func_8015fe74 | small | 112 | yes | 100 | 3 | f149fef | two compile errors then matched |
 | 919 | mario_status.c | func_80165240 | small | 112 | yes | 100 | 4 | f149fef | negated != chain with early return 0 avoids range merge |
+| 920 | mario_status.c | func_8016a794 | small | 112 | yes | 100 | 3 | f961c1a | first compile failed on missing prototypes; branch sense fix |
+| 921 | mario_status.c | func_80158814 | small | 116 | yes | 100 | 2 | f961c1a | first compile failed on missing prototype |
+| 922 | mario_status.c | func_801589f0 | small | 116 | yes | 100 | 2 | f961c1a | getStatus inline helper |
+| 923 | mario_status.c | func_80161b78 | small | 116 | yes | 100 | 2 | f961c1a | prototype for spsndSFX_chkName in header |
+| 924 | mario_status.c | func_8015ad8c | small | 124 | yes | 100 | 3 | f961c1a | temp for flags OR before storing field 4 |
