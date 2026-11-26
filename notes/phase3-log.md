@@ -95,3 +95,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 941 | mario_status.c | func_8016a448 | medium | 148 | yes | 100 | 4 | f4b0d35 | u16 // chain merged 0x45/0x46 into a range check; fixed with negated && chain and early return 0 (attempts: 1 missing-prototype fail, 1 first try, 1 variants, 1 final score) |
 | 942 | mario_status.c | func_801562a8 | medium | 152 | yes | 100 | 2 | adabc74 | motionId or-chain in asm order; first build failed on missing prototype |
 | 943 | mario_status.c | func_80158958 | medium | 152 | yes | 100 | 2 | 576b722 | barrier status event check; inline getStatus; attempt 1 was a missing prototype |
+| 944 | mario_status.c | func_80158fd4 | medium | 156 | yes | 100 | 2 | 56f88bb | first try failed only on missing prototype; same status switch pattern as siblings, with extra case 3 and a func_8007dd50 call |
