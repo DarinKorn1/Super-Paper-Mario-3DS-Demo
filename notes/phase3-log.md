@@ -110,3 +110,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 956 | mario_status.c | func_80160f70 | medium | 184 | yes | 100 | 1 | e2c86c0 | static inline setter for offscreen id keeps li -1 before marioGetPtr; casts for UNKNOWN_FUNCTION callees |
 | 957 | mario_status.c | func_80161700 | medium | 184 | yes | 100 | 1 | ce6aff7 | matched first try: static inline bool name check for neg/or/srwi; only diff in object is the float pool label |
 | 958 | mario_status.c | func_8015affc | medium | 192 | yes | 100 | 2 | be30e2c | first compile failed for missing prototype; shared inline userWork getter and 0xb8 entry struct matched directly |
+| 959 | mario_status.c | func_80157f2c | medium | 196 | yes | 100 | 1 | ccc1698 | switch on command with shared case bodies; matched first try |
