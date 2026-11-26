@@ -136,3 +136,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 982 | mario_status.c | func_8015aaa0 | medium | 264 | yes | 100 | 5 | 3ae5d7f | two flag clears merged into one and: separate compound assignments (&= ~0x30; &= ~0x1; /= 2) kept both rlwinm; load userWork after marioGetPtr |
 | 983 | mario_status.c | func_8015a1e8 | medium | 268 | yes | 100 | 1 | 6ec67b4 | matched first build; static inline state setter reproduces the repeated flags&1 test |
 | 984 | mario_status.c | func_80161bec | medium | 268 | yes | 100 | 3 | 8678aec | Two zeroed Vec3 locals: declaring the second after storing the first fixed one stw order; gave spsndBGMOff and marioChgMot2 s32 prototypes in headers |
+| 985 | mario_status.c | func_8015980c | medium | 272 | functional | 99 | 4 | wip/func_8015980c | only r30/r31 swap between flag and work pointer |
