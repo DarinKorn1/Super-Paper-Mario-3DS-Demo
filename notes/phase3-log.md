@@ -165,3 +165,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1011 | mario_status.c | func_8015d268 | medium | 444 | yes | 100 | 5 | 736422a | needed bool temp, spd/zero locals, f32 decl in fairy.h |
 | 1012 | mario_status.c | func_8015640c | medium | 452 | yes | 100 | 3 | a6fad51 | sibling of func_801566bc; double fctiwz needed (s32)work->timer twice |
 | 1013 | mario_status.c | func_8015ce30 | medium | 452 | functional | 98 | 7 | wip/func_8015ce30 | only fcmpu operand order on mag != 0 differs; tried literal, local z, !(==), swapped branches |
+| 1014 | mario_status.c | func_8016456c | medium | 452 | functional | 98 | 6 | wip/func_8016456c | only register numbering differs (early li r0); inline scale helper + late Vec3 init fixed rest |
