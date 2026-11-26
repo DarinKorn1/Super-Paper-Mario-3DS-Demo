@@ -168,3 +168,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1014 | mario_status.c | func_8016456c | medium | 452 | functional | 98 | 6 | wip/func_8016456c | only register numbering differs (early li r0); inline scale helper + late Vec3 init fixed rest |
 | 1015 | mario_status.c | func_801652b0 | medium | 460 | yes | 100 | 1 | 69dcc98 | matched first try; only pool labels differ |
 | 1016 | mario_status.c | func_80156f8c | medium | 464 | yes | 100 | 3 | master | two switches on type with case 5 merged into default; unnamed 2nd param |
+| 1017 | mario_status.c | func_801571e8 | medium | 472 | yes | 100 | 1 | 9eb28a9 | copy of func_80156f8c pattern, pool labels only |
