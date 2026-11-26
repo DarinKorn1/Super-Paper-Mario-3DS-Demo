@@ -138,3 +138,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 984 | mario_status.c | func_80161bec | medium | 268 | yes | 100 | 3 | 8678aec | Two zeroed Vec3 locals: declaring the second after storing the first fixed one stw order; gave spsndBGMOff and marioChgMot2 s32 prototypes in headers |
 | 985 | mario_status.c | func_8015980c | medium | 272 | functional | 99 | 4 | wip/func_8015980c | only r30/r31 swap between flag and work pointer |
 | 986 | mario_status.c | func_80166504 | medium | 276 | yes | 100 | 2 | 69a54ca | mask 0xff6fffff literal and bool inline helper for != NULL |
+| 987 | mario_status.c | func_8016cbac | medium | 276 | yes | 100 | 3 | a21c50f | jumptable switch; arg0 holds fairy at +4, mario ptr separate |
