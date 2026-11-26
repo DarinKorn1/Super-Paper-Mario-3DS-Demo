@@ -106,3 +106,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 952 | mario_status.c | func_8015e4f0 | medium | 168 | yes | 100 | 1 | 8edf171 | status command switch; matched first try |
 | 953 | mario_status.c | func_801636d4 | medium | 180 | yes | 100 | 3 | 59005d5 | prototype needed; == 0x14 // == 0x15 (not >=/<=) for inner range check |
 | 954 | mario_status.c | func_80158b84 | medium | 184 | yes | 100 | 2 | 8edb86c | switch with fallthrough like sibling flower handlers; first build failed only on missing prototype |
+| 955 | mario_status.c | func_80158db8 | medium | 184 | yes | 100 | 1 | 274a81d | Same shape as sibling func_80158b84 (slow flower flag, effect flag 8); matched first try |
