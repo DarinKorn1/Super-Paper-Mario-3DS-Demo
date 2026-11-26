@@ -124,3 +124,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 970 | mario_status.c | func_8016d7bc | medium | 220 | yes | 100 | 2 | 726ddc6 | marioChgMotSub needed a function-pointer cast (first compile failed); matched on the first successful compile |
 | 971 | mario_status.c | func_8015b184 | medium | 224 | yes | 100 | 3 | e80bd5f | State switch with early returns; default case needed flags clear written before the 0xd4 store |
 | 972 | mario_status.c | func_8016c694 | medium | 224 | yes | 100 | 1 | c929883 | matched first try: chained early returns; miscFlags & 0x10002 gives rlwinm+rlwimi |
+| 973 | mario_status.c | func_801560f0 | medium | 228 | yes | 100 | 1 | d834e65 | same shape as func_801561d4 (delete-all variant); matched first try |
