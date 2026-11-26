@@ -3,8 +3,8 @@
 Continue: "Read CLAUDE.md and continue the overnight run". Rules and coordinator loop: `CLAUDE.md`.
 
 ## Current file
-- `mario_status.c` (#24, 212 functions, NonStarted): start with `phase3_queue.py make mario_status.c --stub`, then
-  `phase3_queue.py next mario_status.c` for each batch.
+- `mario_status.c` (#24, 212 functions, 6 huge deferred): stubs and queue exist (do not run `make` again); continue with
+  `phase3_queue.py next mario_status.c`. Tiny and small batches are done; medium ones in progress, then large.
 - `mario_hit.c` finished (row 853: huge `func_80138b38` deferred).
 
 ## Next files, in plan order
