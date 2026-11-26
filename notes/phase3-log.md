@@ -154,3 +154,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1000 | mario_status.c | func_80156b24 | medium | 328 | yes | 100 | 1 | fc65fad | copy of func_801568f0 with effect id 2 and flag 0x8 |
 | 1001 | mario_status.c | func_80156d58 | medium | 328 | yes | 100 | 2 | master | clone of func_80156b24 with id 1, flag 0x10 |
 | 1002 | mario_status.c | func_8016c7f8 | medium | 332 | yes | 100 | 1 | 5190213 | matched first try |
+| 1003 | mario_status.c | func_8015aba8 | medium | 344 | yes | 100 | 2 | b82e137 | state switch with assert; entry flags reset; struct state field typed |
