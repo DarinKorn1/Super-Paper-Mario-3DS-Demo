@@ -129,3 +129,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 975 | mario_status.c | func_8016a4dc | medium | 236 | yes | 100 | 1 | a83b858 | Matched first try; timer arg is a Vec2 and the 0x1c4 field is hitObjs1[2] |
 | 976 | mario_status.c | func_8015a0f8 | medium | 240 | yes | 100 | 3 | 3991c8b | count cached in local; declare count before i but assign i=0 first; one compile failed on missing prototype |
 | 977 | mario_status.c | func_801671a8 | medium | 240 | yes | 100 | 2 | 144e21f | first build failed on missing prototype; matched with static inline fairy check, if-chain on motionId, func_80166c54 returns s32 |
+| 978 | mario_status.c | func_8016a804 | medium | 244 | yes | 100 | 4 | 4f3fc52 | register order: separate y = 240 - y statement before storing y (ranked in a variant build) |
