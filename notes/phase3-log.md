@@ -160,3 +160,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1006 | mario_status.c | func_8016436c | medium | 364 | functional | 99 | 6 | wip/func_8016436c | only one fcmpu operand order after PSVecMag differs; rest matches |
 | 1007 | mario_status.c | func_8015801c | medium | 392 | incomplete | 49.9 | 5 | wip/func_8015801c | two-vertex HSV color GX immediate; logic done, register/instruction order differs (separate offset+ptr regs); 2 compile failures |
 | 1008 | mario_status.c | func_80162328 | medium | 400 | incomplete | 94 | 6 | wip/func_80162328 | all logic present; only lha/extrwi arg load order differs, not fixable by locals |
+| 1009 | mario_status.c | func_80164048 | medium | 412 | yes | 100 | 1 | master | Mislabeled stub; sibling of func_801641e4 with two float limits |
