@@ -146,3 +146,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 992 | mario_status.c | func_8015b878 | medium | 292 | yes | 100 | 1 | 9ca9610 | straightforward; struct overlay, cast for existing callee type |
 | 993 | mario_status.c | func_8015c310 | medium | 300 | yes | 100 | 1 | 574dcb8 | QUATSlerp prototype added; straightforward |
 | 994 | mario_status.c | func_8015fee4 | medium | 300 | yes | 100 | 5 | 69642ec | per-case block-local Vec3 with initialiser fixed frame |
+| 995 | mario_status.c | func_801586dc | medium | 312 | yes | 100 | 2 | 05311b4 | pool labels only; dispFlags/position field names |
