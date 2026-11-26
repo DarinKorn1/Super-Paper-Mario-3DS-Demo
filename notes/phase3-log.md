@@ -85,3 +85,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 931 | mario_status.c | func_8016c774 | medium | 132 | yes | 100 | 2 | 63ac0ca | motionId != chain like func_80165240, miscFlags 0x800000 check; first compile failed for missing prototype |
 | 932 | mario_status.c | func_8015ad00 | medium | 140 | yes | 100 | 1 | 3c81751 | pose range assert written as (cond) == false with __assert and rodata base offsets; matched first try |
 | 933 | mario_status.c | func_8015ae08 | medium | 140 | yes | 100 | 2 | 63cee56 | inline getWork helper over getStatus(0x4000) plus early return; first compile failed on missing prototype |
+| 934 | mario_status.c | func_8016a3bc | medium | 140 | yes | 100 | 4 | 91c9592 | neg/or/srwi test needed a static inline bool helper; register order fixed by declaring fairy before wp |
