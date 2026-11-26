@@ -131,3 +131,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 977 | mario_status.c | func_801671a8 | medium | 240 | yes | 100 | 2 | 144e21f | first build failed on missing prototype; matched with static inline fairy check, if-chain on motionId, func_80166c54 returns s32 |
 | 978 | mario_status.c | func_8016a804 | medium | 244 | yes | 100 | 4 | 4f3fc52 | register order: separate y = 240 - y statement before storing y (ranked in a variant build) |
 | 979 | mario_status.c | func_8015e920 | medium | 252 | yes | 100 | 1 | 6318380 | disp function: ghost visibility flag, projected z clamp then dispEntry; matched first try |
+| 980 | mario_status.c | func_80165140 | medium | 256 | yes | 100.00 | 1 | 36ee127 | matched first try: local Vec3 initialisers for scale (1,1,1) and zero rotation, per-field float stores; only pool label differs |
