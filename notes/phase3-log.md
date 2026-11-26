@@ -87,3 +87,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 933 | mario_status.c | func_8015ae08 | medium | 140 | yes | 100 | 2 | 63cee56 | inline getWork helper over getStatus(0x4000) plus early return; first compile failed on missing prototype |
 | 934 | mario_status.c | func_8016a3bc | medium | 140 | yes | 100 | 4 | 91c9592 | neg/or/srwi test needed a static inline bool helper; register order fixed by declaring fairy before wp |
 | 935 | mario_status.c | func_801565d0 | medium | 144 | yes | 100 | 2 | f592d91 | Switch with fallthrough (cases 2,8 delete effect, then 7,9 clear); matched first compiling try (attempt 1 failed to compile: missing prototype) |
+| 936 | mario_status.c | func_80156804 | medium | 144 | yes | 100 | 2 | 26697bf | switch like func_801565d0; first build failed only for missing prototype |
