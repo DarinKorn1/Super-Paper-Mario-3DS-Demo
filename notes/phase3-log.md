@@ -172,3 +172,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1018 | mario_status.c | func_8015cc50 | medium | 480 | functional | 98 | 6 | wip/func_8015cc50 | only f0/f1 reg numbering + fmr order differ; branch layout fixed via t=t if-chain |
 | 1019 | mario_status.c | func_8015744c | medium | 484 | yes | 100 | 2 | 1ef5fa2 | duplicated switch template of func_80156f8c |
 | 1020 | mario_status.c | func_80167790 | medium | 504 | yes | 100 | 3 | 5a965ef | overlay structs, Vec3 decl order, state=res |
+| 1021 | mario_status.c | func_80167ca0 | medium | 512 | incomplete | 88 | 6 | wip/func_80167ca0 | logic done; MWCC emits add+lfs d(r3) instead of addi base,0x20 + lfsx per case |
