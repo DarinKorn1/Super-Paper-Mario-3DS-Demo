@@ -112,3 +112,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 958 | mario_status.c | func_8015affc | medium | 192 | yes | 100 | 2 | be30e2c | first compile failed for missing prototype; shared inline userWork getter and 0xb8 entry struct matched directly |
 | 959 | mario_status.c | func_80157f2c | medium | 196 | yes | 100 | 1 | ccc1698 | switch on command with shared case bodies; matched first try |
 | 960 | mario_status.c | func_8015edf8 | medium | 196 | yes | 100 | 1 | d06d98d | inline status lookup helper getGhostFlags reused as work pointer; matched first try |
+| 961 | mario_status.c | func_8016bfe8 | medium | 196 | yes | 100 | 3 | 161e246 | statement order of flag clears (misc 0x20, flags 0x80, misc, misc) then block-scoped zero Vec3 copied per member; one failed compile from variant generator |
