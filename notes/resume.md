@@ -3,8 +3,11 @@
 Continue: "Read CLAUDE.md and continue the overnight run". Rules and coordinator loop: `CLAUDE.md`.
 
 ## Current file
+- Stopped on the user's request 2026-11-25 ~18:55. Master built `main.dol: OK`, `relF.rel: OK`; everything pushed.
 - `mario_status.c` (#24, 212 functions, 6 huge deferred): stubs and queue exist (do not run `make` again); continue with
-  `phase3_queue.py next mario_status.c`. Tiny and small batches are done; medium ones in progress, then large.
+  `phase3_queue.py next mario_status.c` (next: batch 71 of 153, `func_8015980c`).
+- Done 123 of 206: 122 exactly 100%, 1 functional (`func_80159070` 99.00%, `wip/func_80159070`).
+  Left: 83 (47 medium, 36 large). Not linkable yet.
 - `mario_hit.c` finished (row 853: huge `func_80138b38` deferred).
 
 ## Next files, in plan order
@@ -31,6 +34,9 @@ Older near-misses: rows below 100% in `archive/phase3-results.md` and `phase2-re
 ## Leftovers (harmless, keep)
 - spm-decomp branch `wip/leftover-20261125`: unfinished edits to mario_hit.c / mario_motion.c found uncommitted today.
 - `wip/mot_jabara-partial`. Old idle `python -` processes from 11/18-20 cannot be attributed: do not stop them.
+- A stuck `cat.exe` (PID 38036, started 2026-11-25 16:46 by a subagent shell) is still open; stopping it was denied to the
+  subagent, so it is left for the user. It does not block builds.
+- `CLAUDE.md` and `.claude/agents/decomp-matcher.md` (restructured 2026-11-25) are uncommitted until the user has seen them.
 
 ## Blockers
 None.
