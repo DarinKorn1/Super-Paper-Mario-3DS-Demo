@@ -89,3 +89,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 935 | mario_status.c | func_801565d0 | medium | 144 | yes | 100 | 2 | f592d91 | Switch with fallthrough (cases 2,8 delete effect, then 7,9 clear); matched first compiling try (attempt 1 failed to compile: missing prototype) |
 | 936 | mario_status.c | func_80156804 | medium | 144 | yes | 100 | 2 | 26697bf | switch like func_801565d0; first build failed only for missing prototype |
 | 937 | mario_status.c | func_80156a38 | medium | 144 | yes | 100 | 1 | 722d6a8 | same switch pattern as func_801565d0 with flag 0x4; first try |
+| 938 | mario_status.c | func_80156c6c | medium | 144 | yes | 100 | 1 | 1cb2d54 | same switch shape as sibling status command handlers; clears STATUS_NO_JUMP |
