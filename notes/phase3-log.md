@@ -92,3 +92,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 938 | mario_status.c | func_80156c6c | medium | 144 | yes | 100 | 1 | 1cb2d54 | same switch shape as sibling status command handlers; clears STATUS_NO_JUMP |
 | 939 | mario_status.c | func_80156ea0 | medium | 144 | yes | 100 | 1 | 94d6195 | same switch shape as sibling status end funcs (func_801565d0); matched first try |
 | 940 | mario_status.c | func_80158648 | medium | 148 | yes | 100 | 3 | 77b0667 | first two builds were header setup (offscreendrv.h conflicts with local prototypes; missing prototype); code matched first compile |
+| 941 | mario_status.c | func_8016a448 | medium | 148 | yes | 100 | 4 | f4b0d35 | u16 // chain merged 0x45/0x46 into a range check; fixed with negated && chain and early return 0 (attempts: 1 missing-prototype fail, 1 first try, 1 variants, 1 final score) |
