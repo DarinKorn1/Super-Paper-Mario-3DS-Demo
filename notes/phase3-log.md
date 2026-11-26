@@ -170,3 +170,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1016 | mario_status.c | func_80156f8c | medium | 464 | yes | 100 | 3 | master | two switches on type with case 5 merged into default; unnamed 2nd param |
 | 1017 | mario_status.c | func_801571e8 | medium | 472 | yes | 100 | 1 | 9eb28a9 | copy of func_80156f8c pattern, pool labels only |
 | 1018 | mario_status.c | func_8015cc50 | medium | 480 | functional | 98 | 6 | wip/func_8015cc50 | only f0/f1 reg numbering + fmr order differ; branch layout fixed via t=t if-chain |
+| 1019 | mario_status.c | func_8015744c | medium | 484 | yes | 100 | 2 | 1ef5fa2 | duplicated switch template of func_80156f8c |
