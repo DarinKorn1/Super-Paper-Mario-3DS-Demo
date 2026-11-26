@@ -108,3 +108,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 954 | mario_status.c | func_80158b84 | medium | 184 | yes | 100 | 2 | 8edb86c | switch with fallthrough like sibling flower handlers; first build failed only on missing prototype |
 | 955 | mario_status.c | func_80158db8 | medium | 184 | yes | 100 | 1 | 274a81d | Same shape as sibling func_80158b84 (slow flower flag, effect flag 8); matched first try |
 | 956 | mario_status.c | func_80160f70 | medium | 184 | yes | 100 | 1 | e2c86c0 | static inline setter for offscreen id keeps li -1 before marioGetPtr; casts for UNKNOWN_FUNCTION callees |
+| 957 | mario_status.c | func_80161700 | medium | 184 | yes | 100 | 1 | ce6aff7 | matched first try: static inline bool name check for neg/or/srwi; only diff in object is the float pool label |
