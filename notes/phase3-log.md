@@ -79,3 +79,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 925 | mario_status.c | func_8015af7c | small | 128 | yes | 100 | 1 | 0ad6482 | inline status lookup helper returning userWork |
 | 926 | mario_status.c | func_8016bb24 | small | 128 | yes | 100 | 2 | 0ad6482 | negated or-chain with early return 0 |
 | 927 | mario_status.c | func_80157630 | medium | 132 | yes | 100 | 2 | 1f70fd2 | switch with fallthrough 2/8 into 7/9; first attempt failed on missing prototype |
+| 928 | mario_status.c | func_80157708 | medium | 132 | yes | 100 | 1 | 70182fc | Status lookup for electrified effect via inline getStatus; matched first try |
