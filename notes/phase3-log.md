@@ -82,3 +82,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 928 | mario_status.c | func_80157708 | medium | 132 | yes | 100 | 1 | 70182fc | Status lookup for electrified effect via inline getStatus; matched first try |
 | 929 | mario_status.c | func_80157a30 | medium | 132 | yes | 100 | 1 | f887aed | status event handler; copied the switch shape of func_80157630 with HP_REGEN flag |
 | 930 | mario_status.c | func_80157b68 | medium | 132 | yes | 100 | 3 | 38826bf | two failed compiles first (offscreendrv.h clashes with local prototype, missing own prototype); then matched using getStatus(0x200) inline helper |
+| 931 | mario_status.c | func_8016c774 | medium | 132 | yes | 100 | 2 | 63ac0ca | motionId != chain like func_80165240, miscFlags 0x800000 check; first compile failed for missing prototype |
