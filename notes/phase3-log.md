@@ -180,3 +180,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1026 | mario_status.c | func_80157cdc | medium | 592 | functional | 98.55 | 4 | wip/func_80157cdc | switch needed explicit case 3 with default for tree shape; only pool/label diffs |
 | 1027 | mario_status.c | func_80161dc4 | medium | 592 | functional | 99.7 | 4 | wip/func_80161dc4 | only r6/r7 swap for li 0 / clrrwi in prologue |
 | 1028 | mario_status.c | func_80154ce8 | medium | 596 | incomplete | 80 | 7 | wip/func_80154ce8 | stack layout shifted 0xc, zero-vec address not hoisted to r26, saved gpr 26 vs 25 |
+| 1029 | mario_status.c | func_8015b99c | medium | 612 | yes | 100 | 2 | 71ed0d6 | screen-bounds check then reposition; Vec3 locals at function level, -a <= x form |
