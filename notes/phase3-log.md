@@ -183,3 +183,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1029 | mario_status.c | func_8015b99c | medium | 612 | yes | 100 | 2 | 71ed0d6 | screen-bounds check then reposition; Vec3 locals at function level, -a <= x form |
 | 1030 | mario_status.c | func_8016c944 | medium | 616 | incomplete | 88 | 7 | wip/func_8016c944 | motion-id chain merged into range compare by MWCC, operand order of fmuls/fadds, wp+0x8c CSE; attempt cap exceeded by compile errors |
 | 1031 | mario_status.c | func_8015cff4 | medium | 628 | yes | 100 | 3 | master | pool-label only; Vec3 decl order + PSVecMag hoisted to local |
+| 1032 | mario_status.c | func_8015bd8c | large | 652 | functional | 99 | 8 | wip/func_8015bd8c | Inlined min/clamp helper with early returns and inRange bool inline needed; remaining diff is f0/f1 reg swap on final !=0 compare |
