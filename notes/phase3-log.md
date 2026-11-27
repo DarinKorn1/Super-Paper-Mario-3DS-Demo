@@ -198,3 +198,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1044 | mario_status.c | func_8015da20 | large | 812 | yes | 100 | 5 | 2eb4f1d | goto-shared li 0 for moveMode switch; extern consts; fn ptr cast for func_801be14c |
 | 1045 | mario_status.c | func_80164730 | large | 836 | functional | 96 | 8 | wip/func_80164730 950ce2c | all logic present; f-reg numbering of hitHeight temp (f1/f2/f3 order) and extra cmpwi r28 differ; used literal 0.0f to fix f29/f30 swap |
 | 1046 | mario_status.c | func_80159da4 | large | 852 | yes | 100 | 6 | 8ddbe77 | Needed Vec3* as 2nd arg of func_8013f020; <= 0 conditions; decl order of state/moved |
+| 1047 | mario_status.c | func_80163a74 | large | 864 | functional | 94 | 6 | wip/func_80163a74 | only r30/r31 swap (param vs MarioWork ptr) remains; declaration order and switch did not fix |
