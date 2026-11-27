@@ -218,3 +218,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1064 | mario_status.c | func_80161028 | large | 1752 | functional | 99.98 | 8 | wip/func_80161028 | switch state machine with fallthrough cases; hoisted Vec3/int locals fixed frame; only fnmsubs operand order differs |
 | 1065 | mario_status.c | func_8015dd4c | large | 1956 | yes | 100 | 4 | 3f21d93 | ghost shroom status main; fmadds operand order fixed via split temp; pool label only |
 | 1066 | mario_status.c | func_8015a2f4 | large | 1964 | incomplete | 86.26 | 8 | wip/func_8015a2f4 9c78f18 | 4 of 8 builds lost to compile errors; reg allocation and 0.0 const handling differ; Vec3 brace init + by-value ray helper fixed frame size |
+| 1067 | mario_status.c | func_8016b0f4 | large | 2028 | functional | 98.2 | 8 | wip/func_8016b0f4 | switch state machine; fixed inlining of func_8016a804 via dont_inline; left: float load/reg numbering in frame calc, store order |
