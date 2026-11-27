@@ -199,3 +199,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1045 | mario_status.c | func_80164730 | large | 836 | functional | 96 | 8 | wip/func_80164730 950ce2c | all logic present; f-reg numbering of hitHeight temp (f1/f2/f3 order) and extra cmpwi r28 differ; used literal 0.0f to fix f29/f30 swap |
 | 1046 | mario_status.c | func_80159da4 | large | 852 | yes | 100 | 6 | 8ddbe77 | Needed Vec3* as 2nd arg of func_8013f020; <= 0 conditions; decl order of state/moved |
 | 1047 | mario_status.c | func_80163a74 | large | 864 | functional | 94 | 6 | wip/func_80163a74 | only r30/r31 swap (param vs MarioWork ptr) remains; declaration order and switch did not fix |
+| 1048 | mario_status.c | func_8015948c | large | 896 | functional | 99 | 4 | wip/func_8015948c | unrolled loop; one addi r4 scheduled differently, tried loop-increment forms |
