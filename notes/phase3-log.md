@@ -196,3 +196,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1042 | mario_status.c | func_80167988 | large | 792 | yes | 100 | 7 | 6cebcdb | overlay structs; min/max Vec3 decl order, screen-pos local order, inline Vec3 copy in block |
 | 1043 | mario_status.c | func_8015e604 | large | 796 | yes | 100 | 7 | 5477c1f | Needed PSMTXQuat prototype; local order trans/tmp/rot/axis; gravity switch 0/1 for branch layout; int flag for range check |
 | 1044 | mario_status.c | func_8015da20 | large | 812 | yes | 100 | 5 | 2eb4f1d | goto-shared li 0 for moveMode switch; extern consts; fn ptr cast for func_801be14c |
+| 1045 | mario_status.c | func_80164730 | large | 836 | functional | 96 | 8 | wip/func_80164730 950ce2c | all logic present; f-reg numbering of hitHeight temp (f1/f2/f3 order) and extra cmpwi r28 differ; used literal 0.0f to fix f29/f30 swap |
