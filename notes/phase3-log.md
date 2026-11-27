@@ -216,3 +216,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1062 | mario_status.c | func_8016a8f8 | large | 1688 | functional | 98 | 7 | wip/func_8016a8f8 | All logic present; only FPR numbering and scheduling of frame float loads differ. Needed dont_inline on func_8016a804, case 20 fallthrough, overlay structs |
 | 1063 | mario_status.c | func_80164a74 | large | 1740 | incomplete | 85 | 8 | wip/func_80164a74 | frame 0x10 too big, Vec3 local stack order and f30/f31 numbering not matched; ~175 differing lines |
 | 1064 | mario_status.c | func_80161028 | large | 1752 | functional | 99.98 | 8 | wip/func_80161028 | switch state machine with fallthrough cases; hoisted Vec3/int locals fixed frame; only fnmsubs operand order differs |
+| 1065 | mario_status.c | func_8015dd4c | large | 1956 | yes | 100 | 4 | 3f21d93 | ghost shroom status main; fmadds operand order fixed via split temp; pool label only |
