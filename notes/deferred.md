@@ -46,4 +46,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_80160048 | mario_status.c | 776 | 85%, wip/func_80160048 |
 | func_80163a74 | mario_status.c | 864 | 94%, wip/func_80163a74 |
 | func_8016bbf4 | mario_status.c | 1012 | 98.7%, wip/func_8016bbf4 |
+| func_8016ccec | mario_status.c | 1452 | 99%, wip/func_8016ccec |
 <!-- retry-end -->

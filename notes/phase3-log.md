@@ -209,3 +209,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1055 | mario_status.c | func_8016c0b4 | large | 1204 | functional | 99.9 | 5 | wip/func_8016c0b4 | only r0/r3 swap on dispFlags/prevMotionId temp at start; rest matches |
 | 1056 | mario_status.c | func_80167ea0 | large | 1240 | yes | 100 | 4 | master | fairy follow; prototype needed, mv vec store order fixed regs |
 | 1057 | mario_status.c | func_80166c54 | large | 1364 | functional | 99 | 8 | wip/func_80166c54 | only 3 lfs load-order swaps (f14/f18 pair); needed opt_common_subs off to avoid npc+0x2a0 CSE |
+| 1058 | mario_status.c | func_8016ccec | large | 1452 | functional | 99 | 5 | wip/func_8016ccec | opt_common_subs off needed to stop CSE of &wp->0x8c; only r4/r5 and r0/r3 numbering differ |
