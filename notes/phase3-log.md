@@ -192,3 +192,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1038 | mario_status.c | func_80166618 | large | 748 | incomplete | 95 | 8 | wip/func_80166618 | float reg numbering (const hoist order) and one inverted branch on flag8&1 check unresolved |
 | 1039 | mario_status.c | func_8015c018 | large | 760 | functional | 99 | 7 | wip/func_8015c018 | Dead Vec3 stack stores needed f32 L[29] frame array; only fneg/store order after sin differs |
 | 1040 | mario_status.c | func_80160048 | large | 776 | incomplete | 85 | 8 | wip/func_80160048 | stack layout (query alignment) fixed via wrapper struct; remaining frame size 0x10 too big and scheduling differ |
+| 1041 | mario_status.c | func_8016060c | large | 776 | functional | 98.78 | 6 | wip/func_8016060c | reg numbering/scheduling only; vec3 const copy via local init, decl order fixed stack |
