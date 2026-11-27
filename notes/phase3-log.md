@@ -202,3 +202,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1048 | mario_status.c | func_8015948c | large | 896 | functional | 99 | 4 | wip/func_8015948c | unrolled loop; one addi r4 scheduled differently, tried loop-increment forms |
 | 1049 | mario_status.c | func_801590d4 | large | 952 | yes | 100 | 4 | master | int-to-float pool label only; decl order fixed regs, j++,k++ in for header |
 | 1050 | mario_status.c | func_801617b8 | large | 956 | functional | 99.83 | 5 | wip/func_801617b8 c1d4ff5 | only register numbering in final cam y-500 compare differs; switch needed case 99 for binary search, (s32) cast on marioCheck3d |
+| 1051 | mario_status.c | func_8016bbf4 | large | 1012 | incomplete | 98.7 | 8 | wip/func_8016bbf4 | only reg numbering, fmadds operand order, 1 duplicated bne/beq branch pair (2 insns) missing; pool labels |
