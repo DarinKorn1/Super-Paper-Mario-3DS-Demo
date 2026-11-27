@@ -187,3 +187,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1033 | mario_status.c | func_8016547c | large | 672 | functional | 99.94 | 5 | a90a3df | only sdata2 pool labels differ; Vec3 copy after func call, const-first operand order |
 | 1034 | mario_status.c | func_8015778c | large | 676 | functional | 99.85 | 5 | wip/func_8015778c | only fp reg numbering (f1/f2) and pool labels differ; 0x100 flag, Vec3 order fixed |
 | 1035 | mario_status.c | func_8015eb48 | large | 688 | functional | 99.73 | 9 | master | t Vec3 copy stack slot and fmadds operand order differ; PSMTXInverse prototype added |
+| 1036 | mario_status.c | func_80160350 | large | 700 | functional | 98 | 8 | wip/func_80160350 | all logic present; only register numbering (r29/r30 and f29/f30 swaps) and pool labels differ |
