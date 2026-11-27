@@ -194,3 +194,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1040 | mario_status.c | func_80160048 | large | 776 | incomplete | 85 | 8 | wip/func_80160048 | stack layout (query alignment) fixed via wrapper struct; remaining frame size 0x10 too big and scheduling differ |
 | 1041 | mario_status.c | func_8016060c | large | 776 | functional | 98.78 | 6 | wip/func_8016060c | reg numbering/scheduling only; vec3 const copy via local init, decl order fixed stack |
 | 1042 | mario_status.c | func_80167988 | large | 792 | yes | 100 | 7 | 6cebcdb | overlay structs; min/max Vec3 decl order, screen-pos local order, inline Vec3 copy in block |
+| 1043 | mario_status.c | func_8015e604 | large | 796 | yes | 100 | 7 | 5477c1f | Needed PSMTXQuat prototype; local order trans/tmp/rot/axis; gravity switch 0/1 for branch layout; int flag for range check |
