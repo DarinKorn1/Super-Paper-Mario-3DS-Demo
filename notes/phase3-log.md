@@ -207,3 +207,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1053 | mario_status.c | func_8016d338 | large | 1156 | functional | 99 | 6 | wip/func_8016d338 | only register numbering differs in first block (trigFlags r4/r5, zero r0/r4); 2 compile errors, Vec3 zero declared after PSVECAdd |
 | 1054 | mario_status.c | func_801581a4 | large | 1184 | functional | 99.7 | 8 | wip/func_801581a4 | only srwi vs extrwi on GXSetChanCtrl ambsrc arg differs; needed dont_inline on callees, frame local declared first |
 | 1055 | mario_status.c | func_8016c0b4 | large | 1204 | functional | 99.9 | 5 | wip/func_8016c0b4 | only r0/r3 swap on dispFlags/prevMotionId temp at start; rest matches |
+| 1056 | mario_status.c | func_80167ea0 | large | 1240 | yes | 100 | 4 | master | fairy follow; prototype needed, mv vec store order fixed regs |
