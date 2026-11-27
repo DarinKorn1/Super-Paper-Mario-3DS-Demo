@@ -185,3 +185,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1031 | mario_status.c | func_8015cff4 | medium | 628 | yes | 100 | 3 | master | pool-label only; Vec3 decl order + PSVecMag hoisted to local |
 | 1032 | mario_status.c | func_8015bd8c | large | 652 | functional | 99 | 8 | wip/func_8015bd8c | Inlined min/clamp helper with early returns and inRange bool inline needed; remaining diff is f0/f1 reg swap on final !=0 compare |
 | 1033 | mario_status.c | func_8016547c | large | 672 | functional | 99.94 | 5 | a90a3df | only sdata2 pool labels differ; Vec3 copy after func call, const-first operand order |
+| 1034 | mario_status.c | func_8015778c | large | 676 | functional | 99.85 | 5 | wip/func_8015778c | only fp reg numbering (f1/f2) and pool labels differ; 0x100 flag, Vec3 order fixed |
