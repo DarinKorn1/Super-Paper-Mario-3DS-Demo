@@ -205,3 +205,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1051 | mario_status.c | func_8016bbf4 | large | 1012 | incomplete | 98.7 | 8 | wip/func_8016bbf4 | only reg numbering, fmadds operand order, 1 duplicated bne/beq branch pair (2 insns) missing; pool labels |
 | 1052 | mario_status.c | func_8016737c | large | 1044 | yes | 100 | 4 | ea1db8e | casts for unknown callee protos; local decl order fixed regs and stack floats |
 | 1053 | mario_status.c | func_8016d338 | large | 1156 | functional | 99 | 6 | wip/func_8016d338 | only register numbering differs in first block (trigFlags r4/r5, zero r0/r4); 2 compile errors, Vec3 zero declared after PSVECAdd |
+| 1054 | mario_status.c | func_801581a4 | large | 1184 | functional | 99.7 | 8 | wip/func_801581a4 | only srwi vs extrwi on GXSetChanCtrl ambsrc arg differs; needed dont_inline on callees, frame local declared first |
