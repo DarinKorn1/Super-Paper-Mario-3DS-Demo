@@ -414,3 +414,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1260 | npcdrv.c | func_801cd210 | medium | 388 | incomplete | 93.75 | 6 | wip/func_801cd210 7d9831f | frame 0x50 vs 0x30 and reg order (npc r29 vs r28); mario ptr/Vec3 locals unresolved |
 | 1261 | npcdrv.c | npcTryCatchCard | medium | 392 | functionally complete | 99.90 | 5 | wip/npcTryCatchCard c71e297 | inline find helper, local order for stack slots; only r8 vs r4 for id |
 | 1262 | npcdrv.c | func_801bcc8c | medium | 416 | incomplete | 99.93 | 6 | wip/func_801bcc8c 786d9ee | cond polarity of camCheck3d branch not matched; floats guessed 0.0/1.0 |
+| 1263 | npcdrv.c | func_801c8b98 | medium | 432 | incomplete | 96.12 | 6 | wip/func_801c8b98 f344388 | instruction scheduling of Vec3 copies/query setup not matched |

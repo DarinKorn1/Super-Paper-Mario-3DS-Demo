@@ -883,6 +883,19 @@
   },
   "size": 28
  },
+ "npcdrv:func_801c8b98": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "instruction scheduling of Vec3 copies/query setup not matched",
+   "pct": 96.12037,
+   "ref": "wip/func_801c8b98 f344388"
+  },
+  "size": 432
+ },
  "npcdrv:func_801c8d48": {
   "builds": 2,
   "cap": 2,
