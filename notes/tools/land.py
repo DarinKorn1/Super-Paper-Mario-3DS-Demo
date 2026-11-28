@@ -36,7 +36,8 @@ if run(['git', 'branch', '--show-current']).stdout.strip() != 'master' or run(['
     sys.exit('REFUSED: spm-decomp must be on master and clean')
 on_master = [n for n, v in recs.items() if not v['result']['ref'].startswith(('wip/', '-'))]
 subjects = run(['git', 'log', '--format=%s', 'origin/master..master']).stdout.splitlines()
-extra = [s for s in subjects if not (s.startswith('Decompile ') and s[10:].strip() in on_master)]
+extra = [s for s in subjects if not (s.startswith('Decompile ') and
+                                     all(x in on_master for x in re.split(r'[,\s]+', s[10:].strip()) if x))]
 if extra:
     sys.exit(f'REFUSED: unexpected commits on master: {extra[:3]}')
 src = (dec / f'src/{unit}.c').read_text(encoding='utf-8', errors='replace')

@@ -3,22 +3,19 @@
 Continue: "Read CLAUDE.md and continue the overnight run". Rules and coordinator loop: `CLAUDE.md`.
 
 ## Current file
-- `mario_status.c` (#24) **finished 2026-11-26** (all 153 batches). Master builds, `main.dol: OK`, `relF.rel: OK`, pushed.
-  `check_matches.py --unit`: 212 checked, 156 exactly 100%, 56 not: 51 still stubs (6 huge deferred + 45 near-misses /
-  functional, each on its own `wip/<function>` branch, see log), 5 on master at 99.73-99.94% (label/string-pool only):
-  `func_8015cff4`, `func_8015eb48`, `func_80164048`, `func_801641e4`, `func_8016547c`. **Not linkable.**
-- Next: `npcdrv.c` (start with `phase3_queue.py make npcdrv.c --stub`).
-- `wip/leftover-20261126` (local): interrupted first try of `func_80158c98`; since redone at 100%, so obsolete (ask before deleting).
+- `npcdrv.c` (#26): stubs pushed 2026-11-27; 230 queued in 145 batches, 24 huge deferred. Loop: `phase3_queue.py next`,
+  subagent, then `land.py npcdrv`. Old partial work (read-only hint for subagents): `origin/wip/npcDelete`.
+- `mario_status.c` (#24) finished 2026-11-26: 156 of 212 exactly 100%; not linkable.
 
-## Subagent problems seen 2026-11-26 (fix BRIEF / agent file; needs the user's OK)
-- Repeated `python -` / `python -I -` (heredoc piped to python to edit files) despite BRIEF and prompt: left hung python.exe
-  processes; one subagent killed two it had not started (PIDs 35780, 13548).
-- Attempt cap overrun several times (7/6, 9/8, ~10/8); some log rows give a lower count than the real one
-  (`func_80163788` ~10 not 8, `func_8016737c` 5 not 4).
-- Some reported "100% yes" are 99.9% (`func_8015cff4`, `func_801641e4`); two functional ones were put on master
-  (`func_8016547c`, `func_8015eb48`) while others went to `wip/` branches. Percent often "estimated, not measured".
-- Twice pushed without seeing the checksum lines (coordinator re-checked: OK). Prompt now adds
-  `build/tools/dtk.exe shasum -c config/EU0/build.sha1`.
+## Script enforcement (since 2026-11-27, user-approved)
+- `build.py` (caps, counts in `notes/phase3-queue/attempts.json`, one function at a time), `finish.py` (measures the official %,
+  100% to master, else pushed `wip/<function>`), `land.py` (coordinator: re-check with check_matches, `safe_push.py`, log the
+  measured % and real count), `to_wip.py`. Subagents never push, log or stop processes.
+- 71 non-exact functions taken off master to `wip/<name>` (or `wip/<name>-master`); master now holds only exact matches
+  of ours. 8 non-exact functions not from our work (upstream: `_hitEnt`, 7 in relF `dan`) left on master.
+- Test on npcdrv batch 1 (10 tiny): caps counted (2-3 builds each), all 10 measured 100%, safe push OK, rows logged. Found:
+  the subagent edited all 10 at once and finish.py committed them under one name; land.py refused (guard worked), records
+  repaired by hand. Fixed: build.py and finish.py now refuse while another function's stub is removed but unfinished.
 
 ## Next files, in plan order
 `npcdrv.c` (#26, reuse `origin/wip/npcDelete`), `itemdrv.c` (#43, reuse `origin/wip/itemEntry`), `hud.c` (#46,

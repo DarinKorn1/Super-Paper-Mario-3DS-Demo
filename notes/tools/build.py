@@ -29,6 +29,15 @@ def cap_of(size):
     return 4 if size <= 128 else 6 if size <= 640 else 8 if size <= 2044 else 0
 
 
+def other_open(unit, fn):
+    """Stubs removed in the working tree (vs HEAD) for functions other than fn: one function at a time."""
+    pat = r'^// NOT_DECOMPILED (\S+)'
+    head = subprocess.run(['git', 'show', f'HEAD:src/{unit}.c'], cwd=dec, capture_output=True, text=True,
+                          errors='replace').stdout
+    now = (dec / f'src/{unit}.c').read_text(encoding='utf-8', errors='replace')
+    return sorted(set(re.findall(pat, head, re.M)) - set(re.findall(pat, now, re.M)) - {fn})
+
+
 def load():
     return json.loads(store.read_text(encoding='utf-8')) if store.exists() else {}
 
@@ -44,6 +53,10 @@ if __name__ == '__main__':
     if size is None:
         sys.exit(f'REFUSED: {fn} is not a function in symbols.txt')
     cap = cap_of(size)
+    others = other_open(unit, fn)
+    if others:
+        sys.exit(f'REFUSED: one function at a time. The stubs of {others[:5]} are removed but not finished: '
+                 f'finish that function with finish.py (or put its stub back) before building {fn}.')
     data = load()
     rec = data.setdefault(f'{unit}:{fn}', {'builds': 0, 'size': size, 'cap': cap, 'good_enough': False, 'last': ''})
     if rec['builds'] >= rec['cap']:

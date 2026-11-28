@@ -48,6 +48,11 @@ if rec is None:
     sys.exit(f'BLOCKED: no builds recorded for {fn}; build only with build.py')
 if rec.get('result'):
     sys.exit(f'BLOCKED: {fn} is already finished ({rec["result"]["ref"]})')
+pat = r'^// NOT_DECOMPILED (\S+)'
+src_now = (dec / f'src/{unit}.c').read_text(encoding='utf-8', errors='replace')
+others = sorted(set(re.findall(pat, git('show', f'HEAD:src/{unit}.c'), re.M)) - set(re.findall(pat, src_now, re.M)) - {fn})
+if others:
+    sys.exit(f'BLOCKED: other functions are also edited ({others[:5]}); finish works on one function at a time')
 changed = [l[3:].strip('"') for l in git('status', '--porcelain', '-uall').splitlines()]
 bad = [p for p in changed if BAD.search(p)]
 if bad:
