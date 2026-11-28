@@ -220,6 +220,19 @@
   },
   "size": 140
  },
+ "npcdrv:func_801bcc8c": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "cond polarity of camCheck3d branch not matched; floats guessed 0.0/1.0",
+   "pct": 99.93269,
+   "ref": "wip/func_801bcc8c 786d9ee"
+  },
+  "size": 416
+ },
  "npcdrv:func_801bd4ac": {
   "builds": 2,
   "cap": 2,
