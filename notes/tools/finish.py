@@ -48,6 +48,9 @@ if rec is None:
     sys.exit(f'BLOCKED: no builds recorded for {fn}; build only with build.py')
 if rec.get('result'):
     sys.exit(f'BLOCKED: {fn} is already finished ({rec["result"]["ref"]})')
+if rec.get('last') == 'build failed' and rec['builds'] < rec['cap']:
+    sys.exit(f'REFUSED: the last build of {fn} failed to compile and {rec["cap"] - rec["builds"]} builds are left: '
+             f'fix the error and build again with build.py (or put the stub back if you cannot)')
 pat = r'^// NOT_DECOMPILED (\S+)'
 src_now = (dec / f'src/{unit}.c').read_text(encoding='utf-8', errors='replace')
 others = sorted(set(re.findall(pat, git('show', f'HEAD:src/{unit}.c'), re.M)) - set(re.findall(pat, src_now, re.M)) - {fn})
