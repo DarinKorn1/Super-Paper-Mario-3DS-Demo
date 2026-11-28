@@ -1390,6 +1390,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801cb274": {
+  "builds": 7,
+  "cap": 7,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 7/8: dedup of 64x16 string table; structure matches but original uses bytewise struct copy (unknown struct), reg numbering differs",
+   "pct": 79.3141,
+   "ref": "wip/func_801cb274 b6128dc"
+  },
+  "size": 1248
+ },
  "npcdrv:func_801cbf84": {
   "builds": 1,
   "cap": 1,
