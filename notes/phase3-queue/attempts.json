@@ -1962,6 +1962,19 @@
   },
   "size": 60
  },
+ "npcdrv:npcAddPart": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "color/Vec3 stack temps hard to reproduce; frame size mismatch",
+   "pct": 79.74675,
+   "ref": "wip/npcAddPart 0a52a80"
+  },
+  "size": 616
+ },
  "npcdrv:npcAreOnSpawnEvtsDone": {
   "builds": 1,
   "cap": 1,
