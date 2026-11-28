@@ -1702,6 +1702,19 @@
   },
   "size": 88
  },
+ "npcdrv:func_801d2028": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "switch needed explicit empty case 0/3; header prototype changed",
+   "pct": 100.0,
+   "ref": "f545161"
+  },
+  "size": 480
+ },
  "npcdrv:func_801d2208": {
   "builds": 3,
   "cap": 3,
