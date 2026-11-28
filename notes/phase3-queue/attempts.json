@@ -1702,6 +1702,19 @@
   },
   "size": 552
  },
+ "npcdrv:func_801ceb08": {
+  "builds": 7,
+  "cap": 7,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 7/8: large; zero Vec3 init hoisting and stack slot order (zz at 0x38) not matched",
+   "pct": 75.22747,
+   "ref": "wip/func_801ceb08 c1c76ea"
+  },
+  "size": 932
+ },
  "npcdrv:func_801ceeac": {
   "builds": 6,
   "cap": 6,
