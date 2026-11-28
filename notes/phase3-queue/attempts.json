@@ -1208,6 +1208,19 @@
   },
   "size": 304
  },
+ "npcdrv:func_801cce10": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "Vec3 stack layout / frame size and fadds register order not matched",
+   "pct": 98.72152,
+   "ref": "wip/func_801cce10 35368fb"
+  },
+  "size": 316
+ },
  "npcdrv:func_801ccf4c": {
   "builds": 1,
   "cap": 1,
