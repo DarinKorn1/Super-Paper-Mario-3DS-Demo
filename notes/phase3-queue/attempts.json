@@ -1442,6 +1442,19 @@
   },
   "size": 32
  },
+ "npcdrv:npcPartDisp_general": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "needed owner loaded before pose local; header signature changed",
+   "pct": 100.0,
+   "ref": "da7070f"
+  },
+  "size": 164
+ },
  "npcdrv:npcPartDisp_xlu": {
   "builds": 1,
   "cap": 1,
