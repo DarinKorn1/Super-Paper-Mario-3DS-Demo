@@ -363,3 +363,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1209 | npcdrv.c | func_801c23b0 | medium | 168 | yes | 100 | 6 | cfb0af8 | inlined npcGetPartById plus extra parts==0 early return |
 | 1210 | npcdrv.c | func_801ca310 | medium | 168 | incomplete | 64.14 | 6 | wip/func_801ca310 518fe45 | float mul and reg numbering hard; no exact match |
 | 1211 | npcdrv.c | npcNameToPtr | medium | 168 | incomplete | 94.00 | 6 | wip/npcNameToPtr 81eaf82 | num/wp register swap and string pool offsets remain |
+| 1212 | npcdrv.c | npcReset | medium | 172 | yes | 100 | 1 | c2b45cf | label-only diffs; float assumed 0.0 |

@@ -1520,6 +1520,19 @@
   },
   "size": 32
  },
+ "npcdrv:npcReset": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "label-only diffs; float assumed 0.0",
+   "pct": 100.0,
+   "ref": "c2b45cf"
+  },
+  "size": 172
+ },
  "npcdrv:npcSearchAnimDefs": {
   "builds": 1,
   "cap": 1,
