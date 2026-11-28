@@ -233,6 +233,19 @@
   },
   "size": 136
  },
+ "npcdrv:func_801c3694": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "inline find-by-name helper fixed structure; reg numbering only left",
+   "pct": 99.14286,
+   "ref": "wip/func_801c3694 172d71c"
+  },
+  "size": 140
+ },
  "npcdrv:func_801c37e4": {
   "builds": 2,
   "cap": 2,
