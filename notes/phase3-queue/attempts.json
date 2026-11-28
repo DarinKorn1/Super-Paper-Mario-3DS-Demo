@@ -597,6 +597,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801c3bc4": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "npc+0x5c arg hoisted by MWCC, extra reg",
+   "pct": 94.25,
+   "ref": "wip/func_801c3bc4 a4c166d"
+  },
+  "size": 240
+ },
  "npcdrv:func_801c3cb4": {
   "builds": 3,
   "cap": 3,
