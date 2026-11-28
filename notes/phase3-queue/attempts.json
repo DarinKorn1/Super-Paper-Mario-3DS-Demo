@@ -77,6 +77,19 @@
   },
   "size": 272
  },
+ "npcdrv:func_801b0154": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "only sda label name differs",
+   "pct": 100.0,
+   "ref": "d15ee84"
+  },
+  "size": 272
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,
