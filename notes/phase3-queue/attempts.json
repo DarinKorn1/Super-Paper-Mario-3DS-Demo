@@ -701,6 +701,19 @@
   },
   "size": 128
  },
+ "npcdrv:func_801c3050": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "frame size fixed via c=a copy; remaining: pose pointer kept in r26 (&part->animPoseId, vec at r26+0x138), flag2c reg, fp scheduling",
+   "pct": 91.352615,
+   "ref": "wip/func_801c3050 cf7b8fc"
+  },
+  "size": 1452
+ },
  "npcdrv:func_801c35fc": {
   "builds": 1,
   "cap": 1,

@@ -149,4 +149,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | npcUpdateSetupFile3To4 | npcdrv.c | 1284 | 78.82%, wip/npcUpdateSetupFile3To4 24b0ef2 |
 | func_801be9c4 | npcdrv.c | 1296 | 97.04%, wip/func_801be9c4 53eabb8 |
 | npcUpdateSetupFile5To6 | npcdrv.c | 1304 | 76.49%, wip/npcUpdateSetupFile5To6 c497b71 |
+| func_801c3050 | npcdrv.c | 1452 | 91.35%, wip/func_801c3050 cf7b8fc |
 <!-- retry-end -->
