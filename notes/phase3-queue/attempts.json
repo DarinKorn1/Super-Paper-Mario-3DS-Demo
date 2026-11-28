@@ -1195,6 +1195,19 @@
   },
   "size": 28
  },
+ "npcdrv:npcDisp_general": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "only r30/r31 swap (pose vs npc) remained; header changed to real prototype",
+   "pct": 89.756096,
+   "ref": "wip/npcDisp_general 85e1669"
+  },
+  "size": 164
+ },
  "npcdrv:npcDisp_offscreen": {
   "builds": 3,
   "cap": 3,

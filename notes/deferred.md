@@ -92,4 +92,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | npcGetDefense | npcdrv.c | 120 | 31.07%, wip/npcGetDefense 4fcc8f1 |
 | func_801c360c | npcdrv.c | 136 | 95.97%, wip/func_801c360c 4e7450d |
 | func_801c9a24 | npcdrv.c | 164 | 85.00%, wip/func_801c9a24 deeea99 |
+| npcDisp_general | npcdrv.c | 164 | 89.76%, wip/npcDisp_general 85e1669 |
 <!-- retry-end -->
