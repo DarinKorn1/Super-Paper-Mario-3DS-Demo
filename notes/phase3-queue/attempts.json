@@ -1195,6 +1195,19 @@
   },
   "size": 268
  },
+ "npcdrv:func_801cc9dc": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "functionally complete; fmuls operand order, b+8 arg",
+   "pct": 99.65169,
+   "ref": "wip/func_801cc9dc 34dc964"
+  },
+  "size": 356
+ },
  "npcdrv:func_801ccb40": {
   "builds": 4,
   "cap": 4,
