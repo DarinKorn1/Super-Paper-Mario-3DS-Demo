@@ -2819,5 +2819,18 @@
    "ref": "wip/npcUpdateSetupFile4To5 0eb23ec"
   },
   "size": 1196
+ },
+ "npcdrv:npcUpdateSetupFile5To6": {
+  "builds": 7,
+  "cap": 7,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 7/8: unrolled copy loop reg numbering r7/r8 and tail differ",
+   "pct": 76.48773,
+   "ref": "wip/npcUpdateSetupFile5To6 c497b71"
+  },
+  "size": 1304
  }
 }
