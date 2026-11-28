@@ -1039,6 +1039,19 @@
   },
   "size": 368
  },
+ "npcdrv:func_801c4afc": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "large switch tree and ctr hoist not matched",
+   "pct": null,
+   "ref": "wip/func_801c4afc d2abafd"
+  },
+  "size": 1604
+ },
  "npcdrv:func_801c7f68": {
   "builds": 1,
   "cap": 1,

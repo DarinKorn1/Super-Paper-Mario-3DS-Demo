@@ -466,3 +466,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1312 | npcdrv.c | func_801bd86c | large | 1460 | incomplete | 77.39 | 8 | wip/func_801bd86c 760876b | register numbering/FPR allocation and 6 extra lines unresolved; logic reconstructed |
 | 1313 | npcdrv.c | func_801d1580 | large | 1564 | incomplete | 90.07 | 8 | wip/func_801d1580 363bd2e | stack layout: query at 0x78 vs orig 0x74, insn order diffs; 129 diff lines |
 | 1314 | npcdrv.c | func_801b7a20 | large | 1604 | incomplete | 91.58 | 8 | wip/func_801b7a20 6cdc63f | frame size off by 0x10, inlined cmd/part lookups; could not see later diff lines |
+| 1315 | npcdrv.c | func_801c4afc | large | 1604 | incomplete | - | 8 | wip/func_801c4afc d2abafd | large switch tree and ctr hoist not matched |
