@@ -25,6 +25,19 @@
   },
   "size": 192
  },
+ "npcdrv:func_801aaca4": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "needed 3-level manual unroll of recursion",
+   "pct": 100.0,
+   "ref": "31be7db"
+  },
+  "size": 260
+ },
  "npcdrv:func_801aada8": {
   "builds": 6,
   "cap": 6,
