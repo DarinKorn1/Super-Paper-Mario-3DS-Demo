@@ -2391,6 +2391,19 @@
   },
   "size": 32
  },
+ "npcdrv:npcReadSetupFile": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 6/8: table copy inside loop; string pool base differs, 6 lines short unknown",
+   "pct": 95.975,
+   "ref": "wip/npcReadSetupFile f88a328"
+  },
+  "size": 800
+ },
  "npcdrv:npcReset": {
   "builds": 1,
   "cap": 1,
