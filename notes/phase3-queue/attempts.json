@@ -233,6 +233,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801bc7cc": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "only pool label diffs; added 0x4ac/0x4b4 fields, fabsf",
+   "pct": 100.0,
+   "ref": "97affeb"
+  },
+  "size": 480
+ },
  "npcdrv:func_801bcc00": {
   "builds": 2,
   "cap": 2,
