@@ -1533,6 +1533,19 @@
   },
   "size": 296
  },
+ "npcdrv:func_801ceeac": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "switch case order and tribeId range check; leftover reg swaps r0/r4",
+   "pct": 89.24,
+   "ref": "wip/func_801ceeac ad3998e"
+  },
+  "size": 500
+ },
  "npcdrv:func_801cf0a0": {
   "builds": 5,
   "cap": 5,
