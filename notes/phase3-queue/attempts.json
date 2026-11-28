@@ -584,6 +584,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801c3cb4": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "id at +4 raw s32, init order of locals",
+   "pct": 100.0,
+   "ref": "16b62ef"
+  },
+  "size": 224
+ },
  "npcdrv:func_801c7f68": {
   "builds": 1,
   "cap": 1,
