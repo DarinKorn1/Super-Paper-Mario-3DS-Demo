@@ -1780,6 +1780,19 @@
   },
   "size": 228
  },
+ "npcdrv:npcSetTalkPose": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "twin of npcSetStayPose with pose 3; header decl added",
+   "pct": 100.0,
+   "ref": "e3fdf79"
+  },
+  "size": 228
+ },
  "npcdrv:npcSfxOn": {
   "builds": 1,
   "cap": 1,
