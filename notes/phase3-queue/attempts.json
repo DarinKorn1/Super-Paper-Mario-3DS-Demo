@@ -103,6 +103,19 @@
   },
   "size": 64
  },
+ "npcdrv:func_801bf60c": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy; 0.5/1.0 clamps",
+   "pct": 100.0,
+   "ref": "6128852"
+  },
+  "size": 152
+ },
  "npcdrv:func_801bfc14": {
   "builds": 1,
   "cap": 1,

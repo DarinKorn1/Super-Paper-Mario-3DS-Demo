@@ -352,3 +352,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1198 | npcdrv.c | func_801c98f0 | medium | 148 | yes | 100 | 1 | 48fa751 | matched first try, pool labels only |
 | 1199 | npcdrv.c | func_801ca1a4 | medium | 148 | yes | 100 | 1 | c216090 | matched first try; part anim at +0x54 via cast |
 | 1200 | npcdrv.c | npcAreOnSpawnEvtsDone | medium | 148 | yes | 100 | 1 | ebeca6e | matched first try |
+| 1201 | npcdrv.c | func_801bf60c | medium | 152 | yes | 100 | 1 | 6128852 | easy; 0.5/1.0 clamps |
