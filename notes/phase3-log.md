@@ -435,3 +435,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1281 | npcdrv.c | func_801bd584 | medium | 600 | incomplete | 72.30 | 6 | wip/func_801bd584 3169589 | z-vector int zero stores and scheduling of vec swap not matched |
 | 1282 | npcdrv.c | npcAddPart | medium | 616 | incomplete | 79.75 | 6 | wip/npcAddPart 0a52a80 | color/Vec3 stack temps hard to reproduce; frame size mismatch |
 | 1283 | npcdrv.c | npcUpdateSetupFile1To2 | medium | 640 | incomplete | 49.21 | 6 | wip/npcUpdateSetupFile1To2 8507dc2 | struct copy loop emitted as 8-byte/iter not 0x70/iter; could not find source form |
+| 1284 | npcdrv.c | func_801cc644 | large | 652 | incomplete | 97.29 | 8 | wip/func_801cc644 41c1c7d | dead Vec3 temp stores and 0.5 mul operand order not matched |
