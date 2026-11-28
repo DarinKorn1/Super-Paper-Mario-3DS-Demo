@@ -519,6 +519,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801c3a84": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "assert2 with 3 strings; local order for f2/f3; only pool diffs",
+   "pct": 97.63793,
+   "ref": "wip/func_801c3a84 2ad19be"
+  },
+  "size": 232
+ },
  "npcdrv:func_801c3b6c": {
   "builds": 2,
   "cap": 2,
