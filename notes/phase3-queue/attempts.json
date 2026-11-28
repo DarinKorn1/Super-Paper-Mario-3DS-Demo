@@ -2754,5 +2754,18 @@
    "ref": "wip/npcUpdateSetupFile2To3 c9b6be2"
   },
   "size": 1180
+ },
+ "npcdrv:npcUpdateSetupFile4To5": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "struct copy order near-miss; scheduling r7/r8 only",
+   "pct": 73.67558,
+   "ref": "wip/npcUpdateSetupFile4To5 0eb23ec"
+  },
+  "size": 1196
  }
 }

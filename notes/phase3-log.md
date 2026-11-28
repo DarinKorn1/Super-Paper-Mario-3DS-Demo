@@ -455,3 +455,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1301 | npcdrv.c | func_801b8064 | large | 1136 | incomplete | 92.99 | 7 | wip/func_801b8064 11850b7 | gave up at 7/8: large; line count matches, register numbering unresolved; 2 builds wasted by sed mishap |
 | 1302 | npcdrv.c | npcUpdateSetupFile2To3 | large | 1180 | incomplete | 28.26 | 8 | wip/npcUpdateSetupFile2To3 c9b6be2 | chunk-of-8 blob copy unrolled pattern not found; last build had a typo, final source untested |
 | 1303 | npcdrv.c | npcEntryFromTemplate | large | 1184 | incomplete | 97.81 | 7 | wip/npcEntryFromTemplate 85f53a8 | gave up at 7/8: pool/regs; 2 extra lines in unknown spot, drop-item loop likely |
+| 1304 | npcdrv.c | npcUpdateSetupFile4To5 | large | 1196 | incomplete | 73.68 | 8 | wip/npcUpdateSetupFile4To5 0eb23ec | struct copy order near-miss; scheduling r7/r8 only |
