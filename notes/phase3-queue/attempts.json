@@ -246,6 +246,19 @@
   },
   "size": 152
  },
+ "npcdrv:func_801bf6a4": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only (i vs name regs swapped); changed header sig",
+   "pct": 99.44444,
+   "ref": "wip/func_801bf6a4 0f794d9"
+  },
+  "size": 252
+ },
  "npcdrv:func_801bfc14": {
   "builds": 1,
   "cap": 1,
