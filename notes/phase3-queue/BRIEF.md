@@ -17,6 +17,7 @@ Tools: `T=/c/Users/ender/SPM_N3DS_XL/notes/tools`, repo `/c/Users/ender/SPM_N3DS
 ## Work, one function at a time
 - Source `src/<file>.c` (stubs are `// NOT_DECOMPILED <name>`), headers `spm-headers/include/spm/`, original asm
   `build/EU0/asm/<file>.s` (Grep `\.fn <name>` and read only those lines). `src/mario*.c` may mix CRLF/LF: verify edits.
+- A failed compile is not a stop: fix it and build again (it still counts). finish.py is final for that function.
 - Stop at no differing lines, at the cap, or at GOOD-ENOUGH (only register/label/pool differences after 3 builds).
 - Then, with the edits uncommitted on master: `timeout 1200 python -I $T/finish.py <file> <function> "<short note: what was
   hard / what fixed it>"`. It measures the official % with a full build: exactly 100% is committed on master, anything else
