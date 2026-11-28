@@ -1208,6 +1208,19 @@
   },
   "size": 104
  },
+ "npcdrv:func_801ca448": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "NPCEntry/NPCAnim args; any declared first for regs; nested chain for second slot search",
+   "pct": 100.0,
+   "ref": "3691476"
+  },
+  "size": 768
+ },
  "npcdrv:func_801ca748": {
   "builds": 2,
   "cap": 2,
