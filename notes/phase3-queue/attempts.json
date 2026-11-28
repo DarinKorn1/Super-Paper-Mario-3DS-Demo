@@ -2728,5 +2728,18 @@
    "ref": "wip/npcUpdateSetupFile1To2 8507dc2"
   },
   "size": 640
+ },
+ "npcdrv:npcUpdateSetupFile2To3": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "chunk-of-8 blob copy unrolled pattern not found; last build had a typo, final source untested",
+   "pct": 28.257627,
+   "ref": "wip/npcUpdateSetupFile2To3 c9b6be2"
+  },
+  "size": 1180
  }
 }

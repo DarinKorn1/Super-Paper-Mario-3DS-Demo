@@ -453,3 +453,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1299 | npcdrv.c | func_801b5214 | large | 1120 | incomplete | 87.53 | 8 | wip/func_801b5214 f75fc5f | stack layout/frame 0x10 smaller than original; color temp slots and vec order not resolved |
 | 1300 | npcdrv.c | npcEntryFromSetupEnemy | large | 1128 | incomplete | 72.60 | 8 | wip/npcEntryFromSetupEnemy 2350b07 | struct copy staging/frame 0x30 too big, regs pressure not reproduced |
 | 1301 | npcdrv.c | func_801b8064 | large | 1136 | incomplete | 92.99 | 7 | wip/func_801b8064 11850b7 | gave up at 7/8: large; line count matches, register numbering unresolved; 2 builds wasted by sed mishap |
+| 1302 | npcdrv.c | npcUpdateSetupFile2To3 | large | 1180 | incomplete | 28.26 | 8 | wip/npcUpdateSetupFile2To3 c9b6be2 | chunk-of-8 blob copy unrolled pattern not found; last build had a typo, final source untested |
