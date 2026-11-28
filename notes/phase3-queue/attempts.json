@@ -1507,6 +1507,19 @@
   },
   "size": 72
  },
+ "npcdrv:npcInit": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "straightforward",
+   "pct": 100.0,
+   "ref": "ab5f928"
+  },
+  "size": 188
+ },
  "npcdrv:npcNameToPtr": {
   "builds": 6,
   "cap": 6,
