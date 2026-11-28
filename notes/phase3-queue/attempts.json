@@ -64,6 +64,19 @@
   },
   "size": 192
  },
+ "npcdrv:func_801afefc": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 4/6: only string-pool addressing differs (r30 base vs r3 offset in assert call)",
+   "pct": 96.60294,
+   "ref": "wip/func_801afefc cec00bf"
+  },
+  "size": 272
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,

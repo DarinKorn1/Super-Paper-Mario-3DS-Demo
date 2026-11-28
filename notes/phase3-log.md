@@ -396,3 +396,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1242 | npcdrv.c | func_801aaca4 | medium | 260 | yes | 100 | 2 | 31be7db | needed 3-level manual unroll of recursion |
 | 1243 | npcdrv.c | func_801c3968 | medium | 268 | incomplete | 97.96 | 6 | wip/func_801c3968 bd3ab44 | inline part lookup helper with return; string pool offsets only |
 | 1244 | npcdrv.c | func_801cc8d0 | medium | 268 | yes | 100 | 3 | 366872a | pool-only diffs; header proto changed to take NPCEntry* |
+| 1245 | npcdrv.c | func_801afefc | medium | 272 | incomplete | 96.60 | 4 | wip/func_801afefc cec00bf | gave up at 4/6: only string-pool addressing differs (r30 base vs r3 offset in assert call) |
