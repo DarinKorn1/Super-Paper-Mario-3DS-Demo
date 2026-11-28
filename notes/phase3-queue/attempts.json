@@ -1130,6 +1130,19 @@
   },
   "size": 40
  },
+ "npcdrv:func_801cd5e8": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "only register numbering diffs; header changed to real prototype",
+   "pct": 96.86441,
+   "ref": "wip/func_801cd5e8 4fddd86"
+  },
+  "size": 236
+ },
  "npcdrv:func_801cd804": {
   "builds": 1,
   "cap": 1,
