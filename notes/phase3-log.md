@@ -419,3 +419,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1265 | npcdrv.c | func_801b0d10 | medium | 452 | yes | 100 | 3 | cfb2a64 | vec3 decl order a1,a2,b1,b2; header prototypes |
 | 1266 | npcdrv.c | npcTimerDisp | medium | 464 | functionally complete | 99.87 | 5 | wip/npcTimerDisp 1e79990 | register order and Vec3i copy; only init order/pool diffs |
 | 1267 | npcdrv.c | func_801b33a0 | medium | 476 | incomplete | 86.78 | 6 | wip/func_801b33a0 f066fb4 | loop over 4 slots at other+0x4c0 got unrolled or not ctr-based; locals order/regs differ |
+| 1268 | npcdrv.c | npcTimerMain | medium | 476 | incomplete | 98.45 | 6 | wip/npcTimerMain ae012bb | 64-bit time math; only register numbering of locals (g/clk/off/t) off |
