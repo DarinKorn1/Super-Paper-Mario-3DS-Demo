@@ -1585,6 +1585,19 @@
   },
   "size": 296
  },
+ "npcdrv:func_801cd95c": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "Vec3 copies need s32 casts; matrix axis is 'z'; hoisted Vec3 locals in stack order",
+   "pct": 100.0,
+   "ref": "3c2ac1b"
+  },
+  "size": 552
+ },
  "npcdrv:func_801ceeac": {
   "builds": 6,
   "cap": 6,
