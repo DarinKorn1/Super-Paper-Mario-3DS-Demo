@@ -337,6 +337,19 @@
   },
   "size": 216
  },
+ "npcdrv:func_801bd584": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "z-vector int zero stores and scheduling of vec swap not matched",
+   "pct": 72.3,
+   "ref": "wip/func_801bd584 3169589"
+  },
+  "size": 600
+ },
  "npcdrv:func_801bd7dc": {
   "builds": 2,
   "cap": 2,
