@@ -64,6 +64,19 @@
   },
   "size": 180
  },
+ "npcdrv:func_801b2574": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "calls func_801b24c0 (inlined) then func_801b20dc; header sig changed",
+   "pct": 100.0,
+   "ref": "fcb597a"
+  },
+  "size": 204
+ },
  "npcdrv:func_801b3860": {
   "builds": 4,
   "cap": 4,
