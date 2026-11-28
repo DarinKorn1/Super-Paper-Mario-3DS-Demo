@@ -207,6 +207,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801c23b0": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "inlined npcGetPartById plus extra parts==0 early return",
+   "pct": 100.0,
+   "ref": "cfb0af8"
+  },
+  "size": 168
+ },
  "npcdrv:func_801c2480": {
   "builds": 3,
   "cap": 3,
