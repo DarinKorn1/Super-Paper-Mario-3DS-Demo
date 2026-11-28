@@ -253,3 +253,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1099 | npcdrv.c | func_801d23cc | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
 | 1100 | npcdrv.c | func_801d23d4 | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
 | 1101 | npcdrv.c | npcGetWorkPtr | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1102 | npcdrv.c | func_801c35fc | tiny | 16 | yes | 100 | 1 | fb11c9c | x |
+| 1103 | npcdrv.c | func_801c38a4 | tiny | 16 | yes | 100 | 1 | dbf310f | header proto |
+| 1104 | npcdrv.c | func_801c38b4 | tiny | 16 | yes | 100 | 1 | 5ec94ad | x |
+| 1105 | npcdrv.c | func_801ca198 | tiny | 12 | incomplete | - | 1 | wip/func_801ca198 d66d467 | trivial |
+| 1106 | npcdrv.c | func_801cab20 | tiny | 12 | yes | 100 | 2 | 84adfa5 | header proto must match |
+| 1107 | npcdrv.c | func_801cb268 | tiny | 12 | yes | 100 | 2 | 3778c17 | needs msl/string.h |
+| 1108 | npcdrv.c | func_801d1058 | tiny | 12 | yes | 100 | 1 | bdbcce7 | x |
+| 1109 | npcdrv.c | npcGetEntries | tiny | 12 | yes | 100 | 1 | f96f1ca | x |
+| 1110 | npcdrv.c | npcGetMaxEntries | tiny | 12 | yes | 100 | 1 | b42e85b | x |
+| 1111 | npcdrv.c | npcGetNextTemplateNpcId | tiny | 12 | yes | 100 | 1 | aac5e98 | wp label |

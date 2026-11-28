@@ -25,6 +25,45 @@
   },
   "size": 12
  },
+ "npcdrv:func_801c35fc": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "x",
+   "pct": 100.0,
+   "ref": "fb11c9c"
+  },
+  "size": 16
+ },
+ "npcdrv:func_801c38a4": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "header proto",
+   "pct": 100.0,
+   "ref": "dbf310f"
+  },
+  "size": 16
+ },
+ "npcdrv:func_801c38b4": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "x",
+   "pct": 100.0,
+   "ref": "5ec94ad"
+  },
+  "size": 16
+ },
  "npcdrv:func_801c3bb8": {
   "builds": 2,
   "cap": 2,
@@ -64,6 +103,45 @@
   },
   "size": 12
  },
+ "npcdrv:func_801ca198": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "trivial",
+   "pct": null,
+   "ref": "wip/func_801ca198 d66d467"
+  },
+  "size": 12
+ },
+ "npcdrv:func_801cab20": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "header proto must match",
+   "pct": 100.0,
+   "ref": "84adfa5"
+  },
+  "size": 12
+ },
+ "npcdrv:func_801cb268": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "needs msl/string.h",
+   "pct": 100.0,
+   "ref": "3778c17"
+  },
+  "size": 12
+ },
  "npcdrv:func_801cccdc": {
   "builds": 2,
   "cap": 2,
@@ -90,6 +168,19 @@
   },
   "size": 8
  },
+ "npcdrv:func_801d1058": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "x",
+   "pct": 100.0,
+   "ref": "bdbcce7"
+  },
+  "size": 12
+ },
  "npcdrv:func_801d23cc": {
   "builds": 2,
   "cap": 2,
@@ -115,6 +206,45 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:npcGetEntries": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "x",
+   "pct": 100.0,
+   "ref": "f96f1ca"
+  },
+  "size": 12
+ },
+ "npcdrv:npcGetMaxEntries": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "x",
+   "pct": 100.0,
+   "ref": "b42e85b"
+  },
+  "size": 12
+ },
+ "npcdrv:npcGetNextTemplateNpcId": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "wp label",
+   "pct": 100.0,
+   "ref": "aac5e98"
+  },
+  "size": 12
  },
  "npcdrv:npcGetWorkPtr": {
   "builds": 2,
