@@ -1390,6 +1390,19 @@
   },
   "size": 88
  },
+ "npcdrv:func_801d2208": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "return type s32 in header; cast call to void(*)(args)",
+   "pct": 100.0,
+   "ref": "b96a519"
+  },
+  "size": 252
+ },
  "npcdrv:func_801d2304": {
   "builds": 1,
   "cap": 1,

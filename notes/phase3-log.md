@@ -392,3 +392,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1238 | npcdrv.c | func_801b5118 | medium | 252 | yes | 100 | 3 | a0962bf | pool labels only; header prototype changed |
 | 1239 | npcdrv.c | func_801be6cc | medium | 252 | yes | 100 | 3 | 009559c | only symbol-name diff |
 | 1240 | npcdrv.c | func_801bf6a4 | medium | 252 | functionally complete | 99.44 | 3 | wip/func_801bf6a4 0f794d9 | register numbering only (i vs name regs swapped); changed header sig |
+| 1241 | npcdrv.c | func_801d2208 | medium | 252 | yes | 100 | 3 | b96a519 | return type s32 in header; cast call to void(*)(args) |
