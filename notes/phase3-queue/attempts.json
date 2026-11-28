@@ -1078,6 +1078,19 @@
   },
   "size": 40
  },
+ "npcdrv:func_801cd124": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "scheduling/reg alloc of 0.35 const and old value differ; header changed to NPCEntry* sig",
+   "pct": 79.18644,
+   "ref": "wip/func_801cd124 8ba0695"
+  },
+  "size": 236
+ },
  "npcdrv:func_801cd394": {
   "builds": 1,
   "cap": 1,
