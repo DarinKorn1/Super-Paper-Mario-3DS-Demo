@@ -313,3 +313,6 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1159 | npcdrv.c | func_801d2304 | tiny | 56 | yes | 100 | 1 | 554a76d | easy |
 | 1160 | npcdrv.c | npcFinishFlipInstant | tiny | 44 | yes | 100 | 1 | a679c46 | 1.0f guess |
 | 1161 | npcdrv.c | npcGetPartById | tiny | 40 | yes | 100 | 2 | 827e1fb | s32 cast for cmpw |
+| 1162 | npcdrv.c | func_801bf5cc | tiny | 64 | yes | 100 | 1 | 167c3eb | label-only diff |
+| 1163 | npcdrv.c | func_801d25b8 | tiny | 60 | incomplete | 92.67 | 4 | wip/func_801d25b8 3a80850 | branch layout (beq/b) not reproduced |
+| 1164 | npcdrv.c | npcSearchAnimDefs | tiny | 60 | yes | 100 | 1 | 009ea23 | straightforward |

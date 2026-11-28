@@ -16,6 +16,9 @@ Continue: "Read CLAUDE.md and continue the overnight run". Rules and coordinator
 - Test on npcdrv batch 1 (10 tiny): caps counted (2-3 builds each), all 10 measured 100%, safe push OK, rows logged. Found:
   the subagent edited all 10 at once and finish.py committed them under one name; land.py refused (guard worked), records
   repaired by hand. Fixed: build.py and finish.py now refuse while another function's stub is removed but unfinished.
+  Also finish.py refuses after a failed compile while builds are left (batches 2 and 5 gave up after one).
+- Known limit: the official % can read 100% with a wrong float constant (pool values compared by label only); batch 7
+  caught `npcFinishFlipInstant` 1.0f vs 270.0f itself. Linking (checksums) is the final proof.
 
 ## Next files, in plan order
 `npcdrv.c` (#26, reuse `origin/wip/npcDelete`), `itemdrv.c` (#43, reuse `origin/wip/itemEntry`), `hud.c` (#46,
