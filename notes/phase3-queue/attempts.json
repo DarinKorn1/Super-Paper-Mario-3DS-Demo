@@ -922,6 +922,19 @@
   },
   "size": 224
  },
+ "npcdrv:func_801c45a4": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "regs matched; cmd-lookup loop order and blt/b branch layout differ",
+   "pct": 96.12,
+   "ref": "wip/func_801c45a4 db46028"
+  },
+  "size": 1000
+ },
  "npcdrv:func_801c498c": {
   "builds": 3,
   "cap": 3,
