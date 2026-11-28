@@ -584,6 +584,19 @@
   },
   "size": 116
  },
+ "npcdrv:func_801c9a24": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "early-return structure and fabs/frsp regalloc differ",
+   "pct": 85.0,
+   "ref": "wip/func_801c9a24 deeea99"
+  },
+  "size": 164
+ },
  "npcdrv:func_801ca150": {
   "builds": 1,
   "cap": 1,
