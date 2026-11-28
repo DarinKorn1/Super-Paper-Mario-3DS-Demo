@@ -25,6 +25,19 @@
   },
   "size": 96
  },
+ "npcdrv:func_801b24c0": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "float pool label only; result var with 0 init fixed branches",
+   "pct": 100.0,
+   "ref": "f94bd1e"
+  },
+  "size": 180
+ },
  "npcdrv:func_801b3860": {
   "builds": 4,
   "cap": 4,
