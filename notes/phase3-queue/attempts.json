@@ -194,6 +194,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801c360c": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "assert string pool base reg only differs",
+   "pct": 95.97059,
+   "ref": "wip/func_801c360c 4e7450d"
+  },
+  "size": 136
+ },
  "npcdrv:func_801c37e4": {
   "builds": 2,
   "cap": 2,
