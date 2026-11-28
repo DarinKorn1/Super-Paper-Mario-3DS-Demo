@@ -1741,6 +1741,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801d02ac": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "hoisted table index before switch; only pool label diffs",
+   "pct": 100.0,
+   "ref": "65b1b37"
+  },
+  "size": 868
+ },
  "npcdrv:func_801d0610": {
   "builds": 1,
   "cap": 1,
