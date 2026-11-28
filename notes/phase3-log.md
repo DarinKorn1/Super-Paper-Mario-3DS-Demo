@@ -346,3 +346,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1192 | npcdrv.c | func_801bcc00 | medium | 140 | yes | 100 | 2 | 08baaa0 | simple; header prototype typed |
 | 1193 | npcdrv.c | func_801c24cc | medium | 140 | yes | 100 | 1 | 41f1018 | straightforward part list loop |
 | 1194 | npcdrv.c | func_801c3694 | medium | 140 | functionally complete | 99.14 | 5 | wip/func_801c3694 172d71c | inline find-by-name helper fixed structure; reg numbering only left |
+| 1195 | npcdrv.c | npcGetScript | medium | 140 | yes | 100 | 2 | 9a5876c | switch case order matters; jumptable label only diff |
