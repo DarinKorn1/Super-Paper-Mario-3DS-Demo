@@ -2261,6 +2261,19 @@
   },
   "size": 596
  },
+ "npcdrv:npcEntryFromSetupEnemy": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "struct copy staging/frame 0x30 too big, regs pressure not reproduced",
+   "pct": 72.59574,
+   "ref": "wip/npcEntryFromSetupEnemy 2350b07"
+  },
+  "size": 1128
+ },
  "npcdrv:npcFinishFlipInstant": {
   "builds": 1,
   "cap": 1,

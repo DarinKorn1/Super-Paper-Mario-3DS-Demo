@@ -451,3 +451,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1297 | npcdrv.c | func_801c8760 | large | 996 | incomplete | 96.02 | 8 | wip/func_801c8760 d8657f0 | branch/range-check structure and rate load order not matched; bool marioCheck3d ternary |
 | 1298 | npcdrv.c | func_801c45a4 | large | 1000 | incomplete | 96.12 | 8 | wip/func_801c45a4 db46028 | regs matched; cmd-lookup loop order and blt/b branch layout differ |
 | 1299 | npcdrv.c | func_801b5214 | large | 1120 | incomplete | 87.53 | 8 | wip/func_801b5214 f75fc5f | stack layout/frame 0x10 smaller than original; color temp slots and vec order not resolved |
+| 1300 | npcdrv.c | npcEntryFromSetupEnemy | large | 1128 | incomplete | 72.60 | 8 | wip/npcEntryFromSetupEnemy 2350b07 | struct copy staging/frame 0x30 too big, regs pressure not reproduced |
