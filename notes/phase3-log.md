@@ -379,3 +379,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1225 | npcdrv.c | func_801cf0a0 | medium | 204 | yes | 100 | 5 | 62a03d7 | needed inline helper with explicit r=0/1 branches |
 | 1226 | npcdrv.c | func_801b4fcc | medium | 212 | functionally complete | 99.43 | 3 | wip/func_801b4fcc 84ee4b1 | register numbering only; int copy of Vec3, pose-relative offsets |
 | 1227 | npcdrv.c | func_801bd4ac | medium | 216 | yes | 100 | 2 | ddad12a | only float pool label differs |
+| 1228 | npcdrv.c | func_801c8000 | medium | 216 | functionally complete | 98.80 | 3 | wip/func_801c8000 dc5e762 | register numbering only; a1 unnamed param |

@@ -623,6 +623,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801c8000": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only; a1 unnamed param",
+   "pct": 98.796295,
+   "ref": "wip/func_801c8000 dc5e762"
+  },
+  "size": 216
+ },
  "npcdrv:func_801c85e4": {
   "builds": 2,
   "cap": 2,
