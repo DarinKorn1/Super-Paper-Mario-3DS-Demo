@@ -1,0 +1,132 @@
+{
+ "npcdrv:func_801c0454": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ },
+ "npcdrv:func_801c213c": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 12
+ },
+ "npcdrv:func_801c3bb8": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 12
+ },
+ "npcdrv:func_801c85e4": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ },
+ "npcdrv:func_801c8d48": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 12
+ },
+ "npcdrv:func_801cccdc": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 4
+ },
+ "npcdrv:func_801cd82c": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ },
+ "npcdrv:func_801d23cc": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ },
+ "npcdrv:func_801d23d4": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ },
+ "npcdrv:npcGetWorkPtr": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile",
+   "pct": 100.0,
+   "ref": "bda0aa9"
+  },
+  "size": 8
+ }
+}

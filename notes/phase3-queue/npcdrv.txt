@@ -1,0 +1,145 @@
+1 tiny func_801cccdc:4 func_801c0454:8 func_801c85e4:8 func_801cd82c:8 func_801d23cc:8 func_801d23d4:8 npcGetWorkPtr:8 func_801c213c:12 func_801c3bb8:12 func_801c8d48:12
+2 tiny func_801ca198:12 func_801cab20:12 func_801cb268:12 func_801d1058:12 npcGetEntries:12 npcGetMaxEntries:12 npcGetNextTemplateNpcId:12 func_801c35fc:16 func_801c38a4:16 func_801c38b4:16
+3 tiny func_801c38c4:16 func_801c3a74:16 func_801c3ba8:16 func_801c7fe0:16 func_801c7ff0:16 func_801ca300:16 func_801d029c:16 func_801d1064:16 func_801d1074:16 func_801d1084:16
+4 tiny func_801d1094:16 func_801c3b6c:20 func_801c3b80:20 func_801c3b94:20 func_801d0610:20 npcFlag2On:20 npcGetTribe:20 npcSetAnim:20 func_801c01a8:24 func_801cab08:24
+5 tiny func_801cbf84:24 func_801c018c:28 func_801c01c0:28 func_801c8b7c:28 func_801c8d54:28 func_801cc134:28 func_801d0624:28 npcDisp:28 npcDisp_xlu:28 npcGetKillXp:28
+6 tiny func_801ca748:32 func_801cd3bc:32 npcPartDisp:32 npcPartDisp_xlu:32 func_801d0278:36 func_801ca2d8:40 func_801ca3b8:40 func_801ccb40:40 func_801ccf4c:40 func_801cd394:40
+7 tiny func_801cd3dc:40 func_801cd804:40 func_801d10a4:40 npcGetPartById:40 func_801cc0a0:44 npcFinishFlipInstant:44 func_801bfc14:52 func_801c3930:56 func_801c8b44:56 func_801d2304:56
+8 tiny func_801d25b8:60 npcSearchAnimDefs:60 func_801bf5cc:64
+9 small func_801ca150:72 func_801d2384:72 npcFreezeAll:72 npcIdToPtr:72 func_801be14c:76
+10 small func_801c2480:76 func_801cbf9c:76 func_801cc0cc:76 func_801b3860:80 func_801caab4:84
+11 small func_801a96a4:88 func_801d1b9c:88 func_801c3848:92 func_801c38d4:92 func_801b2460:96
+12 small npcCheckFlipFinished:96 func_801c37e4:100 func_801d2554:100 npcSfxOn:100 func_801ca3e0:104
+13 small func_801c99b0:116 func_801bf554:120 func_801c7f68:120 npcGetDefense:120 func_801c9874:124
+14 small func_801c2558:128
+15 medium func_801c360c:136
+16 medium func_801bcc00:140
+17 medium func_801c24cc:140
+18 medium func_801c3694:140
+19 medium npcGetScript:140
+20 medium func_801bd7dc:144
+21 medium npcNameToPtr_NoAssert:144
+22 medium func_801c98f0:148
+23 medium func_801ca1a4:148
+24 medium npcAreOnSpawnEvtsDone:148
+25 medium func_801bf60c:152
+26 medium npcDisp_offscreen:156
+27 medium npcDisp_offscreen_xlu:156
+28 medium func_801ca238:160
+29 medium func_801c9a24:164
+30 medium npcDisp_general:164
+31 medium npcPartDisp_general:164
+32 medium func_801c01dc:168
+33 medium func_801c23b0:168
+34 medium func_801ca310:168
+35 medium npcNameToPtr:168
+36 medium npcReset:172
+37 medium npcUpdateSetupFile:176
+38 medium func_801b24c0:180
+39 medium func_801cbfe8:184
+40 medium func_801d23dc:188
+41 medium func_801d2498:188
+42 medium npcInit:188
+43 medium func_801aabe4:192
+44 medium func_801aef10:192
+45 medium func_801c3720:196
+46 medium func_801b2574:204
+47 medium func_801b285c:204
+48 medium func_801c0284:204
+49 medium func_801cf0a0:204
+50 medium func_801b4fcc:212
+51 medium func_801bd4ac:216
+52 medium func_801c8000:216
+53 medium func_801c3cb4:224
+54 medium npcSetStayPose:228
+55 medium npcSetTalkPose:228
+56 medium func_801c3a84:232
+57 medium func_801cd124:236
+58 medium func_801cd5e8:236
+59 medium func_801c3bc4:240
+60 medium npcSetAnimSub:248
+61 medium func_801aada8:252
+62 medium func_801b5118:252
+63 medium func_801be6cc:252
+64 medium func_801bf6a4:252
+65 medium func_801d2208:252
+66 medium func_801aaca4:260
+67 medium func_801c3968:268
+68 medium func_801cc8d0:268
+69 medium func_801afefc:272
+70 medium func_801b0154:272
+71 medium func_801cd834:296
+72 medium func_801ccce0:304
+73 medium func_801cd6d4:304
+74 medium func_801cce10:316
+75 medium func_801b000c:328
+76 medium func_801adda4:332
+77 medium func_801d1424:348
+78 medium npcHandleHitXp:352
+79 medium func_801cc9dc:356
+80 medium func_801c498c:368
+81 medium func_801c85ec:372
+82 medium func_801ccb68:372
+83 medium func_801d10cc:372
+84 medium func_801cd210:388
+85 medium npcTryCatchCard:392
+86 medium func_801bcc8c:416
+87 medium func_801c8b98:432
+88 medium func_801ccf74:432
+89 medium func_801b0d10:452
+90 medium npcTimerDisp:464
+91 medium func_801b33a0:476
+92 medium npcTimerMain:476
+93 medium func_801bc7cc:480
+94 medium func_801d2028:480
+95 medium func_801cd404:484
+96 medium func_801d1240:484
+97 medium func_801ceeac:500
+98 medium func_801bc5d0:508
+99 medium func_801be7c8:508
+100 medium func_801b0264:540
+101 medium func_801b2640:540
+102 medium func_801cd95c:552
+103 medium _npcSetAnim:564
+104 medium npcDropFromCatch:596
+105 medium func_801bd584:600
+106 medium npcAddPart:616
+107 medium npcUpdateSetupFile1To2:640
+108 large func_801cc644:652
+109 large func_801d1d7c:684
+110 large npcDispSub:740
+111 large func_801ca448:768
+112 large npcUpdateSetupFile0To1:788
+113 large npcReadSetupFile:800
+114 large func_801bde20:812
+115 large func_801bb6fc:832
+116 large func_801ca768:844
+117 large func_801d02ac:868
+118 large npcDelete:872
+119 large func_801b20dc:900
+120 large func_801ceb08:932
+121 large func_801c8760:996
+122 large func_801c45a4:1000
+123 large func_801b5214:1120
+124 large npcEntryFromSetupEnemy:1128
+125 large func_801b8064:1136
+126 large npcUpdateSetupFile2To3:1180
+127 large npcEntryFromTemplate:1184
+128 large npcUpdateSetupFile4To5:1196
+129 large func_801cb274:1248
+130 large func_801cc150:1268
+131 large npcUpdateSetupFile3To4:1284
+132 large func_801be9c4:1296
+133 large npcUpdateSetupFile5To6:1304
+134 large func_801aefd0:1324
+135 large func_801c3050:1452
+136 large func_801bd86c:1460
+137 large func_801d1580:1564
+138 large func_801b7a20:1604
+139 large func_801c4afc:1604
+140 large func_801b73cc:1620
+141 large func_801c9ae4:1644
+142 large func_801bce2c:1664
+143 large func_801beed4:1664
+144 large func_801b19e4:1784
+145 large func_801cab2c:1852

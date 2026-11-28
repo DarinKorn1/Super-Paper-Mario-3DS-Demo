@@ -219,3 +219,37 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1065 | mario_status.c | func_8015dd4c | large | 1956 | yes | 100 | 4 | 3f21d93 | ghost shroom status main; fmadds operand order fixed via split temp; pool label only |
 | 1066 | mario_status.c | func_8015a2f4 | large | 1964 | incomplete | 86.26 | 8 | wip/func_8015a2f4 9c78f18 | 4 of 8 builds lost to compile errors; reg allocation and 0.0 const handling differ; Vec3 brace init + by-value ray helper fixed frame size |
 | 1067 | mario_status.c | func_8016b0f4 | large | 2028 | functional | 98.2 | 8 | wip/func_8016b0f4 | switch state machine; fixed inlining of func_8016a804 via dont_inline; left: float load/reg numbering in frame calc, store order |
+| 1068 | npcdrv.c | npcMain | huge | 4972 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1069 | npcdrv.c | npcHitMain | huge | 8628 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1070 | npcdrv.c | func_801ad058 | huge | 3404 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1071 | npcdrv.c | npcDispMain | huge | 4128 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1072 | npcdrv.c | func_801af4fc | huge | 2560 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1073 | npcdrv.c | func_801b0480 | huge | 2192 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1074 | npcdrv.c | func_801b0ed4 | huge | 2832 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1075 | npcdrv.c | func_801b2928 | huge | 2680 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1076 | npcdrv.c | mtx_setup | huge | 3172 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1077 | npcdrv.c | func_801b4514 | huge | 2744 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1078 | npcdrv.c | npcHitboxDisp | huge | 2876 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1079 | npcdrv.c | npcEntry | huge | 2740 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1080 | npcdrv.c | func_801b84d4 | huge | 7248 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1081 | npcdrv.c | func_801ba124 | huge | 5592 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1082 | npcdrv.c | func_801bba3c | huge | 2964 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1083 | npcdrv.c | func_801c25d8 | huge | 2680 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1084 | npcdrv.c | func_801c3d94 | huge | 2064 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1085 | npcdrv.c | func_801c5140 | huge | 5288 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1086 | npcdrv.c | func_801c65e8 | huge | 6528 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1087 | npcdrv.c | func_801c8d70 | huge | 2724 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1088 | npcdrv.c | func_801cb754 | huge | 2096 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1089 | npcdrv.c | func_801cdb84 | huge | 3972 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1090 | npcdrv.c | func_801cf16c | huge | 4364 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1091 | npcdrv.c | func_801d0640 | huge | 2584 | deferred | - | 0 | - | huge (over 2,044 B): stub left |
+| 1092 | npcdrv.c | func_801c0454 | tiny | 8 | yes | 100 | 3 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1093 | npcdrv.c | func_801c213c | tiny | 12 | yes | 100 | 3 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1094 | npcdrv.c | func_801c3bb8 | tiny | 12 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1095 | npcdrv.c | func_801c85e4 | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1096 | npcdrv.c | func_801c8d48 | tiny | 12 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1097 | npcdrv.c | func_801cccdc | tiny | 4 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1098 | npcdrv.c | func_801cd82c | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1099 | npcdrv.c | func_801d23cc | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1100 | npcdrv.c | func_801d23d4 | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |
+| 1101 | npcdrv.c | npcGetWorkPtr | tiny | 8 | yes | 100 | 2 | bda0aa9 | batch edited together (finish.py committed all 10 at once, measured 100% each); one wasted build each before first compile |

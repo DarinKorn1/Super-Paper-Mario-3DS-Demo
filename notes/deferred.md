@@ -18,6 +18,30 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_800d6674 | evt_sub.c | 3628 | huge, left out of the Antigravity queue 2026-11-25 |
 | evt_eff | evt_eff.c | 2444 | huge, left out of the Antigravity queue 2026-11-25 |
 | func_800e9178 | evt_frame.c | 2620 | huge, left out of the Antigravity queue 2026-11-25 |
+| npcMain | npcdrv.c | 4972 | huge (over 2,044 B): stub left |
+| npcHitMain | npcdrv.c | 8628 | huge (over 2,044 B): stub left |
+| func_801ad058 | npcdrv.c | 3404 | huge (over 2,044 B): stub left |
+| npcDispMain | npcdrv.c | 4128 | huge (over 2,044 B): stub left |
+| func_801af4fc | npcdrv.c | 2560 | huge (over 2,044 B): stub left |
+| func_801b0480 | npcdrv.c | 2192 | huge (over 2,044 B): stub left |
+| func_801b0ed4 | npcdrv.c | 2832 | huge (over 2,044 B): stub left |
+| func_801b2928 | npcdrv.c | 2680 | huge (over 2,044 B): stub left |
+| mtx_setup | npcdrv.c | 3172 | huge (over 2,044 B): stub left |
+| func_801b4514 | npcdrv.c | 2744 | huge (over 2,044 B): stub left |
+| npcHitboxDisp | npcdrv.c | 2876 | huge (over 2,044 B): stub left |
+| npcEntry | npcdrv.c | 2740 | huge (over 2,044 B): stub left |
+| func_801b84d4 | npcdrv.c | 7248 | huge (over 2,044 B): stub left |
+| func_801ba124 | npcdrv.c | 5592 | huge (over 2,044 B): stub left |
+| func_801bba3c | npcdrv.c | 2964 | huge (over 2,044 B): stub left |
+| func_801c25d8 | npcdrv.c | 2680 | huge (over 2,044 B): stub left |
+| func_801c3d94 | npcdrv.c | 2064 | huge (over 2,044 B): stub left |
+| func_801c5140 | npcdrv.c | 5288 | huge (over 2,044 B): stub left |
+| func_801c65e8 | npcdrv.c | 6528 | huge (over 2,044 B): stub left |
+| func_801c8d70 | npcdrv.c | 2724 | huge (over 2,044 B): stub left |
+| func_801cb754 | npcdrv.c | 2096 | huge (over 2,044 B): stub left |
+| func_801cdb84 | npcdrv.c | 3972 | huge (over 2,044 B): stub left |
+| func_801cf16c | npcdrv.c | 4364 | huge (over 2,044 B): stub left |
+| func_801d0640 | npcdrv.c | 2584 | huge (over 2,044 B): stub left |
 <!-- huge-end -->
 
 ## Cleanup retries (candidates for a strongest-model retry later)
