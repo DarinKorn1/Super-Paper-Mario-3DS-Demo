@@ -37,6 +37,9 @@ def official(unit, fn):
     return None
 
 
+give_up = '--give-up' in sys.argv
+if give_up:
+    sys.argv.remove('--give-up')
 if len(sys.argv) != 4:
     sys.exit(__doc__)
 unit, fn, note = sys.argv[1][:-2] if sys.argv[1].endswith('.c') else sys.argv[1], sys.argv[2], sys.argv[3]
@@ -51,6 +54,10 @@ if rec.get('result'):
 if rec.get('last') == 'build failed' and rec['builds'] < rec['cap']:
     sys.exit(f'REFUSED: the last build of {fn} failed to compile and {rec["cap"] - rec["builds"]} builds are left: '
              f'fix the error and build again with build.py (or put the stub back if you cannot)')
+if rec.get('last') not in ('no differing lines',) and not rec.get('good_enough') and rec['builds'] < rec['cap'] \
+        and not give_up:
+    sys.exit(f'REFUSED: {fn} still differs and {rec["cap"] - rec["builds"]} builds are left: keep trying with build.py '
+             f'(only if no idea is left at all, add --give-up as the last argument)')
 pat = r'^// NOT_DECOMPILED (\S+)'
 src_now = (dec / f'src/{unit}.c').read_text(encoding='utf-8', errors='replace')
 others = sorted(set(re.findall(pat, git('show', f'HEAD:src/{unit}.c'), re.M)) - set(re.findall(pat, src_now, re.M)) - {fn})
@@ -86,6 +93,8 @@ if changed:
         git('switch', '-q', 'master')
         if not pushed:
             ref += ' (push failed)'
+if give_up:
+    note = f'gave up at {rec["builds"]}/{rec["cap"]}: {note}'
 rec['result'] = {'pct': pct, 'ref': ref, 'note': note, 'logged': False}
 rec['cap'] = rec['builds']
 data[f'{unit}:{fn}'] = rec

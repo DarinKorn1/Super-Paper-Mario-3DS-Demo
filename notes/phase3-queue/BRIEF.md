@@ -18,7 +18,7 @@ Tools: `T=/c/Users/ender/SPM_N3DS_XL/notes/tools`, repo `/c/Users/ender/SPM_N3DS
 - Source `src/<file>.c` (stubs are `// NOT_DECOMPILED <name>`), headers `spm-headers/include/spm/`, original asm
   `build/EU0/asm/<file>.s` (Grep `\.fn <name>` and read only those lines). `src/mario*.c` may mix CRLF/LF: verify edits.
 - A failed compile is not a stop: fix it and build again (it still counts). finish.py is final for that function.
-- Below 100% and not GOOD-ENOUGH: keep trying until `CAP REACHED`. If a header signature change breaks other callers,
+- Below 100% and not GOOD-ENOUGH: keep trying until `CAP REACHED` (finish.py refuses earlier; `--give-up` only if truly out of ideas, it is logged). If a header signature change breaks other callers,
   keep the header and cast at the definition.
 - Float constants: the % ignores pool values, so look up each float the original loads (Grep its label in
   `build/EU0/asm/<file>.s`, .sdata2/.rodata) and use that exact value.
