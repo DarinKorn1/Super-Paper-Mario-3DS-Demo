@@ -337,6 +337,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801be7c8": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "be14c inline expansion and r3/r4 for flag10 differed; header prototype changed",
+   "pct": 92.40157,
+   "ref": "wip/func_801be7c8 7a1067f"
+  },
+  "size": 508
+ },
  "npcdrv:func_801bf554": {
   "builds": 2,
   "cap": 2,
