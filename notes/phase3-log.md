@@ -331,3 +331,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1177 | npcdrv.c | func_801c3848 | small | 92 | yes | 100 | 2 | b7235ec | i declared before npc |
 | 1178 | npcdrv.c | func_801c38d4 | small | 92 | yes | 100 | 1 | 40c7b46 | straightforward |
 | 1179 | npcdrv.c | func_801d1b9c | small | 88 | yes | 100 | 1 | 0cfa7aa | easy |
+| 1180 | npcdrv.c | func_801c37e4 | small | 100 | yes | 100 | 2 | 4de1252 | u32 read of flags |
+| 1181 | npcdrv.c | func_801ca3e0 | small | 104 | yes | 100 | 2 | 6a14637 | decl order |
+| 1182 | npcdrv.c | func_801d2554 | small | 100 | yes | 100 | 1 | 966edd3 | simple |
+| 1183 | npcdrv.c | npcCheckFlipFinished | small | 96 | yes | 100 | 1 | b810bac | simple |
+| 1184 | npcdrv.c | npcSfxOn | small | 100 | yes | 100 | 1 | 79f03dc | header ret s32 |
