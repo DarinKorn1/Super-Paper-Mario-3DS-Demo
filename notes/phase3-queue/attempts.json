@@ -2053,6 +2053,19 @@
   },
   "size": 348
  },
+ "npcdrv:func_801d1580": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "stack layout: query at 0x78 vs orig 0x74, insn order diffs; 129 diff lines",
+   "pct": 90.074165,
+   "ref": "wip/func_801d1580 363bd2e"
+  },
+  "size": 1564
+ },
  "npcdrv:func_801d1b9c": {
   "builds": 1,
   "cap": 1,

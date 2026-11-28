@@ -464,3 +464,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1310 | npcdrv.c | func_801aefd0 | large | 1324 | yes | 100 | 3 | 4d710b4 | overlay struct; sfx call before state stores; last fix (struct size pad 0x748) unbuilt |
 | 1311 | npcdrv.c | func_801c3050 | large | 1452 | incomplete | 91.35 | 8 | wip/func_801c3050 cf7b8fc | frame size fixed via c=a copy; remaining: pose pointer kept in r26 (&part->animPoseId, vec at r26+0x138), flag2c reg, fp scheduling |
 | 1312 | npcdrv.c | func_801bd86c | large | 1460 | incomplete | 77.39 | 8 | wip/func_801bd86c 760876b | register numbering/FPR allocation and 6 extra lines unresolved; logic reconstructed |
+| 1313 | npcdrv.c | func_801d1580 | large | 1564 | incomplete | 90.07 | 8 | wip/func_801d1580 363bd2e | stack layout: query at 0x78 vs orig 0x74, insn order diffs; 129 diff lines |
