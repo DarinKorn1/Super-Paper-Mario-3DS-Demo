@@ -1169,6 +1169,19 @@
   },
   "size": 28
  },
+ "npcdrv:npcDisp_offscreen": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "needed header prototype, raw offsets",
+   "pct": 100.0,
+   "ref": "4b66aa7"
+  },
+  "size": 156
+ },
  "npcdrv:npcDisp_xlu": {
   "builds": 1,
   "cap": 1,
