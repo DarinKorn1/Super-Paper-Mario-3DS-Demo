@@ -1286,6 +1286,19 @@
   },
   "size": 236
  },
+ "npcdrv:func_801cd6d4": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "dead Vec3 stack stores, frame size and reg order unmatched",
+   "pct": 96.10526,
+   "ref": "wip/func_801cd6d4 7ce0660"
+  },
+  "size": 304
+ },
  "npcdrv:func_801cd804": {
   "builds": 1,
   "cap": 1,

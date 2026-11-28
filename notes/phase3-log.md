@@ -400,3 +400,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1246 | npcdrv.c | func_801b0154 | medium | 272 | yes | 100 | 3 | d15ee84 | only sda label name differs |
 | 1247 | npcdrv.c | func_801cd834 | medium | 296 | yes | 100 | 3 | ad2334d | pool labels only |
 | 1248 | npcdrv.c | func_801ccce0 | medium | 304 | incomplete | 81.50 | 5 | wip/func_801ccce0 4057d0b | gave up at 5/6: frame too large, Vec3 locals/stack layout not matched |
+| 1249 | npcdrv.c | func_801cd6d4 | medium | 304 | incomplete | 96.11 | 6 | wip/func_801cd6d4 7ce0660 | dead Vec3 stack stores, frame size and reg order unmatched |
