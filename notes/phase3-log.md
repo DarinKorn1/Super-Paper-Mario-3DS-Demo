@@ -381,3 +381,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1227 | npcdrv.c | func_801bd4ac | medium | 216 | yes | 100 | 2 | ddad12a | only float pool label differs |
 | 1228 | npcdrv.c | func_801c8000 | medium | 216 | functionally complete | 98.80 | 3 | wip/func_801c8000 dc5e762 | register numbering only; a1 unnamed param |
 | 1229 | npcdrv.c | func_801c3cb4 | medium | 224 | yes | 100 | 3 | 16b62ef | id at +4 raw s32, init order of locals |
+| 1230 | npcdrv.c | npcSetStayPose | medium | 228 | yes | 100 | 1 | 848c70f | inlined npcNameToPtr_NoAssert, first try |
