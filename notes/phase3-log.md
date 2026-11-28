@@ -390,3 +390,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1236 | npcdrv.c | npcSetAnimSub | medium | 248 | yes | 100 | 3 | f0d9240 | locals order result,part,mask,p |
 | 1237 | npcdrv.c | func_801aada8 | medium | 252 | incomplete | 97.62 | 6 | wip/func_801aada8 8224840 | gravity branch layout and float compare order not matched |
 | 1238 | npcdrv.c | func_801b5118 | medium | 252 | yes | 100 | 3 | a0962bf | pool labels only; header prototype changed |
+| 1239 | npcdrv.c | func_801be6cc | medium | 252 | yes | 100 | 3 | 009559c | only symbol-name diff |

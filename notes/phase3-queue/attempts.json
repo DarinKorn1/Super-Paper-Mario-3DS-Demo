@@ -194,6 +194,19 @@
   },
   "size": 76
  },
+ "npcdrv:func_801be6cc": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "only symbol-name diff",
+   "pct": 100.0,
+   "ref": "009559c"
+  },
+  "size": 252
+ },
  "npcdrv:func_801bf554": {
   "builds": 2,
   "cap": 2,
