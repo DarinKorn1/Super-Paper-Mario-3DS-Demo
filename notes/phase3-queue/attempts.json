@@ -428,6 +428,19 @@
   },
   "size": 144
  },
+ "npcdrv:func_801bd86c": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "register numbering/FPR allocation and 6 extra lines unresolved; logic reconstructed",
+   "pct": 77.38904,
+   "ref": "wip/func_801bd86c 760876b"
+  },
+  "size": 1460
+ },
  "npcdrv:func_801bde20": {
   "builds": 8,
   "cap": 8,
