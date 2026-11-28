@@ -95,4 +95,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | npcDisp_general | npcdrv.c | 164 | 89.76%, wip/npcDisp_general 85e1669 |
 | func_801ca310 | npcdrv.c | 168 | 64.14%, wip/func_801ca310 518fe45 |
 | npcNameToPtr | npcdrv.c | 168 | 94.00%, wip/npcNameToPtr 81eaf82 |
+| npcUpdateSetupFile | npcdrv.c | 176 | 97.50%, wip/npcUpdateSetupFile c927965 |
 <!-- retry-end -->

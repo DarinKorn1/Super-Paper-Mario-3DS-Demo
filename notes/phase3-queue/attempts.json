@@ -1571,5 +1571,18 @@
    "ref": "79f03dc"
   },
   "size": 100
+ },
+ "npcdrv:npcUpdateSetupFile": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "table copy inside loop matched; branch layout of pre-check ==6 not reproduced",
+   "pct": 97.5,
+   "ref": "wip/npcUpdateSetupFile c927965"
+  },
+  "size": 176
  }
 }
