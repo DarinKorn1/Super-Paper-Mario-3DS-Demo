@@ -2183,6 +2183,19 @@
   },
   "size": 100
  },
+ "npcdrv:npcTryCatchCard": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "inline find helper, local order for stack slots; only r8 vs r4 for id",
+   "pct": 99.89796,
+   "ref": "wip/npcTryCatchCard c71e297"
+  },
+  "size": 392
+ },
  "npcdrv:npcUpdateSetupFile": {
   "builds": 6,
   "cap": 6,
