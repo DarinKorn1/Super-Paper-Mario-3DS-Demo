@@ -1845,6 +1845,19 @@
   },
   "size": 88
  },
+ "npcdrv:func_801d1d7c": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "switch jumptable label only differs; header signature fixed",
+   "pct": 100.0,
+   "ref": "50e85a0"
+  },
+  "size": 684
+ },
  "npcdrv:func_801d2028": {
   "builds": 5,
   "cap": 5,

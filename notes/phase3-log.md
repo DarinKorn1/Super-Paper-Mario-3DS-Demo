@@ -436,3 +436,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1282 | npcdrv.c | npcAddPart | medium | 616 | incomplete | 79.75 | 6 | wip/npcAddPart 0a52a80 | color/Vec3 stack temps hard to reproduce; frame size mismatch |
 | 1283 | npcdrv.c | npcUpdateSetupFile1To2 | medium | 640 | incomplete | 49.21 | 6 | wip/npcUpdateSetupFile1To2 8507dc2 | struct copy loop emitted as 8-byte/iter not 0x70/iter; could not find source form |
 | 1284 | npcdrv.c | func_801cc644 | large | 652 | incomplete | 97.29 | 8 | wip/func_801cc644 41c1c7d | dead Vec3 temp stores and 0.5 mul operand order not matched |
+| 1285 | npcdrv.c | func_801d1d7c | large | 684 | yes | 100 | 3 | 50e85a0 | switch jumptable label only differs; header signature fixed |
