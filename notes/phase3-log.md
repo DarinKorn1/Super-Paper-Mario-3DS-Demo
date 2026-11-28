@@ -316,3 +316,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1162 | npcdrv.c | func_801bf5cc | tiny | 64 | yes | 100 | 1 | 167c3eb | label-only diff |
 | 1163 | npcdrv.c | func_801d25b8 | tiny | 60 | incomplete | 92.67 | 4 | wip/func_801d25b8 3a80850 | branch layout (beq/b) not reproduced |
 | 1164 | npcdrv.c | npcSearchAnimDefs | tiny | 60 | yes | 100 | 1 | 009ea23 | straightforward |
+| 1165 | npcdrv.c | func_801be14c | small | 76 | yes | 100 | 4 | 1adce6d | mask 0x80000 |
+| 1166 | npcdrv.c | func_801ca150 | small | 72 | yes | 100 | 1 | 632b7c9 | same as npcIdToPtr |
+| 1167 | npcdrv.c | func_801d2384 | small | 72 | yes | 100 | 1 | f56f65e | ok |
+| 1168 | npcdrv.c | npcFreezeAll | small | 72 | yes | 100 | 1 | c166916 | ok |
+| 1169 | npcdrv.c | npcIdToPtr | small | 72 | yes | 100 | 1 | 17b24f2 | simple loop |

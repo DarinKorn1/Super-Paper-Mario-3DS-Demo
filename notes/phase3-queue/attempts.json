@@ -1,4 +1,17 @@
 {
+ "npcdrv:func_801be14c": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "mask 0x80000",
+   "pct": 100.0,
+   "ref": "1adce6d"
+  },
+  "size": 76
+ },
  "npcdrv:func_801bf5cc": {
   "builds": 1,
   "cap": 1,
@@ -323,6 +336,19 @@
    "ref": "wip/func_801c8d54 2d8596d"
   },
   "size": 28
+ },
+ "npcdrv:func_801ca150": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "same as npcIdToPtr",
+   "pct": 100.0,
+   "ref": "632b7c9"
+  },
+  "size": 72
  },
  "npcdrv:func_801ca198": {
   "builds": 1,
@@ -714,6 +740,19 @@
   },
   "size": 56
  },
+ "npcdrv:func_801d2384": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "f56f65e"
+  },
+  "size": 72
+ },
  "npcdrv:func_801d23cc": {
   "builds": 2,
   "cap": 2,
@@ -805,6 +844,19 @@
   },
   "size": 20
  },
+ "npcdrv:npcFreezeAll": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "c166916"
+  },
+  "size": 72
+ },
  "npcdrv:npcGetEntries": {
   "builds": 1,
   "cap": 1,
@@ -895,6 +947,19 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:npcIdToPtr": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "simple loop",
+   "pct": 100.0,
+   "ref": "17b24f2"
+  },
+  "size": 72
  },
  "npcdrv:npcPartDisp": {
   "builds": 2,
