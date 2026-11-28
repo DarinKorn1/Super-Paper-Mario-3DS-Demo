@@ -2781,6 +2781,19 @@
   },
   "size": 1180
  },
+ "npcdrv:npcUpdateSetupFile3To4": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "struct-copy unroll style from 4To5; tail 4-entry copy and r7/r8 scheduling off",
+   "pct": 78.81931,
+   "ref": "wip/npcUpdateSetupFile3To4 24b0ef2"
+  },
+  "size": 1284
+ },
  "npcdrv:npcUpdateSetupFile4To5": {
   "builds": 8,
   "cap": 8,
