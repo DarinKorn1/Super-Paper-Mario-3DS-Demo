@@ -387,3 +387,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1233 | npcdrv.c | func_801cd124 | medium | 236 | incomplete | 79.19 | 6 | wip/func_801cd124 8ba0695 | scheduling/reg alloc of 0.35 const and old value differ; header changed to NPCEntry* sig |
 | 1234 | npcdrv.c | func_801cd5e8 | medium | 236 | incomplete | 96.86 | 3 | wip/func_801cd5e8 4fddd86 | only register numbering diffs; header changed to real prototype |
 | 1235 | npcdrv.c | func_801c3bc4 | medium | 240 | incomplete | 94.25 | 6 | wip/func_801c3bc4 a4c166d | npc+0x5c arg hoisted by MWCC, extra reg |
+| 1236 | npcdrv.c | npcSetAnimSub | medium | 248 | yes | 100 | 3 | f0d9240 | locals order result,part,mask,p |

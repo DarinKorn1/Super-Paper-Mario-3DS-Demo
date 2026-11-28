@@ -1819,6 +1819,19 @@
   },
   "size": 20
  },
+ "npcdrv:npcSetAnimSub": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "locals order result,part,mask,p",
+   "pct": 100.0,
+   "ref": "f0d9240"
+  },
+  "size": 248
+ },
  "npcdrv:npcSetStayPose": {
   "builds": 1,
   "cap": 1,
