@@ -372,3 +372,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1218 | npcdrv.c | npcInit | medium | 188 | yes | 100 | 1 | ab5f928 | straightforward |
 | 1219 | npcdrv.c | func_801aabe4 | medium | 192 | incomplete | 97.92 | 5 | wip/func_801aabe4 e3794d7 | only redundant bne after beq differs; tried else-if, switch |
 | 1220 | npcdrv.c | func_801aef10 | medium | 192 | yes | 100 | 4 | 083ae99 | needed NPC overlay struct with name field so strcmp arg is not hoisted |
+| 1221 | npcdrv.c | func_801c3720 | medium | 196 | incomplete | 94.96 | 4 | wip/func_801c3720 6cf1a18 | regs fixed by decl order; only bne+b branch shape and string pool differ |
