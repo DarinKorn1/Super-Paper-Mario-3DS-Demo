@@ -1130,6 +1130,19 @@
   },
   "size": 28
  },
+ "npcdrv:func_801cc8d0": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "pool-only diffs; header proto changed to take NPCEntry*",
+   "pct": 100.0,
+   "ref": "366872a"
+  },
+  "size": 268
+ },
  "npcdrv:func_801ccb40": {
   "builds": 4,
   "cap": 4,
