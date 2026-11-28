@@ -25,6 +25,19 @@
   },
   "size": 192
  },
+ "npcdrv:func_801aada8": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gravity branch layout and float compare order not matched",
+   "pct": 97.61905,
+   "ref": "wip/func_801aada8 8224840"
+  },
+  "size": 252
+ },
  "npcdrv:func_801aef10": {
   "builds": 4,
   "cap": 4,
