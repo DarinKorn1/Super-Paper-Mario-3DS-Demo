@@ -467,6 +467,19 @@
   },
   "size": 508
  },
+ "npcdrv:func_801be9c4": {
+  "builds": 7,
+  "cap": 7,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 7/8: large; close structurally. Left: frame 0x10 short (orig has dead f32 stack stores at 0x10/0x20 around Vec3 at 0x14; used volatile locals), fmadd fusion on npc.y+h*scale, fmuls operand order/0.5 double reg",
+   "pct": 97.04012,
+   "ref": "wip/func_801be9c4 53eabb8"
+  },
+  "size": 1296
+ },
  "npcdrv:func_801bf554": {
   "builds": 2,
   "cap": 2,

@@ -147,4 +147,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_801cb274 | npcdrv.c | 1248 | 79.31%, wip/func_801cb274 b6128dc |
 | func_801cc150 | npcdrv.c | 1268 | 92.59%, wip/func_801cc150 d5b29d4 |
 | npcUpdateSetupFile3To4 | npcdrv.c | 1284 | 78.82%, wip/npcUpdateSetupFile3To4 24b0ef2 |
+| func_801be9c4 | npcdrv.c | 1296 | 97.04%, wip/func_801be9c4 53eabb8 |
 <!-- retry-end -->
