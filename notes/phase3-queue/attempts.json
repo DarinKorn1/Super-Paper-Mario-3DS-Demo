@@ -116,6 +116,19 @@
   },
   "size": 272
  },
+ "npcdrv:func_801b0d10": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "vec3 decl order a1,a2,b1,b2; header prototypes",
+   "pct": 100.0,
+   "ref": "cfb2a64"
+  },
+  "size": 452
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,
