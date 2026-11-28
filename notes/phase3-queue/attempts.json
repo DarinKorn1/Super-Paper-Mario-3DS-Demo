@@ -623,6 +623,19 @@
   },
   "size": 148
  },
+ "npcdrv:func_801ca238": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "mirror of func_801ca1a4 with poseId checks, clear flag",
+   "pct": 100.0,
+   "ref": "20966e3"
+  },
+  "size": 160
+ },
  "npcdrv:func_801ca2d8": {
   "builds": 1,
   "cap": 1,

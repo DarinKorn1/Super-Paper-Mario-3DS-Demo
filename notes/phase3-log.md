@@ -355,3 +355,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1201 | npcdrv.c | func_801bf60c | medium | 152 | yes | 100 | 1 | 6128852 | easy; 0.5/1.0 clamps |
 | 1202 | npcdrv.c | npcDisp_offscreen | medium | 156 | yes | 100 | 3 | 4b66aa7 | needed header prototype, raw offsets |
 | 1203 | npcdrv.c | npcDisp_offscreen_xlu | medium | 156 | yes | 100 | 1 | f6f06e4 | copy of npcDisp_offscreen with flag 1 |
+| 1204 | npcdrv.c | func_801ca238 | medium | 160 | yes | 100 | 1 | 20966e3 | mirror of func_801ca1a4 with poseId checks, clear flag |
