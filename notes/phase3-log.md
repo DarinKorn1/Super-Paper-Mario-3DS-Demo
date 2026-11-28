@@ -263,3 +263,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1109 | npcdrv.c | npcGetEntries | tiny | 12 | yes | 100 | 1 | f96f1ca | x |
 | 1110 | npcdrv.c | npcGetMaxEntries | tiny | 12 | yes | 100 | 1 | b42e85b | x |
 | 1111 | npcdrv.c | npcGetNextTemplateNpcId | tiny | 12 | yes | 100 | 1 | aac5e98 | wp label |
+| 1112 | npcdrv.c | func_801c38c4 | tiny | 16 | yes | 100 | 2 | ad66a9f | header type needed |
+| 1113 | npcdrv.c | func_801c3a74 | tiny | 16 | yes | 100 | 1 | e7da43d | trivial |
+| 1114 | npcdrv.c | func_801c3ba8 | tiny | 16 | yes | 100 | 1 | 746c434 | trivial |
+| 1115 | npcdrv.c | func_801c7fe0 | tiny | 16 | yes | 100 | 1 | 35027a9 | trivial |
+| 1116 | npcdrv.c | func_801c7ff0 | tiny | 16 | yes | 100 | 1 | c5211e6 | trivial |
+| 1117 | npcdrv.c | func_801ca300 | tiny | 16 | yes | 100 | 1 | fbfbc90 | trivial |
+| 1118 | npcdrv.c | func_801d029c | tiny | 16 | yes | 100 | 1 | 6d75271 | trivial |
+| 1119 | npcdrv.c | func_801d1064 | tiny | 16 | yes | 100 | 1 | 38faa79 | trivial |
+| 1120 | npcdrv.c | func_801d1074 | tiny | 16 | yes | 100 | 1 | b99a036 | trivial |
+| 1121 | npcdrv.c | func_801d1084 | tiny | 16 | yes | 100 | 1 | 46e4685 | trivial |
