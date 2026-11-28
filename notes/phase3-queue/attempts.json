@@ -1299,6 +1299,19 @@
   },
   "size": 72
  },
+ "npcdrv:npcNameToPtr_NoAssert": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "load order fixed via decl order; only sda label differs",
+   "pct": 100.0,
+   "ref": "8c53462"
+  },
+  "size": 144
+ },
  "npcdrv:npcPartDisp": {
   "builds": 2,
   "cap": 2,
