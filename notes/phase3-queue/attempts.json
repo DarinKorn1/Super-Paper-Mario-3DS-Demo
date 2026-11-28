@@ -51,6 +51,19 @@
   },
   "size": 76
  },
+ "npcdrv:func_801bf554": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy; header signature fixed",
+   "pct": 100.0,
+   "ref": "4c08077"
+  },
+  "size": 120
+ },
  "npcdrv:func_801bf5cc": {
   "builds": 1,
   "cap": 1,
@@ -337,6 +350,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801c7f68": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy; header signature fixed",
+   "pct": 100.0,
+   "ref": "6ac2a90"
+  },
+  "size": 120
+ },
  "npcdrv:func_801c7fe0": {
   "builds": 1,
   "cap": 1,
@@ -427,6 +453,32 @@
    "ref": "wip/func_801c8d54 2d8596d"
   },
   "size": 28
+ },
+ "npcdrv:func_801c9874": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "092fa94"
+  },
+  "size": 124
+ },
+ "npcdrv:func_801c99b0": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "branch layout (bne;b) and fabs reg not matched; tried nested/do-while/goto",
+   "pct": null,
+   "ref": "wip/func_801c99b0 fc58a1e"
+  },
+  "size": 116
  },
  "npcdrv:func_801ca150": {
   "builds": 1,
@@ -1038,6 +1090,19 @@
    "ref": "c166916"
   },
   "size": 72
+ },
+ "npcdrv:npcGetDefense": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "assert2 tail call b vs bl, frame saved regs; needs else-structure",
+   "pct": 31.066668,
+   "ref": "wip/npcGetDefense 4fcc8f1"
+  },
+  "size": 120
  },
  "npcdrv:npcGetEntries": {
   "builds": 1,

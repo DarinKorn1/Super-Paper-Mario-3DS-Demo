@@ -336,3 +336,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1182 | npcdrv.c | func_801d2554 | small | 100 | yes | 100 | 1 | 966edd3 | simple |
 | 1183 | npcdrv.c | npcCheckFlipFinished | small | 96 | yes | 100 | 1 | b810bac | simple |
 | 1184 | npcdrv.c | npcSfxOn | small | 100 | yes | 100 | 1 | 79f03dc | header ret s32 |
+| 1185 | npcdrv.c | func_801bf554 | small | 120 | yes | 100 | 2 | 4c08077 | easy; header signature fixed |
+| 1186 | npcdrv.c | func_801c7f68 | small | 120 | yes | 100 | 1 | 6ac2a90 | easy; header signature fixed |
+| 1187 | npcdrv.c | func_801c9874 | small | 124 | yes | 100 | 1 | 092fa94 | easy |
+| 1188 | npcdrv.c | func_801c99b0 | small | 116 | incomplete | - | 4 | wip/func_801c99b0 fc58a1e | branch layout (bne;b) and fabs reg not matched; tried nested/do-while/goto |
+| 1189 | npcdrv.c | npcGetDefense | small | 120 | incomplete | 31.07 | 4 | wip/npcGetDefense 4fcc8f1 | assert2 tail call b vs bl, frame saved regs; needs else-structure |
