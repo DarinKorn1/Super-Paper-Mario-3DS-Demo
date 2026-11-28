@@ -2092,6 +2092,19 @@
   },
   "size": 96
  },
+ "npcdrv:npcDelete": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "wip form; wp/num register swap r27/r28 in inlined name lookup unresolved",
+   "pct": null,
+   "ref": "wip/npcDelete-2 2c22e48"
+  },
+  "size": 872
+ },
  "npcdrv:npcDisp": {
   "builds": 4,
   "cap": 4,
