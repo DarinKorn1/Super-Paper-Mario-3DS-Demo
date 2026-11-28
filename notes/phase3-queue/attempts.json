@@ -285,6 +285,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801ca2d8": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "f8723da"
+  },
+  "size": 40
+ },
  "npcdrv:func_801ca300": {
   "builds": 1,
   "cap": 1,
@@ -297,6 +310,32 @@
    "ref": "fbfbc90"
   },
   "size": 16
+ },
+ "npcdrv:func_801ca3b8": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "7a98367"
+  },
+  "size": 40
+ },
+ "npcdrv:func_801ca748": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "pool label only",
+   "pct": 100.0,
+   "ref": "d5f4849"
+  },
+  "size": 32
  },
  "npcdrv:func_801cab08": {
   "builds": 1,
@@ -363,6 +402,19 @@
   },
   "size": 28
  },
+ "npcdrv:func_801ccb40": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "cap used by header/sed mistakes",
+   "pct": 100.0,
+   "ref": "53e6cb3"
+  },
+  "size": 40
+ },
  "npcdrv:func_801cccdc": {
   "builds": 2,
   "cap": 2,
@@ -376,6 +428,45 @@
   },
   "size": 4
  },
+ "npcdrv:func_801ccf4c": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "ce11af8"
+  },
+  "size": 40
+ },
+ "npcdrv:func_801cd394": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "e8357b9"
+  },
+  "size": 40
+ },
+ "npcdrv:func_801cd3bc": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "store order",
+   "pct": 100.0,
+   "ref": "97f3ecf"
+  },
+  "size": 32
+ },
  "npcdrv:func_801cd82c": {
   "builds": 2,
   "cap": 2,
@@ -388,6 +479,19 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:func_801d0278": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "ok",
+   "pct": 100.0,
+   "ref": "0889077"
+  },
+  "size": 36
  },
  "npcdrv:func_801d029c": {
   "builds": 1,
@@ -635,6 +739,32 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:npcPartDisp": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "tail call via cast",
+   "pct": 100.0,
+   "ref": "a35c300"
+  },
+  "size": 32
+ },
+ "npcdrv:npcPartDisp_xlu": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "same",
+   "pct": 100.0,
+   "ref": "ad0a8a9"
+  },
+  "size": 32
  },
  "npcdrv:npcSetAnim": {
   "builds": 4,

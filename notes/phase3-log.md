@@ -293,3 +293,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1139 | npcdrv.c | npcDisp | tiny | 28 | incomplete | 34.29 | 4 | wip/npcDisp 3b3118f | arg scheduling |
 | 1140 | npcdrv.c | npcDisp_xlu | tiny | 28 | incomplete | 34.29 | 1 | wip/npcDisp_xlu 601b425 | same mr r9 scheduling as npcDisp |
 | 1141 | npcdrv.c | npcGetKillXp | tiny | 28 | yes | 100 | 1 | e807f6c | easy |
+| 1142 | npcdrv.c | func_801ca2d8 | tiny | 40 | yes | 100 | 1 | f8723da | ok |
+| 1143 | npcdrv.c | func_801ca3b8 | tiny | 40 | yes | 100 | 1 | 7a98367 | ok |
+| 1144 | npcdrv.c | func_801ca748 | tiny | 32 | yes | 100 | 2 | d5f4849 | pool label only |
+| 1145 | npcdrv.c | func_801ccb40 | tiny | 40 | yes | 100 | 4 | 53e6cb3 | cap used by header/sed mistakes |
+| 1146 | npcdrv.c | func_801ccf4c | tiny | 40 | yes | 100 | 1 | ce11af8 | ok |
+| 1147 | npcdrv.c | func_801cd394 | tiny | 40 | yes | 100 | 1 | e8357b9 | ok |
+| 1148 | npcdrv.c | func_801cd3bc | tiny | 32 | yes | 100 | 2 | 97f3ecf | store order |
+| 1149 | npcdrv.c | func_801d0278 | tiny | 36 | yes | 100 | 1 | 0889077 | ok |
+| 1150 | npcdrv.c | npcPartDisp | tiny | 32 | yes | 100 | 2 | a35c300 | tail call via cast |
+| 1151 | npcdrv.c | npcPartDisp_xlu | tiny | 32 | yes | 100 | 1 | ad0a8a9 | same |
