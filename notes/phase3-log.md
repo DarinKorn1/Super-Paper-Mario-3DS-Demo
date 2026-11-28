@@ -321,3 +321,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1167 | npcdrv.c | func_801d2384 | small | 72 | yes | 100 | 1 | f56f65e | ok |
 | 1168 | npcdrv.c | npcFreezeAll | small | 72 | yes | 100 | 1 | c166916 | ok |
 | 1169 | npcdrv.c | npcIdToPtr | small | 72 | yes | 100 | 1 | 17b24f2 | simple loop |
+| 1170 | npcdrv.c | func_801b3860 | small | 80 | yes | 100 | 4 | 468fc26 | 3rd-arg signature |
+| 1171 | npcdrv.c | func_801c2480 | small | 76 | functionally complete | 98.16 | 3 | wip/func_801c2480 1b32fdb | only reg numbering r4/r5 swap |
+| 1172 | npcdrv.c | func_801caab4 | small | 84 | yes | 100 | 4 | e4196b9 | u32 id compare |
+| 1173 | npcdrv.c | func_801cbf9c | small | 76 | yes | 100 | 2 | 3404c74 | header sig, setupFileIndex |
+| 1174 | npcdrv.c | func_801cc0cc | small | 76 | incomplete | 87.58 | 3 | wip/func_801cc0cc a90e05d | string pool offsets; assert 0 / おかしい |
