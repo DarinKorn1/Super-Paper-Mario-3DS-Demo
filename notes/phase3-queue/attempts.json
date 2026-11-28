@@ -25,6 +25,19 @@
   },
   "size": 192
  },
+ "npcdrv:func_801aef10": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "needed NPC overlay struct with name field so strcmp arg is not hoisted",
+   "pct": 100.0,
+   "ref": "083ae99"
+  },
+  "size": 192
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,
