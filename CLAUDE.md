@@ -11,7 +11,7 @@ Personal project: port Super Paper Mario (Wii) to the New 3DS XL through a **mat
 | Path | What it is |
 |---|---|
 | `notes/` | resume.md, phase3-plan.md, phase3-log.md (append only), deferred.md, reference.md, archive/ |
-| `notes/tools/` | scripts: fdiff.py, check_matches.py, log_row.py, phase3_queue.py, refill_ag_queue.py |
+| `notes/tools/` | scripts: build.py, finish.py, land.py, safe_push.py, to_wip.py, fdiff.py, check_matches.py, log_row.py, phase3_queue.py, refill_ag_queue.py |
 | `notes/phase3-queue/` | BRIEF.md (subagent rules) and one batch file per source file |
 | `spm-decomp/` | the decompilation, its own git repository (EU0), ignored here |
 | `spm-decomp-ag/` | Antigravity's git worktree of the same repository (branch `ag/work`), ignored here |
@@ -34,9 +34,12 @@ Personal project: port Super Paper Mario (Wii) to the New 3DS XL through a **mat
 ## Unattended run (phase 3)
 
 Allowed without asking: matching work in `spm-decomp`, committing and pushing it to `origin`, and committing and pushing
-`notes/` in the outer repo (`origin`). Master of `spm-decomp` must build with `main.dol: OK` and `relF.rel: OK` before any push.
+`notes/` in the outer repo (`origin`). Every push of `spm-decomp` master goes through `python -I notes/tools/safe_push.py`
+(builds, refuses unless `main.dol` and `relF.rel` are both OK). Master holds only functions measured exactly 100%;
+everything else lives on its own `wip/<function>` branch (`notes/tools/to_wip.py` moves one off master).
 
-**Process safety.** objdiff only in one-shot use (never watch/interactive). Stop a leftover `objdiff-cli`/`ninja` only after
+**Process safety.** objdiff only in one-shot use (never watch/interactive). Subagents never stop any process. The
+coordinator stops a leftover `objdiff-cli`/`ninja` only after
 confirming (working directory or parent process) that it is ours and runs in `spm-decomp`. Never stop anything of
 `spm-decomp-ag` or anything you cannot attribute. A `report generate` at the end of a build is normal. Never force-kill
 ninja mid-build (if `build.ninja` regenerates forever, see "Block resolved" in `notes/reference.md`).
@@ -53,8 +56,11 @@ ninja mid-build (if `build.ninja` regenerates forever, see "Block resolved" in `
 | large | 641-2,044 | 8 | 1 |
 | huge | over 2,044 | **deferred**: leave the stub, record in `notes/deferred.md` | none |
 
+- Caps are enforced by `notes/tools/build.py` (the only way a subagent builds; counts in `notes/phase3-queue/attempts.json`).
 - **Good-enough stop:** at 98% or better with only register numbering, label and string-pool-offset differences, stop after at
-  most 3 attempts (immediately if 3 are used) and log "functionally complete".
+  most 3 attempts (build.py stops it) and log "functionally complete".
+- Results are measured, never claimed: `finish.py` (subagent) files each function by the official %, `land.py`
+  (coordinator) re-checks with `check_matches.py`, pushes and logs the measured % and real build count.
 - No strongest-model retries during phase 3; candidates go to "cleanup retries" in `notes/deferred.md`.
 - All matching subagents use **Sonnet**; for tiny and small batches also pass reasoning effort **low**.
 - Link a file (flip to `Matching`) only if every function in it is already exactly 100%. Never spend attempts just to make
@@ -67,10 +73,11 @@ The coordinator reads no build output, diffs or source, and keeps **one line** p
 1. Read `notes/resume.md`. Check `git -C spm-decomp status --short` is clean on `master`. If an interrupted subagent left
    changes, commit them to a new `wip/leftover-<date>` branch (never discard) and switch to master.
 2. New file: `python -I notes/tools/phase3_queue.py make <file>.c --stub` (queues batches, defers huge). If it created a stub:
-   `ninja` in spm-decomp (output to a temp file), checksums OK, commit "Add <file> stubs", push.
+   commit "Add <file> stubs" in spm-decomp, then `safe_push.py`.
 3. `python -I notes/tools/phase3_queue.py next <file>.c` prints the next batch. Launch one subagent at a time
    (`decomp-matcher`, model sonnet) with: "Follow `C:\Users\ender\SPM_N3DS_XL\notes\phase3-queue\BRIEF.md`.
    File <file>. Functions: <the batch line>. Size class <class>. Reply with one line."
+   When it returns: `python -I notes/tools/land.py <file>` (one line per function; a REFUSED is a blocker). Then the next batch.
 4. File finished: `python -I notes/tools/check_matches.py --unit <file>`. All exactly 100%: flip to `Matching`, build, keep only
    if both checksums are OK (otherwise edit the line back). Update `notes/resume.md`; commit and push notes.
 5. Take the next file in plan order from `notes/resume.md` (skip rows marked ANTIGRAVITY in `phase3-plan.md`).
