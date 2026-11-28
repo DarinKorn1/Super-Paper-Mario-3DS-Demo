@@ -2287,6 +2287,19 @@
   },
   "size": 1128
  },
+ "npcdrv:npcEntryFromTemplate": {
+  "builds": 7,
+  "cap": 7,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 7/8: pool/regs; 2 extra lines in unknown spot, drop-item loop likely",
+   "pct": 97.807434,
+   "ref": "wip/npcEntryFromTemplate 85f53a8"
+  },
+  "size": 1184
+ },
  "npcdrv:npcFinishFlipInstant": {
   "builds": 1,
   "cap": 1,
