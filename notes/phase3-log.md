@@ -351,3 +351,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1197 | npcdrv.c | npcNameToPtr_NoAssert | medium | 144 | yes | 100 | 3 | 8c53462 | load order fixed via decl order; only sda label differs |
 | 1198 | npcdrv.c | func_801c98f0 | medium | 148 | yes | 100 | 1 | 48fa751 | matched first try, pool labels only |
 | 1199 | npcdrv.c | func_801ca1a4 | medium | 148 | yes | 100 | 1 | c216090 | matched first try; part anim at +0x54 via cast |
+| 1200 | npcdrv.c | npcAreOnSpawnEvtsDone | medium | 148 | yes | 100 | 1 | ebeca6e | matched first try |
