@@ -368,3 +368,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1214 | npcdrv.c | func_801b24c0 | medium | 180 | yes | 100 | 4 | f94bd1e | float pool label only; result var with 0 init fixed branches |
 | 1215 | npcdrv.c | func_801cbfe8 | medium | 184 | yes | 100 | 1 | 54fffcc | pool labels only; casts on raw offsets |
 | 1216 | npcdrv.c | func_801d23dc | medium | 188 | yes | 100 | 2 | e12b29f | return type void (header changed for 4 fns); raw offsets |
+| 1217 | npcdrv.c | func_801d2498 | medium | 188 | yes | 100 | 1 | e4374e5 | copy of func_801d23dc with func_80043ca4 |

@@ -1208,6 +1208,19 @@
   },
   "size": 188
  },
+ "npcdrv:func_801d2498": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "copy of func_801d23dc with func_80043ca4",
+   "pct": 100.0,
+   "ref": "e4374e5"
+  },
+  "size": 188
+ },
  "npcdrv:func_801d2554": {
   "builds": 1,
   "cap": 1,
