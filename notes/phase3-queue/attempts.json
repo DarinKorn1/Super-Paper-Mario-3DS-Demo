@@ -1260,6 +1260,19 @@
   },
   "size": 32
  },
+ "npcdrv:func_801ca768": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "u32 sfx id (addis compare), inline sfx helper",
+   "pct": 100.0,
+   "ref": "fb5e2fa"
+  },
+  "size": 844
+ },
  "npcdrv:func_801caab4": {
   "builds": 4,
   "cap": 4,
