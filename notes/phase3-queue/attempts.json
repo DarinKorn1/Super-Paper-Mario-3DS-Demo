@@ -272,6 +272,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801bb6fc": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "Frame too big (extra Vec3 temps), stack layout and Vec3 copies not matched",
+   "pct": 92.65385,
+   "ref": "wip/func_801bb6fc f98be2e"
+  },
+  "size": 832
+ },
  "npcdrv:func_801bc5d0": {
   "builds": 3,
   "cap": 3,

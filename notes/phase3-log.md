@@ -442,3 +442,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1288 | npcdrv.c | npcUpdateSetupFile0To1 | large | 788 | incomplete | 69.75 | 8 | wip/npcUpdateSetupFile0To1 a37fdd9 | 100-group copy loop matched; tail copy/regalloc after loop differs |
 | 1289 | npcdrv.c | npcReadSetupFile | large | 800 | incomplete | 95.97 | 6 | wip/npcReadSetupFile f88a328 | gave up at 6/8: table copy inside loop; string pool base differs, 6 lines short unknown |
 | 1290 | npcdrv.c | func_801bde20 | large | 812 | incomplete | 74.82 | 8 | wip/func_801bde20 8428ca3 | frame layout: dir/pos Vec3 slot order; hoisted copies |
+| 1291 | npcdrv.c | func_801bb6fc | large | 832 | incomplete | 92.65 | 8 | wip/func_801bb6fc f98be2e | Frame too big (extra Vec3 temps), stack layout and Vec3 copies not matched |
