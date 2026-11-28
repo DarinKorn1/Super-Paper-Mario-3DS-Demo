@@ -407,3 +407,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1253 | npcdrv.c | func_801d1424 | medium | 348 | incomplete | 97.99 | 6 | wip/func_801d1424 d2fef37 | inlined part lookup with asserts; register order/loop shape mismatched |
 | 1254 | npcdrv.c | npcHandleHitXp | medium | 352 | functionally complete | 99.20 | 5 | wip/npcHandleHitXp cd568e8 | register numbering and fmadd; used temps |
 | 1255 | npcdrv.c | func_801cc9dc | medium | 356 | functionally complete | 99.65 | 4 | wip/func_801cc9dc 34dc964 | functionally complete; fmuls operand order, b+8 arg |
+| 1256 | npcdrv.c | func_801c498c | medium | 368 | yes | 100 | 3 | 1db8444 | pool label only; header sig changed, cast func_801c45a4 |

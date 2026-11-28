@@ -753,6 +753,19 @@
   },
   "size": 224
  },
+ "npcdrv:func_801c498c": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "pool label only; header sig changed, cast func_801c45a4",
+   "pct": 100.0,
+   "ref": "1db8444"
+  },
+  "size": 368
+ },
  "npcdrv:func_801c7f68": {
   "builds": 1,
   "cap": 1,
