@@ -571,6 +571,19 @@
   },
   "size": 56
  },
+ "npcdrv:func_801c3968": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "inline part lookup helper with return; string pool offsets only",
+   "pct": 97.95522,
+   "ref": "wip/func_801c3968 bd3ab44"
+  },
+  "size": 268
+ },
  "npcdrv:func_801c3a74": {
   "builds": 1,
   "cap": 1,
