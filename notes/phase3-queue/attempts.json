@@ -701,6 +701,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801ca310": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "float mul and reg numbering hard; no exact match",
+   "pct": 64.14286,
+   "ref": "wip/func_801ca310 518fe45"
+  },
+  "size": 168
+ },
  "npcdrv:func_801ca3b8": {
   "builds": 1,
   "cap": 1,
