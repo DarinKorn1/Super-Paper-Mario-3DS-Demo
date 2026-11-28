@@ -1195,6 +1195,19 @@
   },
   "size": 4
  },
+ "npcdrv:func_801ccce0": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "gave up at 5/6: frame too large, Vec3 locals/stack layout not matched",
+   "pct": 81.5,
+   "ref": "wip/func_801ccce0 4057d0b"
+  },
+  "size": 304
+ },
  "npcdrv:func_801ccf4c": {
   "builds": 1,
   "cap": 1,
