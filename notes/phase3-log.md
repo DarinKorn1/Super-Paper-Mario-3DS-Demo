@@ -427,3 +427,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1273 | npcdrv.c | func_801ceeac | medium | 500 | incomplete | 89.24 | 6 | wip/func_801ceeac ad3998e | switch case order and tribeId range check; leftover reg swaps r0/r4 |
 | 1274 | npcdrv.c | func_801bc5d0 | medium | 508 | yes | 100 | 3 | 2ec7e74 | overlay casts; only labels differ |
 | 1275 | npcdrv.c | func_801be7c8 | medium | 508 | incomplete | 92.40 | 6 | wip/func_801be7c8 7a1067f | be14c inline expansion and r3/r4 for flag10 differed; header prototype changed |
+| 1276 | npcdrv.c | func_801b0264 | medium | 540 | functionally complete | 99.07 | 6 | wip/func_801b0264 98001fd | register numbering only; u16 vs s32 flags for clrrwi |

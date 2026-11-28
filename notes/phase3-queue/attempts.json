@@ -116,6 +116,19 @@
   },
   "size": 272
  },
+ "npcdrv:func_801b0264": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only; u16 vs s32 flags for clrrwi",
+   "pct": 99.07407,
+   "ref": "wip/func_801b0264 98001fd"
+  },
+  "size": 540
+ },
  "npcdrv:func_801b0d10": {
   "builds": 3,
   "cap": 3,
