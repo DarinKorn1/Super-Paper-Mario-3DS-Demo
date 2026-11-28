@@ -90,6 +90,19 @@
   },
   "size": 192
  },
+ "npcdrv:func_801aefd0": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "overlay struct; sfx call before state stores; last fix (struct size pad 0x748) unbuilt",
+   "pct": 100.0,
+   "ref": "4d710b4"
+  },
+  "size": 1324
+ },
  "npcdrv:func_801afefc": {
   "builds": 4,
   "cap": 4,
