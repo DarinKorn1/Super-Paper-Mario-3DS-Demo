@@ -1910,6 +1910,19 @@
   },
   "size": 8
  },
+ "npcdrv:npcHandleHitXp": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering and fmadd; used temps",
+   "pct": 99.204544,
+   "ref": "wip/npcHandleHitXp cd568e8"
+  },
+  "size": 352
+ },
  "npcdrv:npcIdToPtr": {
   "builds": 1,
   "cap": 1,
