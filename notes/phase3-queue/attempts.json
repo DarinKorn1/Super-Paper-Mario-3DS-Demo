@@ -2481,5 +2481,18 @@
    "ref": "wip/npcUpdateSetupFile c927965"
   },
   "size": 176
+ },
+ "npcdrv:npcUpdateSetupFile1To2": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "struct copy loop emitted as 8-byte/iter not 0x70/iter; could not find source form",
+   "pct": 49.20625,
+   "ref": "wip/npcUpdateSetupFile1To2 8507dc2"
+  },
+  "size": 640
  }
 }
