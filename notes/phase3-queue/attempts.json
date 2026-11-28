@@ -363,6 +363,19 @@
   },
   "size": 144
  },
+ "npcdrv:func_801bde20": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "frame layout: dir/pos Vec3 slot order; hoisted copies",
+   "pct": 74.82266,
+   "ref": "wip/func_801bde20 8428ca3"
+  },
+  "size": 812
+ },
  "npcdrv:func_801be14c": {
   "builds": 4,
   "cap": 4,
