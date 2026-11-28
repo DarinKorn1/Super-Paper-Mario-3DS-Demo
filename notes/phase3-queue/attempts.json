@@ -1520,6 +1520,19 @@
   },
   "size": 40
  },
+ "npcdrv:func_801d1424": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "inlined part lookup with asserts; register order/loop shape mismatched",
+   "pct": 97.9885,
+   "ref": "wip/func_801d1424 d2fef37"
+  },
+  "size": 348
+ },
  "npcdrv:func_801d1b9c": {
   "builds": 1,
   "cap": 1,

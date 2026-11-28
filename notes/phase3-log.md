@@ -404,3 +404,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1250 | npcdrv.c | func_801cce10 | medium | 316 | incomplete | 98.72 | 6 | wip/func_801cce10 35368fb | Vec3 stack layout / frame size and fadds register order not matched |
 | 1251 | npcdrv.c | func_801b000c | medium | 328 | incomplete | 97.74 | 3 | wip/func_801b000c 2e8bb57 | register numbering only; entry stride needed pad to 0x748 |
 | 1252 | npcdrv.c | func_801adda4 | medium | 332 | yes | 100 | 5 | 7138f70 | Vec3 init after angleABf call; header prototype fixed |
+| 1253 | npcdrv.c | func_801d1424 | medium | 348 | incomplete | 97.99 | 6 | wip/func_801d1424 d2fef37 | inlined part lookup with asserts; register order/loop shape mismatched |
