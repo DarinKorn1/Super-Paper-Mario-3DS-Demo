@@ -359,3 +359,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1205 | npcdrv.c | func_801c9a24 | medium | 164 | incomplete | 85.00 | 6 | wip/func_801c9a24 deeea99 | early-return structure and fabs/frsp regalloc differ |
 | 1206 | npcdrv.c | npcDisp_general | medium | 164 | incomplete | 89.76 | 6 | wip/npcDisp_general 85e1669 | only r30/r31 swap (pose vs npc) remained; header changed to real prototype |
 | 1207 | npcdrv.c | npcPartDisp_general | medium | 164 | yes | 100 | 3 | da7070f | needed owner loaded before pose local; header signature changed |
+| 1208 | npcdrv.c | func_801c01dc | medium | 168 | yes | 100 | 3 | 45e8b79 | header changed to bool(npc,part,flags); only pool labels differ |

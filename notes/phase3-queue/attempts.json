@@ -168,6 +168,19 @@
   },
   "size": 28
  },
+ "npcdrv:func_801c01dc": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "header changed to bool(npc,part,flags); only pool labels differ",
+   "pct": 100.0,
+   "ref": "45e8b79"
+  },
+  "size": 168
+ },
  "npcdrv:func_801c0454": {
   "builds": 3,
   "cap": 3,
