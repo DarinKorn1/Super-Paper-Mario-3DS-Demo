@@ -1,4 +1,17 @@
 {
+ "npcdrv:_npcSetAnim": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "flags/string pool, add operand order, alpha branch layout left",
+   "pct": 90.475174,
+   "ref": "wip/_npcSetAnim ad47794"
+  },
+  "size": 564
+ },
  "npcdrv:func_801a96a4": {
   "builds": 4,
   "cap": 4,
