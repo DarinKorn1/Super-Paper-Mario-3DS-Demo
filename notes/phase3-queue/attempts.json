@@ -1,4 +1,17 @@
 {
+ "npcdrv:func_801c01a8": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "be22695"
+  },
+  "size": 24
+ },
  "npcdrv:func_801c0454": {
   "builds": 3,
   "cap": 3,
@@ -89,6 +102,45 @@
    "ref": "e7da43d"
   },
   "size": 16
+ },
+ "npcdrv:func_801c3b6c": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "header proto needed",
+   "pct": 100.0,
+   "ref": "311bdaf"
+  },
+  "size": 20
+ },
+ "npcdrv:func_801c3b80": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "1aaefc3"
+  },
+  "size": 20
+ },
+ "npcdrv:func_801c3b94": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "64f6b1a"
+  },
+  "size": 20
  },
  "npcdrv:func_801c3ba8": {
   "builds": 1,
@@ -194,6 +246,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801cab08": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "c9fa093"
+  },
+  "size": 24
+ },
  "npcdrv:func_801cab20": {
   "builds": 2,
   "cap": 2,
@@ -259,6 +324,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801d0610": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "ebbc1e6"
+  },
+  "size": 20
+ },
  "npcdrv:func_801d1058": {
   "builds": 1,
   "cap": 1,
@@ -311,6 +389,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801d1094": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "trivial",
+   "pct": 100.0,
+   "ref": "56467de"
+  },
+  "size": 16
+ },
  "npcdrv:func_801d23cc": {
   "builds": 2,
   "cap": 2,
@@ -336,6 +427,19 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:npcFlag2On": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "b3eb05a"
+  },
+  "size": 20
  },
  "npcdrv:npcGetEntries": {
   "builds": 1,
@@ -376,6 +480,19 @@
   },
   "size": 12
  },
+ "npcdrv:npcGetTribe": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "",
+   "pct": 100.0,
+   "ref": "206fa5d"
+  },
+  "size": 20
+ },
  "npcdrv:npcGetWorkPtr": {
   "builds": 2,
   "cap": 2,
@@ -388,5 +505,18 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:npcSetAnim": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "extra mr r0 shuffle",
+   "pct": 76.0,
+   "ref": "wip/npcSetAnim 1d70030"
+  },
+  "size": 20
  }
 }

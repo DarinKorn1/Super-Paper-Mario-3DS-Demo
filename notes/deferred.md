@@ -78,4 +78,5 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | func_8015a2f4 | mario_status.c | 1964 | 86.26%, wip/func_8015a2f4 9c78f18 |
 | (71 functions) | many | - | moved off master 2026-11-27 (not exactly 100%): `git -C spm-decomp log --grep "to wip/"`, branches `wip/<name>` or `wip/<name>-master` |
 | func_801ca198 | npcdrv.c | 12 | -%, wip/func_801ca198 d66d467 |
+| npcSetAnim | npcdrv.c | 20 | 76.00%, wip/npcSetAnim 1d70030 |
 <!-- retry-end -->

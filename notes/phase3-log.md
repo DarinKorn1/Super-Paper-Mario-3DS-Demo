@@ -273,3 +273,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1119 | npcdrv.c | func_801d1064 | tiny | 16 | yes | 100 | 1 | 38faa79 | trivial |
 | 1120 | npcdrv.c | func_801d1074 | tiny | 16 | yes | 100 | 1 | b99a036 | trivial |
 | 1121 | npcdrv.c | func_801d1084 | tiny | 16 | yes | 100 | 1 | 46e4685 | trivial |
+| 1122 | npcdrv.c | func_801c01a8 | tiny | 24 | yes | 100 | 1 | be22695 |  |
+| 1123 | npcdrv.c | func_801c3b6c | tiny | 20 | yes | 100 | 2 | 311bdaf | header proto needed |
+| 1124 | npcdrv.c | func_801c3b80 | tiny | 20 | yes | 100 | 1 | 1aaefc3 |  |
+| 1125 | npcdrv.c | func_801c3b94 | tiny | 20 | yes | 100 | 1 | 64f6b1a |  |
+| 1126 | npcdrv.c | func_801cab08 | tiny | 24 | yes | 100 | 1 | c9fa093 |  |
+| 1127 | npcdrv.c | func_801d0610 | tiny | 20 | yes | 100 | 1 | ebbc1e6 |  |
+| 1128 | npcdrv.c | func_801d1094 | tiny | 16 | yes | 100 | 1 | 56467de | trivial |
+| 1129 | npcdrv.c | npcFlag2On | tiny | 20 | yes | 100 | 1 | b3eb05a |  |
+| 1130 | npcdrv.c | npcGetTribe | tiny | 20 | yes | 100 | 1 | 206fa5d |  |
+| 1131 | npcdrv.c | npcSetAnim | tiny | 20 | incomplete | 76.00 | 4 | wip/npcSetAnim 1d70030 | extra mr r0 shuffle |
