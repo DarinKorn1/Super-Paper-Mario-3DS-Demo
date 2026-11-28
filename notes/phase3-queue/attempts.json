@@ -1,4 +1,17 @@
 {
+ "npcdrv:func_801bfc14": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "79f4fd6"
+  },
+  "size": 52
+ },
  "npcdrv:func_801c018c": {
   "builds": 1,
   "cap": 1,
@@ -116,6 +129,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801c3930": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "inlined npcGetPartById; u32 id",
+   "pct": 100.0,
+   "ref": "2636070"
+  },
+  "size": 56
+ },
  "npcdrv:func_801c3a74": {
   "builds": 1,
   "cap": 1,
@@ -232,6 +258,19 @@
    "ref": "bda0aa9"
   },
   "size": 8
+ },
+ "npcdrv:func_801c8b44": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "separate ifs; also corrected npcFinishFlipInstant const to 270.0f",
+   "pct": 100.0,
+   "ref": "f8ffe3d"
+  },
+  "size": 56
  },
  "npcdrv:func_801c8b7c": {
   "builds": 1,
@@ -389,6 +428,19 @@
   },
   "size": 24
  },
+ "npcdrv:func_801cc0a0": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "1457612"
+  },
+  "size": 44
+ },
  "npcdrv:func_801cc134": {
   "builds": 1,
   "cap": 1,
@@ -466,6 +518,32 @@
    "ref": "97f3ecf"
   },
   "size": 32
+ },
+ "npcdrv:func_801cd3dc": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "pool label only",
+   "pct": 100.0,
+   "ref": "5eb77c8"
+  },
+  "size": 40
+ },
+ "npcdrv:func_801cd804": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "same as 3dc",
+   "pct": 100.0,
+   "ref": "c27b021"
+  },
+  "size": 40
  },
  "npcdrv:func_801cd82c": {
   "builds": 2,
@@ -597,6 +675,32 @@
   },
   "size": 16
  },
+ "npcdrv:func_801d10a4": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "symbol names only",
+   "pct": 100.0,
+   "ref": "cd05ba2"
+  },
+  "size": 40
+ },
+ "npcdrv:func_801d2304": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "554a76d"
+  },
+  "size": 56
+ },
  "npcdrv:func_801d23cc": {
   "builds": 2,
   "cap": 2,
@@ -648,6 +752,19 @@
    "ref": "wip/npcDisp_xlu 601b425"
   },
   "size": 28
+ },
+ "npcdrv:npcFinishFlipInstant": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "1.0f guess",
+   "pct": 100.0,
+   "ref": "a679c46"
+  },
+  "size": 44
  },
  "npcdrv:npcFlag2On": {
   "builds": 1,
@@ -713,6 +830,19 @@
    "ref": "aac5e98"
   },
   "size": 12
+ },
+ "npcdrv:npcGetPartById": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "s32 cast for cmpw",
+   "pct": 100.0,
+   "ref": "827e1fb"
+  },
+  "size": 40
  },
  "npcdrv:npcGetTribe": {
   "builds": 1,

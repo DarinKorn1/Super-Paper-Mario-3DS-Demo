@@ -303,3 +303,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1149 | npcdrv.c | func_801d0278 | tiny | 36 | yes | 100 | 1 | 0889077 | ok |
 | 1150 | npcdrv.c | npcPartDisp | tiny | 32 | yes | 100 | 2 | a35c300 | tail call via cast |
 | 1151 | npcdrv.c | npcPartDisp_xlu | tiny | 32 | yes | 100 | 1 | ad0a8a9 | same |
+| 1152 | npcdrv.c | func_801bfc14 | tiny | 52 | yes | 100 | 1 | 79f4fd6 | easy |
+| 1153 | npcdrv.c | func_801c3930 | tiny | 56 | yes | 100 | 2 | 2636070 | inlined npcGetPartById; u32 id |
+| 1154 | npcdrv.c | func_801c8b44 | tiny | 56 | yes | 100 | 3 | f8ffe3d | separate ifs; also corrected npcFinishFlipInstant const to 270.0f |
+| 1155 | npcdrv.c | func_801cc0a0 | tiny | 44 | yes | 100 | 1 | 1457612 | easy |
+| 1156 | npcdrv.c | func_801cd3dc | tiny | 40 | yes | 100 | 2 | 5eb77c8 | pool label only |
+| 1157 | npcdrv.c | func_801cd804 | tiny | 40 | yes | 100 | 1 | c27b021 | same as 3dc |
+| 1158 | npcdrv.c | func_801d10a4 | tiny | 40 | yes | 100 | 2 | cd05ba2 | symbol names only |
+| 1159 | npcdrv.c | func_801d2304 | tiny | 56 | yes | 100 | 1 | 554a76d | easy |
+| 1160 | npcdrv.c | npcFinishFlipInstant | tiny | 44 | yes | 100 | 1 | a679c46 | 1.0f guess |
+| 1161 | npcdrv.c | npcGetPartById | tiny | 40 | yes | 100 | 2 | 827e1fb | s32 cast for cmpw |
