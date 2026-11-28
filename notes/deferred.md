@@ -86,4 +86,6 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | npcDisp_xlu | npcdrv.c | 28 | 34.29%, wip/npcDisp_xlu 601b425 |
 | func_801d25b8 | npcdrv.c | 60 | 92.67%, wip/func_801d25b8 3a80850 |
 | func_801cc0cc | npcdrv.c | 76 | 87.58%, wip/func_801cc0cc a90e05d |
+| func_801a96a4 | npcdrv.c | 88 | 81.36%, wip/func_801a96a4 f3e22c1 |
+| func_801b2460 | npcdrv.c | 96 | 99.38%, wip/func_801b2460 9a3baac |
 <!-- retry-end -->

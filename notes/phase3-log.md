@@ -326,3 +326,8 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1172 | npcdrv.c | func_801caab4 | small | 84 | yes | 100 | 4 | e4196b9 | u32 id compare |
 | 1173 | npcdrv.c | func_801cbf9c | small | 76 | yes | 100 | 2 | 3404c74 | header sig, setupFileIndex |
 | 1174 | npcdrv.c | func_801cc0cc | small | 76 | incomplete | 87.58 | 3 | wip/func_801cc0cc a90e05d | string pool offsets; assert 0 / おかしい |
+| 1175 | npcdrv.c | func_801a96a4 | small | 88 | incomplete | 81.36 | 4 | wip/func_801a96a4 f3e22c1 | x<10 signed idiom found; branch layout of bool ternary not matched |
+| 1176 | npcdrv.c | func_801b2460 | small | 96 | incomplete | 99.38 | 1 | wip/func_801b2460 9a3baac | switch |
+| 1177 | npcdrv.c | func_801c3848 | small | 92 | yes | 100 | 2 | b7235ec | i declared before npc |
+| 1178 | npcdrv.c | func_801c38d4 | small | 92 | yes | 100 | 1 | 40c7b46 | straightforward |
+| 1179 | npcdrv.c | func_801d1b9c | small | 88 | yes | 100 | 1 | 0cfa7aa | easy |

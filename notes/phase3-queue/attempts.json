@@ -1,4 +1,30 @@
 {
+ "npcdrv:func_801a96a4": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "x<10 signed idiom found; branch layout of bool ternary not matched",
+   "pct": 81.36364,
+   "ref": "wip/func_801a96a4 f3e22c1"
+  },
+  "size": 88
+ },
+ "npcdrv:func_801b2460": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "switch",
+   "pct": 99.375,
+   "ref": "wip/func_801b2460 9a3baac"
+  },
+  "size": 96
+ },
  "npcdrv:func_801b3860": {
   "builds": 4,
   "cap": 4,
@@ -142,6 +168,19 @@
   },
   "size": 16
  },
+ "npcdrv:func_801c3848": {
+  "builds": 2,
+  "cap": 2,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "i declared before npc",
+   "pct": 100.0,
+   "ref": "b7235ec"
+  },
+  "size": 92
+ },
  "npcdrv:func_801c38a4": {
   "builds": 1,
   "cap": 1,
@@ -180,6 +219,19 @@
    "ref": "ad66a9f"
   },
   "size": 16
+ },
+ "npcdrv:func_801c38d4": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "straightforward",
+   "pct": 100.0,
+   "ref": "40c7b46"
+  },
+  "size": 92
  },
  "npcdrv:func_801c3930": {
   "builds": 2,
@@ -791,6 +843,19 @@
    "ref": "cd05ba2"
   },
   "size": 40
+ },
+ "npcdrv:func_801d1b9c": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "0cfa7aa"
+  },
+  "size": 88
  },
  "npcdrv:func_801d2304": {
   "builds": 1,
