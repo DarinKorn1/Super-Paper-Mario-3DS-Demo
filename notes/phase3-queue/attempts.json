@@ -2040,6 +2040,19 @@
   },
   "size": 28
  },
+ "npcdrv:npcDropFromCatch": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "stack Vec3 order reversed, if/else for marioCheck3d",
+   "pct": 100.0,
+   "ref": "5fbd12d"
+  },
+  "size": 596
+ },
  "npcdrv:npcFinishFlipInstant": {
   "builds": 1,
   "cap": 1,

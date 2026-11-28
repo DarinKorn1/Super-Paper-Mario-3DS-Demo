@@ -431,3 +431,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1277 | npcdrv.c | func_801b2640 | medium | 540 | incomplete | 92.13 | 6 | wip/func_801b2640 49b2faa | switch case order 2,3,1 matched; 4 extra lines/label numbering unresolved near end |
 | 1278 | npcdrv.c | func_801cd95c | medium | 552 | yes | 100 | 5 | 3c2ac1b | Vec3 copies need s32 casts; matrix axis is 'z'; hoisted Vec3 locals in stack order |
 | 1279 | npcdrv.c | _npcSetAnim | medium | 564 | incomplete | 90.48 | 6 | wip/_npcSetAnim ad47794 | flags/string pool, add operand order, alpha branch layout left |
+| 1280 | npcdrv.c | npcDropFromCatch | medium | 596 | yes | 100 | 3 | 5fbd12d | stack Vec3 order reversed, if/else for marioCheck3d |
