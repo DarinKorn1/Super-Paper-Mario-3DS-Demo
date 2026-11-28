@@ -2040,6 +2040,19 @@
   },
   "size": 28
  },
+ "npcdrv:npcDispSub": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "build failed",
+  "result": {
+   "logged": true,
+   "note": "gave up at 8/8: saved register numbering of params differs; header prototypes for npcDispSub/mtx_setup changed",
+   "pct": null,
+   "ref": "wip/npcDispSub 44c07bb"
+  },
+  "size": 740
+ },
  "npcdrv:npcDisp_general": {
   "builds": 6,
   "cap": 6,
