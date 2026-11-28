@@ -103,6 +103,19 @@
   },
   "size": 80
  },
+ "npcdrv:func_801b4fcc": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only; int copy of Vec3, pose-relative offsets",
+   "pct": 99.43396,
+   "ref": "wip/func_801b4fcc 84ee4b1"
+  },
+  "size": 212
+ },
  "npcdrv:func_801bcc00": {
   "builds": 2,
   "cap": 2,
