@@ -12,6 +12,19 @@
   },
   "size": 88
  },
+ "npcdrv:func_801aabe4": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "only redundant bne after beq differs; tried else-if, switch",
+   "pct": 97.916664,
+   "ref": "wip/func_801aabe4 e3794d7"
+  },
+  "size": 192
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,
