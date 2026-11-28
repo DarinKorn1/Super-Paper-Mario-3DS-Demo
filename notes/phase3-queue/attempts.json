@@ -597,6 +597,19 @@
   },
   "size": 12
  },
+ "npcdrv:func_801ca1a4": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "matched first try; part anim at +0x54 via cast",
+   "pct": 100.0,
+   "ref": "c216090"
+  },
+  "size": 148
+ },
  "npcdrv:func_801ca2d8": {
   "builds": 1,
   "cap": 1,
