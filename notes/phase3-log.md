@@ -457,3 +457,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1303 | npcdrv.c | npcEntryFromTemplate | large | 1184 | incomplete | 97.81 | 7 | wip/npcEntryFromTemplate 85f53a8 | gave up at 7/8: pool/regs; 2 extra lines in unknown spot, drop-item loop likely |
 | 1304 | npcdrv.c | npcUpdateSetupFile4To5 | large | 1196 | incomplete | 73.68 | 8 | wip/npcUpdateSetupFile4To5 0eb23ec | struct copy order near-miss; scheduling r7/r8 only |
 | 1305 | npcdrv.c | func_801cb274 | large | 1248 | incomplete | 79.31 | 7 | wip/func_801cb274 b6128dc | gave up at 7/8: dedup of 64x16 string table; structure matches but original uses bytewise struct copy (unknown struct), reg numbering differs |
+| 1306 | npcdrv.c | func_801cc150 | large | 1268 | incomplete | 92.59 | 8 | wip/func_801cc150 d5b29d4 | frame 0xc0 vs 0x60, Vec3 locals scalarized, inline defense assert helper, reg numbering off |

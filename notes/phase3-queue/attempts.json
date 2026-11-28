@@ -1481,6 +1481,19 @@
   },
   "size": 28
  },
+ "npcdrv:func_801cc150": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "frame 0xc0 vs 0x60, Vec3 locals scalarized, inline defense assert helper, reg numbering off",
+   "pct": 92.589905,
+   "ref": "wip/func_801cc150 d5b29d4"
+  },
+  "size": 1268
+ },
  "npcdrv:func_801cc644": {
   "builds": 8,
   "cap": 8,
