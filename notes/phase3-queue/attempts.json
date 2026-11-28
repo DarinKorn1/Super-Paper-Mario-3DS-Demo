@@ -1689,6 +1689,19 @@
   },
   "size": 372
  },
+ "npcdrv:func_801d1240": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "inline part lookup asserts; dead branches after first assert and id reg r8 not reproduced; unused args unnamed",
+   "pct": 97.72727,
+   "ref": "wip/func_801d1240 6f72a0c"
+  },
+  "size": 484
+ },
  "npcdrv:func_801d1424": {
   "builds": 6,
   "cap": 6,
