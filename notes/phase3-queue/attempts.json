@@ -1455,6 +1455,19 @@
   },
   "size": 40
  },
+ "npcdrv:func_801cd404": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "dead Vec3 temp stores and savegpr count/frame not matched; arg3 is Vec3* pos, knockDir at 0x68c",
+   "pct": 80.52892,
+   "ref": "wip/func_801cd404 5e02d2f"
+  },
+  "size": 484
+ },
  "npcdrv:func_801cd5e8": {
   "builds": 3,
   "cap": 3,

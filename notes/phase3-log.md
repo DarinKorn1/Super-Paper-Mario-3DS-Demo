@@ -422,3 +422,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1268 | npcdrv.c | npcTimerMain | medium | 476 | incomplete | 98.45 | 6 | wip/npcTimerMain ae012bb | 64-bit time math; only register numbering of locals (g/clk/off/t) off |
 | 1269 | npcdrv.c | func_801bc7cc | medium | 480 | yes | 100 | 4 | 97affeb | only pool label diffs; added 0x4ac/0x4b4 fields, fabsf |
 | 1270 | npcdrv.c | func_801d2028 | medium | 480 | yes | 100 | 5 | f545161 | switch needed explicit empty case 0/3; header prototype changed |
+| 1271 | npcdrv.c | func_801cd404 | medium | 484 | incomplete | 80.53 | 6 | wip/func_801cd404 5e02d2f | dead Vec3 temp stores and savegpr count/frame not matched; arg3 is Vec3* pos, knockDir at 0x68c |
