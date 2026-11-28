@@ -51,6 +51,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801adda4": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "Vec3 init after angleABf call; header prototype fixed",
+   "pct": 100.0,
+   "ref": "7138f70"
+  },
+  "size": 332
+ },
  "npcdrv:func_801aef10": {
   "builds": 4,
   "cap": 4,
