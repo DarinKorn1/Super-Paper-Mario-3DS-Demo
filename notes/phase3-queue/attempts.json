@@ -233,6 +233,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801bc5d0": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "overlay casts; only labels differ",
+   "pct": 100.0,
+   "ref": "2ec7e74"
+  },
+  "size": 508
+ },
  "npcdrv:func_801bc7cc": {
   "builds": 4,
   "cap": 4,
