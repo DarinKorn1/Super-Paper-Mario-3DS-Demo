@@ -448,3 +448,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1294 | npcdrv.c | npcDelete | large | 872 | incomplete | - | 8 | wip/npcDelete-2 2c22e48 | wip form; wp/num register swap r27/r28 in inlined name lookup unresolved |
 | 1295 | npcdrv.c | func_801b20dc | large | 900 | incomplete | 94.69 | 8 | wip/func_801b20dc 8b7ab0c | float zero cmp order fixed with decl order; rest label/pool only; header UNKNOWN_FUNCTION changed to prototype |
 | 1296 | npcdrv.c | func_801ceb08 | large | 932 | incomplete | 75.23 | 7 | wip/func_801ceb08 c1c76ea | gave up at 7/8: large; zero Vec3 init hoisting and stack slot order (zz at 0x38) not matched |
+| 1297 | npcdrv.c | func_801c8760 | large | 996 | incomplete | 96.02 | 8 | wip/func_801c8760 d8657f0 | branch/range-check structure and rate load order not matched; bool marioCheck3d ternary |

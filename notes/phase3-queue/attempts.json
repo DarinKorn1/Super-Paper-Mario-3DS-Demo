@@ -1013,6 +1013,19 @@
   },
   "size": 372
  },
+ "npcdrv:func_801c8760": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "branch/range-check structure and rate load order not matched; bool marioCheck3d ternary",
+   "pct": 96.01607,
+   "ref": "wip/func_801c8760 d8657f0"
+  },
+  "size": 996
+ },
  "npcdrv:func_801c8b44": {
   "builds": 3,
   "cap": 3,
