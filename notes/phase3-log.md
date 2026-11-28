@@ -415,3 +415,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1261 | npcdrv.c | npcTryCatchCard | medium | 392 | functionally complete | 99.90 | 5 | wip/npcTryCatchCard c71e297 | inline find helper, local order for stack slots; only r8 vs r4 for id |
 | 1262 | npcdrv.c | func_801bcc8c | medium | 416 | incomplete | 99.93 | 6 | wip/func_801bcc8c 786d9ee | cond polarity of camCheck3d branch not matched; floats guessed 0.0/1.0 |
 | 1263 | npcdrv.c | func_801c8b98 | medium | 432 | incomplete | 96.12 | 6 | wip/func_801c8b98 f344388 | instruction scheduling of Vec3 copies/query setup not matched |
+| 1264 | npcdrv.c | func_801ccf74 | medium | 432 | yes | 100 | 3 | c9f48f9 | lazy Vec3 init in blocks; knockDir Vec3 field avoids CSE of address |

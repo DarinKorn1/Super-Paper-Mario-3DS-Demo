@@ -1338,6 +1338,19 @@
   },
   "size": 40
  },
+ "npcdrv:func_801ccf74": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "lazy Vec3 init in blocks; knockDir Vec3 field avoids CSE of address",
+   "pct": 100.0,
+   "ref": "c9f48f9"
+  },
+  "size": 432
+ },
  "npcdrv:func_801cd124": {
   "builds": 6,
   "cap": 6,
