@@ -311,6 +311,19 @@
   },
   "size": 1120
  },
+ "npcdrv:func_801b7a20": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "frame size off by 0x10, inlined cmd/part lookups; could not see later diff lines",
+   "pct": 91.58354,
+   "ref": "wip/func_801b7a20 6cdc63f"
+  },
+  "size": 1604
+ },
  "npcdrv:func_801b8064": {
   "builds": 7,
   "cap": 7,
