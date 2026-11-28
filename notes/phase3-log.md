@@ -439,3 +439,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1285 | npcdrv.c | func_801d1d7c | large | 684 | yes | 100 | 3 | 50e85a0 | switch jumptable label only differs; header signature fixed |
 | 1286 | npcdrv.c | npcDispSub | large | 740 | incomplete | - | 8 | wip/npcDispSub 44c07bb | gave up at 8/8: saved register numbering of params differs; header prototypes for npcDispSub/mtx_setup changed |
 | 1287 | npcdrv.c | func_801ca448 | large | 768 | yes | 100 | 5 | 3691476 | NPCEntry/NPCAnim args; any declared first for regs; nested chain for second slot search |
+| 1288 | npcdrv.c | npcUpdateSetupFile0To1 | large | 788 | incomplete | 69.75 | 8 | wip/npcUpdateSetupFile0To1 a37fdd9 | 100-group copy loop matched; tail copy/regalloc after loop differs |

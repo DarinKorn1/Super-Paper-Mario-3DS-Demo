@@ -2534,6 +2534,19 @@
   },
   "size": 176
  },
+ "npcdrv:npcUpdateSetupFile0To1": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "100-group copy loop matched; tail copy/regalloc after loop differs",
+   "pct": 69.74619,
+   "ref": "wip/npcUpdateSetupFile0To1 a37fdd9"
+  },
+  "size": 788
+ },
  "npcdrv:npcUpdateSetupFile1To2": {
   "builds": 6,
   "cap": 6,
