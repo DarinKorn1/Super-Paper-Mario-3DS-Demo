@@ -376,3 +376,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1222 | npcdrv.c | func_801b2574 | medium | 204 | yes | 100 | 3 | fcb597a | calls func_801b24c0 (inlined) then func_801b20dc; header sig changed |
 | 1223 | npcdrv.c | func_801b285c | medium | 204 | yes | 100 | 2 | deefd35 | inlined func_801b24c0 body; header sig changed |
 | 1224 | npcdrv.c | func_801c0284 | medium | 204 | incomplete | 83.41 | 6 | wip/func_801c0284 6278f35 | register alloc: part in r3 vs r8, string pool offsets; assert tail-calls needed else-less returns |
+| 1225 | npcdrv.c | func_801cf0a0 | medium | 204 | yes | 100 | 5 | 62a03d7 | needed inline helper with explicit r=0/1 branches |
