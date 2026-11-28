@@ -402,3 +402,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1248 | npcdrv.c | func_801ccce0 | medium | 304 | incomplete | 81.50 | 5 | wip/func_801ccce0 4057d0b | gave up at 5/6: frame too large, Vec3 locals/stack layout not matched |
 | 1249 | npcdrv.c | func_801cd6d4 | medium | 304 | incomplete | 96.11 | 6 | wip/func_801cd6d4 7ce0660 | dead Vec3 stack stores, frame size and reg order unmatched |
 | 1250 | npcdrv.c | func_801cce10 | medium | 316 | incomplete | 98.72 | 6 | wip/func_801cce10 35368fb | Vec3 stack layout / frame size and fadds register order not matched |
+| 1251 | npcdrv.c | func_801b000c | medium | 328 | incomplete | 97.74 | 3 | wip/func_801b000c 2e8bb57 | register numbering only; entry stride needed pad to 0x748 |

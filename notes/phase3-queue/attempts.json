@@ -77,6 +77,19 @@
   },
   "size": 272
  },
+ "npcdrv:func_801b000c": {
+  "builds": 3,
+  "cap": 3,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only; entry stride needed pad to 0x748",
+   "pct": 97.743904,
+   "ref": "wip/func_801b000c 2e8bb57"
+  },
+  "size": 328
+ },
  "npcdrv:func_801b0154": {
   "builds": 3,
   "cap": 3,
