@@ -2235,6 +2235,19 @@
   },
   "size": 100
  },
+ "npcdrv:npcTimerDisp": {
+  "builds": 5,
+  "cap": 5,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register order and Vec3i copy; only init order/pool diffs",
+   "pct": 99.87069,
+   "ref": "wip/npcTimerDisp 1e79990"
+  },
+  "size": 464
+ },
  "npcdrv:npcTryCatchCard": {
   "builds": 5,
   "cap": 5,
