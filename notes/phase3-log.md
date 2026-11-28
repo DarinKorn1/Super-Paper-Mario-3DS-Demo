@@ -411,3 +411,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1257 | npcdrv.c | func_801c85ec | medium | 372 | yes | 100 | 3 | c1e47db | pool constants unknown; zero-literal inline fixed it |
 | 1258 | npcdrv.c | func_801ccb68 | medium | 372 | incomplete | 90.97 | 6 | wip/func_801ccb68 4233528 | frame size 0x70 vs 0x40 and reg numbering unresolved; float pool guessed 0.5/90 |
 | 1259 | npcdrv.c | func_801d10cc | medium | 372 | incomplete | 94.52 | 6 | wip/func_801d10cc 86b7a44 | register numbering of inlined part lookup (r8 vs r3) not fixed |
+| 1260 | npcdrv.c | func_801cd210 | medium | 388 | incomplete | 93.75 | 6 | wip/func_801cd210 7d9831f | frame 0x50 vs 0x30 and reg order (npc r29 vs r28); mario ptr/Vec3 locals unresolved |
