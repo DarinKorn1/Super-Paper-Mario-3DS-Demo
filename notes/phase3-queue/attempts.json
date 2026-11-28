@@ -168,6 +168,19 @@
   },
   "size": 76
  },
+ "npcdrv:func_801c2558": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": true,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "register numbering only; locals x,y,z",
+   "pct": 99.21875,
+   "ref": "wip/func_801c2558 1d6bc1e"
+  },
+  "size": 128
+ },
  "npcdrv:func_801c35fc": {
   "builds": 1,
   "cap": 1,

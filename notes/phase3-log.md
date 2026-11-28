@@ -341,3 +341,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1187 | npcdrv.c | func_801c9874 | small | 124 | yes | 100 | 1 | 092fa94 | easy |
 | 1188 | npcdrv.c | func_801c99b0 | small | 116 | incomplete | - | 4 | wip/func_801c99b0 fc58a1e | branch layout (bne;b) and fabs reg not matched; tried nested/do-while/goto |
 | 1189 | npcdrv.c | npcGetDefense | small | 120 | incomplete | 31.07 | 4 | wip/npcGetDefense 4fcc8f1 | assert2 tail call b vs bl, frame saved regs; needs else-structure |
+| 1190 | npcdrv.c | func_801c2558 | small | 128 | functionally complete | 99.22 | 4 | wip/func_801c2558 1d6bc1e | register numbering only; locals x,y,z |
