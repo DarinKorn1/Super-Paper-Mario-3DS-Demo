@@ -285,6 +285,19 @@
   },
   "size": 252
  },
+ "npcdrv:func_801b5214": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "stack layout/frame 0x10 smaller than original; color temp slots and vec order not resolved",
+   "pct": 87.53214,
+   "ref": "wip/func_801b5214 f75fc5f"
+  },
+  "size": 1120
+ },
  "npcdrv:func_801bb6fc": {
   "builds": 8,
   "cap": 8,
