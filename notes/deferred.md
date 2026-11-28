@@ -79,4 +79,9 @@ Not worked during phase 3. Older near-misses from before 2026-11-25 are the rows
 | (71 functions) | many | - | moved off master 2026-11-27 (not exactly 100%): `git -C spm-decomp log --grep "to wip/"`, branches `wip/<name>` or `wip/<name>-master` |
 | func_801ca198 | npcdrv.c | 12 | -%, wip/func_801ca198 d66d467 |
 | npcSetAnim | npcdrv.c | 20 | 76.00%, wip/npcSetAnim 1d70030 |
+| func_801c018c | npcdrv.c | 28 | -%, wip/func_801c018c ff41d6a |
+| func_801c01c0 | npcdrv.c | 28 | -%, wip/func_801c01c0 7948787 |
+| func_801c8d54 | npcdrv.c | 28 | 70.43%, wip/func_801c8d54 2d8596d |
+| npcDisp | npcdrv.c | 28 | 34.29%, wip/npcDisp 3b3118f |
+| npcDisp_xlu | npcdrv.c | 28 | 34.29%, wip/npcDisp_xlu 601b425 |
 <!-- retry-end -->

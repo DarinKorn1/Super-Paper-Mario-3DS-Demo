@@ -283,3 +283,13 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1129 | npcdrv.c | npcFlag2On | tiny | 20 | yes | 100 | 1 | b3eb05a |  |
 | 1130 | npcdrv.c | npcGetTribe | tiny | 20 | yes | 100 | 1 | 206fa5d |  |
 | 1131 | npcdrv.c | npcSetAnim | tiny | 20 | incomplete | 76.00 | 4 | wip/npcSetAnim 1d70030 | extra mr r0 shuffle |
+| 1132 | npcdrv.c | func_801c018c | tiny | 28 | incomplete | - | 1 | wip/func_801c018c ff41d6a | easy |
+| 1133 | npcdrv.c | func_801c01c0 | tiny | 28 | incomplete | - | 1 | wip/func_801c01c0 7948787 | easy |
+| 1134 | npcdrv.c | func_801c8b7c | tiny | 28 | yes | 100 | 1 | 97ff7f7 | pool label only |
+| 1135 | npcdrv.c | func_801c8d54 | tiny | 28 | incomplete | 70.43 | 4 | wip/func_801c8d54 2d8596d | reg swap |
+| 1136 | npcdrv.c | func_801cbf84 | tiny | 24 | yes | 100 | 1 | cc8f558 | easy |
+| 1137 | npcdrv.c | func_801cc134 | tiny | 28 | yes | 100 | 1 | 2aedf14 | easy |
+| 1138 | npcdrv.c | func_801d0624 | tiny | 28 | yes | 100 | 1 | fc71376 | easy |
+| 1139 | npcdrv.c | npcDisp | tiny | 28 | incomplete | 34.29 | 4 | wip/npcDisp 3b3118f | arg scheduling |
+| 1140 | npcdrv.c | npcDisp_xlu | tiny | 28 | incomplete | 34.29 | 1 | wip/npcDisp_xlu 601b425 | same mr r9 scheduling as npcDisp |
+| 1141 | npcdrv.c | npcGetKillXp | tiny | 28 | yes | 100 | 1 | e807f6c | easy |

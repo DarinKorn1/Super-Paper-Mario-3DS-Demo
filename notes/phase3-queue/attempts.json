@@ -1,4 +1,17 @@
 {
+ "npcdrv:func_801c018c": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": null,
+   "ref": "wip/func_801c018c ff41d6a"
+  },
+  "size": 28
+ },
  "npcdrv:func_801c01a8": {
   "builds": 1,
   "cap": 1,
@@ -11,6 +24,19 @@
    "ref": "be22695"
   },
   "size": 24
+ },
+ "npcdrv:func_801c01c0": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": null,
+   "ref": "wip/func_801c01c0 7948787"
+  },
+  "size": 28
  },
  "npcdrv:func_801c0454": {
   "builds": 3,
@@ -207,6 +233,19 @@
   },
   "size": 8
  },
+ "npcdrv:func_801c8b7c": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "pool label only",
+   "pct": 100.0,
+   "ref": "97ff7f7"
+  },
+  "size": 28
+ },
  "npcdrv:func_801c8d48": {
   "builds": 2,
   "cap": 2,
@@ -219,6 +258,19 @@
    "ref": "bda0aa9"
   },
   "size": 12
+ },
+ "npcdrv:func_801c8d54": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "reg swap",
+   "pct": 70.42857,
+   "ref": "wip/func_801c8d54 2d8596d"
+  },
+  "size": 28
  },
  "npcdrv:func_801ca198": {
   "builds": 1,
@@ -285,6 +337,32 @@
   },
   "size": 12
  },
+ "npcdrv:func_801cbf84": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "cc8f558"
+  },
+  "size": 24
+ },
+ "npcdrv:func_801cc134": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "2aedf14"
+  },
+  "size": 28
+ },
  "npcdrv:func_801cccdc": {
   "builds": 2,
   "cap": 2,
@@ -336,6 +414,19 @@
    "ref": "ebbc1e6"
   },
   "size": 20
+ },
+ "npcdrv:func_801d0624": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "no differing lines",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "fc71376"
+  },
+  "size": 28
  },
  "npcdrv:func_801d1058": {
   "builds": 1,
@@ -428,6 +519,32 @@
   },
   "size": 8
  },
+ "npcdrv:npcDisp": {
+  "builds": 4,
+  "cap": 4,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "arg scheduling",
+   "pct": 34.285713,
+   "ref": "wip/npcDisp 3b3118f"
+  },
+  "size": 28
+ },
+ "npcdrv:npcDisp_xlu": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "same mr r9 scheduling as npcDisp",
+   "pct": 34.285713,
+   "ref": "wip/npcDisp_xlu 601b425"
+  },
+  "size": 28
+ },
  "npcdrv:npcFlag2On": {
   "builds": 1,
   "cap": 1,
@@ -453,6 +570,19 @@
    "ref": "f96f1ca"
   },
   "size": 12
+ },
+ "npcdrv:npcGetKillXp": {
+  "builds": 1,
+  "cap": 1,
+  "good_enough": false,
+  "last": "only numbering/labels/pool",
+  "result": {
+   "logged": true,
+   "note": "easy",
+   "pct": 100.0,
+   "ref": "e807f6c"
+  },
+  "size": 28
  },
  "npcdrv:npcGetMaxEntries": {
   "builds": 1,
