@@ -155,6 +155,19 @@
   },
   "size": 452
  },
+ "npcdrv:func_801b20dc": {
+  "builds": 8,
+  "cap": 8,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "float zero cmp order fixed with decl order; rest label/pool only; header UNKNOWN_FUNCTION changed to prototype",
+   "pct": 94.68889,
+   "ref": "wip/func_801b20dc 8b7ab0c"
+  },
+  "size": 900
+ },
  "npcdrv:func_801b2460": {
   "builds": 1,
   "cap": 1,
