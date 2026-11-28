@@ -246,6 +246,19 @@
   },
   "size": 168
  },
+ "npcdrv:func_801c0284": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "register alloc: part in r3 vs r8, string pool offsets; assert tail-calls needed else-less returns",
+   "pct": 83.411766,
+   "ref": "wip/func_801c0284 6278f35"
+  },
+  "size": 204
+ },
  "npcdrv:func_801c0454": {
   "builds": 3,
   "cap": 3,

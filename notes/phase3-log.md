@@ -375,3 +375,4 @@ Rows 1-852 are in `notes/archive/phase3-results.md`. **Append only** (`python -I
 | 1221 | npcdrv.c | func_801c3720 | medium | 196 | incomplete | 94.96 | 4 | wip/func_801c3720 6cf1a18 | regs fixed by decl order; only bne+b branch shape and string pool differ |
 | 1222 | npcdrv.c | func_801b2574 | medium | 204 | yes | 100 | 3 | fcb597a | calls func_801b24c0 (inlined) then func_801b20dc; header sig changed |
 | 1223 | npcdrv.c | func_801b285c | medium | 204 | yes | 100 | 2 | deefd35 | inlined func_801b24c0 body; header sig changed |
+| 1224 | npcdrv.c | func_801c0284 | medium | 204 | incomplete | 83.41 | 6 | wip/func_801c0284 6278f35 | register alloc: part in r3 vs r8, string pool offsets; assert tail-calls needed else-less returns |
