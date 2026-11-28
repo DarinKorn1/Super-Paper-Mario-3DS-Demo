@@ -1455,6 +1455,19 @@
   },
   "size": 72
  },
+ "npcdrv:npcNameToPtr": {
+  "builds": 6,
+  "cap": 6,
+  "good_enough": false,
+  "last": "differs",
+  "result": {
+   "logged": true,
+   "note": "num/wp register swap and string pool offsets remain",
+   "pct": 94.0,
+   "ref": "wip/npcNameToPtr 81eaf82"
+  },
+  "size": 168
+ },
  "npcdrv:npcNameToPtr_NoAssert": {
   "builds": 3,
   "cap": 3,
